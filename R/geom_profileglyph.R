@@ -4,14 +4,13 @@
 #' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph} in a
 #' scatterplot.
 #'
+#' @template general-arg
 #' @template draw.grid-arg
 #' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
 #' @inheritParams starglyphGrob
 #' @inheritParams profileglyphGrob
-#' @param cols Name of columns specifying the variables to be plotted in the
-#'   glyphs as a character vector.
 #' @param colour.bar The colour of bars.
 #' @param colour.line The colour of profile line(s).
 #' @param colour.grid The colour of the grid lines.
@@ -19,10 +18,6 @@
 #' @param linewidth.bar The line width of the bars.
 #' @param linewidth.grid The line width of the grid lines.
 #' @param fill.bar The fill colour of the bars.
-#' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
-#'   are often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{colour = "green"} or \code{size = 3}. They may also be parameters to
-#'   the paired geom/stat.
 #'
 #' @section Aesthetics: \code{geom_pieglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}

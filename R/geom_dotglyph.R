@@ -4,19 +4,14 @@
 #' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph} in a
 #' scatterplot.
 #'
+#' @template general-arg
 #' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
 #' @inheritParams starglyphGrob
 #' @inheritParams dotglyphGrob
-#' @param cols Name of columns specifying the variables to be plotted in the
-#'   glyphs as a character vector.
 #' @param fill.dot The fill colour of the stacked dots.
 #' @param linewidth The line width of the dot glyphs.
-#' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
-#'   are often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{colour = "green"} or \code{size = 3}. They may also be parameters to
-#'   the paired geom/stat.
 #'
 #' @section Aesthetics: \code{geom_dotglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}

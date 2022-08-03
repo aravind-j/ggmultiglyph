@@ -4,6 +4,7 @@
 #' to 'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
 #' \insertCite{fuchs_evaluation_2013}{gglyph} in a scatterplot.
 #'
+#' @template general-arg
 #' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
@@ -13,10 +14,6 @@
 #'   glyphs as a character vector.
 #' @param linewidth The line width of the tile glyphs.
 #' @param colour The colour of the tile glyphs.
-#' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
-#'   are often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{colour = "green"} or \code{size = 3}. They may also be parameters to
-#'   the paired geom/stat.
 #'
 #' @section Aesthetics: \code{geom_tileglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}

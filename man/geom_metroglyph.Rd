@@ -105,6 +105,11 @@ control parameters.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
+\item{legend.glyph.dims}{The dimensions of the legend glyph plot. Can be a
+numeric vector of unit length (where all the dimensions will have same
+value) or a numeric vector of same length as "cols" with the "cols" as
+names.}
 }
 \value{
 A \code{geom} layer.

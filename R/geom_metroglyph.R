@@ -4,23 +4,18 @@
 #' \insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{gglyph}
 #' in a scatterplot.
 #'
+#' @template general-arg
 #' @template draw.grid-arg
 #' @template full-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
 #' @inheritParams metroglyphGrob
-#' @param cols Name of columns specifying the variables to be plotted in the
-#'   glyphs as a character vector.
 #' @param colour.ray The colour of rays.
 #' @param colour.circle The colour of circles.
 #' @param colour.points The colour of grid points.
 #' @param linewidth.ray The ray line width.
 #' @param linewidth.circle The circle line width.
 #' @param grid.point.size The size of the grid points in native units.
-#' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
-#'   are often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{colour = "green"} or \code{size = 3}. They may also be parameters to
-#'   the paired geom/stat.
 #'
 #' @section Aesthetics: \code{geom_metroglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}
