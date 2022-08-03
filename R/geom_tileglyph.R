@@ -10,8 +10,6 @@
 #' @inheritParams ggplot2::layer
 #' @inheritParams starglyphGrob
 #' @inheritParams tileglyphGrob
-#' @param cols Name of columns specifying the variables to be plotted in the
-#'   glyphs as a character vector.
 #' @param linewidth The line width of the tile glyphs.
 #' @param colour The colour of the tile glyphs.
 #'
@@ -126,6 +124,11 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            repel = FALSE,
                            repel.control = gglyph.repel.control(),
                            inherit.aes = TRUE) {
+
+  # Check cols
+  if (!(is.character(cols) & length(cols) >= 2)) {
+    stop('"cols" should be a charachter vector of at least length 2.')
+  }
 
   # Modify mapping to include cols
   mcols <- rlang::as_quosures(rlang::syms(cols), .GlobalEnv)

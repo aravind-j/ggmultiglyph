@@ -227,6 +227,11 @@ geom_starglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            repel.control = gglyph.repel.control(),
                            inherit.aes = TRUE) {
 
+  # Check cols
+  if (!(is.character(cols) & length(cols) >= 2)) {
+    stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
   # Check legend.glyph.dims
   if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
 

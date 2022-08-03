@@ -54,8 +54,8 @@ are often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "green"} or \code{size = 3}. They may also be parameters to
 the paired geom/stat.}
 
-\item{cols}{Name of columns specifying the variables to be plotted in the
-glyphs as a character vector.}
+\item{cols}{Name of at least two columns specifying the variables to be
+plotted in the glyphs as a character vector.}
 
 \item{colour}{The colour of the tile glyphs.}
 

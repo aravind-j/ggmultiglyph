@@ -336,6 +336,11 @@ geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           repel.control = gglyph.repel.control(),
                           inherit.aes = TRUE) {
 
+  # Check cols
+  if (!(is.character(cols) & length(cols) >= 2)) {
+    stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
   # Modify mapping to include cols
   mcols <- rlang::as_quosures(rlang::syms(cols), .GlobalEnv)
   names(mcols) <- cols
