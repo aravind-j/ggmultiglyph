@@ -4,24 +4,18 @@
 #' \insertCite{siegel_surgical_1972,chambers_graphical_1983,dutoit_graphical_1986}{gglyph}
 #' in a scatterplot.
 #'
+#' @template general-arg
 #' @template draw.grid-arg
 #' @template full-arg
 #' @template repel-arg
-#' @template general-arg
 #' @inheritParams ggplot2::layer
 #' @inheritParams starglyphGrob
-#' @param cols Name of columns specifying the variables to be plotted in the
-#'   glyphs as a character vector.
 #' @param colour.whisker The colour of whiskers.
 #' @param colour.contour The colour of contours.
 #' @param colour.points The colour of grid points.
 #' @param linewidth.whisker The whisker line width.
 #' @param linewidth.contour The contour line width.
 #' @param grid.point.size The size of the grid points in native units.
-#' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
-#'   are often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{colour = "green"} or \code{size = 3}. They may also be parameters to
-#'   the paired geom/stat.
 #'
 #' @section Aesthetics: \code{geom_starglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}
@@ -53,6 +47,8 @@
 #' @importFrom grid addGrob convertHeight convertWidth grobTree grobX grobY
 #'   makeContent setChildren unit
 #' @importFrom Rdpack reprompt
+#' @importFrom stats setNames
+#'
 #' @export
 #'
 #' @useDynLib gglyph
@@ -339,22 +335,6 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
 
                                   setup_params = function(data, params) {
 
-                                    grid.levels <- NULL
-
-                                    # Convert factor columns to equivalent numeric
-                                    if (params$draw.grid) {
-                                      grid.levels <- lapply(data[, params$cols], function(a) as.integer(levels(a)))
-                                    }
-
-                                    params$grid.levels <- grid.levels
-
-                                    # params$zkey <- if (params$draw.grid) {
-                                    #   apply(data[, params$cols], 2,
-                                    #         function(x) ceiling(mean(as.numeric(x))))
-                                    #   } else {
-                                    #     apply(data[, params$cols], 2, mean)
-                                    #   }
-
                                     params
                                   },
 
@@ -572,13 +552,12 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                       astp <- base::pi
                                     }
 
-                                    # zval <- params$zkey
-                                    #
-                                    # aes_ind <- which(data[, params$cols] == 1)
-                                    #
-                                    # if (length(aes_ind) != 0) {
-                                    #   data[, params$cols][aes_ind] <- zval[aes_ind]
-                                    # }
+                                    grid.levels <- NULL
+
+                                    # Convert factor columns to equivalent numeric
+                                    if (params$draw.grid) {
+                                      grid.levels <- lapply(data[, cols], function(a) as.integer(levels(a)))
+                                    }
 
                                     starglyphGrob(x = .5, y = .5,
                                                   z = if (params$draw.grid) {
@@ -617,7 +596,7 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                                   contour = params$contour,
                                                   linejoin = data$linejoin,
                                                   lineend = data$lineend,
-                                                  grid.levels = params$grid.levels,
+                                                  grid.levels = grid.levels,
                                                   draw.grid = params$draw.grid,
                                                   grid.point.size = grid::unit(params$grid.point.size, "pt"))
                                   }
