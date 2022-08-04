@@ -120,6 +120,7 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            nrow = 1,
                            linewidth = 1,
                            fill.gradient = NULL,
+                           legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                            show.legend = NA,
                            repel = FALSE,
                            repel.control = gglyph.repel.control(),
@@ -140,6 +141,7 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     nrow = nrow,
     colour = colour,
     # fill = fill,
+    linewidth = linewidth,
     fill.gradient = fill.gradient,
     repel = repel,
     cols = cols,
@@ -164,6 +166,9 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Modify geom aesthetics to include cols
   geomout <- GeomTileGlyph
   geomout$required_aes <- c(geomout$required_aes, cols)
+
+  geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
+  class(geomout$default_aes) <- "uneval"
 
   ggplot2::layer(
     data = data,
@@ -196,9 +201,12 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                                              segment.inflect = FALSE,
                                                              segment.debug = FALSE),
 
-                                  draw_key = ggplot2::draw_key_polygon,
+                                  # draw_key = ggplot2::draw_key_polygon,
 
                                   setup_params = function(data, params) {
+
+                                    params$min <- apply(data[, params$cols], 2, min)
+                                    params$max <- apply(data[, params$cols], 2, max)
 
                                     params
                                   },
@@ -253,6 +261,7 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                                         nrow,
                                                         colour,
                                                         # fill,
+                                                        linewidth,
                                                         fill.gradient,
                                                         repel,
                                                         box.padding,
@@ -338,6 +347,7 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                                        # fill = fill,
                                                        ratio = ratio,
                                                        nrow = nrow,
+                                                       linewidth = linewidth,
                                                        fill.gradient = fill.gradient,
                                                        gdata = gdata,
                                                        colour = colour,
@@ -373,6 +383,30 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                     #                             gp = grid::gpar(col = data$colour,
                                     #                                             fill = data$fill))
                                     #          )))
+                                  },
+
+                                  draw_key = function(data, params, size) {
+
+                                    # Gradient colour mapping
+                                    gdata <- NULL
+                                    if (!is.null(params$fill.gradient)) {
+                                      gdata <- unlist(data[, params$cols])
+
+                                      gdata <- lapply(seq_along(gdata),
+                                                      function(i) scales::col_numeric(palette = params$fill.gradient,
+                                                                                      domain = params$min[names(gdata)[i]]:params$max[names(gdata)[i]])(gdata[i]))
+                                    }
+
+                                    tileglyphGrob(x = .5, y = .5,
+                                                  z = data[, params$cols],
+                                                  size = data$size,
+                                                  ratio = params$ratio,
+                                                  nrow = params$nrow,
+                                                  fill = unlist(gdata),
+                                                  col = params$colour,
+                                                  lwd = params$linewidth,
+                                                  alpha = data$alpha,
+                                                  linejoin = "mitre")
                                   }
 )
 
