@@ -12,3 +12,4 @@
 ^README-*\.png$
 ^man-roxygen$
 ^\.github$
+^vignettes/.*\.log$
