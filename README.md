@@ -29,7 +29,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/gglyph.svg)](h
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2022--07--11-yellowgreen.svg)](https://github.com/aravind-j/gglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--13-yellowgreen.svg)](https://github.com/aravind-j/gglyph/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxxx) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/gglyph.svg)](https://aravind-j.github.io/gglyph/)
@@ -58,9 +58,8 @@ devtools::install_github("aravind-j/gglyph")
 
 <!-- ## Detailed tutorial
 For a detailed tutorial (vignette) on how to used this package type:
-
-
-```r
+&#10;
+``` r
 browseVignettes(package = 'gglyph')
 ```
 The vignette for the latest version is also available [online](https://aravind-j.github.io/gglyph/articles.html).-->
@@ -82,6 +81,7 @@ news(package='gglyph')
 [Documentation website](https://aravind-j.github.io/gglyph/)
 
 <!-- [Zenodo DOI](https://doi.org/10.5281/zenodo.xxxxxxx) -->
+
 <!-- ## CRAN checks -->
 
 ## Citing `gglyph`
@@ -92,21 +92,19 @@ To cite the methods in the package use:
 citation("gglyph")
 ```
 
-
     To cite the R package 'gglyph' in publications use:
 
-      Aravind, J. (2022).  gglyph: Multivariate Data Visualization using Glyphs. R package version 0.0.0.9000,
-      https://aravind-j.github.io/gglyph/.
+      Aravind, J. (2025).  gglyph: Multivariate Data Visualization using Glyphs. R package
+      version 0.0.0.9000, https://aravind-j.github.io/gglyph/.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {gglyph: Multivariate Data Visualization using Glyphs},
         author = {J. Aravind},
-        year = {2022},
-        note = {R package version 0.0.0.9000},
-        note = {https://aravind-j.github.io/gglyph/},
+        note = {R package version 0.0.0.9000 https://aravind-j.github.io/gglyph/},
+        year = {2025},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If you use it, please support
-    the project by citing the package.
+    This free and open-source software implements academic research by the authors and
+    co-workers. If you use it, please support the project by citing the package.

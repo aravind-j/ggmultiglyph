@@ -1,11 +1,7 @@
 citHeader("To cite the R package 'gglyph' in publications use:")
 
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("gglyph")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
-if (!length(year)) {
- year <- format(packageDate("gglyph"), "%Y")
-}
-vers <- paste("R package version", meta$Version)
+year <- sub("-.*", "", meta$Date)
+vers <- sprintf("R package version %s", meta$Version)
 
 citEntry(entry  = "Manual",
          title  = "gglyph: Multivariate Data Visualization using Glyphs",
