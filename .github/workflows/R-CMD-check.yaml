@@ -32,7 +32,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -40,20 +40,6 @@ jobs:
         env:
           # install full prebuilt version
           TINYTEX_INSTALLER: TinyTeX
-
-      - name: Install Ghostscript on Linux
-        if: runner.os == 'Linux'
-        run: sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes ghostscript
-
-      - name: Install Ghostscript on Windows
-        if: runner.os == 'Windows'
-        run: |
-          # Set up chocolatey profile so that refreshenv is an powershell alias
-          $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-          # Install ghostscript and update env
-          choco install ghostscript --no-progress
-          refreshenv
 
       - uses: r-lib/actions/setup-r@v2
         with:
