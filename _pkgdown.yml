@@ -1,24 +1,21 @@
 template:
   bootstrap: 5
   bootswatch: sandstone
+  light-switch: true
   bslib:
     pkgdown-nav-height: 100px
-  includes:
-    in_header: |
-       <!-- Global site tag (gtag.js) - Google Analytics -->
-       <script async src="https://www.googletagmanager.com/gtag/js?id={UA-199996472-1}"#' ></script>
-       <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
+  params:
+    ganalytics: UA-199996472-1
 
-         gtag('config', '{UA-199996472-1}');
-       </script>
+deploy:
+  install_metadata: true
+
+url: https://aravind-j.github.io/gglyph/
 
 navbar:
   structure:
     left:  [home, reference, news]
-    right: [search, github]
+    right: [search, github, lightswitch]
   components:
     home:
       icon: fa-home fa-lg
