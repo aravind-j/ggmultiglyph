@@ -3,7 +3,7 @@ Title: Multivariate Data Visualization using Glyphs
 Version: 0.0.0.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
-           email = "j.aravind@icar.gov.in",
+           email = "j.aravind@icar.org.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
 		person(given = "Kamil", family = "Slowikowski",
@@ -14,7 +14,7 @@ Description: Provides geoms for visualizing multivariate data as glyphs using
      'ggplot2'.
 License: GPL-2 | GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 LazyData: true
 RdMacros:
      Rdpack

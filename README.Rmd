@@ -132,7 +132,7 @@ library(RCurl)
 if (url.exists(chkurl)) {
   chklink <- paste("(", chkurl,  ")", sep = "")
 } else {
-  chklink <- "(https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.gov.in.html)"
+  chklink <- "(https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)"
 }
 
 osdf$`CRAN check` <- paste("[![CRAN check - ", osdf$Flavour, "]",
