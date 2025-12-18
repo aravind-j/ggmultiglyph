@@ -808,6 +808,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                             gp = grid::gpar(alpha = alpha,
                                             fill = fill,
                                             linejoin = linejoin))
+
+  class(gridout) <- append(class(gridout), c("glyphGrob", "profileglyphGrob"))
   return(gridout)
 
 }

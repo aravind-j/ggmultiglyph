@@ -177,12 +177,16 @@ dotglyphGrob <- function(x = .5, y = .5, z,
 
   # grid::grid.points(x = xpos, y = ypos, pch =  1)
 
-  grid::circleGrob(x = circx, y = circy, r = radius,
-                   # default.units = "native",
-                   gp = gpar(col = col,
-                             fill = fill,
-                             lwd = lwd,
-                             alpha = alpha))
+  gridout <-
+    grid::circleGrob(x = circx, y = circy, r = radius,
+                     # default.units = "native",
+                     gp = gpar(col = col,
+                               fill = fill,
+                               lwd = lwd,
+                               alpha = alpha))
+
+  class(gridout) <- append(class(gridout), c("glyphGrob", "dotglyphGrob"))
+  return(gridout)
 }
 
 

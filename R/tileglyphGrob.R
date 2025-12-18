@@ -206,16 +206,20 @@ tileglyphGrob <- function(x = .5, y = .5, z,
 
   # grid::grid.points(x = xylist$xpos, y = xylist$ypos, pch =  1)
 
-  grid::rectGrob(x = xlist,
-                 y = ylist,
-                 # x = xylist$xpos,
-                 # y = xylist$ypos,
-                 width = width, height = height,
-                 # default.units = "native",
-                 just = "centre",
-                 gp = gpar(col = col,
-                           fill = fill,
-                           lwd = lwd,
-                           alpha = alpha,
-                           linejoin = linejoin))
+  gridout <-
+    grid::rectGrob(x = xlist,
+                   y = ylist,
+                   # x = xylist$xpos,
+                   # y = xylist$ypos,
+                   width = width, height = height,
+                   # default.units = "native",
+                   just = "centre",
+                   gp = gpar(col = col,
+                             fill = fill,
+                             lwd = lwd,
+                             alpha = alpha,
+                             linejoin = linejoin))
+
+  class(gridout) <- append(class(gridout), c("glyphGrob", "tileglyphGrob"))
+  return(gridout)
 }

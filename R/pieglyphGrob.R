@@ -431,7 +431,8 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                             gp = grid::gpar(lwd = lwd, alpha = alpha,
                                             fill = fill,
                                             linejoin = linejoin))
-  return(gridout)
 
+  class(gridout) <- append(class(gridout), c("glyphGrob", "pieglyphGrob"))
+  return(gridout)
 
 }

@@ -5,7 +5,6 @@
 #' \insertCite{fuchs_evaluation_2013}{gglyph} in a scatterplot.
 #'
 #' @template general-arg
-#' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
 #' @inheritParams starglyphGrob
@@ -119,7 +118,6 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            ratio = 1,
                            nrow = 1,
                            linewidth = 1,
-                           fill.gradient = NULL,
                            legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                            show.legend = NA,
                            repel = FALSE,
@@ -129,6 +127,28 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Check cols
   if (!(is.character(cols) & length(cols) >= 2)) {
     stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
+  # Check legend.glyph.dims
+  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+
+    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+  } else { # Check if legend.glyph.dims has same length as cols
+    if (is.numeric(legend.glyph.dims)
+        & length(legend.glyph.dims) == length(cols)) {
+
+      # Check names of legend.glyph.dims
+      if (!(all(names(legend.glyph.dims) %in% cols)
+            && all(cols %in% names(legend.glyph.dims)))) {
+        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+      }
+
+    } else {
+      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
+           'a numeric vector of same length as "cols" ',
+           'with the "cols" as names.')
+    }
   }
 
   # Modify mapping to include cols
@@ -142,7 +162,6 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     colour = colour,
     # fill = fill,
     linewidth = linewidth,
-    fill.gradient = fill.gradient,
     repel = repel,
     cols = cols,
     box.padding = unit(repel.control$box.padding, "lines"),
@@ -245,10 +264,6 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                       data <- remove_missing(df = data, vars = cols)
                                     }
 
-                                    if (is.null(params$fill.gradient)) {
-                                      stop('The "fill.gradient" gradient fill palette is missing.')
-                                    }
-
                                     data$linewidth <- params$linewidth
                                     data$colour <- params$colour
                                     # data$fill <- params$fill
@@ -262,7 +277,6 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                                         colour,
                                                         # fill,
                                                         linewidth,
-                                                        fill.gradient,
                                                         repel,
                                                         box.padding,
                                                         point.padding,
@@ -309,17 +323,6 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                       data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
                                     }
 
-                                    # Gradient colour mapping
-                                    gdata <- NULL
-                                    if (!is.null(fill.gradient)) {
-                                      gdata <- data[, cols]
-
-                                      gdata <- lapply(gdata,
-                                                      function(x) scales::col_numeric(palette = fill.gradient,
-                                                                                      domain = min(x):max(x))(x))
-                                      gdata <- data.frame(gdata)
-                                    }
-
                                     # The nudge is relative to the data.
                                     data$nudge_x <- nudges$x - data$x
                                     data$nudge_y <- nudges$y - data$y
@@ -348,8 +351,7 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
                                                        ratio = ratio,
                                                        nrow = nrow,
                                                        linewidth = linewidth,
-                                                       fill.gradient = fill.gradient,
-                                                       gdata = gdata,
+                                                       # gdata = gdata,
                                                        colour = colour,
                                                        # alpha = alpha,
                                                        # linejoin = "mitre",
@@ -387,18 +389,11 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
 
                                   draw_key = function(data, params, size) {
 
-                                    # Gradient colour mapping
-                                    gdata <- NULL
-                                    if (!is.null(params$fill.gradient)) {
-                                      gdata <- unlist(data[, params$cols])
 
-                                      gdata <- lapply(seq_along(gdata),
-                                                      function(i) scales::col_numeric(palette = params$fill.gradient,
-                                                                                      domain = params$min[names(gdata)[i]]:params$max[names(gdata)[i]])(gdata[i]))
-                                    }
+                                    gdata <- unlist(data[, params$cols])
 
                                     tileglyphGrob(x = .5, y = .5,
-                                                  z = data[, params$cols],
+                                                  z = unlist(data[, params$cols]),
                                                   size = data$size,
                                                   ratio = params$ratio,
                                                   nrow = params$nrow,
@@ -416,6 +411,8 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
 #' @noRd
 makeContent.tileglyphtree <- function(g) {
 
+  gdata <- g$data[, g$cols]
+
   if (g$repel) {
 
     repel.debug <- getOption("gglyph.repel.debug", default = FALSE)
@@ -430,20 +427,6 @@ makeContent.tileglyphtree <- function(g) {
     }
 
     # Original glyph grob
-    tileg <- lapply(seq_along(g$data$x),
-                    function(i) tileglyphGrob(x = g$data$x[i],
-                                              y = g$data$y[i],
-                                              z = unlist(g$data[i, g$cols]),
-                                              size = g$data$size[i],
-                                              ratio = g$ratio,
-                                              nrow = g$nrow,
-                                              fill = unlist(g$gdata[i, ]),
-                                              col = g$colour,
-                                              lwd = g$data$linewidth[i],
-                                              alpha = g$data$alpha[i],
-                                              linejoin = "mitre"))
-
-    if (repel.debug) {
       glorg <- lapply(seq_along(g$data$x),
                       function(i) tileglyphGrob(x = g$data$x[i],
                                                 y = g$data$y[i],
@@ -456,14 +439,13 @@ makeContent.tileglyphtree <- function(g) {
                                                 lwd = g$data$linewidth[i],
                                                 alpha = g$data$alpha[i],
                                                 linejoin = "mitre"))
-    }
 
     # Create a dataframe with x1 y1 x2 y2 - Computed from bounding box
-    boxes <- lapply(seq_along(tileg), function(i) {
-      x1 <- grid::convertWidth(grid::grobX(tileg[[i]], "west"), "native", TRUE)
-      x2 <- grid::convertWidth(grid::grobX(tileg[[i]], "east"), "native", TRUE)
-      y1 <- grid::convertHeight(grid::grobY(tileg[[i]], "south"), "native", TRUE)
-      y2 <- grid::convertHeight(grid::grobY(tileg[[i]], "north"), "native", TRUE)
+    boxes <- lapply(seq_along(glorg), function(i) {
+      x1 <- grid::convertWidth(grid::grobX(glorg[[i]], "west"), "native", TRUE)
+      x2 <- grid::convertWidth(grid::grobX(glorg[[i]], "east"), "native", TRUE)
+      y1 <- grid::convertHeight(grid::grobY(glorg[[i]], "south"), "native", TRUE)
+      y2 <- grid::convertHeight(grid::grobY(glorg[[i]], "north"), "native", TRUE)
       c(
         "x1" = x1 - box_padding_x + g$nudge_x,
         "y1" = y1 - box_padding_y + g$nudge_y,
@@ -580,7 +562,7 @@ makeContent.tileglyphtree <- function(g) {
                size = g$data$size[i],
                ratio = g$ratio,
                nrow = g$nrow,
-               fill = unlist(g$gdata[i, ]),
+               fill = unlist(gdata[i, ]),
                col = g$colour,
                lwd = g$data$linewidth[i],
                alpha = g$data$alpha[i],

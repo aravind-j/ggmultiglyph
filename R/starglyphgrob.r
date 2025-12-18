@@ -455,9 +455,11 @@ starglyphGrob <- function(x = .5, y = .5, z,
     }
   }
 
+  gridout <-
+    grid::grobTree(contourGrob, whiskerGrob, gpointsGrob,
+                   gp = grid::gpar(alpha = alpha,
+                                   fill = fill))
 
-  grid::grobTree(contourGrob, whiskerGrob, gpointsGrob,
-                 gp = grid::gpar(alpha = alpha,
-                                 fill = fill))
-
+  class(gridout) <- append(class(gridout), c("glyphGrob", "starglyphGrob"))
+  return(gridout)
 }

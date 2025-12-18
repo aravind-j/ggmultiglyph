@@ -403,6 +403,7 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                     data$linewidth.whisker <- params$linewidth.whisker
                                     data$linewidth.contour <- params$linewidth.contour
                                     data
+                            # browser()
                                   },
 
                                   draw_panel = function(data, panel_params,
@@ -561,11 +562,12 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
 
                                     # Convert factor columns to equivalent numeric
                                     if (params$draw.grid) {
-                                      grid.levels <- lapply(data[, cols], function(a) as.integer(levels(a)))
+                                      # grid.levels <- lapply(data[, params$cols], function(a) as.integer(levels(a)))
+                                      grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
                                     }
 
                                     starglyphGrob(x = .5, y = .5,
-                                                  z = if (params$draw.grid) {
+                                                   z = if (params$draw.grid) {
                                                       ceiling(data[, params$cols])
                                                     } else {
                                                       data[, params$cols]

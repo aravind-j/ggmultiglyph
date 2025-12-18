@@ -386,8 +386,12 @@ metroglyphGrob <- function(x = .5, y = .5, z,
     }
   }
 
-  grid::grobTree(circGrob, rayGrob, gpointsGrob,
-                 gp = grid::gpar(alpha = alpha, fill = fill,
-                                 lineend = lineend))
+  gridout <-
+    grid::grobTree(circGrob, rayGrob, gpointsGrob,
+                   gp = grid::gpar(alpha = alpha, fill = fill,
+                                   lineend = lineend))
+
+  class(gridout) <- append(class(gridout), c("glyphGrob", "metroglyphGrob"))
+  return(gridout)
 
 }
