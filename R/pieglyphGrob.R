@@ -433,6 +433,9 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                             linejoin = linejoin))
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "pieglyphGrob"))
+
+  attr(gridout, "length") <- dimension
+
   return(gridout)
 
 }

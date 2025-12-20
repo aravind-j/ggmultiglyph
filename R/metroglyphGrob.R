@@ -392,6 +392,9 @@ metroglyphGrob <- function(x = .5, y = .5, z,
                                    lineend = lineend))
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "metroglyphGrob"))
+
+  attr(gridout, "length") <- dimension
+
   return(gridout)
 
 }

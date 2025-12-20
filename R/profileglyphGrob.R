@@ -810,6 +810,10 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                                             linejoin = linejoin))
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "profileglyphGrob"))
+
+  attr(gridout, "mirror") <- mirror
+  attr(gridout, "flip.axes") <- flip.axes
+
   return(gridout)
 
 }

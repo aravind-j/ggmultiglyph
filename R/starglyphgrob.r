@@ -461,5 +461,8 @@ starglyphGrob <- function(x = .5, y = .5, z,
                                    fill = fill))
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "starglyphGrob"))
+
+  attr(gridout, "length") <- dimension
+
   return(gridout)
 }

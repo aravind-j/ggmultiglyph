@@ -221,5 +221,9 @@ tileglyphGrob <- function(x = .5, y = .5, z,
                              linejoin = linejoin))
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "tileglyphGrob"))
+
+  attr(gridout, "ratio") <- ratio
+  attr(gridout, "nrow") <- nrow
+
   return(gridout)
 }
