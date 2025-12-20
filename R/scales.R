@@ -19,3 +19,44 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
     ...
   )
 }
+
+#' @export
+#'
+scale_z_fill_continuous <- function(..., palette, z,
+                                    guide = c("legend")) {
+
+  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
+           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3",
+           "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
+  rcb_num <- 1:18
+  v <- c("magma", "inferno", "plasma", "viridis", "cividis", "rocket", "mako", "turbo",
+         "A", "B", "C", "D", "E", "F", "G", "H")
+
+  if (guide == "colorbar") {
+    guide = "colourbar"
+  }
+
+  if (guide == "colorsteps") {
+    guide = "coloursteps"
+  }
+
+  guide <- match.arg(guide, c("legend", "colourbar", "coloursteps"))
+
+  if (guide == "colourbar") {
+    guide = guide_colourbar(available_aes = z)
+  }
+
+  if (guide == "coloursteps") {
+    guide = guide_coloursteps(available_aes = z)
+  }
+
+  if(any(palette == rcb) | any(palette == rcb_num)){
+    scale_color_distiller(palette= palette, aesthetics = z, guide = guide, ...)
+  } else if(any(palette == v)){
+    scale_color_viridis_c(option= palette, aesthetics = z, guide = guide, ...)
+  } else{
+    scale_color_continuous(type= palette, aesthetics = z, guide = guide, ...)
+  }
+
+}
