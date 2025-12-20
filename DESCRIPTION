@@ -9,7 +9,10 @@ Authors@R: c(
 		person(given = "Kamil", family = "Slowikowski",
            role=c("ctb"),
            comment = c(ORCID = "0000-0002-2843-6370",
-                       "Repel algorithm")))
+                       "Repel algorithm")),
+    person("ICAR-NBGPR",
+           role = c("cph"),
+		       comment = c(url = "https://nbpgr.org.in/")))
 Description: Provides geoms for visualizing multivariate data as glyphs using 
      'ggplot2'.
 License: GPL-2 | GPL-3
