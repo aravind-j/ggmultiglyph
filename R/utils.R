@@ -18,7 +18,7 @@ iscolour <- function(x) {
 }
 
 # Helper to find dimensions of bounding box
-boxdim <- function(x, what = c("min", "max")) {
+boxdim <- function(x, what = c("min", "max", "mean")) {
 
   df <- lapply(x, unlist)
   df <- df[unlist(lapply(df, length)) == 6]
@@ -38,8 +38,40 @@ boxdim <- function(x, what = c("min", "max")) {
     d2 <- max(df[, 4])
   }
 
+  if (what == "mean") {
+    d2 <- mean(df[, 4])
+  }
+
   out <- unit(d1, "native") + unit(d2, "mm")
 
   return(out)
 
 }
+
+# Get raw units from a sum unit : sum(400native, 6mm)
+raw_units <- function(sumunit) {
+
+  unit_raw <- unclass(sumunit)[[1]]
+
+  out <- c(npc = unclass(unit_raw[[2]])[[1]][[1]],
+           mm = unclass(unit_raw[[2]])[[2]][[1]])
+
+  return(out)
+}
+
+reconstruct_sumunit <- function(toconvert, raw_units) {
+  native_diff <- toconvert - raw_units["native"]
+  mm_new <- convertUnit(unit(native_diff, "native"), "mm", valueOnly = TRUE)
+
+  out <- unit(raw_units["native"], "native") + unit(mm_new, "mm")
+
+  return(out)
+}
+
+
+# Expand a range/limit by a fraction
+expnd_lim <- function(lim, frac = 0.25) {
+  r <- diff(lim)
+  lim + c(-1, 1) * r * frac
+}
+

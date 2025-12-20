@@ -1,4 +1,4 @@
-#' Control parameters for the repel algorithm
+#' Control Parameters for the Repel Algorithm
 #'
 #' Set the contol parameters for the repel algorithm
 #' \insertCite{slowikowski_ggrepel_2021}{gglyph} used in various geoms
@@ -8,9 +8,8 @@
 #' @param nudge_x,nudge_y Horizontal and vertical adjustments to nudge the
 #'   starting position of each glyph. The units for \code{nudge_x} and
 #'   \code{nudge_y} are the same as for the data units on the x-axis and y-axis.
-#' @param xlim,ylim Limits for the x and y axes. Glyphs will be constrained
-#'   to these limits. By default, glyphs are constrained to the entire plot
-#'   area.
+#' @param xlim,ylim Limits for the x and y axes. Glyphs will be constrained to
+#'   these limits. By default, glyphs are constrained to the entire plot area.
 #' @param box.padding Amount of padding around bounding box, as unit or number.
 #'   Defaults to 0.25. (Default unit is lines, but other units can be specified
 #'   by passing \code{unit(x, "units")}).
@@ -22,16 +21,15 @@
 #'   specified by passing \code{unit(x, "units")}).
 #' @param arrow specification for arrow heads, as created by
 #'   \code{\link[grid]{arrow}}.
-#' @param force Force of repulsion between overlapping glyphs. Defaults to
-#'   1.
-#' @param force_pull Force of attraction between a glyph and its
-#'   corresponding data point. Defaults to 1.
+#' @param force Force of repulsion between overlapping glyphs. Defaults to 1.
+#' @param force_pull Force of attraction between a glyph and its corresponding
+#'   data point. Defaults to 1.
 #' @param max.time Maximum number of seconds to try to resolve overlaps.
 #'   Defaults to 0.5.
 #' @param max.iter Maximum number of iterations to try to resolve overlaps.
 #'   Defaults to 10000.
-#' @param max.overlaps Exclude glyphs that overlap too many things.
-#'   Defaults to 10.
+#' @param max.overlaps Exclude glyphs that overlap too many things. Defaults to
+#'   10.
 #' @param direction "both", "x", or "y" -- direction in which to adjust position
 #'   of glyphs.
 #' @param seed Random seed passed to \code{\link[base]{set.seed}}. Defaults to
@@ -102,36 +100,4 @@ gglyph.repel.control <- function(box.padding = 0.25,
               verbose = FALSE)
 
   return(out)
-}
-
-#' @rdname gglyph.repel.control
-#' @export
-gglyph.segment.control <- function(segment.curvature = 0,
-                                   segment.angle = 90,
-                                   segment.ncp = 1,
-                                   segment.shape = 0.5,
-                                   segment.square = TRUE,
-                                   segment.squareShape = 1,
-                                   segment.inflect = FALSE,
-                                   segment.debug = FALSE,
-                                   segment.colour = "black",
-                                   segment.size = 0.2,
-                                   segment.linetype = 1,
-                                   segment.arrow = NULL) {
-
-  out <- list(segment.curvature = 0,
-              segment.angle = 90,
-              segment.ncp = 1,
-              segment.shape = 0.5,
-              segment.square = TRUE,
-              segment.squareShape = 1,
-              segment.inflect = FALSE,
-              segment.debug = FALSE,
-              segment.colour = "black",
-              segment.size = 0.2,
-              segment.linetype = 1,
-              segment.arrow = NULL)
-
-  return(out)
-
 }
