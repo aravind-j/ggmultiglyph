@@ -187,6 +187,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
 
   class(gridout) <- append(class(gridout), c("glyphGrob", "dotglyphGrob"))
 
+  attr(gridout, "length") <- dimension
   attr(gridout, "mirror") <- mirror
   attr(gridout, "flip.axes") <- flip.axes
 
