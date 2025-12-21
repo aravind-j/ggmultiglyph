@@ -190,6 +190,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
   attr(gridout, "length") <- dimension
   attr(gridout, "mirror") <- mirror
   attr(gridout, "flip.axes") <- flip.axes
+  attr(gridout, "index") <- rep(1:length(z), times = z)
 
   return(gridout)
 }
