@@ -57,11 +57,11 @@ label <- c("hp", "drat", "wt", "qsec", "vs", "am")
 # metroglyphGrob
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mglyph1 <- metroglyphGrob(x = 350, y = 200,
+mglyph1 <- metroglyphGrob(x = 400, y = 200,
                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                           size = 25, circle.size = 2)
 
-mglyph2 <- metroglyphGrob(x = 650, y = 400,
+mglyph2 <- metroglyphGrob(x = 700, y = 400,
                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                           size = 25, circle.size = 10,
                           angle.start = base::pi, angle.stop = -base::pi,
@@ -69,7 +69,7 @@ mglyph2 <- metroglyphGrob(x = 650, y = 400,
                           col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
                           col.circle = "white", fill = "gray")
 
-mglyph3 <- metroglyphGrob(x = 1000, y = 700,
+mglyph3 <- metroglyphGrob(x = 1050, y = 750,
                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                           size = 25, circle.size = 0,
                           angle.start = 0, angle.stop = base::pi)
@@ -96,7 +96,7 @@ grid::grid.draw(mglyph3_lab)
 # starglyphGrob
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-sg1 <- starglyphGrob(x = 400, y = 150,
+sg1 <- starglyphGrob(x = 400, y = 200,
                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25)
 
 sg2 <- starglyphGrob(x = 800, y = 400,
@@ -106,7 +106,7 @@ sg2 <- starglyphGrob(x = 800, y = 400,
                      col.whisker = RColorBrewer::brewer.pal(6, "Dark2"),
                      col.contour = "gray")
 
-sg3 <- starglyphGrob(x = 1200, y = 800,
+sg3 <- starglyphGrob(x = 1200, y = 750,
                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25,
                      lwd.whisker = 3,
                      lwd.contour = 0.1,
@@ -169,16 +169,16 @@ grid::grid.draw(p3_lab)
 # profileglyphGrob
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-bg1 <- profileglyphGrob(x = 200, y = 200,
+bg1 <- profileglyphGrob(x = 300, y = 200,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20)
 
-bg2 <- profileglyphGrob(x = 450, y = 600,
+bg2 <- profileglyphGrob(x = 700, y = 400,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = FALSE,
                         col.bar = "cyan")
 
-bg3 <- profileglyphGrob(x = 700, y = 1000,
+bg3 <- profileglyphGrob(x = 1100, y = 700,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = TRUE, bar = FALSE,
                         fill = "green")
@@ -200,17 +200,17 @@ grid::grid.draw(bg1_lab)
 grid::grid.draw(bg2_lab)
 grid::grid.draw(bg3_lab)
 
-bg1 <- profileglyphGrob(x = 200, y = 200,
+bg1 <- profileglyphGrob(x = 300, y = 250,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20,
                         mirror = FALSE)
 
-bg2 <- profileglyphGrob(x = 450, y = 600,
+bg2 <- profileglyphGrob(x = 700, y = 450,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = FALSE, mirror = FALSE,
                         col.bar = "cyan")
 
-bg3 <- profileglyphGrob(x = 700, y = 1000,
+bg3 <- profileglyphGrob(x = 1100, y = 750,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = TRUE, bar = FALSE,
                         mirror = FALSE, fill = "green")
@@ -232,18 +232,18 @@ grid::grid.draw(bg1_lab)
 grid::grid.draw(bg2_lab)
 grid::grid.draw(bg3_lab)
 
-bg1 <- profileglyphGrob(x = 200, y = 200,
+bg1 <- profileglyphGrob(x = 300, y = 200,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, flip.axes = TRUE,
                         fill = "salmon")
 
-bg2 <- profileglyphGrob(x = 450, y = 600,
+bg2 <- profileglyphGrob(x = 700, y = 400,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = FALSE,
                         flip.axes = TRUE,
                         col.bar = "cyan")
 
-bg3 <- profileglyphGrob(x = 700, y = 1000,
+bg3 <- profileglyphGrob(x = 1100, y = 700,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = TRUE, bar = FALSE,
                         flip.axes = TRUE)
@@ -265,18 +265,18 @@ grid::grid.draw(bg1_lab)
 grid::grid.draw(bg2_lab)
 grid::grid.draw(bg3_lab)
 
-bg1 <- profileglyphGrob(x = 200, y = 200,
+bg1 <- profileglyphGrob(x = 300, y = 200,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, flip.axes = TRUE,
                         fill = "salmon", mirror = FALSE)
 
-bg2 <- profileglyphGrob(x = 450, y = 600,
+bg2 <- profileglyphGrob(x = 700, y = 400,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = FALSE, mirror = FALSE,
                         flip.axes = TRUE,
                         col.bar = "cyan")
 
-bg3 <- profileglyphGrob(x = 700, y = 1000,
+bg3 <- profileglyphGrob(x = 1100, y = 700,
                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                         size = 20, line = TRUE, bar = FALSE,
                         flip.axes = TRUE,
@@ -308,21 +308,21 @@ clrs <- mapply(function(a, b) rep(a, b),
                round(c(4, 3.5, 2.7, 6.8, 3.4, 5.7)))
 clrs <- unlist(clrs)
 
-dg1 <- dotglyphGrob(x = 150, y = 300,
+dg1 <- dotglyphGrob(x = 300, y = 300,
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2)
 
-dg2 <- dotglyphGrob(x = 700, y = 300,
+dg2 <- dotglyphGrob(x = 900, y = 300,
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
                     fill = "salmon", col = "black")
 
-dg3 <- dotglyphGrob(x = 100, y = 550,
+dg3 <- dotglyphGrob(x = 250, y = 700,
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, flip.axes = TRUE,
                     fill = "black", col = clrs, lwd = 5)
 
-dg4 <- dotglyphGrob(x = 700, y = 550,
+dg4 <- dotglyphGrob(x = 900, y = 700,
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
                     flip.axes = TRUE,
@@ -355,22 +355,22 @@ grid::grid.draw(dg4_lab)
 
 label = c("hp", "drat", "wt", "qsec", "vs", "am", "gear")
 
-tg1 <- tileglyphGrob(x = 200, y = 250,
+tg1 <- tileglyphGrob(x = 300, y = 250,
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5,
                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 
-tg2 <- tileglyphGrob(x = 200, y = 550,
+tg2 <- tileglyphGrob(x = 300, y = 550,
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 7,
                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 
-tg3 <- tileglyphGrob(x = 600, y = 300,
+tg3 <- tileglyphGrob(x = 1000, y = 300,
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 2,
                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 
-tg4 <- tileglyphGrob(x = 600, y = 550,
+tg4 <- tileglyphGrob(x = 1000, y = 550,
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 3,
                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
