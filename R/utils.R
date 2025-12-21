@@ -51,12 +51,24 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
 # Get raw units from a sum unit : sum(400native, 6mm)
 raw_units <- function(sumunit) {
 
-  unit_raw <- unclass(sumunit)[[1]]
+  unit_raw <- unclass(sumunit)[[1]][[2]]
 
-  out <- c(npc = unclass(unit_raw[[2]])[[1]][[1]],
-           mm = unclass(unit_raw[[2]])[[2]][[1]])
+  npc_ind <- sapply(unit_raw, unitType) == "native"
+  mm_ind <- sapply(unit_raw, unitType) == "mm"
+
+  out <- c(npc = sum(sapply(unit_raw[npc_ind],
+                            function(u) unlist(u)[[1]])),
+           mm = sum(sapply(unit_raw[mm_ind],
+                           function(u) unlist(u)[[1]])))
 
   return(out)
+}
+
+# Get simplified units from a sum unit :
+# sum(400native, 6mm, -4mm) -> sum(400native, 2mm)
+simplify_mm <- function(sumunit) {
+  raw <- raw_units(sumunit)
+  unit(raw[["npc"]], "native") + unit(raw[["mm"]], "mm")
 }
 
 reconstruct_sumunit <- function(toconvert, raw_units) {

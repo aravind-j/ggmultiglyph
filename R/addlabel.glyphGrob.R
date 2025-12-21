@@ -1,12 +1,155 @@
-
-
-# labels start from left to right in clock-wise direction
-
-
+#' Add Labels to a \code{glyphGrob}
+#'
+#' Add labels to a \code{glyphGrob} as a \code{\link[grid]{textGrob}}. Useful in
+#' creation of custom guides for glyphs using
+#' \code{\link[ggplot2]{guide_custom}}.
+#'
+#' @param grob A \code{glyphGrob} object.
+#' @param label The labels to be plotted as a character vector. Should be equal
+#'   in length to the dimensions of \code{grob} \code{glyphGrob} object. Labels
+#'   are plotted from \eqn{0} to \eqn{1} (left to right or bottom to top for
+#'   linear labelling and right to left in clock-wise direction for radial
+#'   labelling.)
+#' @param segment logical. If \code{TRUE} draws line segments connecting labels
+#'   and the \code{glyphGrob} Default is \code{TRUE}.
+#' @param segment.control A list of control settings for the line segments.
+#'   Ignored if \code{segment = FALSE}. See
+#'   \code{\link[gglyph]{gglyph.segment.control}} for details  on the various
+#'   control parameters.
+#' @param push A numeric value indicating how far the labels have to be pushed
+#'   out from the \code{glyphGrob}.
+#' @param angle Text angle (in \eqn{[0, 360]}).
+#' @param hjust Horizontal justification (in \eqn{[0, 1]}).
+#' @param vjust Vertical justification (in \eqn{[0, 1]}).
+#'
+#' @return A \code{\link[grid]{grob}} object.
+#'
+#' @importFrom grid convertUnit convertX convertY curveGrob gList gTree textGrob unit unitType unit.c
+#' @importFrom methods is
+#' @importFrom utils tail
+#' @export
+#'
+#' @examples
+#'
+#' label <- c("hp", "drat", "wt", "qsec", "vs", "am")
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # metroglyphGrob
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' mglyph1 <- metroglyphGrob(x = 300, y = 200,
+#'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                           size = 25, circle.size = 2)
+#'
+#' mglyph2 <- metroglyphGrob(x = 600, y = 400,
+#'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                           size = 25, circle.size = 10,
+#'                           angle.start = base::pi, angle.stop = -base::pi,
+#'                           lwd.ray = 5, lwd.circle = 15,
+#'                           col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+#'                           col.circle = "white", fill = "gray")
+#'
+#' mglyph3 <- metroglyphGrob(x = 900, y = 700,
+#'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                           size = 25, circle.size = 0,
+#'                           angle.start = 0, angle.stop = base::pi)
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(mglyph1)
+#' grid::grid.draw(mglyph2)
+#' grid::grid.draw(mglyph3)
+#'
+#' mglyph1_lab <- addlabel.glyphGrob(grob = mglyph1, label = label,
+#'                                   push = 1, segment = FALSE)
+#' mglyph2_lab <- addlabel.glyphGrob(grob = mglyph2, label = label,
+#'                                   push = 3)
+#' mglyph3_lab <- addlabel.glyphGrob(grob = mglyph3, label = label,
+#'                                   push = 1, segment = FALSE)
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(mglyph1_lab)
+#' grid::grid.draw(mglyph2_lab)
+#' grid::grid.draw(mglyph3_lab)
+#'
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # starglyphGrob
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' sg1 <- starglyphGrob(x = 300, y = 150,
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25)
+#'
+#' sg2 <- starglyphGrob(x = 600, y = 400,
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25,
+#'                      lwd.whisker = 3,
+#'                      lwd.contour = 0.1,
+#'                      col.whisker = RColorBrewer::brewer.pal(6, "Dark2"),
+#'                      col.contour = "gray")
+#'
+#' sg3 <- starglyphGrob(x = 900, y = 800,
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25,
+#'                      lwd.whisker = 3,
+#'                      lwd.contour = 0.1,
+#'                      angle.start = 0, angle.stop = base::pi,
+#'                      fill = "cyan")
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(sg1)
+#' grid::grid.draw(sg2)
+#' grid::grid.draw(sg3)
+#'
+#' sg1_lab <- addlabel.glyphGrob(grob = sg1, label = label,
+#'                                   push = 1, segment = FALSE)
+#' sg2_lab <- addlabel.glyphGrob(grob = sg2, label = label,
+#'                                   push = 3)
+#' sg3_lab <- addlabel.glyphGrob(grob = sg3, label = label,
+#'                                   push = 1, segment = FALSE)
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(sg1_lab)
+#' grid::grid.draw(sg2_lab)
+#' grid::grid.draw(sg3_lab)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # pieglyphGrob
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' p1 <- pieglyphGrob(x = 300, y = 150,
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20)
+#'
+#' p2 <- pieglyphGrob(x = 600, y = 400,
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, scale.radius = FALSE,
+#'                    angle.start = 0, angle.stop = base::pi)
+#'
+#' p3 <- pieglyphGrob(x = 900, y = 600,
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, scale.segment = TRUE, scale.radius = FALSE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(p1)
+#' grid::grid.draw(p2)
+#' grid::grid.draw(p3)
+#'
+#' p1_lab <- addlabel.glyphGrob(grob = p1, label = label,
+#'                              push = 2, segment = FALSE)
+#' p2_lab <- addlabel.glyphGrob(grob = p2, label = label,
+#'                              push = 5)
+#' p3_lab <- addlabel.glyphGrob(grob = p3, label = label,
+#'                              push = 5, segment = FALSE)
+#'
+#' grid::grid.newpage()
+#' grid::grid.draw(p1_lab)
+#' grid::grid.draw(p2_lab)
+#' grid::grid.draw(p3_lab)
+#'
 addlabel.glyphGrob <- function(grob, label,
                                segment = TRUE,
                                segment.control = gglyph.segment.control(),
-                               push = 10) {
+                               push = 10, angle = 0,
+                               hjust = 0.5 , vjust = 0.5) {
 
   # Check if grob is a glyphGrob
   if (!is(grob, "glyphGrob")) {
@@ -18,99 +161,303 @@ addlabel.glyphGrob <- function(grob, label,
     stop('"label" should be a charachter vector.')
   }
 
-  # Radial ----
-  # any(class(grob) %in% c("starglyphGrob", "metroglyphGrob", "pieglyphGrob"))
-  #
-  # any(class(grob) %in% c("tileglyphGrob"))
+  # check if label and glyphGrob components are of equal length
+  if (length(label) != attr(grob, "length")) {
+    stop('"label" length (', length(label), ') ',
+         'does not match the "grob" dimensions (',
+         attr(grob, "length"), ').')
+  }
 
-  if (any(class(grob) %in% c("starglyphGrob", "metroglyphGrob"))) {
-    # Find which of the grob children are polygonGrob/polylineGrob
-    polygon_ind <- sapply(grob$children, function(k) {
-      inherits(k, "polygon")
-    }) |
-      sapply(grob$children, function(k) {
-        inherits(k, "polyline")
+  # Radial anchors (including tileglyphGrob) ----
+
+  ## Get anchors ----
+
+  if (any(class(grob) %in% c("starglyphGrob", "metroglyphGrob",
+                             "pieglyphGrob", "tileglyphGrob"))) {
+
+    if (any(class(grob) %in% c("starglyphGrob", "metroglyphGrob"))) {
+      # Find which of the grob children are polygonGrob/polylineGrob
+      polygon_ind <- sapply(grob$children, function(k) {
+        inherits(k, "polygon")
+      }) |
+        sapply(grob$children, function(k) {
+          inherits(k, "polyline")
+        })
+
+      p_ind <- which(polygon_ind)[1]
+
+      # Get coordinates for the anchor points on the glyphgrob
+      xn <- grob$children[[p_ind]]$x
+      yn <- grob$children[[p_ind]]$y
+
+      if (any(class(grob) %in% c("metroglyphGrob"))) {
+        xn <- tail(xn, length(xn) / 2)
+        yn <- tail(yn, length(yn) / 2)
+      }
+    }
+
+    if (any(class(grob) %in% c("pieglyphGrob"))) {
+
+      # Get coordinates for the anchor points on the glyphgrob
+      xn_list <- split(grob$children[[1]]$x, grob$children[[1]]$id)
+      yn_list <- split(grob$children[[1]]$y, grob$children[[1]]$id)
+
+      xn <- lapply(seq_along(xn_list), function(i) {
+        boxdim(xn_list[[i]], "mean")
       })
+      xn <- do.call(unit.c, xn)
+      yn <- lapply(seq_along(yn_list), function(i) {
+        boxdim(yn_list[[i]], "mean")
+      })
+      yn <- do.call(unit.c, yn)
 
-    p_ind <- which(polygon_ind)[1]
+    }
 
-    # Get coordinates for the anchor points on the glyphgrob
-    xn <- grob$children[[p_ind]]$x
-    yn <- grob$children[[p_ind]]$y
+    if (any(class(grob) %in% c("tileglyphGrob"))) {
 
-    if (any(class(grob) %in% c("metroglyphGrob"))) {
-      xn <- tail(xn, length(xn) / 2)
-      yn <- tail(yn, length(yn) / 2)
+      # Get coordinates for the anchor points on the glyphgrob
+      xn <- grob$x
+      yn <- grob$y
+
+    }
+
+    ## Generate label coordinates ----
+
+    if ((any(class(grob) %in% c("tileglyphGrob")) &&
+         attr(grob, "nrow") == 1) |
+        (any(class(grob) %in% c("tileglyphGrob")) &&
+         attr(grob, "nrow") == attr(grob, "length"))) {
+
+      if (any(class(grob) %in% c("tileglyphGrob")) &&
+          attr(grob, "nrow") == 1) {
+
+        # Get pushed labels coordinates
+        x_label <- xn
+        y_label <- yn + grob$height + unit(push, "mm")
+
+      }
+
+      if (any(class(grob) %in% c("tileglyphGrob")) &&
+          attr(grob, "nrow") == attr(grob, "length")) {
+
+        # Get pushed labels coordinates
+        x_label <- xn + grob$width + unit(push, "mm")
+        y_label <- yn
+
+      }
+
+      # justification
+      just_x <- hjust
+      just_y <- vjust
+
+    } else { # starglyphGrob, metrhoglyphGrob and pieglyphGrob
+
+      # Check if segement.control compoents are 1 or equal to no. of labels
+      if(any(!(sapply(segment.control, length) %in%
+               c(0, 1, length(label))))) {
+        stop('"segment.control" elements should be of length 1, ',
+             'or length equal to length of "label", or ',
+             'a NULL object.')
+      }
+
+      # convert to absolute coordinates
+      x_mm <- convertX(xn, "mm", valueOnly = TRUE)
+      y_mm <- convertY(yn, "mm", valueOnly = TRUE)
+
+      # Find the center
+      cx <- boxdim(xn, "mean")
+      cy <- boxdim(yn, "mean")
+
+      cx_mm <- convertX(cx, "mm", valueOnly = TRUE)
+      cy_mm <- convertY(cy, "mm", valueOnly = TRUE)
+
+      # Compute angles
+      angles <- atan2(y_mm - cy_mm, x_mm - cx_mm)
+
+      # Get pushed labels coordinates
+      x_label <- xn + unit(push * cos(angles), "mm")
+      y_label <- yn + unit(push * sin(angles), "mm")
+
+      # debug
+      # # grid.newpage()
+      # grid.draw(grob)
+      # grid.draw(pointsGrob(x = cx, y = cy, gp = gpar(col = "red")))
+      # grid.draw(pointsGrob(x = xn, y = yn, gp = gpar(col = "blue")))
+      # grid.draw(pointsGrob(x = x_label, y = y_label, gp = gpar(col = "green")))
+
+      # Smart justification
+      just_x <- ifelse(cos(angles) > 0, 0, 1)
+      just_x <- ifelse(abs(round(sin(angles), 2)) == 1, 0.5, just_x)
+
+      just_y <- ifelse(sin(angles) > 0, 0, 1)
+      just_y <- ifelse(abs(round(cos(angles), 2)) == 1, 0.5, just_y)
+
     }
   }
 
-  if (any(class(grob) %in% c("pieglyphGrob"))) {
+  # Linear anchors (profileglyphGrob) ----
+# browser()
+  if (any(class(grob) %in% c("profileglyphGrob"))) {
+
+    ## Get anchors ----
+
+    pr_ind <- sapply(grob$children, function(k) {
+      inherits(k, "rect")
+    }) |
+      sapply(grob$children, function(k) {
+        inherits(k, "polygon")
+      })
+
+    pr_ind <- which(pr_ind)[1]
 
     # Get coordinates for the anchor points on the glyphgrob
-    xn_list <- split(grob$children[[1]]$x, grob$children[[1]]$id)
-    yn_list <- split(grob$children[[1]]$y, grob$children[[1]]$id)
+    if (inherits(grob$children[[pr_ind]], "rect")) {
 
-    xn <- lapply(seq_along(xn_list), function(i) {
-      boxdim(xn_list[[i]], "mean")
-    })
-    xn <- do.call(unit.c, xn)
-    yn <- lapply(seq_along(yn_list), function(i) {
-      boxdim(yn_list[[i]], "mean")
-    })
-    yn <- do.call(unit.c, yn)
+      xn <- grob$children[[pr_ind]]$x
+      yn <- grob$children[[pr_ind]]$y
 
+    }
+
+    if (inherits(grob$children[[pr_ind]], "polygon")) {
+
+      xn <- grob$children[[pr_ind]]$x
+      yn <- grob$children[[pr_ind]]$y
+
+      if (attr(grob, "mirror") == FALSE) {
+
+        xn <- xn[-c(1, length(xn))]
+        yn <- yn[-c(1, length(yn))]
+
+      } else {
+        xn <- xn[1:attr(grob, "length")]
+        yn <- yn[1:attr(grob, "length")]
+      }
+    }
+
+    ## Get pushed labels coordinates ----
+
+    if (attr(grob, "mirror") == FALSE) {
+
+      if (attr(grob, "flip.axes") == FALSE) {
+
+        x_label <- xn
+        if (inherits(grob$children[[pr_ind]], "rect")) {
+          y_label <- yn - unit(push, "mm")
+        } else {
+          y_label <- boxdim(yn, "min") - unit(push, "mm")
+        }
+
+      } else { # flip.axes  == TRUE
+
+        if (inherits(grob$children[[pr_ind]], "rect")) {
+          x_label <- xn - unit(push, "mm")
+        } else {
+          x_label <- boxdim(xn, "min") - unit(push, "mm")
+        }
+        y_label <- yn
+
+      }
+
+    } else { # mirror ==  TRUE
+
+      if (attr(grob, "flip.axes") == FALSE) {
+
+        x_label <- xn
+        if (inherits(grob$children[[pr_ind]], "rect")) {
+          y_label <- yn - (max(grob$children[[pr_ind]]$height) / 2) -
+            unit(push, "mm")
+        } else {
+          y_label <- boxdim(yn, "min") - unit(push, "mm")
+        }
+
+      } else { # flip.axes  == TRUE
+
+        if (inherits(grob$children[[pr_ind]], "rect")) {
+          x_label <- xn - (max(grob$children[[pr_ind]]$height) / 2) -
+            unit(push, "mm")
+        } else {
+          x_label <- boxdim(xn, "min") - unit(push, "mm")
+        }
+        y_label <- yn
+
+      }
+
+    }
+
+    # justification
+    just_x <- hjust
+    just_y <- vjust
+
+  }
+
+  # Linear anchors (dotglyphGrob) ----
+
+  if (any(class(grob) %in% c("dotglyphGrob"))) {
+
+    ## Get anchors ----
+
+    c_ind <- attr(grob, "index")
+
+    anchor_what <- ifelse(attr(grob, "mirror") == FALSE,
+                          "min", "mean")
+
+    if (attr(grob, "flip.axes") == FALSE) {
+
+      xn <- do.call(unit.c ,
+                    lapply(split(grob$x, c_ind),
+                           function(cg) {
+                             boxdim(cg, anchor_what)
+                           }))
+      yn <- do.call(unit.c ,
+                    lapply(split(grob$y, c_ind),
+                           function(cg) {
+
+                             cg <- do.call(unit.c, lapply(cg, simplify_mm))
+
+                             boxdim(cg, anchor_what)
+                           }))
+
+    } else { # "flip.axes" == TRUE
+
+      xn <- do.call(unit.c ,
+                    lapply(split(grob$x, c_ind),
+                           function(cg) {
+
+                             cg <- do.call(unit.c, lapply(cg, simplify_mm))
+
+                             boxdim(cg, anchor_what)
+
+                           }))
+      yn <- do.call(unit.c ,
+                    lapply(split(grob$y, c_ind),
+                           function(cg) {
+                             boxdim(cg, anchor_what)
+                           }))
+
+    }
+
+    ## Get pushed labels coordinates ----
+
+    if (attr(grob, "flip.axes") == FALSE) {
+
+      x_label <- xn
+      y_label <- yn - unit(push, "mm")
+
+    } else {
+
+      x_label <- xn - unit(push, "mm")
+      y_label <- yn
+
+    }
+
+    # justification
+    just_x <- hjust
+    just_y <- vjust
 
   }
 
 
-  # check if label and glyphGrob components are of equal length
-  if (length(label) != length(xn)) {
-    stop('"label" length (', length(label), ') ',
-         'does not match the "grob" dimenstions (',
-         length(xn), ').')
-  }
-
-  # Check if segement.control compoents are 1 or equal to no. of labels
-  if(any(!(sapply(segment.control, length) %in%
-           c(0, 1, length(label))))) {
-    stop('"segment.control" elements should be of length 1, ',
-         'or length equal to length of "label", or ',
-         'a NULL object.')
-  }
-
-  # convert to absolute coordinates
-  x_mm <- convertX(xn, "mm", valueOnly = TRUE)
-  y_mm <- convertY(yn, "mm", valueOnly = TRUE)
-
-  # Find the center
-  cx <- boxdim(xn, "mean")
-  cy <- boxdim(yn, "mean")
-
-  cx_mm <- convertX(cx, "mm", valueOnly = TRUE)
-  cy_mm <- convertY(cy, "mm", valueOnly = TRUE)
-
-  # Compute angles
-  angles <- atan2(y_mm - cy_mm, x_mm - cx_mm)
-
-  # Get pushed labels coordinates
-  x_label <- xn + unit(push * cos(angles), "mm")
-  y_label <- yn + unit(push * sin(angles), "mm")
-
-  # debug
-  # # grid.newpage()
-  # grid.draw(grob)
-  # grid.draw(pointsGrob(x = cx, y = cy, gp = gpar(col = "red")))
-  # grid.draw(pointsGrob(x = xn, y = yn, gp = gpar(col = "blue")))
-  # grid.draw(pointsGrob(x = x_label, y = y_label, gp = gpar(col = "green")))
-
-  # Smart justification
-  just_x <- ifelse(cos(angles) > 0, 0, 1)
-  just_x <- ifelse(abs(round(sin(angles), 2)) == 1, 0.5, just_x)
-
-  just_y <- ifelse(sin(angles) > 0, 0, 1)
-  just_y <- ifelse(abs(round(cos(angles), 2)) == 1, 0.5, just_y)
-
-  # Segment grob
+  # Segment grob ----
 
   if (segment == TRUE) {
     segg <-
@@ -138,8 +485,7 @@ addlabel.glyphGrob <- function(grob, label,
   # Label grob
   labelgorb <-
     textGrob(label = label, x = x_label, y = y_label,
-             hjust = just_x, vjust = just_y)
-
+             hjust = just_x, vjust = just_y, rot = angle)
 
   if (segment == TRUE) {
     gridout <-
@@ -149,19 +495,7 @@ addlabel.glyphGrob <- function(grob, label,
       grid::gTree(children = gList(grob, labelgorb))
   }
 
-  # Linear ----
-
-  any(class(grob) %in% c("profileglyphGrob", "dotglyphgrob"))
-
-  any(class(grob) %in% c("tileglyphGrob"))
 
 
   return(gridout)
 }
-
-# attr
-# mirror
-# flip.axes
-# ratio
-# ndim
-# nrow
