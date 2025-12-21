@@ -105,7 +105,8 @@ printed.}
 A list with the following components to control the repel algorithm
   corresponding to the same in \strong{Arguments}. \item{segment.curvature}{}
   \item{segment.angle}{} \item{segment.ncp}{} \item{segment.shape}{}
-  \item{segment.square}{} \item{segment.squareShape}{} \item{segment.inflect}{} \item{segment.debug}{}
+  \item{segment.square}{} \item{segment.squareShape}{}
+  \item{segment.inflect}{} \item{segment.debug}{}
   \item{segment.colour}{} \item{segment.size}{} \item{segment.linetype}{}
   \item{segment.arrow}{}
 }
