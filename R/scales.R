@@ -8,7 +8,7 @@
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
 #' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale
+#' @importFrom ggplot2 continuous_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
 #' @export
 #'
 scale_z_continuous <- function(..., range = c(0.1, 1), z) {
