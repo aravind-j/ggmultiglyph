@@ -19,7 +19,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.5.0-6666ff.svg?logo=R)](https://
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/gglyph)](https://cran.r-project.org/package=gglyph)
-[![Dependencies](https://tinyverse.netlify.com/badge/gglyph)](https://cran.r-project.org/package=gglyph)
+[![Dependencies](https://tinyverse.netlify.app/status/gglyph)](https://cran.r-project.org/package=gglyph)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/gglyph?color=green)](https://CRAN.R-project.org/package=gglyph)
 [![develVersion](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/aravind-j/gglyph)
@@ -29,7 +29,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/gglyph.svg)](h
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--17-yellowgreen.svg)](https://github.com/aravind-j/gglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--21-yellowgreen.svg)](https://github.com/aravind-j/gglyph/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxxx) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/gglyph.svg)](https://aravind-j.github.io/gglyph/)
@@ -106,5 +106,5 @@ citation("gglyph")
         year = {2025},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers.
-    If you use it, please support the project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If
+    you use it, please support the project by citing the package.
