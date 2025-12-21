@@ -164,7 +164,7 @@
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         fill = "green")
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(bg1)
 #' grid::grid.draw(bg2)
 #' grid::grid.draw(bg3)
@@ -196,7 +196,7 @@
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         mirror = FALSE, fill = "green")
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(bg1)
 #' grid::grid.draw(bg2)
 #' grid::grid.draw(bg3)
@@ -229,7 +229,7 @@
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         flip.axes = TRUE)
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(bg1)
 #' grid::grid.draw(bg2)
 #' grid::grid.draw(bg3)
@@ -263,7 +263,7 @@
 #'                         flip.axes = TRUE,
 #'                         mirror = FALSE)
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(bg1)
 #' grid::grid.draw(bg2)
 #' grid::grid.draw(bg3)
@@ -309,7 +309,7 @@
 #'                     flip.axes = TRUE,
 #'                     fill = "green", col = "grey")
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(dg1)
 #' grid::grid.draw(dg2)
 #' grid::grid.draw(dg3)
@@ -356,7 +356,7 @@
 #'                      size = 5, nrow = 3,
 #'                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 #'
-#' grid.newpage()
+#' grid::grid.newpage()
 #' grid::grid.draw(tg1)
 #' grid::grid.draw(tg2)
 #' grid::grid.draw(tg3)
