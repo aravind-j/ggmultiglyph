@@ -34,34 +34,32 @@
 #' @export
 #'
 #' @examples
+#' library(gglyph)
+#' library(grid)
+#' library(gridExtra)
 #'
 #' label <- c("hp", "drat", "wt", "qsec", "vs", "am")
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # metroglyphGrob
+#' # Add labels to metroglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' mglyph1 <- metroglyphGrob(x = 400, y = 200,
+#' mglyph1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                           size = 25, circle.size = 2)
+#'                           size = 20, circle.size = 2)
 #'
-#' mglyph2 <- metroglyphGrob(x = 700, y = 400,
+#' mglyph2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                           size = 25, circle.size = 10,
+#'                           size = 20, circle.size = 5,
 #'                           angle.start = base::pi, angle.stop = -base::pi,
 #'                           lwd.ray = 5, lwd.circle = 15,
 #'                           col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
 #'                           col.circle = "white", fill = "gray")
 #'
-#' mglyph3 <- metroglyphGrob(x = 1050, y = 750,
+#' mglyph3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                           z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                           size = 25, circle.size = 0,
+#'                           size = 20, circle.size = 0,
 #'                           angle.start = 0, angle.stop = base::pi)
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(mglyph1)
-#' grid::grid.draw(mglyph2)
-#' grid::grid.draw(mglyph3)
 #'
 #' mglyph1_lab <- addlabel.glyphGrob(grob = mglyph1, label = label,
 #'                                   push = 1, segment = FALSE)
@@ -70,37 +68,31 @@
 #' mglyph3_lab <- addlabel.glyphGrob(grob = mglyph3, label = label,
 #'                                   push = 1, segment = FALSE)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(mglyph1_lab)
-#' grid::grid.draw(mglyph2_lab)
-#' grid::grid.draw(mglyph3_lab)
+#' grid.arrange(mglyph1, mglyph2, mglyph3,
+#'              mglyph1_lab, mglyph2_lab, mglyph3_lab,
+#'              nrow = 2, ncol = 3)
 #'
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # starglyphGrob
+#' # Add labels to starglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' sg1 <- starglyphGrob(x = 400, y = 200,
+#' sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25)
 #'
-#' sg2 <- starglyphGrob(x = 800, y = 400,
+#' sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25,
 #'                      lwd.whisker = 3,
 #'                      lwd.contour = 0.1,
 #'                      col.whisker = RColorBrewer::brewer.pal(6, "Dark2"),
 #'                      col.contour = "gray")
 #'
-#' sg3 <- starglyphGrob(x = 1200, y = 750,
+#' sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 25,
 #'                      lwd.whisker = 3,
 #'                      lwd.contour = 0.1,
 #'                      angle.start = 0, angle.stop = base::pi,
 #'                      fill = "cyan")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(sg1)
-#' grid::grid.draw(sg2)
-#' grid::grid.draw(sg3)
 #'
 #' sg1_lab <- addlabel.glyphGrob(grob = sg1, label = label,
 #'                                   push = 1, segment = FALSE)
@@ -109,68 +101,56 @@
 #' sg3_lab <- addlabel.glyphGrob(grob = sg3, label = label,
 #'                                   push = 1, segment = FALSE)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(sg1_lab)
-#' grid::grid.draw(sg2_lab)
-#' grid::grid.draw(sg3_lab)
+#' grid.arrange(sg1, sg2, sg3,
+#'              sg1_lab, sg2_lab, sg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # pieglyphGrob
+#' # Add labels to pieglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' p1 <- pieglyphGrob(x = 400, y = 150,
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20)
 #'
-#' p2 <- pieglyphGrob(x = 700, y = 400,
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, scale.radius = FALSE,
 #'                    angle.start = 0, angle.stop = base::pi)
 #'
-#' p3 <- pieglyphGrob(x = 1000, y = 600,
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, scale.segment = TRUE, scale.radius = FALSE,
 #'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
-#'
-#' p1_lab <- addlabel.glyphGrob(grob = p1, label = label,
+#' pg1_lab <- addlabel.glyphGrob(grob = pg1, label = label,
 #'                              push = 2, segment = FALSE)
-#' p2_lab <- addlabel.glyphGrob(grob = p2, label = label,
+#' pg2_lab <- addlabel.glyphGrob(grob = pg2, label = label,
 #'                              push = 5)
-#' p3_lab <- addlabel.glyphGrob(grob = p3, label = label,
+#' pg3_lab <- addlabel.glyphGrob(grob = pg3, label = label,
 #'                              push = 5, segment = FALSE)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1_lab)
-#' grid::grid.draw(p2_lab)
-#' grid::grid.draw(p3_lab)
+#' grid.arrange(pg1, pg2, pg3,
+#'              pg1_lab, pg2_lab, pg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # profileglyphGrob
+#' # Add labels to profileglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' bg1 <- profileglyphGrob(x = 300, y = 200,
+#' bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20)
 #'
-#' bg2 <- profileglyphGrob(x = 700, y = 400,
+#' bg2 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = FALSE,
 #'                         col.bar = "cyan")
 #'
-#' bg3 <- profileglyphGrob(x = 1100, y = 700,
+#' bg3 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         fill = "green")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bg3)
 #'
 #' bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label, segment = TRUE,
 #'                               angle = 45, push = 1, hjust = 1)
@@ -179,30 +159,24 @@
 #' bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
 #'                               angle = 45, push = -35, hjust = 0)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1_lab)
-#' grid::grid.draw(bg2_lab)
-#' grid::grid.draw(bg3_lab)
+#' grid.arrange(bg1, bg2, bg3,
+#'              bg1_lab, bg2_lab, bg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
-#' bg1 <- profileglyphGrob(x = 300, y = 250,
+#' bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20,
 #'                         mirror = FALSE)
 #'
-#' bg2 <- profileglyphGrob(x = 700, y = 450,
+#' bg2 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = FALSE, mirror = FALSE,
 #'                         col.bar = "cyan")
 #'
-#' bg3 <- profileglyphGrob(x = 1100, y = 750,
+#' bg3 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         mirror = FALSE, fill = "green")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bg3)
 #'
 #' bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label, segment = TRUE,
 #'                               angle = 45, push = 1, hjust = 1)
@@ -211,31 +185,25 @@
 #' bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
 #'                               angle = 45, push = -25, hjust = 0)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1_lab)
-#' grid::grid.draw(bg2_lab)
-#' grid::grid.draw(bg3_lab)
+#' grid.arrange(bg1, bg2, bg3,
+#'              bg1_lab, bg2_lab, bg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
-#' bg1 <- profileglyphGrob(x = 300, y = 200,
+#' bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, flip.axes = TRUE,
 #'                         fill = "salmon")
 #'
-#' bg2 <- profileglyphGrob(x = 700, y = 400,
+#' bg2 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = FALSE,
 #'                         flip.axes = TRUE,
 #'                         col.bar = "cyan")
 #'
-#' bg3 <- profileglyphGrob(x = 1100, y = 700,
+#' bg3 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         flip.axes = TRUE)
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bg3)
 #'
 #' bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label, segment = TRUE,
 #'                               angle = 45, push = 15, hjust = 1)
@@ -244,32 +212,26 @@
 #' bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
 #'                               angle = 45, push = -30, hjust = 0)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1_lab)
-#' grid::grid.draw(bg2_lab)
-#' grid::grid.draw(bg3_lab)
+#' grid.arrange(bg1, bg2, bg3,
+#'              bg1_lab, bg2_lab, bg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
-#' bg1 <- profileglyphGrob(x = 300, y = 200,
+#' bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, flip.axes = TRUE,
 #'                         fill = "salmon", mirror = FALSE)
 #'
-#' bg2 <- profileglyphGrob(x = 700, y = 400,
+#' bg2 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = FALSE, mirror = FALSE,
 #'                         flip.axes = TRUE,
 #'                         col.bar = "cyan")
 #'
-#' bg3 <- profileglyphGrob(x = 1100, y = 700,
+#' bg3 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                         z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                         size = 20, line = TRUE, bar = FALSE,
 #'                         flip.axes = TRUE,
 #'                         mirror = FALSE)
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bg3)
 #'
 #' bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label, segment = TRUE,
 #'                               angle = 45, push = 5, hjust = 1)
@@ -278,13 +240,12 @@
 #' bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
 #'                               angle = 45, push = -25, hjust = 0)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1_lab)
-#' grid::grid.draw(bg2_lab)
-#' grid::grid.draw(bg3_lab)
+#' grid.arrange(bg1, bg2, bg3,
+#'              bg1_lab, bg2_lab, bg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # dotglyphGrob
+#' # Add labels to dotglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' clrs <- mapply(function(a, b) rep(a, b),
@@ -292,31 +253,25 @@
 #'                round(c(4, 3.5, 2.7, 6.8, 3.4, 5.7)))
 #' clrs <- unlist(clrs)
 #'
-#' dg1 <- dotglyphGrob(x = 300, y = 300,
+#' dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
 #'                     radius = 2)
 #'
-#' dg2 <- dotglyphGrob(x = 900, y = 300,
+#' dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
 #'                     radius = 2, mirror = TRUE,
 #'                     fill = "salmon", col = "black")
 #'
-#' dg3 <- dotglyphGrob(x = 250, y = 700,
+#' dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
 #'                     radius = 2, flip.axes = TRUE,
 #'                     fill = "black", col = clrs, lwd = 5)
 #'
-#' dg4 <- dotglyphGrob(x = 900, y = 700,
+#' dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
 #'                     radius = 2, mirror = TRUE,
 #'                     flip.axes = TRUE,
 #'                     fill = "green", col = "grey")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(dg1)
-#' grid::grid.draw(dg2)
-#' grid::grid.draw(dg3)
-#' grid::grid.draw(dg4)
 #'
 #' dg1_lab <- addlabel.glyphGrob(grob = dg1, label = label, segment = FALSE,
 #'                               push = 3, hjust = 1, angle = 45)
@@ -327,43 +282,35 @@
 #' dg4_lab <- addlabel.glyphGrob(grob = dg4, label = label, segment = TRUE,
 #'                               push = 20,  hjust = 1)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(dg1_lab)
-#' grid::grid.draw(dg2_lab)
-#' grid::grid.draw(dg3_lab)
-#' grid::grid.draw(dg4_lab)
+#' grid.arrange(dg1, dg2, dg3,
+#'              dg1_lab, dg2_lab, dg3_lab,
+#'              nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # tileglyphGrob
+#' # Add labels to tileglyphGrob
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' label = c("hp", "drat", "wt", "qsec", "vs", "am", "gear")
 #'
-#' tg1 <- tileglyphGrob(x = 300, y = 250,
+#' tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
 #'                      size = 5,
 #'                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 #'
-#' tg2 <- tileglyphGrob(x = 300, y = 550,
+#' tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
 #'                      size = 5, nrow = 7,
 #'                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 #'
-#' tg3 <- tileglyphGrob(x = 1000, y = 300,
+#' tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
 #'                      size = 5, nrow = 2,
 #'                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
 #'
-#' tg4 <- tileglyphGrob(x = 1000, y = 550,
+#' tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
 #'                      size = 5, nrow = 3,
 #'                      fill = RColorBrewer::brewer.pal(7, "Dark2"))
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(tg1)
-#' grid::grid.draw(tg2)
-#' grid::grid.draw(tg3)
-#' grid::grid.draw(tg4)
 #'
 #' tg1_lab <- addlabel.glyphGrob(grob = tg1, label = label, segment = FALSE,
 #'                               angle = 45, push = -10, hjust = 1, vjust = 0.5)
@@ -373,11 +320,9 @@
 #' tg4_lab <- addlabel.glyphGrob(grob = tg4, label = label, segment = TRUE,
 #'                               push = 5, hjust = 0, vjust = 0.25)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(tg1_lab)
-#' grid::grid.draw(tg2_lab)
-#' grid::grid.draw(tg3_lab)
-#' grid::grid.draw(tg4_lab)
+#' grid.arrange(tg1, tg2, tg3, tg4,
+#'              tg1_lab, tg2_lab, tg3_lab, tg4_lab,
+#'              nrow = 2, ncol = 4)
 #'
 addlabel.glyphGrob <- function(grob, label,
                                segment = TRUE,
