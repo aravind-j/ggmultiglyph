@@ -88,6 +88,37 @@ library(grid)
 library(gridExtra)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Whisker and contour combination
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
+
+sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                     whisker = FALSE)
+
+sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                     contour = FALSE)
+
+sg4 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                     angle.start = 0, angle.stop = base::pi)
+
+sg5 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                     whisker = FALSE,
+                     angle.start = 0, angle.stop = base::pi)
+
+sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                     contour = FALSE,
+                     angle.start = 0, angle.stop = base::pi)
+
+grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Adjust size
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -144,37 +175,6 @@ sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
                      angle.start = 270 * (base::pi/180),
                      angle.stop = 90 * (base::pi/180))
-
-grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Whisker and contour combination
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
-
-sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-                     whisker = FALSE)
-
-sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-                     contour = FALSE)
-
-sg4 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-                     angle.start = 0, angle.stop = base::pi)
-
-sg5 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-                     whisker = FALSE,
-                     angle.start = 0, angle.stop = base::pi)
-
-sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-                     contour = FALSE,
-                     angle.start = 0, angle.stop = base::pi)
 
 grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
 

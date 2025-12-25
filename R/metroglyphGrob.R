@@ -59,19 +59,7 @@
 #' mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20)
 #'
-#' mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+#' grid.arrange(mg1, mg2, mg3, nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust circle size
@@ -89,23 +77,7 @@
 #'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                       circle.size = 5, size = 15)
 #'
-#' mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                       circle.size = 0, size = 15,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                       circle.size = 2, size = 15,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-#'                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                       circle.size = 5, size = 15,
-#'                       angle.start = 0, angle.stop = base::pi)
-#'
-#' grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
-#'
+#' grid.arrange(mg1, mg2, mg3, nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust angle
