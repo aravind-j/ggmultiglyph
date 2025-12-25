@@ -35,11 +35,14 @@ control parameters.}
 \item{push}{A numeric value indicating how far the labels have to be pushed
 out from the \code{glyphGrob}.}
 
-\item{angle}{Text angle (in \eqn{[0, 360]}).}
+\item{angle}{Text angle (in \ifelse{html}{\out{<code class="reqn">[0,
+360]</code>}}{\eqn{[0, 360]}}).}
 
-\item{hjust}{Horizontal justification (in \eqn{[0, 1]}).}
+\item{hjust}{Horizontal justification (in \ifelse{html}{\out{<code
+class="reqn">[0, 1]</code>}}{\eqn{[0, 1]}}).}
 
-\item{vjust}{Vertical justification (in \eqn{[0, 1]}).}
+\item{vjust}{Vertical justification (in \ifelse{html}{\out{<code
+class="reqn">[0, 1]</code>}}{\eqn{[0, 1]}}).}
 }
 \value{
 A \code{\link[grid]{grob}} object.

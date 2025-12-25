@@ -18,9 +18,12 @@
 #'   control parameters.
 #' @param push A numeric value indicating how far the labels have to be pushed
 #'   out from the \code{glyphGrob}.
-#' @param angle Text angle (in \eqn{[0, 360]}).
-#' @param hjust Horizontal justification (in \eqn{[0, 1]}).
-#' @param vjust Vertical justification (in \eqn{[0, 1]}).
+#' @param angle Text angle (in \ifelse{html}{\out{<code class="reqn">[0,
+#'   360]</code>}}{\eqn{[0, 360]}}).
+#' @param hjust Horizontal justification (in \ifelse{html}{\out{<code
+#'   class="reqn">[0, 1]</code>}}{\eqn{[0, 1]}}).
+#' @param vjust Vertical justification (in \ifelse{html}{\out{<code
+#'   class="reqn">[0, 1]</code>}}{\eqn{[0, 1]}}).
 #'
 #' @return A \code{\link[grid]{grob}} object.
 #'
