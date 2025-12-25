@@ -76,207 +76,333 @@ Uses \code{\link[grid]{Grid}} graphics to draw a metroglyph
 \insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{gglyph}.
 }
 \examples{
-mglyph1 <- metroglyphGrob(x = 300, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 2)
+library(gglyph)
+library(grid)
+library(gridExtra)
 
-mglyph2 <- metroglyphGrob(x = 800, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 5)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust ray size
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mglyph3 <- metroglyphGrob(x = 300, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 0,
-                          angle.start = base::pi, angle.stop = -base::pi)
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10)
 
-mglyph4 <- metroglyphGrob(x = 800, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 10,
-                          angle.start = base::pi, angle.stop = -base::pi)
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
 
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20)
 
-mglyph1 <- metroglyphGrob(x = 200, y = 100,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 2,
-                          angle.start = -base::pi, angle.stop = 0)
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph2 <- metroglyphGrob(x = 800, y = 100,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 5,
-                          angle.start = -base::pi, angle.stop = 0)
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph3 <- metroglyphGrob(x = 200, y = 700,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 0,
-                          angle.start = 0, angle.stop = base::pi)
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph4 <- metroglyphGrob(x = 800, y = 700,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 10,
-                          angle.start = 0, angle.stop = base::pi)
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust circle size
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mglyph1 <- metroglyphGrob(x = 300, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 2, lwd.circle = 3)
-
-mglyph2 <- metroglyphGrob(x = 900, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 5, lwd.circle = 3)
-
-mglyph3 <- metroglyphGrob(x = 300, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 0,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3)
-
-mglyph4 <- metroglyphGrob(x = 900, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 10,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3)
-
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
-
-mglyph1 <- metroglyphGrob(x = 300, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 2, lwd.circle = 3,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.circle = "gray")
-
-mglyph2 <- metroglyphGrob(x = 900, y = 200,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 5, lwd.circle = 3,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.circle = "white", fill = "black")
-
-mglyph3 <- metroglyphGrob(x = 300, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 0,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"))
-
-mglyph4 <- metroglyphGrob(x = 900, y = 600,
-                          z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                          size = 25, circle.size = 10,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 5, lwd.circle = 15,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.circle = "white", fill = "gray")
-
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
-
-mg1 <- metroglyphGrob(x = 300, y = 200,
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                      size = 15, circle.size = 5,
-                      lwd.ray = 5)
+                      circle.size = 0, size = 15)
 
-mg2 <- metroglyphGrob(x = 500, y = 400,
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                      size = 15, circle.size = 5,
-                      lwd.ray = 5, lineend = "butt")
+                      circle.size = 2, size = 15)
 
-mg3 <- metroglyphGrob(x = 700, y = 600,
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-                      size = 15, circle.size = 5,
-                      lwd.ray = 5, lineend = "square")
+                      circle.size = 5, size = 15)
 
-grid::grid.newpage()
-grid::grid.draw(mg1)
-grid::grid.draw(mg2)
-grid::grid.draw(mg3)
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      circle.size = 0, size = 15,
+                      angle.start = 0, angle.stop = base::pi)
 
-gl <- split(x = rep(c(1, 2, 3), 6),
-            f = rep(1:6, each = 3))
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      circle.size = 2, size = 15,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph1 <- metroglyphGrob(x = 200, y = 200,
-                          z = c(1, 3, 2, 1, 2, 3),
-                          size = 6, circle.size = 2, lwd.circle = 3,
-                          draw.grid = TRUE, grid.levels = gl)
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      circle.size = 5, size = 15,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph2 <- metroglyphGrob(x = 800, y = 200,
-                          z = c(1, 3, 2, 1, 2, 3),
-                          size = 6, circle.size = 5, lwd.circle = 3,
-                          draw.grid = TRUE, grid.levels = gl)
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 
-mglyph3 <- metroglyphGrob(x = 250, y = 600,
-                          z = c(1, 3, 2, 1, 2, 3),
-                          size = 6, circle.size = 0,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3,
-                          draw.grid = TRUE, grid.levels = gl)
 
-mglyph4 <- metroglyphGrob(x = 850, y = 600,
-                          z = c(1, 3, 2, 1, 2, 3),
-                          size = 6, circle.size = 10,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3,
-                          draw.grid = TRUE, grid.levels = gl)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust angle
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2)
 
-gl <- split(x = rep(c(0, 1, 2), 6),
-            f = rep(1:6, each = 3))
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2,
+                      angle.start = 0, angle.stop = base::pi)
 
-mglyph1 <- metroglyphGrob(x = 200, y = 200,
-                          z = c(0, 2, 1, 0, 1, 2),
-                          size = 10, circle.size = 2, lwd.circle = 3,
-                          draw.grid = TRUE, grid.levels = gl,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.points = NA)
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2,
+                      angle.start = 90 * (base::pi/180),
+                      angle.stop = 270 * (base::pi/180))
 
-mglyph2 <- metroglyphGrob(x = 800, y = 200,
-                          z = c(0, 2, 1, 0, 1, 2),
-                          size = 10, circle.size = 5, lwd.circle = 3,
-                          draw.grid = TRUE, grid.levels = gl,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"))
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2,
+                      angle.start = 2 * base::pi,
+                      angle.stop = 0)
 
-mglyph3 <- metroglyphGrob(x = 250, y = 600,
-                          z = c(0, 2, 1, 0, 1, 2),
-                          size = 10, circle.size = 0,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3,
-                          draw.grid = TRUE, grid.levels = gl,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.points = "white")
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2,
+                      angle.start = base::pi, angle.stop = 0)
 
-mglyph4 <- metroglyphGrob(x = 850, y = 600,
-                          z = c(0, 2, 1, 0, 1, 2),
-                          size = 10, circle.size = 10,
-                          angle.start = base::pi, angle.stop = -base::pi,
-                          lwd.ray = 3,
-                          draw.grid = TRUE, grid.levels = gl,
-                          col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
-                          col.points = NA, grid.point.size = 20)
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                      size = 15, circle.size = 2,
+                      angle.start = 270 * (base::pi/180),
+                      angle.stop = 90 * (base::pi/180))
 
-grid::grid.newpage()
-grid::grid.draw(mglyph1)
-grid::grid.draw(mglyph2)
-grid::grid.draw(mglyph3)
-grid::grid.draw(mglyph4)
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust circle and ray line width
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1)
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3)
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      angle.start = 0, angle.stop = base::pi)
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1,
+                      angle.start = 0, angle.stop = base::pi)
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3,
+                      angle.start = 0, angle.stop = base::pi)
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust fill colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      fill = "salmon")
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1,
+                      fill = "cyan")
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3,
+                      fill = "green")
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      angle.start = 0, angle.stop = base::pi,
+                      fill = "salmon")
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1,
+                      angle.start = 0, angle.stop = base::pi,
+                      fill = "cyan")
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      fill = "green")
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust ray colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3, lwd.circle = 0.1,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 0.1, lwd.circle = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      col.circle = "gray")
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust line end style
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.28, 0.33, 0.8, 1.2, 0.6, 0.5, 0.7), size = 15,
+                      lwd.ray = 10)
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.28, 0.33, 0.8, 1.2, 0.6, 0.5, 0.7), size = 15,
+                      lwd.ray = 10, lineend = "butt")
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.28, 0.33, 0.8, 1.2, 0.6, 0.5, 0.7), size = 15,
+                      lwd.ray = 10, lineend = "square")
+
+grid.arrange(mg1, mg2, mg3, nrow = 1, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust grid levels
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Grid levels
+gl <- split(x = c(rep(c(1, 2, 3), 4),
+                  rep(c(1, 2, 3, 4), 2)),
+            f = c(rep(1:4, each = 3),
+                  rep(5:6, each = 4)))
+gl
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.01)
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      lwd.ray = 3, col.points = "white",
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.05)
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      draw.grid = FALSE, grid.levels = gl,
+                      grid.point.size = 0.05)
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.01)
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.05)
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = FALSE, grid.levels = gl)
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust fill, ray and grid level colours
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      draw.grid = TRUE, grid.levels = gl,
+                      col.points = NA,
+                      grid.point.size = 0.05)
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      lwd.ray = 3,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.05)
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      circle.size = 0, col.points = "white",
+                      lwd.ray = 3,
+                      draw.grid = TRUE, grid.levels = gl,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      grid.point.size = 0.05)
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.01)
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      col.circle = "gray",
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = TRUE, grid.levels = gl,
+                      grid.point.size = 0.03, col.points = "gray")
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(1, 3, 2, 1, 2, 3), size = 5,
+                      angle.start = 0, angle.stop = base::pi,
+                      draw.grid = FALSE, grid.levels = gl,
+                      col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
+                      grid.point.size = 0.05)
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 
 }
 \references{

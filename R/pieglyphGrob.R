@@ -47,166 +47,331 @@
 #' \insertAllCited{}
 #'
 #' @examples
-#' p1 <- pieglyphGrob(x = 250, y = 200,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20)
+#' library(gglyph)
+#' library(grid)
+#' library(gridExtra)
 #'
-#' p2 <- pieglyphGrob(x = 500, y = 200,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.radius = FALSE)
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust radius and segment scaling
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' p3 <- pieglyphGrob(x = 900, y = 200,
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.segment = TRUE, scale.radius = FALSE)
+#'                    size = 15)
 #'
-#' p4 <- pieglyphGrob(x = 250, y = 650,
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, angle.start = 0, angle.stop = base::pi)
+#'                    size = 15, scale.radius = FALSE)
 #'
-#' p5 <- pieglyphGrob(x = 500, y = 650,
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.radius = FALSE,
+#'                    size = 15, scale.segment = TRUE, scale.radius = FALSE)
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, scale.radius = FALSE,
 #'                    angle.start = 0, angle.stop = base::pi)
 #'
-#' p6 <- pieglyphGrob(x = 900, y = 650,
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.segment = TRUE, scale.radius = FALSE,
+#'                    size = 15, scale.segment = TRUE, scale.radius = FALSE,
 #'                    angle.start = 0, angle.stop = base::pi)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
-#' grid::grid.draw(p4)
-#' grid::grid.draw(p5)
-#' grid::grid.draw(p6)
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 #'
-#' p1 <- pieglyphGrob(x = 250, y = 200,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust size
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' p2 <- pieglyphGrob(x = 500, y = 200,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.radius = FALSE,
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5)
 #'
-#' p3 <- pieglyphGrob(x = 900, y = 200,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.segment = TRUE, scale.radius = FALSE,
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10)
 #'
-#' p4 <- pieglyphGrob(x = 250, y = 650,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, angle.start = 0, angle.stop = base::pi,
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
 #'
-#' p5 <- pieglyphGrob(x = 500, y = 650,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.radius = FALSE,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5,
+#'                      angle.start = 0, angle.stop = base::pi)
 #'
-#' p6 <- pieglyphGrob(x = 900, y = 650,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, scale.segment = TRUE, scale.radius = FALSE,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                      angle.start = 0, angle.stop = base::pi)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
-#' grid::grid.draw(p4)
-#' grid::grid.draw(p5)
-#' grid::grid.draw(p6)
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      angle.start = 0, angle.stop = base::pi)
 #'
-#' p1 <- pieglyphGrob(x = 300, y = 250,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, lwd = 5)
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 #'
-#' p2 <- pieglyphGrob(x = 500, y = 450,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, lwd = 5, linejoin = "round")
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5,
+#'                     scale.radius = FALSE)
 #'
-#' p3 <- pieglyphGrob(x = 700, y = 650,
-#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
-#'                    size = 20, lwd = 5, linejoin = "bevel")
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.radius = FALSE)
 #'
-#' dims = c(1, 3, 2, 1, 2, 3)
-#' gl <- split(x = rep(c(1, 2, 3), 6),
-#'             f = rep(1:6, each = 3))
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p1 <- pieglyphGrob(x = 200, y = 250,
-#'                    z = dims, size = 8,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 2, col.grid = "black")
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p2 <- pieglyphGrob(x = 700, y = 250,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    z = dims, size = 8,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 2, col.grid = "black")
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p3 <- pieglyphGrob(x = 200, y = 600,
-#'                    z = dims, size = 8, scale.segment = TRUE,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 2, col.grid = "black")
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 #'
-#' p4 <- pieglyphGrob(x = 700, y = 600,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    z = dims, size = 8, scale.segment = TRUE,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 2, col.grid = "black")
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
-#' grid::grid.draw(p4)
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
 #'
-#' dims = c(1, 3, 2, 1, 2, 3)
-#' gl <- split(x = rep(c(1, 2, 3), 6),
-#'             f = rep(1:6, each = 3))
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
 #'
-#' p1 <- pieglyphGrob(x = 200, y = 250,
-#'                    z = dims, size = 8, col = "white",
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 3, col.grid = "white",
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 5,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p2 <- pieglyphGrob(x = 700, y = 250,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    z = dims, size = 8, col = "white",
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 3, col.grid = "white",
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p3 <- pieglyphGrob(x = 200, y = 600,
-#'                    z = dims, size = 8,
-#'                    col = "white", scale.segment = TRUE,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 3, col.grid = "white",
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
 #'
-#' p4 <- pieglyphGrob(x = 700, y = 600,
-#'                    angle.start = 0, angle.stop = base::pi,
-#'                    z = dims, size = 8,
-#'                    col = "white", scale.segment = TRUE,
-#'                    draw.grid = TRUE, grid.levels = gl,
-#'                    lwd = 3, col.grid = "white",
-#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust angle
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10)
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180))
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE)
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180))
+#'
+#' pg7 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
+#'
+#' pg8 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg9 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180))
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9,
+#'              nrow = 3, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust fill colour
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(p1)
-#' grid::grid.draw(p2)
-#' grid::grid.draw(p3)
-#' grid::grid.draw(p4)
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180),
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180),
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg7 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg8 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg9 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 90 * (base::pi/180),
+#'                     angle.stop = 270 * (base::pi/180),
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9,
+#'              nrow = 3, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust line join style
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5)
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5, linejoin = "round")
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5, linejoin = "bevel")
+#'
+#' grid.arrange(pg1, pg2, pg3, nrow = 1, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust grid levels
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Grid levels
+#' gl <- split(x = c(rep(c(1, 2, 3), 4),
+#'                   rep(c(1, 2, 3, 4), 2)),
+#'             f = c(rep(1:4, each = 3),
+#'                   rep(5:6, each = 4)))
+#' gl
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col.grid = "black")
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col.grid = "black")
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     scale.segment = TRUE,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col.grid = "black")
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     scale.segment = TRUE,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col.grid = "black")
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust grid level colours
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Grid levels
+#' gl <- split(x = c(rep(c(1, 2, 3), 4),
+#'                   rep(c(1, 2, 3, 4), 2)),
+#'             f = c(rep(1:4, each = 3),
+#'                   rep(5:6, each = 4)))
+#' gl
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col = "white", col.grid = "white",
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col = "white", col.grid = "white",
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     scale.segment = TRUE,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col = "white", col.grid = "white",
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     angle.start = 0, angle.stop = base::pi,
+#'                     z = c(1, 3, 2, 1, 2, 3), size = 5,
+#'                     scale.segment = TRUE,
+#'                     draw.grid = TRUE, grid.levels = gl,
+#'                     lwd = 2, col = "white", col.grid = "white",
+#'                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
 #'
 pieglyphGrob <- function(x = .5, y = .5, z,
                          size = 1, edges = 200,
