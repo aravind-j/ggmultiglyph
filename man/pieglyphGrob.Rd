@@ -203,6 +203,103 @@ pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust size
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
+
+pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3)
+
+pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5)
+
+pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5,
+                    angle.start = 0, angle.stop = base::pi)
+
+grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+
+pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                    scale.radius = FALSE)
+
+pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3,
+                    scale.radius = FALSE)
+
+pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5,
+                    scale.radius = FALSE)
+
+pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                    scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3,
+                    scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5,
+                    scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+
+pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                    scale.segment = TRUE, scale.radius = FALSE)
+
+pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3,
+                    scale.segment = TRUE, scale.radius = FALSE)
+
+pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5,
+                    scale.segment = TRUE, scale.radius = FALSE)
+
+pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                    scale.segment = TRUE, scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 3,
+                    scale.segment = TRUE, scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 15, lwd = 5,
+                    scale.segment = TRUE, scale.radius = FALSE,
+                    angle.start = 0, angle.stop = base::pi)
+
+grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Adjust angle
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

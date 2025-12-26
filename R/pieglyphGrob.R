@@ -170,6 +170,103 @@
 #' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust size
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15)
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3)
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5)
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.radius = FALSE)
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3,
+#'                     scale.radius = FALSE)
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5,
+#'                     scale.radius = FALSE)
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5,
+#'                     scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+#'
+#' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
+#'
+#' pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
+#'
+#' pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5,
+#'                     scale.segment = TRUE, scale.radius = FALSE)
+#'
+#' pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 3,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                     size = 15, lwd = 5,
+#'                     scale.segment = TRUE, scale.radius = FALSE,
+#'                     angle.start = 0, angle.stop = base::pi)
+#'
+#' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust angle
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
@@ -398,8 +495,8 @@ pieglyphGrob <- function(x = .5, y = .5, z,
   # Checks for grid lines
   drawgridlines <- FALSE
 
-    if (draw.grid) {
-      if (scale.radius ) {
+  if (draw.grid) {
+    if (scale.radius ) {
       if (!is.null(grid.levels)) { # Check if grid lines are to be plotted
         # Check if grid.levels is a list in appropriate format
         if (is.list(grid.levels) &
@@ -423,12 +520,12 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                 'Unable to plot grid lines.')
       }
 
-      } else {
-        warning('"scale.radius" is FALSE.\n',
-                'Unable to plot grid lines.')
-      }
-
+    } else {
+      warning('"scale.radius" is FALSE.\n',
+              'Unable to plot grid lines.')
     }
+
+  }
 
   # Get polygon points
   dimension <- length(z)
@@ -473,9 +570,10 @@ pieglyphGrob <- function(x = .5, y = .5, z,
     # Sector arc coordinates
 
     if (!scale.radius) {
-      # segxylist[[i]] <- data.frame(arcx = c(x, x + (size * cos(arcpr))),
-      #                              arcy = c(y, y + (size * sin(arcpr))),
-      #                              arcid = i)
+      # segxylist[[i]] <-
+      #   data.frame(arcx = c(x, x + (size * cos(arcpr))),
+      #              arcy = c(y, y + (size * sin(arcpr))),
+      #              arcid = i)
       segarcx[[i]] <- unit.c(unit(x, "native") + unit(0, "mm"),
                              unit(x, "native") +
                                unit(size * cos(arcpr), "mm"))
@@ -484,9 +582,10 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                unit(size * sin(arcpr), "mm"))
       segarcid[[i]]  <- rep(i, length(arcp) + 1)
     } else {
-      # segxylist[[i]] <- data.frame(arcx = c(x, x + (z[i] * size * cos(arcpr))),
-      #                              arcy = c(y, y + (z[i] * size * sin(arcpr))),
-      #                              arcid = i)
+      # segxylist[[i]] <-
+      #   data.frame(arcx = c(x, x + (z[i] * size * cos(arcpr))),
+      #              arcy = c(y, y + (z[i] * size * sin(arcpr))),
+      #              arcid = i)
       segarcx[[i]] <- unit.c(unit(x, "native"),
                              unit(x, "native") +
                                unit(z[i] * size * cos(arcpr),
@@ -497,39 +596,50 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                     "mm"))
       segarcid[[i]] <- rep(i, length(arcp) + 1)
       if (drawgridlines) {
-        # gridxylist[[i]] <- lapply(grid.levels[[i]],
-        #                           function(a) if (length(a) == 0) {
-        #                             NA
-        #                           } else{
-        #                             lapply(a,
-        #                                    function(b) data.frame(arcx = c(x + (b * size * cos(arcpr))),
-        #                                                           arcy = c(y + (b * size * sin(arcpr))),
-        #                                                           arcid = paste(i, "_", b, sep = "")))
-        #                           })
-        gridarcx[[i]] <- lapply(grid.levels[[i]],
-                                function(a) if (length(a) == 0) {
-                                  NA
-                                } else{
-                                  upgradeUnit.unit.list(lapply(a,
-                                                               function(b) unit.c(unit(x, "native") +
-                                                                                    unit(b * size * cos(arcpr), "mm"))))
-                                })
-        gridarcy[[i]] <- lapply(grid.levels[[i]],
-                                function(a) if (length(a) == 0) {
-                                  NA
-                                } else{
-                                  upgradeUnit.unit.list(lapply(a,
-                                                               function(b) unit.c(unit(y, "native") +
-                                                                                    unit(b * size * sin(arcpr), "mm"))))
-                                })
-        gridarcid[[i]] <- lapply(grid.levels[[i]],
-                                 function(a) if (length(a) == 0) {
-                                   NA
-                                 } else{
-                                   unlist(lapply(a, function(b) rep(paste(i, "_", b, sep = ""),
-                                                                    length(arcp))))
-                                 })
-
+        # gridxylist[[i]] <-
+        #   lapply(grid.levels[[i]],
+        #          function(a) if (length(a) == 0) {
+        #            NA
+        #          } else{
+        #            lapply(a,
+        #                   function(b) {
+        #                     data.frame(arcx = c(x + (b * size * cos(arcpr))),
+        #                                arcy = c(y + (b * size * sin(arcpr))),
+        #                                arcid = paste(i, "_", b, sep = ""))
+        #                   })
+        #          })
+        gridarcx[[i]] <-
+          lapply(grid.levels[[i]],
+                 function(a) if (length(a) == 0) {
+                   NA
+                 } else{
+                   upgradeUnit.unit.list(
+                     lapply(a,
+                            function(b) {
+                              unit.c(unit(x, "native") +
+                                       unit(b * size * cos(arcpr), "mm"))
+                            }))
+                 })
+        gridarcy[[i]] <-
+          lapply(grid.levels[[i]],
+                 function(a) if (length(a) == 0) {
+                   NA
+                 } else{
+                   upgradeUnit.unit.list(
+                     lapply(a,
+                            function(b) {
+                              unit.c(unit(y, "native") +
+                                       unit(b * size * sin(arcpr), "mm"))
+                            }))
+                 })
+        gridarcid[[i]] <-
+          lapply(grid.levels[[i]],
+                 function(a) if (length(a) == 0) {
+                   NA
+                 } else{
+                   unlist(lapply(a, function(b) rep(paste(i, "_", b, sep = ""),
+                                                    length(arcp))))
+                 })
 
       }
     }

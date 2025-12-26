@@ -107,6 +107,66 @@
 #'
 #' grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
 #'
+#' sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                      whisker = FALSE)
+#'
+#' sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      whisker = FALSE)
+#'
+#' sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
+#'                      whisker = FALSE)
+#'
+#' sg4 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                      whisker = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' sg5 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      whisker = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
+#'                      whisker = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
+#'
+#'
+#'
+#' sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                      contour = FALSE)
+#'
+#' sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      contour = FALSE)
+#'
+#' sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
+#'                      contour = FALSE)
+#'
+#' sg4 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
+#'                      contour = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' sg5 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      contour = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20,
+#'                      contour = FALSE,
+#'                      angle.start = 0, angle.stop = base::pi)
+#'
+#' grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
+#'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust angle
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,6 +269,43 @@
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust whisker and contour colour
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      col.whisker = "salmon", col.contour = "salmon")
+#'
+#' sg2 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      lwd.whisker = 3, lwd.contour = 0.1,
+#'                      col.whisker = "cyan", col.contour = "gray")
+#'
+#' sg3 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      lwd.whisker = 0.1, lwd.contour = 3,
+#'                      col.whisker = "gray", col.contour = "green")
+#'
+#' sg4 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      angle.start = 0, angle.stop = base::pi,
+#'                      col.whisker = "salmon", col.contour = "salmon")
+#'
+#' sg5 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      lwd.whisker = 3, lwd.contour = 0.1,
+#'                      angle.start = 0, angle.stop = base::pi,
+#'                      col.whisker = "cyan", col.contour = "gray")
+#'
+#' sg6 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+#'                      lwd.whisker = 0.1, lwd.contour = 3,
+#'                      angle.start = 0, angle.stop = base::pi,
+#'                      col.whisker = "gray", col.contour = "green")
+#'
+#' grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Multivariate whisker colour
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' sg1 <- starglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
