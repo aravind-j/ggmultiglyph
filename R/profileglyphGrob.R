@@ -46,395 +46,898 @@
 #' \insertAllCited{}
 #'
 #' @examples
-#' # mirror = TRUE
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' barglyph <- profileglyphGrob(x = 200, y = 200, z = dims,
-#'                              size = 20)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 200, z = dims,
-#'                                     size = 20, line = FALSE)
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 200, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE)
-#' grid::grid.newpage()
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 450, z = dims,
-#'                              size = 20,
-#'                              col.bar = "salmon", col.line = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 450, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     col.bar = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 450, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  col.line = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 700, z = dims, size = 20,
-#'                              fill = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 700, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     fill = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 700, z = dims, size = 20,
-#'                                  line = TRUE, bar = FALSE,
-#'                                  fill = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#'
-#' # mirror = FALSE
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' barglyph <- profileglyphGrob(x = 200, y = 300, z = dims,
-#'                              size = 20,
-#'                              mirror = FALSE)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 300, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     mirror = FALSE)
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 300, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  mirror = FALSE)
-#' grid::grid.newpage()
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 550, z = dims,
-#'                              size = 20, mirror = FALSE,
-#'                              col.bar = "salmon", col.line = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 550, z = dims,
-#'                                     size = 20, line = FALSE, mirror = FALSE,
-#'                                     col.bar = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 550, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  mirror = FALSE, col.line = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)#'
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 800, z = dims, size = 20,
-#'                              fill = "salmon", mirror = FALSE)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 800, z = dims,
-#'                                     size = 20, line = FALSE, mirror = FALSE,
-#'                                     fill = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 800, z = dims, size = 20,
-#'                                  line = TRUE, bar = FALSE,
-#'                                  mirror = FALSE, fill = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' # mirror = TRUE, flip.axes = TRUE
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' barglyph <- profileglyphGrob(x = 200, y = 200, z = dims,
-#'                              size = 20, flip.axes = TRUE)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 200, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     flip.axes = TRUE)
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 200, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE)
-#' grid::grid.newpage()
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 450, z = dims,
-#'                              size = 20, flip.axes = TRUE,
-#'                              col.bar = "salmon", col.line = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 450, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     flip.axes = TRUE,
-#'                                     col.bar = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 450, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE,
-#'                                  col.line = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 700, z = dims, size = 20,
-#'                              flip.axes = TRUE,
-#'                              fill = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 700, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     flip.axes = TRUE,
-#'                                     fill = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 700, z = dims, size = 20,
-#'                                  line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE,
-#'                                  fill = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#'
-#' # mirror = FALSE, flip.axes = TRUE
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' barglyph <- profileglyphGrob(x = 200, y = 200, z = dims,
-#'                              size = 20, flip.axes = TRUE,
-#'                              mirror = FALSE)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 200, z = dims,
-#'                                     size = 20, line = FALSE,
-#'                                     flip.axes = TRUE,
-#'                                     mirror = FALSE)
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 200, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE,
-#'                                  mirror = FALSE)
-#' grid::grid.newpage()
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 450, z = dims,
-#'                              size = 20, mirror = FALSE,
-#'                              flip.axes = TRUE,
-#'                              col.bar = "salmon", col.line = "salmon")
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 450, z = dims,
-#'                                     size = 20, line = FALSE, mirror = FALSE,
-#'                                     flip.axes = TRUE,
-#'                                     col.bar = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 450, z = dims,
-#'                                  size = 20, line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE,
-#'                                  mirror = FALSE, col.line = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' barglyph <- profileglyphGrob(x = 200, y = 700, z = dims, size = 20,
-#'                              flip.axes = TRUE,
-#'                              fill = "salmon", mirror = FALSE)
-#'
-#' barprofileglyph <- profileglyphGrob(x = 450, y = 700, z = dims,
-#'                                     size = 20, line = FALSE, mirror = FALSE,
-#'                                     flip.axes = TRUE,
-#'                                     fill = "cyan")
-#'
-#' profileglyph <- profileglyphGrob(x = 700, y = 700, z = dims, size = 20,
-#'                                  line = TRUE, bar = FALSE,
-#'                                  flip.axes = TRUE,
-#'                                  mirror = FALSE, fill = "green")
-#'
-#' grid::grid.draw(barglyph)
-#' grid::grid.draw(barprofileglyph)
-#' grid::grid.draw(profileglyph)
-#'
-#' # linejoin variants
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' pg1 <- profileglyphGrob(x = 200, y = 150, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8)
-#'
-#' pg2 <- profileglyphGrob(x = 500, y = 400, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8,
-#'                         linejoin = "round")
-#'
-#' pg3 <- profileglyphGrob(x = 800, y = 650, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8,
-#'                         linejoin = "bevel")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(pg1)
-#' grid::grid.draw(pg2)
-#' grid::grid.draw(pg3)
-#'
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' pg1 <- profileglyphGrob(x = 200, y = 150, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8,
-#'                         bar = FALSE)
-#'
-#' pg2 <- profileglyphGrob(x = 500, y = 400, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8,
-#'                         linejoin = "round", bar = FALSE)
-#'
-#' pg3 <- profileglyphGrob(x = 800, y = 650, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8,
-#'                         linejoin = "bevel", bar = FALSE)
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(pg1)
-#' grid::grid.draw(pg2)
-#' grid::grid.draw(pg3)
-#'
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' pg1 <- profileglyphGrob(x = 200, y = 150, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8,
-#'                         line = FALSE)
-#'
-#' pg2 <- profileglyphGrob(x = 500, y = 400, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8,
-#'                         linejoin = "round", line = FALSE)
-#'
-#' pg3 <- profileglyphGrob(x = 800, y = 650, z = dims,
-#'                         size = 25, lwd.bar = 5, width = 8,
-#'                         linejoin = "bevel", line = FALSE)
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(pg1)
-#' grid::grid.draw(pg2)
-#' grid::grid.draw(pg3)
-#'
-#' # lineend variants
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' pg1 <- profileglyphGrob(x = 200, y = 150, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8)
-#'
-#' pg2 <- profileglyphGrob(x = 500, y = 400, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8,
-#'                         lineend = "butt")
-#'
-#' pg3 <- profileglyphGrob(x = 800, y = 650, z = dims,
-#'                         size = 25, lwd.line = 5, width = 8,
-#'                         lineend = "square")
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(pg1)
-#' grid::grid.draw(pg2)
-#' grid::grid.draw(pg3)
-#'
-#' # Bars with multiple fill colours
-#' dims = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33)
-#' bg1 <- profileglyphGrob(x = 200, y = 200, z = dims,
-#'                         size = 20,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bpg1 <- profileglyphGrob(x = 700, y = 200, z = dims,
-#'                          size = 20, line = FALSE,
-#'                          fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bg2 <- profileglyphGrob(x = 350, y = 450, z = dims,
-#'                         size = 20, mirror = FALSE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bpg2 <- profileglyphGrob(x = 850, y = 450, z = dims,
-#'                          size = 20, line = FALSE, mirror = FALSE,
-#'                          fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bg3 <- profileglyphGrob(x = 200, y = 650, z = dims,
-#'                         size = 20, flip.axes = TRUE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bpg3 <- profileglyphGrob(x = 700, y = 650, z = dims,
-#'                          size = 20, line = FALSE, flip.axes = TRUE,
-#'                          fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bg4 <- profileglyphGrob(x = 350, y = 700, z = dims,
-#'                         size = 20, mirror = FALSE, flip.axes = TRUE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#' bpg4 <- profileglyphGrob(x = 850, y = 700, z = dims,
-#'                          size = 20, line = FALSE, mirror = FALSE,
-#'                          flip.axes = TRUE,
-#'                          fill = RColorBrewer::brewer.pal(6, "Dark2"))
-#'
-#'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bpg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bpg2)
-#' grid::grid.draw(bg3)
-#' grid::grid.draw(bpg3)
-#' grid::grid.draw(bg4)
-#' grid::grid.draw(bpg4)
+#' library(gglyph)
+#' library(grid)
+#' library(gridExtra)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Profile bar, line, mirror and flip.axes combination
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+# barglyph1 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = FALSE)
+#
+# profileglyph1 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = TRUE, bar = FALSE)
+#
+# barprofileglyph1 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10)
+#
+# barglyph2 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = FALSE, mirror = FALSE)
+#
+# profileglyph2 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, , mirror = FALSE,
+#                    line = TRUE, bar = FALSE)
+#
+# barprofileglyph2 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, mirror = FALSE)
+#
+# barglyph3 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = FALSE, flip.axes = TRUE)
+#
+# profileglyph3 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = TRUE, bar = FALSE,
+#                    flip.axes = TRUE)
+#
+# barprofileglyph3 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, flip.axes = TRUE)
+#
+# barglyph4 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, line = FALSE,
+#                    mirror = FALSE, flip.axes = TRUE)
+#
+# profileglyph4 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, , mirror = FALSE, flip.axes = TRUE,
+#                    line = TRUE, bar = FALSE)
+#
+# barprofileglyph4 <-
+#   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#                    size = 10, mirror = FALSE, flip.axes = TRUE)
+#
+# grid.arrange(barglyph1, profileglyph1, barprofileglyph1,
+#              barglyph2, profileglyph2, barprofileglyph2,
+#              barglyph3, profileglyph3, barprofileglyph3,
+#              barglyph4, profileglyph4, barprofileglyph4,
+#              nrow = 4, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust size
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = FALSE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = TRUE, bar = FALSE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = TRUE, bar = FALSE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, mirror = FALSE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, mirror = FALSE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, mirror = FALSE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, flip.axes = TRUE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, flip.axes = TRUE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, flip.axes = TRUE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 5, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, mirror = FALSE, flip.axes = TRUE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust width
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = FALSE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = TRUE, bar = FALSE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = FALSE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = TRUE, bar = FALSE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE, bar = FALSE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, mirror = FALSE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, mirror = FALSE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE, mirror = FALSE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, mirror = FALSE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, flip.axes = TRUE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, flip.axes = TRUE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE, bar = FALSE,
+#'                    flip.axes = TRUE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, flip.axes = TRUE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 1, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, width = 3, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE,
+#'                    bar = FALSE, mirror = FALSE, flip.axes = TRUE)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, mirror = FALSE, flip.axes = TRUE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust bar and profile line width
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE, bar = FALSE)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE,
+#'                    lwd.bar= 3)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE, bar = FALSE,
+#'                    lwd.line = 3)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, lwd.bar= 3, lwd.line = 3)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = FALSE,
+#'                    lwd.bar= 5)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, line = TRUE, bar = FALSE,
+#'                    lwd.line = 5)
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 10, lwd.bar= 5, lwd.line = 5)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              profileglyph1, profileglyph2, profileglyph3,
+#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 3, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust bar and line colour
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE,
+#'                    col.bar = "cyan")
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE,
+#'                    col.line = "green")
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15,
+#'                    col.bar = "salmon", col.line = "salmon")
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE,
+#'                    fill = "cyan")
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE,
+#'                    fill = "green")
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15,
+#'                    fill = "salmon")
+#'
+#' grid.arrange(barglyph1, barglyph2,
+#'              profileglyph1, profileglyph2,
+#'              barprofileglyph1, barprofileglyph2,
+#'              nrow = 3, ncol = 2)
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE,
+#'                    mirror = FALSE, col.bar = "cyan")
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE,
+#'                    mirror = FALSE, col.line = "green")
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15,
+#'                    mirror = FALSE, col.bar = "salmon", col.line = "salmon")
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = FALSE,
+#'                    mirror = FALSE, fill = "cyan")
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15, line = TRUE, bar = FALSE,
+#'                    mirror = FALSE, fill = "green")
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 15,
+#'                    mirror = FALSE, fill = "salmon")
+#'
+#' grid.arrange(barglyph1, barglyph2,
+#'              profileglyph1, profileglyph2,
+#'              barprofileglyph1, barprofileglyph2,
+#'              nrow = 3, ncol = 2)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Multivariate bar fill colour
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE, mirror = FALSE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, mirror = FALSE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE, flip.axes = TRUE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, flip.axes = TRUE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barglyph4 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, line = FALSE,
+#'                    mirror = FALSE, flip.axes = TRUE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barprofileglyph4 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 20, mirror = FALSE, flip.axes = TRUE,
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' grid.arrange(barglyph1, barprofileglyph1,
+#'              barglyph2, barprofileglyph2,
+#'              barglyph3, barprofileglyph3,
+#'              barglyph4, barprofileglyph4,
+#'              nrow = 2, ncol = 4)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust line join style
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5,
+#'                    line = FALSE)
+#'
+#' barglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5,
+#'                    linejoin = "round", line = FALSE)
+#'
+#' barglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5,
+#'                    linejoin = "bevel", line = FALSE)
+#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3,
+#'              nrow = 1, ncol = 3)
+#'
+#' profileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5,
+#'                    bar = FALSE)
+#'
+#' profileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5,
+#'                    linejoin = "round", bar = FALSE)
+#'
+#' profileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5,
+#'                    linejoin = "bevel", bar = FALSE)
+#'
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3,
+#'              nrow = 1, ncol = 3)
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5,
+#'                    linejoin = "round")
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.bar = 10, width = 5,
+#'                    linejoin = "bevel")
+#'
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 1, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust line end style
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5)
+#'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5,
+#'                    lineend = "butt")
+#'
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                    size = 25, lwd.line = 10, width = 5,
+#'                    lineend = "square")
+#'
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3,
+#'              nrow = 1, ncol = 3)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust grid levels
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # Grid lines
-#' dims = c(1, 3, 2, 1, 2, 3)
 #' gl <- split(x = rep(c(1, 2, 3), 6),
 #'             f = rep(1:6, each = 3))
 #'
-#' bg1 <- profileglyphGrob(x = 150, y = 200, z = dims,
-#'                         size = 10, width = 5,
-#'                         draw.grid = TRUE, lwd.bar = 5,
-#'                         grid.levels = gl, col.grid = "black")
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5,
+#'                    draw.grid = TRUE, lwd.bar = 5,
+#'                    grid.levels = gl, col.grid = "black")
 #'
-#' bg2 <- profileglyphGrob(x = 400, y = 250, z = dims,
-#'                         size = 10, width = 5, lwd.bar = 5,
-#'                         draw.grid = TRUE, mirror = FALSE,
-#'                         grid.levels = gl, col.grid = "black")
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, lwd.bar = 5,
+#'                    draw.grid = TRUE, mirror = FALSE,
+#'                    grid.levels = gl, col.grid = "black")
 #'
-#' bg3 <- profileglyphGrob(x = 650, y = 200, z = dims,
-#'                         size = 10, width = 5, flip.axes = TRUE,
-#'                         draw.grid = TRUE, lwd.bar = 5,
-#'                         grid.levels = gl, col.grid = "black")
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, flip.axes = TRUE,
+#'                    draw.grid = TRUE, lwd.bar = 5,
+#'                    grid.levels = gl, col.grid = "black")
 #'
-#' bg4 <- profileglyphGrob(x = 800, y = 200, z = dims,
-#'                         size = 10, width = 5, flip.axes = TRUE,
-#'                         draw.grid = TRUE, mirror = FALSE,
-#'                         grid.levels = gl, col.grid = "black",
-#'                         lwd.bar = 5)
+#' barprofileglyph4 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, flip.axes = TRUE,
+#'                    draw.grid = TRUE, lwd.bar = 5, mirror = FALSE,
+#'                    grid.levels = gl, col.grid = "black")
 #'
-#' bg5 <- profileglyphGrob(x = 150, y = 500, z = dims,
-#'                         size = 10, width = 5,
-#'                         draw.grid = TRUE, lwd.bar = 5,
-#'                         grid.levels = gl, col.grid = "white",
-#'                         col.bar = "white", line = FALSE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' grid.arrange(barprofileglyph1, barprofileglyph2,
+#'              barprofileglyph3, barprofileglyph4,
+#'              nrow = 2, ncol = 2)
 #'
-#' bg6 <- profileglyphGrob(x = 400, y = 550, z = dims,
-#'                         size = 10, width = 5, lwd.bar = 5,
-#'                         draw.grid = TRUE, mirror = FALSE,
-#'                         grid.levels = gl, col.grid = "white",
-#'                         col.bar = "white", line = FALSE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Adjust grid level colours
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' bg7 <- profileglyphGrob(x = 650, y = 500, z = dims,
-#'                         size = 10, width = 5, flip.axes = TRUE,
-#'                         draw.grid = TRUE, lwd.bar = 5,
-#'                         grid.levels = gl, col.grid = "white",
-#'                         col.bar = "white", line = FALSE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' # Grid lines
+#' gl <- split(x = rep(c(1, 2, 3), 6),
+#'             f = rep(1:6, each = 3))
 #'
-#' bg8 <- profileglyphGrob(x = 800, y = 500, z = dims,
-#'                         size = 10, width = 5, flip.axes = TRUE,
-#'                         draw.grid = TRUE, mirror = FALSE,
-#'                         grid.levels = gl, col.grid = "white",
-#'                         col.bar = "white", lwd.bar = 5, line = FALSE,
-#'                         fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#' barprofileglyph1 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5,
+#'                    draw.grid = TRUE, lwd.bar = 5,
+#'                    grid.levels = gl, line = FALSE,
+#'                    col.grid = "white", col.bar = "white",
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
 #'
+#' barprofileglyph2 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, lwd.bar = 5,
+#'                    draw.grid = TRUE, mirror = FALSE,
+#'                    grid.levels = gl, line = FALSE,
+#'                    col.grid = "white", col.bar = "white",
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
 #'
-#' grid::grid.newpage()
-#' grid::grid.draw(bg1)
-#' grid::grid.draw(bg2)
-#' grid::grid.draw(bg3)
-#' grid::grid.draw(bg4)
-#' grid::grid.draw(bg5)
-#' grid::grid.draw(bg6)
-#' grid::grid.draw(bg7)
-#' grid::grid.draw(bg8)
+#' barprofileglyph3 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, flip.axes = TRUE,
+#'                    draw.grid = TRUE, lwd.bar = 5,
+#'                    grid.levels = gl, line = FALSE,
+#'                    col.grid = "white", col.bar = "white",
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' barprofileglyph4 <-
+#'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                    z = c(1, 3, 2, 1, 2, 3),
+#'                    size = 10, width = 5, flip.axes = TRUE,
+#'                    draw.grid = TRUE, lwd.bar = 5, mirror = FALSE,
+#'                    grid.levels = gl, line = FALSE,
+#'                    col.grid = "white", col.bar = "white",
+#'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' grid.arrange(barprofileglyph1, barprofileglyph2,
+#'              barprofileglyph3, barprofileglyph4,
+#'              nrow = 2, ncol = 2)
 #'
 profileglyphGrob <- function(x = .5, y = .5, z,
                           size = 1,
