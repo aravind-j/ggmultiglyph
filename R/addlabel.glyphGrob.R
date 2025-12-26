@@ -382,11 +382,24 @@ addlabel.glyphGrob <- function(grob, label,
       yn_list <- split(grob$children[[1]]$y, grob$children[[1]]$id)
 
       xn <- lapply(seq_along(xn_list), function(i) {
-        boxdim(xn_list[[i]], "mean")
+        sumunit_list <- xn_list[[i]]
+        if (length(unitType(sumunit_list[[1]], recurse = TRUE))) {
+          sumunit_list <- sumunit_list[-1]
+        }
+        # sumunit_list <-
+        #   sumunit_list[1] + unit(0, "mm") #Add 0 mm to first unit
+        boxdim(sumunit_list, "mean")
       })
       xn <- do.call(unit.c, xn)
+
       yn <- lapply(seq_along(yn_list), function(i) {
-        boxdim(yn_list[[i]], "mean")
+        sumunit_list <- yn_list[[i]]
+        if (length(unitType(sumunit_list[[1]], recurse = TRUE))) {
+          sumunit_list <- sumunit_list[-1]
+        }
+        # sumunit_list <-
+        #   sumunit_list[1] + unit(0, "mm") #Add 0 mm to first unit
+        boxdim(sumunit_list, "mean")
       })
       yn <- do.call(unit.c, yn)
 

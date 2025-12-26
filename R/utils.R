@@ -24,6 +24,22 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
   df <- df[unlist(lapply(df, length)) == 6]
   df <- data.frame(do.call(rbind,  df))
 
+  input_anchor_unit <- sapply(x, function(sumunit) {
+    unitType(sumunit, recurse = TRUE)$sum[[1]]
+  })
+
+  input_2nd_unit <- sapply(x, function(sumunit) {
+    unitType(sumunit, recurse = TRUE)$sum[[2]]
+  })
+
+  if (length(unique(input_anchor_unit)) == 1 &&
+      length(unique(input_2nd_unit)) == 1 ) {
+    input_anchor_unit <- unique(input_anchor_unit)
+    input_2nd_unit <- unique(input_2nd_unit)
+  } else {
+    stop('Non standard "sum" units detected.')
+  }
+
   d1 <- unique(df[, 2])
 
   if (length(d1) > 1) {
@@ -42,7 +58,8 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
     d2 <- mean(df[, 4])
   }
 
-  out <- unit(d1, "native") + unit(d2, "mm")
+  # out <- unit(d1, "native") + unit(d2, "mm")
+  out <- unit(d1, input_anchor_unit) + unit(d2, input_2nd_unit)
 
   return(out)
 
@@ -51,15 +68,24 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
 # Get raw units from a sum unit : sum(400native, 6mm)
 raw_units <- function(sumunit) {
 
-  unit_raw <- unclass(sumunit)[[1]][[2]]
+  sumunit_length <- length(unlist(unitType(sumunit, recurse = TRUE)$sum))
+  unit_names <- unique(unlist(unitType(sumunit, recurse = TRUE)$sum))
 
-  npc_ind <- sapply(unit_raw, unitType) == "native"
-  mm_ind <- sapply(unit_raw, unitType) == "mm"
+  if (sumunit_length != length(unit_names)) {
 
-  out <- c(npc = sum(sapply(unit_raw[npc_ind],
-                            function(u) unlist(u)[[1]])),
-           mm = sum(sapply(unit_raw[mm_ind],
-                           function(u) unlist(u)[[1]])))
+    unit_raw <- unclass(sumunit)[[1]][[2]]
+
+    out <- lapply(seq_along(unit_names), function(i) {
+      u_ind <- sapply(unit_raw, unitType) == unit_names[i]
+      sum(sapply(unit_raw[u_ind],
+                 function(u) unlist(u)[[1]]))
+    })
+
+    names(out) <- unit_names
+
+  } else {
+    out <- sumunit
+  }
 
   return(out)
 }
@@ -68,7 +94,15 @@ raw_units <- function(sumunit) {
 # sum(400native, 6mm, -4mm) -> sum(400native, 2mm)
 simplify_mm <- function(sumunit) {
   raw <- raw_units(sumunit)
-  unit(raw[["npc"]], "native") + unit(raw[["mm"]], "mm")
+
+  unit_names <- names(raw)
+
+  unit_list <- lapply(seq_along(unit_names), function(i) {
+    unit(raw[[unit_names[i]]], unit_names[i])
+  })
+
+  sum(upgradeUnit.unit.list(unit_list))
+
 }
 
 reconstruct_sumunit <- function(toconvert, raw_units) {
