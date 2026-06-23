@@ -538,8 +538,12 @@ geom_profileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     ...)
 
   # Modify geom aesthetics to include cols
-  geomout <- GeomProfileGlyph
-  geomout$required_aes <- c(geomout$required_aes, cols)
+  # geomout <- GeomProfileGlyph
+  # geomout$required_aes <- c(geomout$required_aes, cols)
+
+  geomout <- ggplot2::ggproto(NULL, GeomProfileGlyph,
+                              required_aes = c(GeomProfileGlyph$required_aes,
+                                               cols))
 
   ggplot2::layer(
     data = data,

@@ -309,8 +309,12 @@ geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     ...)
 
   # Modify geom aesthetics to include cols
-  geomout <- GeomMetroGlyph
-  geomout$required_aes <- c(geomout$required_aes, cols)
+  # geomout <- GeomMetroGlyph
+  # geomout$required_aes <- c(geomout$required_aes, cols)
+
+  geomout <- ggplot2::ggproto(NULL, GeomMetroGlyph,
+                              required_aes = c(GeomMetroGlyph$required_aes,
+                                               cols))
 
   ggplot2::layer(
     data = data,

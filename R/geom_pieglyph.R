@@ -379,7 +379,10 @@ geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
 
   # Modify geom aesthetics to include cols
   geomout <- GeomPieGlyph
-  geomout$required_aes <- c(geomout$required_aes, cols)
+  # geomout$required_aes <- c(geomout$required_aes, cols)
+  geomout <- ggplot2::ggproto(NULL, GeomPieGlyph,
+                              required_aes = c(GeomPieGlyph$required_aes,
+                                               cols))
 
   ggplot2::layer(
     data = data,

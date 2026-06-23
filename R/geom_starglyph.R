@@ -291,11 +291,22 @@ geom_starglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     ...)
 
   # Modify geom aesthetics to include cols
-  geomout <- GeomStarGlyph
-  geomout$required_aes <- c(geomout$required_aes, cols)
+  # geomout <- GeomStarGlyph
+  # geomout$required_aes <- c(geomout$required_aes, cols)
+  #
+  # geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
+  # class(geomout$default_aes) <- "uneval"
 
-  geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
-  class(geomout$default_aes) <- "uneval"
+  geomout <-
+    ggplot2::ggproto(NULL, GeomStarGlyph,
+                     required_aes = c(GeomStarGlyph$required_aes,
+                                      cols),
+                     default_aes = {
+                       aes_new <- c(GeomStarGlyph$default_aes,
+                                    legend.glyph.dims)
+                       class(aes_new) <- "uneval"
+                       aes_new
+                     })
 
   ggplot2::layer(
     data = data,

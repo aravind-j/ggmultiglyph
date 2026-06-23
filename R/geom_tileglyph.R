@@ -183,11 +183,21 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     ...)
 
   # Modify geom aesthetics to include cols
-  geomout <- GeomTileGlyph
-  geomout$required_aes <- c(geomout$required_aes, cols)
+  # geomout <- GeomTileGlyph
+  # geomout$required_aes <- c(geomout$required_aes, cols)
+  #
+  # geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
+  # class(geomout$default_aes) <- "uneval"
 
-  geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
-  class(geomout$default_aes) <- "uneval"
+  geomout <- ggplot2::ggproto(NULL, GeomTileGlyph,
+                              required_aes = c(GeomTileGlyph$required_aes,
+                                               cols),
+                              default_aes = {
+                                aes_new <- c(GeomTileGlyph$default_aes,
+                                             legend.glyph.dims)
+                                class(aes_new) <- "uneval"
+                                aes_new
+                              })
 
   ggplot2::layer(
     data = data,
