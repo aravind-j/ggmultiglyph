@@ -170,7 +170,7 @@
 #' grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # Adjust size
+#' # Adjust line width
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -565,7 +565,8 @@ pieglyphGrob <- function(x = .5, y = .5, z,
     arcp <- seq.int(cumpropz[i], cumpropz[i + 1], length.out = n)
 
     # Sector arc point radians
-    arcpr <- (angle.stop * arcp) + (angle.start * (pi / 180))
+    # arcpr <- (angle.stop * arcp) + (angle.start * (pi / 180))
+    arcpr <- angle.start + arcp * (angle.stop - angle.start)
 
     # Sector arc coordinates
 
@@ -586,11 +587,19 @@ pieglyphGrob <- function(x = .5, y = .5, z,
       #   data.frame(arcx = c(x, x + (z[i] * size * cos(arcpr))),
       #              arcy = c(y, y + (z[i] * size * sin(arcpr))),
       #              arcid = i)
-      segarcx[[i]] <- unit.c(unit(x, "native"),
+      # segarcx[[i]] <- unit.c(unit(x, "native"),
+      #                        unit(x, "native") +
+      #                          unit(z[i] * size * cos(arcpr),
+      #                               "mm"))
+      # segarcy[[i]] <- unit.c(unit(y, "native"),
+      #                        unit(y, "native") +
+      #                          unit(z[i] * size * sin(arcpr),
+      #                               "mm"))
+      segarcx[[i]] <- unit.c(unit(x, "native") + unit(0, "mm"),
                              unit(x, "native") +
                                unit(z[i] * size * cos(arcpr),
                                     "mm"))
-      segarcy[[i]] <- unit.c(unit(y, "native"),
+      segarcy[[i]] <- unit.c(unit(y, "native") + unit(0, "mm"),
                              unit(y, "native") +
                                unit(z[i] * size * sin(arcpr),
                                     "mm"))
