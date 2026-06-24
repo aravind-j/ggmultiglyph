@@ -59,4 +59,5 @@ reference:
          - '`gglyph.repel.control`'
          - '`gglyph.segment.control`'
          - '`scale_z_continuous`'
+         - '`guide_z_order`'
          - '`addlabel.glyphGrob`'
