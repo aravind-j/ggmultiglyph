@@ -263,6 +263,7 @@ geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                             draw.grid = FALSE,
                             grid.point.size = 1,
                             show.legend = NA,
+                            legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                             repel = FALSE,
                             repel.control = gglyph.repel.control(),
                             inherit.aes = TRUE) {
@@ -270,6 +271,28 @@ geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Check cols
   if (!(is.character(cols) & length(cols) >= 2)) {
     stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
+  # Check legend.glyph.dims
+  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+
+    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+  } else { # Check if legend.glyph.dims has same length as cols
+    if (is.numeric(legend.glyph.dims)
+        & length(legend.glyph.dims) == length(cols)) {
+
+      # Check names of legend.glyph.dims
+      if (!(all(names(legend.glyph.dims) %in% cols)
+            && all(cols %in% names(legend.glyph.dims)))) {
+        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+      }
+
+    } else {
+      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
+           'a numeric vector of same length as "cols" ',
+           'with the "cols" as names.')
+    }
   }
 
   # Modify mapping to include cols
@@ -312,9 +335,15 @@ geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # geomout <- GeomMetroGlyph
   # geomout$required_aes <- c(geomout$required_aes, cols)
 
-  geomout <- ggplot2::ggproto(NULL, GeomMetroGlyph,
-                              required_aes = c(GeomMetroGlyph$required_aes,
-                                               cols))
+  geomout <-
+    ggproto(NULL, GeomMetroGlyph,
+            required_aes = c(GeomMetroGlyph$required_aes, cols),
+            default_aes = {
+              aes_new <- c(GeomMetroGlyph$default_aes,
+                           legend.glyph.dims)
+              class(aes_new) <- "uneval"
+              aes_new
+            })
 
   ggplot2::layer(
     data = data,
@@ -351,13 +380,6 @@ GeomMetroGlyph <- ggplot2::ggproto("GeomMetroGlyph", ggplot2::Geom,
                                                               segment.squareShape = 1,
                                                               segment.inflect = FALSE,
                                                               segment.debug = FALSE),
-
-                                   draw_key = ggplot2::draw_key_polygon,
-
-                                   setup_params = function(data, params) {
-
-                                     params
-                                   },
 
                                    setup_data = function(data, params) {
 
@@ -561,6 +583,64 @@ GeomMetroGlyph <- ggplot2::ggproto("GeomMetroGlyph", ggplot2::Geom,
                                      #                             gp = grid::gpar(col = data$colour,
                                      #                                             fill = data$fill))
                                      #          )))
+                                   },
+                                   draw_key = function(data, params, size) {
+
+                                     if (params$full) {
+                                       astrt <- 0
+                                       astp <- 2 * base::pi
+                                     } else {
+                                       astrt <- 0
+                                       astp <- base::pi
+                                     }
+
+                                     grid.levels <- NULL
+
+                                     # Convert factor columns to equivalent numeric
+                                     if (params$draw.grid) {
+                                       grid.levels <- lapply(data[, params$cols],
+                                                             function(a) ceiling(a))
+                                     }
+
+                                     metroglyphGrob(
+                                       x = .5,
+                                       y = .5,
+                                       z = if (params$draw.grid) {
+                                         ceiling(unlist(data[, params$cols]))
+                                       } else {
+                                         unlist(data[, params$cols])
+                                         },
+                                       size = data$size,
+                                       circle.size = data$circle.size,
+                                       col.ray = if (is.null(params$colour.ray)) {
+                                         data$colour
+                                       } else {
+                                         params$colour.ray
+                                         },
+                                       col.circle = if (is.null(params$colour.circle)) {
+                                         data$colour
+                                       } else {
+                                         params$colour.circle
+                                         },
+                                       col.points = if (is.null(params$colour.points)) {
+                                         if (is.null(params$colour.ray)) {
+                                           data$colour
+                                           } else {
+                                             NA}
+                                       } else {
+                                         params$colour.points
+                                       },
+                                       fill = data$fill,
+                                       lwd.ray = params$linewidth.ray,
+                                       lwd.circle = params$linewidth.circle,
+                                       alpha = data$alpha,
+                                       angle.start = astrt,
+                                       angle.stop = astp,
+                                       lineend = params$lineend,
+                                       grid.levels = grid.levels,
+                                       draw.grid = params$draw.grid,
+                                       grid.point.size = grid::unit(params$grid.point.size, "pt")
+                                     )
                                    }
 )
 

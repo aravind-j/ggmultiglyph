@@ -331,6 +331,7 @@ geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           scale.radius = TRUE,
                           full = TRUE,
                           draw.grid = FALSE,
+                          legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                           show.legend = NA,
                           repel = FALSE,
                           repel.control = gglyph.repel.control(),
@@ -339,6 +340,28 @@ geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Check cols
   if (!(is.character(cols) & length(cols) >= 2)) {
     stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
+  # Check legend.glyph.dims
+  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+
+    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+  } else { # Check if legend.glyph.dims has same length as cols
+    if (is.numeric(legend.glyph.dims)
+        & length(legend.glyph.dims) == length(cols)) {
+
+      # Check names of legend.glyph.dims
+      if (!(all(names(legend.glyph.dims) %in% cols)
+            && all(cols %in% names(legend.glyph.dims)))) {
+        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+      }
+
+    } else {
+      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
+           'a numeric vector of same length as "cols" ',
+           'with the "cols" as names.')
+    }
   }
 
   # Modify mapping to include cols
@@ -380,9 +403,16 @@ geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Modify geom aesthetics to include cols
   geomout <- GeomPieGlyph
   # geomout$required_aes <- c(geomout$required_aes, cols)
-  geomout <- ggplot2::ggproto(NULL, GeomPieGlyph,
-                              required_aes = c(GeomPieGlyph$required_aes,
-                                               cols))
+  geomout <-
+    ggplot2::ggproto(NULL, GeomPieGlyph,
+                     required_aes = c(GeomPieGlyph$required_aes,
+                                      cols),
+                     default_aes = {
+                       aes_new <- c(GeomPieGlyph$default_aes,
+                                    legend.glyph.dims)
+                       class(aes_new) <- "uneval"
+                       aes_new
+                     })
 
   ggplot2::layer(
     data = data,
@@ -416,8 +446,6 @@ GeomPieGlyph <- ggplot2::ggproto("GeomPieGlyph", ggplot2::Geom,
                                                             segment.squareShape = 1,
                                                             segment.inflect = FALSE,
                                                             segment.debug = FALSE),
-
-                                 draw_key = ggplot2::draw_key_polygon,
 
                                  setup_params = function(data, params) {
 
@@ -639,6 +667,57 @@ GeomPieGlyph <- ggplot2::ggproto("GeomPieGlyph", ggplot2::Geom,
                                    #                             gp = grid::gpar(col = data$colour,
                                    #                                             fill = data$fill))
                                    #          )))
+                                 },
+
+                                 draw_key = function(data, params, size) {
+
+                                   if (params$full) {
+                                     astrt <- 0
+                                     astp <- 2 * base::pi
+                                   } else {
+                                     astrt <- 0
+                                     astp <- base::pi
+                                   }
+
+                                   grid.levels <- NULL
+                                   if (params$draw.grid) {
+                                     grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
+                                   }
+
+                                   pieglyphGrob(
+                                     x = .5,
+                                     y = .5,
+                                     z = if (params$draw.grid) {
+                                       ceiling(unlist(data[, params$cols]))
+                                     } else {
+                                       unlist(data[, params$cols])
+                                       },
+                                     size = data$size,
+                                     edges = params$edges,
+                                     col = data$colour,
+                                     fill = if (is.null(params$fill.segment)) {
+                                       data$fill
+                                     }
+                                     else {
+                                       params$fill.segment
+                                       },
+                                     lwd = params$linewidth,
+                                     lwd.grid = params$linewidth.grid,
+                                     alpha = data$alpha,
+                                     angle.start = astrt,
+                                     angle.stop = astp,
+                                     scale.segment = params$scale.segment,
+                                     scale.radius = params$scale.radius,
+                                     linejoin = "mitre",
+                                     grid.levels = grid.levels,
+                                     draw.grid = params$draw.grid,
+                                     col.grid = if (is.null(params$colour.grid)) {
+                                       data$colour
+                                     }
+                                     else {
+                                 params$colour.grid
+                                     }
+                                   )
                                  }
 )
 
