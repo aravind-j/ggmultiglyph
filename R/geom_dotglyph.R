@@ -260,6 +260,7 @@ geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           linewidth = 1,
                           mirror = TRUE,
                           flip.axes = FALSE,
+                          legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                           show.legend = NA,
                           repel = FALSE,
                           repel.control = gglyph.repel.control(),
@@ -268,6 +269,28 @@ geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Check cols
   if (!(is.character(cols) & length(cols) >= 2)) {
     stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
+  # Check legend.glyph.dims
+  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+
+    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+  } else { # Check if legend.glyph.dims has same length as cols
+    if (is.numeric(legend.glyph.dims)
+        & length(legend.glyph.dims) == length(cols)) {
+
+      # Check names of legend.glyph.dims
+      if (!(all(names(legend.glyph.dims) %in% cols)
+            && all(cols %in% names(legend.glyph.dims)))) {
+        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+      }
+
+    } else {
+      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
+           'a numeric vector of same length as "cols" ',
+           'with the "cols" as names.')
+    }
   }
 
   # Modify mapping to include cols
@@ -306,9 +329,16 @@ geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # geomout <- GeomDotGlyph
   # geomout$required_aes <- c(geomout$required_aes, cols)
 
-  geomout <- ggplot2::ggproto(NULL, GeomDotGlyph,
-                              required_aes = c(GeomDotGlyph$required_aes,
-                                               cols))
+  geomout <-
+    ggplot2::ggproto(NULL, GeomDotGlyph,
+                     required_aes = c(GeomDotGlyph$required_aes,
+                                      cols),
+                     default_aes = {
+                       aes_new <- c(GeomDotGlyph$default_aes,
+                                    legend.glyph.dims)
+                       class(aes_new) <- "uneval"
+                       aes_new
+                     })
 
   ggplot2::layer(
     data = data,
@@ -341,8 +371,6 @@ GeomDotGlyph <- ggplot2::ggproto("GeomDotGlyph", ggplot2::Geom,
                                                             segment.squareShape = 1,
                                                             segment.inflect = FALSE,
                                                             segment.debug = FALSE),
-
-                                 draw_key = ggplot2::draw_key_polygon,
 
                                  setup_params = function(data, params) {
 
@@ -527,6 +555,28 @@ GeomDotGlyph <- ggplot2::ggproto("GeomDotGlyph", ggplot2::Geom,
                                    #                             gp = grid::gpar(col = data$colour,
                                    #                                             fill = data$fill))
                                    #          )))
+                                 },
+
+                                 draw_key = function(data, params, size) {
+
+                                   dotglyphGrob(
+                                     x = .5,
+                                     y = .5,
+                                     z = unlist(data[, params$cols]),
+                                     radius = params$radius,
+                                     mirror = params$mirror,
+                                     flip.axes = params$flip.axes,
+                                     fill = if (is.null(params$fill.dot)) {
+                                       data$fill
+                                     } else {
+                                       unlist(mapply(function(a, b) rep(a, b),
+                                                     params$fill.dot,
+                                                     round(unlist(data[, params$cols]))))
+                                     },
+                                     col = data$colour,
+                                     lwd = params$linewidth,
+                                     alpha = data$alpha
+                                   )
                                  }
 )
 
