@@ -117,7 +117,8 @@ dotglyphGrob <- function(x = .5, y = .5, z,
                          alpha = 1,
                          mirror = FALSE,
                          flip.axes = FALSE) {
-  z <- round(z)
+  # z <- round(z)
+  z <- ceiling(z)
   dimension <- length(z)
 
   # grid::grid.points(x = x, y = y, pch =  20)
@@ -142,13 +143,15 @@ dotglyphGrob <- function(x = .5, y = .5, z,
     # ypos <- rep(y, dimension)
     ypos <- rep(unit(y, "native"), dimension)
 
-    circx <- mapply(function(a, b) rep(a, b), xpos, z)
+    # circx <- mapply(function(a, b) rep(a, b), xpos, z)
+    circx <- Map(function(a, b) rep(a, b), xpos, z)
     # circy <- lapply(z, function(c) y - (1:c * (radius * 2)) + radius)
     circy <- lapply(z, function(c) unit(y, "native") +
                       (1:c * ((radius + lwd2) * 2)) - (radius + lwd2))
 
     if (mirror) {
-      circy <- mapply(function(a, b) a - ((radius + lwd2) * b), circy, z)
+      # circy <- mapply(function(a, b) a - ((radius + lwd2) * b), circy, z)
+      circy <- Map(function(a, b) a - ((radius + lwd2) * b), circy, z)
     }
 
   } else {
@@ -158,13 +161,15 @@ dotglyphGrob <- function(x = .5, y = .5, z,
     #                                 length.out = dimension))
     ypos <- unit(y, "native") - stksq
 
-    circy <- mapply(function(a, b) rep(a, b), ypos, z)
+    # circy <- mapply(function(a, b) rep(a, b), ypos, z)
+    circy <- Map(function(a, b) rep(a, b), ypos, z)
     # circx <- lapply(z, function(c) x + (1:c * (radius * 2)) - radius)
     circx <- lapply(z, function(c) unit(x, "native") +
                       (1:c * ((radius + lwd2) * 2)) - (radius + lwd2))
 
     if (mirror) {
-      circx <- mapply(function(a, b) a - ((radius + lwd2) * b), circx, z)
+      # circx <- mapply(function(a, b) a - ((radius + lwd2) * b), circx, z)
+      circx <- Map(function(a, b) a - ((radius + lwd2) * b), circx, z)
     }
 
   }
@@ -172,8 +177,11 @@ dotglyphGrob <- function(x = .5, y = .5, z,
   # circx <- unlist(circx)
   # circy <- unlist(circy)
 
-  circx <- upgradeUnit.unit.list(circx)
-  circy <- upgradeUnit.unit.list(circy)
+  # circx <- upgradeUnit.unit.list(circx)
+  # circy <- upgradeUnit.unit.list(circy)
+
+  circx <- do.call(grid::unit.c, circx)
+  circy <- do.call(grid::unit.c, circy)
 
   # grid::grid.points(x = xpos, y = ypos, pch =  1)
 
