@@ -21,17 +21,18 @@ Helper function to preserve the display order of legends associated with
 multiple \code{col} aesthetics.
 }
 \details{
-This function is primarily intended for use with \code{gglyph} scales such
-as \code{scale_z_continuous()}. Internally, \pkg{ggplot2} may not preserve
-the order of aesthetics supplied to a scale when guides are assembled during
-plot construction (via the internal guide setup machinery). As a result,
+This function is primarily intended for use with \code{gglyph} scales such as
+\code{scale_z_continuous()}. Internally, \pkg{ggplot2} may not preserve the
+order of aesthetics supplied to a scale when guides are assembled during plot
+construction (via the internal guide setup machinery i.e.
+\code{ggplot2:::Guides$setup()} in \code{ggplot2} v 4.0.0). As a result,
 legends corresponding to \code{z} aesthetics can appear in an order that
 differs from the order specified by the user.
 
 \code{guide_z_order()} constructs a \code{guides()} specification that
-explicitly assigns guide orders, ensuring that the default ggplot2
-aesthetic legend (FOr example, \code{"fill"}) is displayed first, followed by
-the supplied \code{z} aesthetics in the order given.
+explicitly assigns guide orders, ensuring that the default ggplot2 aesthetic
+legend (FOr example, \code{"fill"}) is displayed first, followed by the
+supplied \code{z} aesthetics in the order given.
 }
 \examples{
 zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
@@ -98,6 +99,5 @@ ggplot(data = mtcars) +
 
 }
 \seealso{
-\code{\link[ggplot2]{guides}},
-\code{\link[ggplot2]{guide_legend}}
+\code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{guide_legend}}
 }

@@ -171,11 +171,11 @@ grid::grid.draw(tg3)
 \seealso{
 \code{\link[gglyph]{geom_tileglyph}}
 
-Other grobs: 
-\code{\link{dotglyphGrob}()},
-\code{\link{metroglyphGrob}()},
-\code{\link{pieglyphGrob}()},
-\code{\link{profileglyphGrob}()},
-\code{\link{starglyphGrob}()}
+Other grobs:
+\code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=metroglyphGrob]{metroglyphGrob()}},
+\code{\link[=pieglyphGrob]{pieglyphGrob()}},
+\code{\link[=profileglyphGrob]{profileglyphGrob()}},
+\code{\link[=starglyphGrob]{starglyphGrob()}}
 }
 \concept{grobs}

@@ -984,11 +984,11 @@ grid.arrange(barprofileglyph1, barprofileglyph2,
 \seealso{
 \code{\link[gglyph]{geom_profileglyph}}
 
-Other grobs: 
-\code{\link{dotglyphGrob}()},
-\code{\link{metroglyphGrob}()},
-\code{\link{pieglyphGrob}()},
-\code{\link{starglyphGrob}()},
-\code{\link{tileglyphGrob}()}
+Other grobs:
+\code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=metroglyphGrob]{metroglyphGrob()}},
+\code{\link[=pieglyphGrob]{pieglyphGrob()}},
+\code{\link[=starglyphGrob]{starglyphGrob()}},
+\code{\link[=tileglyphGrob]{tileglyphGrob()}}
 }
 \concept{grobs}

@@ -383,11 +383,11 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 \seealso{
 \code{\link[gglyph]{geom_metroglyph}}
 
-Other grobs: 
-\code{\link{dotglyphGrob}()},
-\code{\link{pieglyphGrob}()},
-\code{\link{profileglyphGrob}()},
-\code{\link{starglyphGrob}()},
-\code{\link{tileglyphGrob}()}
+Other grobs:
+\code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=pieglyphGrob]{pieglyphGrob()}},
+\code{\link[=profileglyphGrob]{profileglyphGrob()}},
+\code{\link[=starglyphGrob]{starglyphGrob()}},
+\code{\link[=tileglyphGrob]{tileglyphGrob()}}
 }
 \concept{grobs}

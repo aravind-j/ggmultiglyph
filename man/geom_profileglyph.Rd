@@ -26,6 +26,7 @@ geom_profileglyph(
   line = TRUE,
   mirror = TRUE,
   draw.grid = FALSE,
+  legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
   show.legend = NA,
   repel = FALSE,
   repel.control = gglyph.repel.control(),
@@ -33,10 +34,10 @@ geom_profileglyph(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -53,11 +54,31 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used to override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[ggplot2:layer_positions]{layer position} documentation.
+}}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2]{layer}()}. These
 are often aesthetics, used to set an aesthetic to a fixed value, like
@@ -101,11 +122,18 @@ the \code{\link[scales]{scales}} package for available options.}
 whiskers if all the variables specified in \code{cols} are of type
 \link[base]{factor}. Default is \code{FALSE}.}
 
+\item{legend.glyph.dims}{The dimensions of the legend glyph plot. Can be a
+numeric vector of unit length (where all the dimensions will have same
+value) or a numeric vector of same length as "cols" with the "cols" as
+names.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{repel}{logical. If \code{TRUE}, the glyphs are repel away from each
 other to avoid overlaps. Default is \code{FALSE}.}
@@ -118,12 +146,7 @@ control parameters.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
-
-\item{legend.glyph.dims}{The dimensions of the legend glyph plot. Can be a
-numeric vector of unit length (where all the dimensions will have same
-value) or a numeric vector of same length as "cols" with the "cols" as
-names.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 }
 \value{
 A \code{geom} layer.
@@ -574,11 +597,11 @@ ggplot(data = mtcars) +
 \seealso{
 \code{\link[gglyph]{profileglyphGrob}}
 
-Other geoms: 
-\code{\link{geom_dotglyph}()},
-\code{\link{geom_metroglyph}()},
-\code{\link{geom_pieglyph}()},
-\code{\link{geom_starglyph}()},
-\code{\link{geom_tileglyph}()}
+Other geoms:
+\code{\link[=geom_dotglyph]{geom_dotglyph()}},
+\code{\link[=geom_metroglyph]{geom_metroglyph()}},
+\code{\link[=geom_pieglyph]{geom_pieglyph()}},
+\code{\link[=geom_starglyph]{geom_starglyph()}},
+\code{\link[=geom_tileglyph]{geom_tileglyph()}}
 }
 \concept{geoms}

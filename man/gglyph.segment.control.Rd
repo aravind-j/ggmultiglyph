@@ -115,5 +115,5 @@ Set the contol parameters for drawing xurved segments connecting grobs to
 labels in \code{\link[gglyph]{addlabel.glyphGrob}}.
 }
 \seealso{
-\code{\link[ggrepel]{addlabel.glyphGrob}}
+\code{\link[gglyph]{addlabel.glyphGrob}}
 }

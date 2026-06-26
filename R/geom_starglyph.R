@@ -561,6 +561,8 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
 
                                   draw_key = function(data, params, size) {
 
+                                    browser()
+
                                     if (params$full) {
                                       astrt <- 0
                                       astp <- 2 * base::pi

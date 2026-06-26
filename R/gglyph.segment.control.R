@@ -69,7 +69,7 @@
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[ggrepel]{addlabel.glyphGrob}}
+#' @seealso \code{\link[gglyph]{addlabel.glyphGrob}}
 #'
 #' @export
 #'

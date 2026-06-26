@@ -7,7 +7,7 @@
 \usage{
 gglyph.repel.control(
   box.padding = 0.25,
-  point.padding = 1e-06,
+  point.padding = 0.000001,
   min.segment.length = 0.5,
   arrow = NULL,
   force = 1,

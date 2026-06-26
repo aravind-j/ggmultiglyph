@@ -532,11 +532,11 @@ grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
 \seealso{
 \code{\link[gglyph]{geom_starglyph}}
 
-Other grobs: 
-\code{\link{dotglyphGrob}()},
-\code{\link{metroglyphGrob}()},
-\code{\link{pieglyphGrob}()},
-\code{\link{profileglyphGrob}()},
-\code{\link{tileglyphGrob}()}
+Other grobs:
+\code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=metroglyphGrob]{metroglyphGrob()}},
+\code{\link[=pieglyphGrob]{pieglyphGrob()}},
+\code{\link[=profileglyphGrob]{profileglyphGrob()}},
+\code{\link[=tileglyphGrob]{tileglyphGrob()}}
 }
 \concept{grobs}

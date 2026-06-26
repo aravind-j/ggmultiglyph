@@ -203,7 +203,7 @@ pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, nrow = 2, ncol = 3)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Adjust size
+# Adjust line width
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -510,11 +510,11 @@ grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
 \seealso{
 \code{\link[gglyph]{geom_pieglyph}}
 
-Other grobs: 
-\code{\link{dotglyphGrob}()},
-\code{\link{metroglyphGrob}()},
-\code{\link{profileglyphGrob}()},
-\code{\link{starglyphGrob}()},
-\code{\link{tileglyphGrob}()}
+Other grobs:
+\code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=metroglyphGrob]{metroglyphGrob()}},
+\code{\link[=profileglyphGrob]{profileglyphGrob()}},
+\code{\link[=starglyphGrob]{starglyphGrob()}},
+\code{\link[=tileglyphGrob]{tileglyphGrob()}}
 }
 \concept{grobs}
