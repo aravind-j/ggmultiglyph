@@ -52,117 +52,187 @@ Uses \code{\link[grid]{Grid}} graphics to draw a tile glyph similar to
 \insertCite{fuchs_evaluation_2013}{gglyph}.
 }
 \examples{
-tg1 <- tileglyphGrob(x = 150, y = 150,
-                   z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                   size = 5)
+library(gglyph)
+library(grid)
+library(gridExtra)
 
-tg2 <- tileglyphGrob(x = 450, y = 150,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust tile size
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 3)
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5)
 
-tg3 <- tileglyphGrob(x = 150, y = 250,
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 8)
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 3, nrow = 2)
+
+tg5 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 2)
 
-tg4 <- tileglyphGrob(x = 450, y = 250,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+tg6 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 8, nrow = 2)
+
+grid.arrange(tg1, tg2, tg3, tg4, tg5, tg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust line width
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5)
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, lwd = 3)
+
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, lwd = 5)
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 2)
 
-tg5 <- tileglyphGrob(x = 150, y = 350,
+tg5 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 5,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
+                     size = 5, nrow = 2, lwd = 3)
 
-tg6 <- tileglyphGrob(x = 450, y = 350,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 5,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-tg7 <- tileglyphGrob(x = 150, y = 450,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 5, nrow = 2,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-tg8 <- tileglyphGrob(x = 450, y = 450,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 5, nrow = 2,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-grid::grid.newpage()
-grid::grid.draw(tg1)
-grid::grid.draw(tg2)
-grid::grid.draw(tg3)
-grid::grid.draw(tg4)
-grid::grid.draw(tg5)
-grid::grid.draw(tg6)
-grid::grid.draw(tg7)
-grid::grid.draw(tg8)
-
-tg1 <- tileglyphGrob(x = 150, y = 150,
-                   z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                   size = 2, ratio = 6)
-
-tg2 <- tileglyphGrob(x = 450, y = 150,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 2, ratio = 6)
-
-tg3 <- tileglyphGrob(x = 150, y = 300,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 2, nrow = 2, ratio = 6)
-
-tg4 <- tileglyphGrob(x = 450, y = 300,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 2, nrow = 2, ratio = 6)
-
-tg5 <- tileglyphGrob(x = 150, y = 450,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 2, ratio = 6,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-tg6 <- tileglyphGrob(x = 450, y = 450,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 2, ratio = 6,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-tg7 <- tileglyphGrob(x = 150, y = 600,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 2, nrow = 2, ratio = 6,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-tg8 <- tileglyphGrob(x = 450, y = 600,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                     size = 2, nrow = 2, ratio = 6,
-                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
-
-grid::grid.newpage()
-grid::grid.draw(tg1)
-grid::grid.draw(tg2)
-grid::grid.draw(tg3)
-grid::grid.draw(tg4)
-grid::grid.draw(tg5)
-grid::grid.draw(tg6)
-grid::grid.draw(tg7)
-grid::grid.draw(tg8)
-
-tg1 <- tileglyphGrob(x = 150, y = 150,
+tg6 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                      z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
                      size = 5, nrow = 2, lwd = 5)
 
-tg2 <- tileglyphGrob(x = 300, y = 300,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 5, nrow = 2, lwd = 5,
-                     linejoin = "round")
+grid.arrange(tg1, tg2, tg3, tg4, tg5, tg6,
+             nrow = 2, ncol = 3)
 
-tg3 <- tileglyphGrob(x = 450, y = 450,
-                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
-                     size = 5, nrow = 2, lwd = 5,
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust line join style
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, lwd = 10)
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, lwd = 10, linejoin = "bevel")
+
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, lwd = 10, linejoin = "round")
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, nrow = 2, lwd = 10)
+
+tg5 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, nrow = 2, lwd = 10,
                      linejoin = "bevel")
 
+tg6 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4),
+                     size = 5, nrow = 2, lwd = 10,
+                     linejoin = "round")
 
-grid::grid.newpage()
-grid::grid.draw(tg1)
-grid::grid.draw(tg2)
-grid::grid.draw(tg3)
+grid.arrange(tg1, tg2, tg3, tg4, tg5, tg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust rows
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5)
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                     size = 5)
+
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, nrow = 2)
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                     size = 5, nrow = 2)
+
+grid.arrange(tg1, tg2, tg3, tg4,
+             nrow = 2, ncol = 2)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust tile ratio
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5)
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, ratio = 0.5)
+
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, ratio = 3)
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, nrow = 2)
+
+tg5 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, nrow = 2, ratio = 0.5)
+
+tg6 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, nrow = 2, ratio = 3)
+
+grid.arrange(tg1, tg2, tg3, tg4, tg5, tg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate tile fill
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tg1 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5,
+                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
+
+tg2 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                     size = 5,
+                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+
+tg3 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+                     size = 5, nrow = 2,
+                     fill = RColorBrewer::brewer.pal(7, "Dark2"))
+
+tg4 <- tileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                     size = 5, nrow = 2,
+                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
+
+grid.arrange(tg1, tg2, tg3, tg4,
+             nrow = 2, ncol = 2)
+
 
 }
 \references{

@@ -47,85 +47,401 @@ Uses \code{\link[grid]{Grid}} graphics to draw a dot profile glyph
 \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph}.
 }
 \examples{
-dg1 <- dotglyphGrob(x = 150, y = 300,
+library(gglyph)
+library(grid)
+library(gridExtra)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mirror and flip.axes combination
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2)
 
-dg2 <- dotglyphGrob(x = 550, y = 300,
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE)
 
-dg3 <- dotglyphGrob(x = 100, y = 550,
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, flip.axes = TRUE)
 
-dg4 <- dotglyphGrob(x = 550, y = 550,
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
                     flip.axes = TRUE)
 
-grid::grid.newpage()
-grid::grid.draw(dg1)
-grid::grid.draw(dg2)
-grid::grid.draw(dg3)
-grid::grid.draw(dg4)
+grid.arrange(dg1, dg2, dg3, dg4,
+             nrow = 2, ncol = 2)
 
-dg1 <- dotglyphGrob(x = 150, y = 300,
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust radius
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                    radius = 2, fill = "black", col = "white")
+                    radius = 0.5)
 
-dg2 <- dotglyphGrob(x = 550, y = 300,
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 3)
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 0.5, mirror = TRUE)
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE)
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 3, mirror = TRUE)
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 0.5, flip.axes = TRUE)
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 3, flip.axes = TRUE)
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 0.5, mirror = TRUE,
+                    flip.axes = TRUE)
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
-                    fill = "salmon", col = "black")
+                    flip.axes = TRUE)
 
-dg3 <- dotglyphGrob(x = 100, y = 550,
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                    radius = 2, flip.axes = TRUE,
-                    fill = "cyan", col = "grey")
+                    radius = 3, mirror = TRUE,
+                    flip.axes = TRUE)
 
-dg4 <- dotglyphGrob(x = 550, y = 550,
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust dot line width
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2)
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, lwd = 3)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, lwd = 5)
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE)
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, lwd = 3)
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, lwd = 5)
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE)
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, lwd = 3)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, lwd = 5)
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
-                    flip.axes = TRUE,
-                    fill = "green", col = "grey")
+                    flip.axes = TRUE)
 
-grid::grid.newpage()
-grid::grid.draw(dg1)
-grid::grid.draw(dg2)
-grid::grid.draw(dg3)
-grid::grid.draw(dg4)
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, lwd = 3)
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, lwd = 5)
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust dot fill
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = "salmon")
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = "cyan")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = "green")
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, fill = "salmon")
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, fill = "cyan")
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, fill = "green")
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, fill = "salmon")
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, fill = "cyan")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, fill = "green")
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, fill = "salmon")
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, fill = "cyan")
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, fill = "green")
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust dot line colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, col = "salmon")
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, col = "cyan")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, col = "green")
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, col = "salmon")
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, col = "cyan")
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, col = "green")
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, col = "salmon")
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, col = "cyan")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, col = "green")
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, col = "salmon")
+
+dg5 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, col = "cyan")
+
+dg6 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, col = "green")
+
+grid.arrange(dg1, dg2, dg3,
+             dg4, dg5, dg6,
+             nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate fill colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clrs <- mapply(function(a, b) rep(a, b),
                RColorBrewer::brewer.pal(6, "Dark2"),
                round(c(4, 3.5, 2.7, 6.8, 3.4, 5.7)))
 clrs <- unlist(clrs)
 
-dg1 <- dotglyphGrob(x = 150, y = 300,
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
-                    radius = 2, fill = clrs, col = "white")
+                    radius = 2, fill = clrs,
+                    col = "black")
 
-dg2 <- dotglyphGrob(x = 550, y = 300,
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = clrs,
+                    col = "white")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, fill = clrs,
+                    col = "black")
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE, fill = clrs,
+                    col = "white")
+
+grid.arrange(dg1, dg2, dg3, dg4,
+             nrow = 2, ncol = 2)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, fill = clrs,
+                    col = "black")
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE, fill = clrs,
+                    col = "white")
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
-                    fill = clrs, col = "black")
+                    flip.axes = TRUE, fill = clrs,
+                    col = "black")
 
-dg3 <- dotglyphGrob(x = 100, y = 550,
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE, fill = clrs,
+                    col = "white")
+
+grid.arrange(dg1, dg2, dg3, dg4,
+             nrow = 2, ncol = 2)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate dot line colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = "black", lwd = 5,
+                    col = clrs)
+
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, fill = "white", lwd = 5,
+                    col = clrs)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    fill = "black", lwd = 5,
+                    col = clrs)
+
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    fill = "white", lwd = 5,
+                    col = clrs)
+
+grid.arrange(dg1, dg2, dg3, dg4,
+             nrow = 2, ncol = 2)
+
+dg1 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, flip.axes = TRUE,
-                    fill = "black", col = clrs, lwd = 5)
+                    fill = "black", lwd = 5,
+                    col = clrs)
 
-dg4 <- dotglyphGrob(x = 550, y = 550,
+dg2 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, flip.axes = TRUE,
+                    fill = "white", lwd = 5,
+                    col = clrs)
+
+dg3 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
                     radius = 2, mirror = TRUE,
                     flip.axes = TRUE,
+                    fill = "black", lwd = 5,
                     col = clrs)
 
-grid::grid.newpage()
-grid::grid.draw(dg1)
-grid::grid.draw(dg2)
-grid::grid.draw(dg3)
-grid::grid.draw(dg4)
+dg4 <- dotglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7),
+                    radius = 2, mirror = TRUE,
+                    flip.axes = TRUE,
+                    fill = "white", lwd = 5,
+                    col = clrs)
+
+grid.arrange(dg1, dg2, dg3, dg4,
+             nrow = 2, ncol = 2)
 
 }
 \references{
