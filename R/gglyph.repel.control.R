@@ -36,6 +36,7 @@
 #'   \code{NA}, which means that \code{set.seed} will not be called.
 #' @param verbose If \code{TRUE}, some diagnostics of the repel algorithm are
 #'   printed.
+#' @param ... other repel arguments such as segment controls.
 #'
 #' @return A list with the following components to control the repel algorithm
 #'   corresponding to the same in \strong{Arguments}. \item{box.padding}{}
@@ -78,7 +79,8 @@ gglyph.repel.control <- function(box.padding = 0.25,
                                  ylim = c(NA, NA),
                                  direction = c("both","y","x"),
                                  seed = NA,
-                                 verbose = FALSE) {
+                                 verbose = FALSE,
+                                 ...) {
 
   direction <- match.arg(direction)
 
@@ -97,7 +99,8 @@ gglyph.repel.control <- function(box.padding = 0.25,
               ylim = ylim,
               direction = direction,
               seed = NA,
-              verbose = FALSE)
+              verbose = FALSE,
+              ...)
 
   return(out)
 }

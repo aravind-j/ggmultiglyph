@@ -21,7 +21,8 @@ gglyph.repel.control(
   ylim = c(NA, NA),
   direction = c("both", "y", "x"),
   seed = NA,
-  verbose = FALSE
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
@@ -69,6 +70,8 @@ of glyphs.}
 
 \item{verbose}{If \code{TRUE}, some diagnostics of the repel algorithm are
 printed.}
+
+\item{...}{other repel arguments such as segment controls.}
 }
 \value{
 A list with the following components to control the repel algorithm
