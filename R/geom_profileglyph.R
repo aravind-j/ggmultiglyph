@@ -486,6 +486,7 @@ geom_profileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                               line = TRUE,
                               mirror = TRUE,
                               draw.grid = FALSE,
+                              legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                               show.legend = NA,
                               repel = FALSE,
                               repel.control = gglyph.repel.control(),
@@ -494,6 +495,28 @@ geom_profileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # Check cols
   if (!(is.character(cols) & length(cols) >= 2)) {
     stop('"cols" should be a charachter vector of at least length 2.')
+  }
+
+  # Check legend.glyph.dims
+  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+
+    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+  } else { # Check if legend.glyph.dims has same length as cols
+    if (is.numeric(legend.glyph.dims)
+        & length(legend.glyph.dims) == length(cols)) {
+
+      # Check names of legend.glyph.dims
+      if (!(all(names(legend.glyph.dims) %in% cols)
+            && all(cols %in% names(legend.glyph.dims)))) {
+        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+      }
+
+    } else {
+      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
+           'a numeric vector of same length as "cols" ',
+           'with the "cols" as names.')
+    }
   }
 
   # Modify mapping to include cols
@@ -541,9 +564,16 @@ geom_profileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
   # geomout <- GeomProfileGlyph
   # geomout$required_aes <- c(geomout$required_aes, cols)
 
-  geomout <- ggplot2::ggproto(NULL, GeomProfileGlyph,
-                              required_aes = c(GeomProfileGlyph$required_aes,
-                                               cols))
+  geomout <-
+    ggplot2::ggproto(NULL, GeomProfileGlyph,
+                     required_aes = c(GeomProfileGlyph$required_aes,
+                                      cols),
+                     default_aes = {
+                       aes_new <- c(GeomProfileGlyph$default_aes,
+                                    legend.glyph.dims)
+                       class(aes_new) <- "uneval"
+                       aes_new
+                     })
 
   ggplot2::layer(
     data = data,
@@ -576,8 +606,6 @@ GeomProfileGlyph <- ggplot2::ggproto("GeomProfileGlyph", ggplot2::Geom,
                                                                 segment.squareShape = 1,
                                                                 segment.inflect = FALSE,
                                                                 segment.debug = FALSE),
-
-                                     draw_key = ggplot2::draw_key_polygon,
 
                                      setup_params = function(data, params) {
 
@@ -800,7 +828,59 @@ GeomProfileGlyph <- ggplot2::ggproto("GeomProfileGlyph", ggplot2::Geom,
                                        #                             gp = grid::gpar(col = data$colour,
                                        #                                             fill = data$fill))
                                        #          )))
-                                     }
+                                     },
+
+                                     draw_key = function(data, params, size) {
+
+                                       grid.levels <- NULL
+                                       if (params$draw.grid) {
+                                         grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
+                                       }
+
+                                       profileglyphGrob(
+                                         x = .5,
+                                         y = .5,
+                                         z = if (params$draw.grid) {
+                                           ceiling(unlist(data[, params$cols]))
+                                         } else {
+                                           unlist(data[, params$cols])
+                                         },
+                                         size = params$size,
+                                         width = params$width,
+                                         mirror = params$mirror,
+                                         flip.axes = params$flip.axes,
+                                         col.bar = if (is.null(params$colour.bar)) {
+                                           data$colour
+                                         } else {
+                                           params$colour.bar
+                                         },
+                                         col.line = if (is.null(params$colour.line)) {
+                                           data$colour
+                                         } else {
+                                           params$colour.line
+                                         },
+                                         fill = if (is.null(params$fill.bar)) {
+                                           data$fill
+                                         }else {
+                                           params$fill.bar
+                                         },
+                                         lwd.bar = params$linewidth.bar,
+                                         lwd.line = params$linewidth.line,
+                                         lwd.grid = params$linewidth.grid,
+                                         alpha = data$alpha,
+                                         bar = params$bar,
+                                         line = params$line,
+                                         linejoin = "mitre",
+                                         lineend = "round",
+                                         grid.levels = grid.levels,
+                                         draw.grid = params$draw.grid,
+                                         col.grid = if (is.null(params$colour.grid)) {
+                                           data$colour
+                                         } else {
+                                           params$colour.grid
+                                         }
+                                       )
+                                     },
 )
 
 #' grid::makeContent function for the grobTree of profileglyphGrob objects
