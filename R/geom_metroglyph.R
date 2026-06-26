@@ -56,6 +56,15 @@
 #' \insertAllCited{}
 #'
 #' @examples
+#'
+#' \dontshow{gglyph:::.gglyph_ex_setup()}
+#'
+#' library(ggplot2)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Prepare the data ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' # Scale the data
 #' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
 #' mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
@@ -63,12 +72,10 @@
 #' mtcars$cyl <- as.factor(mtcars$cyl)
 #' mtcars$lab <- row.names(mtcars)
 #'
-#' library(ggplot2)
-#' theme_set(theme_bw())
-#' options(ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"))
-#' options(ggplot2.discrete.fill = RColorBrewer::brewer.pal(8, "Dark2"))
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Mapped colour ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' # Mapped colour
 #' ggplot(data = mtcars) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
@@ -99,7 +106,10 @@
 #'                   size = 10, alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Mapped colour + fill
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Mapped colour + fill ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' ggplot(data = mtcars) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl, fill = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
@@ -115,7 +125,10 @@
 #'                   size = 10, alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Mapped fill
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Mapped fill ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' ggplot(data = mtcars) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
@@ -147,7 +160,10 @@
 #'                   size = 10, alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Rays with colours
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Rays with multivariate colours ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' ggplot(data = mtcars) +
 #'   geom_metroglyph(aes(x = mpg, y = disp),
 #'                   cols = zs, circle.size = 3,
@@ -166,7 +182,10 @@
 #'                   size = 10, alpha =  0.8, full = FALSE) +
 #'   ylim(c(-0, 550))
 #'
-#' # Faceted
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Faceted ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' ggplot(data = mtcars) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
@@ -183,7 +202,10 @@
 #'   ylim(c(-0, 550)) +
 #'   facet_grid(. ~ cyl)
 #'
-#' # Repel glyphs
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Repel glyphs ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
 #' ggplot(data = mtcars) +
 #'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
@@ -211,19 +233,25 @@
 #'                   size = 10, alpha =  1, repel = TRUE) +
 #'   ylim(c(-0, 550))
 #'
-#' rm(mtcars)
-#' mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Prepare the data with factor variables ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' mtcars[ , zs] <- lapply(mtcars[, zs],
+#' mtcars_fct <- mtcars
+#'
+#' mtcars_fct[ , zs] <- lapply(mtcars_fct[, zs],
 #'                         function(x) cut(x, breaks = 3,
 #'                                         labels = c(1, 2, 3)))
-#' mtcars[ , zs] <- lapply(mtcars[ , zs], as.factor)
+#' mtcars_fct[ , zs] <- lapply(mtcars_fct[ , zs], as.factor)
 #'
-#' mtcars$cyl <- as.factor(mtcars$cyl)
-#' mtcars$lab <- row.names(mtcars)
+#' mtcars_fct$cyl <- as.factor(mtcars_fct$cyl)
+#' mtcars_fct$lab <- row.names(mtcars_fct)
 #'
-#' # Grid points
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # With grid points ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
 #'                   linewidth.circle = 2, linewidth.ray = 2,
@@ -231,7 +259,7 @@
 #'                   draw.grid = TRUE, grid.point.size = 5) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_metroglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                   cols = zs, circle.size = 3, colour.ray = NULL,
 #'                   linewidth.circle = 2, linewidth.ray = 2,
@@ -239,7 +267,7 @@
 #'                   draw.grid = TRUE, grid.point.size = 5) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_metroglyph(aes(x = mpg, y = disp),
 #'                   cols = zs, circle.size = 3,
 #'                   linewidth.circle = 0, linewidth.ray = 2,
@@ -248,6 +276,116 @@
 #'                   size = 2.5, alpha =  0.8,
 #'                   draw.grid = TRUE, grid.point.size = 5) +
 #'   ylim(c(-0, 550))
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Legend options ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Default legend/guide
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 2, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550))
+#'
+#' # Theme modifications for legend
+#' legend_theme <-
+#'   theme_bw(base_size = 7.5) +
+#'   theme(legend.direction = "vertical",
+#'         legend.box = "horizontal",
+#'         legend.position = "bottom",
+#'         legend.text = element_text(margin = margin(l = 7)),
+#'         legend.key.height = unit(1.5, 'lines'))
+#'
+#' # Glyph variable-wise legends
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 1, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_continuous(z = zs) +
+#'   guide_z_order(z = zs, default_aes = "colour") +
+#'   legend_theme
+#'
+#' # Modifying the `legend.glyph.dims`
+#' zavg <- # Scaled average of the variables
+#'   apply(mtcars[, zs], 2,
+#'         function(x) {
+#'           scales::rescale(mean(x),
+#'                           from = range(x), # same range as in scale_z_continuous
+#'                           to = c(0, 1))
+#'         })
+#' zavg
+#'
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 2, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   xlim(c(8, 35))
+#'
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 1, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_continuous(z = zs) +
+#'   guide_z_order(z = zs, default_aes = "colour")  +
+#'   legend_theme
+#'
+#' # Using custom guide
+#' # metroglyphGrob
+#' guide_metrogrob <- metroglyphGrob(
+#'   z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.5,
+#'   size = 25)
+#' # Add labels to metroglyphGrob
+#' guide_metrogrob <-
+#'   addlabel.glyphGrob(grob = guide_metrogrob, label = zs,
+#'                      push = 1, segment = FALSE)
+#'
+#' # Another version
+#' guide_metrogrob2 <- metroglyphGrob(
+#'   z = rep(0.3, length(zs)),
+#'   size = 25)
+#' guide_metrogrob2 <-
+#'   addlabel.glyphGrob(grob = guide_metrogrob2, label = zs,
+#'                      push = 1, segment = FALSE)
+#'
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 1, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   guides(colour = guide_legend(order = 1, position = "right"),
+#'          custom = guide_custom(guide_metrogrob,
+#'                                width = unit(0.1, "npc"),
+#'                                height = unit(0.1, "npc"),
+#'                                position = "bottom",
+#'                                theme = theme(legend.margin = margin(t = 40, b = 30))))
+#'
+#' ggplot(data = mtcars) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+#'                   cols = zs, circle.size = 1, colour.ray = NULL,
+#'                   linewidth.circle = 2, linewidth.ray = 2,
+#'                   size = 5, alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   guides(colour = guide_legend(order = 1, position = "right"),
+#'          custom = guide_custom(guide_metrogrob2,
+#'                                width = unit(0.1, "npc"),
+#'                                height = unit(0.1, "npc"),
+#'                                position = "bottom",
+#'                                theme = theme(legend.margin = margin(t = 30, b = 30))))
 #'
 geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                             position = "identity", ...,

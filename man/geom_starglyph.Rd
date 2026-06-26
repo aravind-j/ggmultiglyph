@@ -163,6 +163,15 @@ in a scatterplot.
 }
 
 \examples{
+
+\dontshow{gglyph:::.gglyph_ex_setup()}
+
+library(ggplot2)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Prepare the data ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Scale the data
 zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
 mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
@@ -170,12 +179,10 @@ mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
 mtcars$cyl <- as.factor(mtcars$cyl)
 mtcars$lab <- row.names(mtcars)
 
-library(ggplot2)
-theme_set(theme_bw())
-options(ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"))
-options(ggplot2.discrete.fill = RColorBrewer::brewer.pal(8, "Dark2"))
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Both whiskers and contour ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Both whiskers and contour
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
                  cols = zs, whisker = TRUE, contour = TRUE,
@@ -202,8 +209,10 @@ ggplot(data = mtcars) +
                  linewidth.whisker = 1, linewidth.contour = 3) +
   ylim(c(-0, 550))
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Only contours (polygon) ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Only contours (polygon)
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
                  cols = zs, whisker = FALSE, contour = TRUE,
@@ -216,7 +225,10 @@ ggplot(data = mtcars) +
                  size = 10, alpha =  0.5, linewidth.contour = 3) +
   ylim(c(-0, 550))
 
-# Only whiskers
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Only whiskers ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp, colour = cyl),
                  cols = zs, whisker = TRUE, contour = FALSE,
@@ -231,7 +243,10 @@ ggplot(data = mtcars) +
   geom_point(data = mtcars, aes(x = mpg, y = disp, colour = cyl)) +
   ylim(c(-0, 550))
 
-# Whiskers with colours
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Whiskers with multivariate colours ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp),
                  cols = zs, whisker = TRUE, contour = FALSE,
@@ -240,7 +255,10 @@ ggplot(data = mtcars) +
   geom_point(data = mtcars, aes(x = mpg, y = disp)) +
   ylim(c(-0, 550))
 
-# With text annotations
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# With text annotations ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp, colour = cyl),
                  cols = zs, whisker = TRUE, contour = FALSE,
@@ -249,7 +267,10 @@ ggplot(data = mtcars) +
   geom_text(data = mtcars, aes(x = mpg, y = disp, label = lab), cex = 2) +
   ylim(c(-0, 550))
 
-# Faceted
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Faceted ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
                  cols = zs, whisker = TRUE, contour = TRUE,
@@ -264,7 +285,10 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550)) +
   facet_grid(. ~ cyl)
 
-# Repel glyphs
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Repel glyphs ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -273,19 +297,25 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550)) +
   xlim(c(8, 35))
 
-rm(mtcars)
-mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Prepare the data with factor variables ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mtcars[ , zs] <- lapply(mtcars[, zs],
+mtcars_fct <- mtcars
+
+mtcars_fct[ , zs] <- lapply(mtcars_fct[, zs],
                         function(x) cut(x, breaks = 3,
                                         labels = c(1, 2, 3)))
-mtcars[ , zs] <- lapply(mtcars[ , zs], as.factor)
+mtcars_fct[ , zs] <- lapply(mtcars_fct[ , zs], as.factor)
 
-mtcars$cyl <- as.factor(mtcars$cyl)
-mtcars$lab <- row.names(mtcars)
+mtcars_fct$cyl <- as.factor(mtcars_fct$cyl)
+mtcars_fct$lab <- row.names(mtcars_fct)
 
-# Grid points
-ggplot(data = mtcars) +
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# With grid points ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ggplot(data = mtcars_fct) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
                  cols = zs, whisker = TRUE, contour = TRUE,
                  size = 3, alpha =  0.5, draw.grid = TRUE,
@@ -293,21 +323,127 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550))
 
 
-ggplot(data = mtcars) +
+ggplot(data = mtcars_fct) +
   geom_starglyph(aes(x = mpg, y = disp, colour = cyl),
                  cols = zs, whisker = TRUE, contour = FALSE,
                  size = 3, draw.grid = TRUE, grid.point.size = 7,
                  linewidth.whisker = 2, alpha = 0.7) +
   ylim(c(-0, 550))
 
-ggplot(data = mtcars) +
+ggplot(data = mtcars_fct) +
   geom_starglyph(aes(x = mpg, y = disp),
                  cols = zs, whisker = TRUE, contour = FALSE,
                  size = 3, draw.grid = TRUE,
                  grid.point.size = 5, alpha =  0.8,
                  colour.whisker = RColorBrewer::brewer.pal(8, "Dark2")) +
-  geom_point(data = mtcars, aes(x = mpg, y = disp)) +
+  geom_point(data = mtcars_fct, aes(x = mpg, y = disp)) +
   ylim(c(-0, 550))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Legend options ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Default legend/guide
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 10, alpha = 1, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  xlim(c(8, 35))
+
+# Theme modifications for legend
+legend_theme <-
+  theme_bw(base_size = 7.5) +
+  theme(legend.direction = "vertical",
+        legend.box = "horizontal",
+        legend.position = "bottom",
+        legend.text = element_text(margin = margin(l = 7)),
+        legend.key.height = unit(1.5, 'lines'))
+
+# Glyph variable-wise legends
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 5, alpha =  0.8, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  scale_z_continuous(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
+# Modifying the `legend.glyph.dims`
+zavg <- # Scaled average of the variables
+  apply(mtcars[, zs], 2,
+        function(x) {
+          scales::rescale(mean(x),
+                          from = range(x), # same range as in scale_z_continuous
+                          to = c(0, 1))
+        })
+zavg
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 10, alpha = 1, repel = TRUE,
+                 legend.glyph.dims = zavg) +
+  ylim(c(-0, 550)) +
+  xlim(c(8, 35))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 5, alpha =  0.8, repel = TRUE,
+                 legend.glyph.dims = zavg) +
+  ylim(c(-0, 550)) +
+  scale_z_continuous(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill")  +
+  legend_theme
+
+# Using custom guide
+# starglyphGrob
+guide_stargrob <- starglyphGrob(
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25)
+# Add labels to starglyphGrob
+guide_stargrob <-
+  addlabel.glyphGrob(grob = guide_stargrob, label = zs,
+                     push = 1, segment = FALSE)
+
+# Another version
+guide_stargrob2 <- starglyphGrob(
+  z = rep(0.5, length(zs)),
+  size = 25)
+guide_stargrob2 <-
+  addlabel.glyphGrob(grob = guide_stargrob2, label = zs,
+                     push = 1, segment = FALSE)
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 5, alpha =  0.8, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_stargrob,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 40, b = 30))))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 5, alpha =  0.8, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_stargrob2,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 30, b = 30))))
 
 }
 \references{
