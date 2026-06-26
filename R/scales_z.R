@@ -23,9 +23,7 @@
 #' @rdname scales_z
 #'
 #' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar
-#'   guide_coloursteps scale_color_continuous scale_color_distiller
-#'   scale_color_viridis_c
+#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
 #'
 NULL
 

@@ -35,8 +35,7 @@
 #'
 #' @return A \code{\link[grid]{gTree}} object.
 #'
-#' @importFrom grid rectGrob polygonGrob polylineGrob nullGrob grobTree gpar
-#'   unit.c
+#' @importFrom grid rectGrob polygonGrob polylineGrob nullGrob grobTree gpar unit.c
 #' @export
 #'
 #' @seealso \code{\link[gglyph]{geom_profileglyph}}

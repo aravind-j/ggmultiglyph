@@ -27,8 +27,7 @@
 #'
 #' @return A \code{\link[grid]{grob}} object.
 #'
-#' @importFrom grid convertUnit convertX convertY curveGrob gList gTree textGrob
-#'   unit unitType unit.c
+#' @importFrom grid convertUnit convertX convertY curveGrob gList gTree textGrob unit unitType unit.c
 #' @importFrom methods is
 #' @importFrom utils tail
 #' @export
