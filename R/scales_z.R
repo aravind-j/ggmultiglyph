@@ -7,8 +7,15 @@
 #' @param range The range to which the variable(s) specified in argument \code{z} are to be scaled.
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
+#' @name scales_z
+#' @rdname scales_z
+#'
 #' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
+#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
+NULL
+
+# scale_z_continuous ----
+#' @rdname scales_z
 #' @export
 #'
 scale_z_continuous <- function(..., range = c(0.1, 1), z) {
@@ -20,6 +27,8 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
   )
 }
 
+# scale_z_discrete ----
+#' @rdname scales_z
 #' @export
 #'
 scale_z_discrete <- function(..., palette = seq_len, z) {
@@ -44,6 +53,8 @@ scale_z_discrete <- function(..., palette = seq_len, z) {
 #   )
 # }
 
+# scale_z_fill_continuous ----
+#' @rdname scales_z
 #' @export
 #'
 scale_z_fill_continuous <- function(..., palette, z,
