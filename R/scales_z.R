@@ -1,17 +1,32 @@
 #' Alter scales for continuous data mapped to glyphs
 #'
-#' Scale variable(s) mapped to the glyphs to the given
-#' range using \code{\link[scales]{rescale_pal}}.
+#' Scale variable(s) mapped to the glyphs to the given range using
+#' \code{\link[scales]{rescale_pal}}.
 #'
-#' @param ... Additional arguments to be passed on to \code{\link[ggplot2]{continuous_scale}}.
-#' @param range The range to which the variable(s) specified in argument \code{z} are to be scaled.
+#' @param ... Additional arguments to be passed on to
+#'   \code{\link[ggplot2]{continuous_scale}}.
+#' @param range The range to which the variable(s) specified in argument
+#'   \code{z} are to be scaled.
+#' @param palette One of the following:
+#' \itemize{
+#'   \item \code{NULL} for the default palette stored in the theme.
+#'   \item a character vector of colours.
+#'   \item a single string naming a palette.
+#'   \item a palette function that when called with a numeric vector with
+#'   values between 0 and 1 returns the corresponding output values.
+#' }
+#' @param guide A function used to create a guide or its name. See
+#'   \code{\link[ggplot2]{guides}}for more information.
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
 #' @name scales_z
 #' @rdname scales_z
 #'
 #' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
+#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar
+#'   guide_coloursteps scale_color_continuous scale_color_distiller
+#'   scale_color_viridis_c
+#'
 NULL
 
 # scale_z_continuous ----
