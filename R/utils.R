@@ -121,3 +121,13 @@ expnd_lim <- function(lim, frac = 0.25) {
   lim + c(-1, 1) * r * frac
 }
 
+# Not exported; used only in examples
+.gglyph_ex_setup <- function() {
+  ggplot2::theme_set(ggplot2::theme_bw())
+  options(
+    ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"),
+    ggplot2.discrete.fill   = RColorBrewer::brewer.pal(8, "Dark2")
+  )
+  invisible(NULL)
+}
+
