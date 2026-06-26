@@ -43,7 +43,7 @@
 #' @import Rcpp
 #' @importFrom rlang as_quosures syms
 #' @importFrom utils modifyList
-#' @importFrom ggplot2 layer ggproto aes
+#' @importFrom ggplot2 layer ggproto aes guide_legend guides
 #' @importFrom grid addGrob convertHeight convertWidth grobTree grobX grobY
 #'   makeContent setChildren unit
 #' @importFrom Rdpack reprompt

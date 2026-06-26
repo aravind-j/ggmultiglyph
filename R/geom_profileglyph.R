@@ -43,7 +43,7 @@
 #'
 #' @importFrom rlang as_quosures syms
 #' @importFrom utils modifyList
-#' @importFrom ggplot2 layer ggproto aes
+#' @importFrom ggplot2 layer ggproto aes guide_legend guides
 #' @importFrom grid grobTree addGrob makeContent gTree setChildren
 #' @importFrom Rdpack reprompt
 #' @export
