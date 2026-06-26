@@ -22,30 +22,6 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
 
 #' @export
 #'
-scale_z_discrete <- function(..., palette = seq_len, z) {
-  discrete_scale(
-    aesthetics = z,
-    scale_name = "z_discrete",
-    palette = palette,
-    ...
-  )
-}
-
-# scale_z_discrete <- function(..., name = waiver(),palette = seq_len,
-#                              expand = waiver(), guide = waiver(), z) {
-#   discrete_scale(
-#     aesthetics = z,
-#     scale_name = "z_discrete",
-#     palette = palette,
-#     name = name,
-#     expand = expand,
-#     guide = guide,
-#     ...
-#   )
-# }
-
-#' @export
-#'
 scale_z_fill_continuous <- function(..., palette, z,
                                     guide = c("legend")) {
 
