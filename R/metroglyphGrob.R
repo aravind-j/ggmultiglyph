@@ -444,12 +444,22 @@ metroglyphGrob <- function(x = .5, y = .5, z,
           # gridx <- unlist(gridx)
           # gridy <- unlist(gridy)
 
-          gridx <- mapply(function(a, b)unit(x, "native")  +
-                            unit((circle.size + (a * size)) * cos(b), "mm"),
-                          grid.levels, angle)
-          gridy <- mapply(function(a, b) unit(y, "native")  +
-                            unit((circle.size + (a * size)) * sin(b), "mm"),
-                          grid.levels, angle)
+          # gridx <- mapply(function(a, b)unit(x, "native")  +
+          #                   unit((circle.size + (a * size)) * cos(b), "mm"),
+          #                 grid.levels, angle)
+          # gridy <- mapply(function(a, b) unit(y, "native")  +
+          #                   unit((circle.size + (a * size)) * sin(b), "mm"),
+          #                 grid.levels, angle)
+
+          gridx <- Map(function(a, b) {
+              unit(x, "native") +
+                unit((circle.size + (a * size)) * cos(b), "mm")
+            }, grid.levels, angle)
+
+          gridy <- Map(function(a, b) {
+              unit(y, "native") +
+                unit((circle.size + (a * size)) * sin(b), "mm")
+            }, grid.levels,  angle)
 
           gridx <- upgradeUnit.unit.list(gridx)
           gridy <- upgradeUnit.unit.list(gridy)
