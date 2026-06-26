@@ -34,9 +34,8 @@ Imports:
      scales
 Suggests:
     ggrepel,
-    RColorBrewer,
-    testthat (>= 3.0.0),
-    vdiffr
+    gridExtra,
+    RColorBrewer
 URL: https://github.com/aravind-j/gglyph,
     https://aravind-j.github.io/gglyph/
 BugReports: https://github.com/aravind-j/gglyph/issues
