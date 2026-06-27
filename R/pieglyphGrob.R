@@ -553,8 +553,16 @@ pieglyphGrob <- function(x = .5, y = .5, z,
     gridarcy <- vector("list", dimension)
     gridarcid <- vector("list", dimension)
 
-    grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
-    grid.levels <- mapply(function(a, b) setdiff(b, a), z, grid.levels)
+    # grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
+    # grid.levels <- mapply(function(a, b) setdiff(b, a), z, grid.levels)
+
+    grid.levels <- mapply(function(a, b) b[b <= a],
+                          z, grid.levels,
+                          SIMPLIFY = FALSE)
+
+    grid.levels <- mapply(function(a, b) setdiff(b, a),
+                          z, grid.levels,
+                          SIMPLIFY = FALSE)
   }
 
   for (i in 1:dimension) {
@@ -604,52 +612,30 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                unit(z[i] * size * sin(arcpr),
                                     "mm"))
       segarcid[[i]] <- rep(i, length(arcp) + 1)
-      if (drawgridlines) {
-        # gridxylist[[i]] <-
-        #   lapply(grid.levels[[i]],
-        #          function(a) if (length(a) == 0) {
-        #            NA
-        #          } else{
-        #            lapply(a,
-        #                   function(b) {
-        #                     data.frame(arcx = c(x + (b * size * cos(arcpr))),
-        #                                arcy = c(y + (b * size * sin(arcpr))),
-        #                                arcid = paste(i, "_", b, sep = ""))
-        #                   })
-        #          })
-        gridarcx[[i]] <-
-          lapply(grid.levels[[i]],
-                 function(a) if (length(a) == 0) {
-                   NA
-                 } else{
-                   upgradeUnit.unit.list(
-                     lapply(a,
-                            function(b) {
-                              unit.c(unit(x, "native") +
-                                       unit(b * size * cos(arcpr), "mm"))
-                            }))
-                 })
-        gridarcy[[i]] <-
-          lapply(grid.levels[[i]],
-                 function(a) if (length(a) == 0) {
-                   NA
-                 } else{
-                   upgradeUnit.unit.list(
-                     lapply(a,
-                            function(b) {
-                              unit.c(unit(y, "native") +
-                                       unit(b * size * sin(arcpr), "mm"))
-                            }))
-                 })
-        gridarcid[[i]] <-
-          lapply(grid.levels[[i]],
-                 function(a) if (length(a) == 0) {
-                   NA
-                 } else{
-                   unlist(lapply(a, function(b) rep(paste(i, "_", b, sep = ""),
-                                                    length(arcp))))
-                 })
 
+      if (drawgridlines) {
+        lvls_i <- grid.levels[[i]]
+        if (length(lvls_i) == 0) {
+          gridarcx[[i]] <- NULL
+          gridarcy[[i]] <- NULL
+          gridarcid[[i]] <- NULL
+        } else {
+          gridarcx[[i]] <-
+            upgradeUnit.unit.list(
+              lapply(lvls_i, function(b) {
+                unit.c(unit(x, "native") +
+                         unit(b * size * cos(arcpr), "mm"))
+              }))
+          gridarcy[[i]] <-
+            upgradeUnit.unit.list(
+              lapply(lvls_i, function(b) {
+                unit.c(unit(y, "native") +
+                         unit(b * size * sin(arcpr), "mm"))
+              }))
+          gridarcid[[i]] <-
+            unlist(lapply(lvls_i, function(b)
+              rep(paste(i, "_", b, sep = ""), length(arcp))))
+        }
       }
     }
   }
@@ -680,19 +666,13 @@ pieglyphGrob <- function(x = .5, y = .5, z,
   if (drawgridlines) {
     # gridxy <- dplyr::bind_rows(lapply(gridxylist, dplyr::bind_rows))
 
-    gridarcx <- lapply(gridarcx, function(a) if (length(a) > 0) {
-      upgradeUnit.unit.list(a)
-    })
-    gridarcy <- lapply(gridarcy, function(a) if (length(a) > 0) {
-      upgradeUnit.unit.list(a)
-    })
-    gridarcid <- lapply(gridarcid, function(a) if (length(a) > 0) {
-      unlist(a)
-    })
+    gridarcx <- gridarcx[!sapply(gridarcx, is.null)]
+    gridarcy <- gridarcy[!sapply(gridarcy, is.null)]
+    gridarcid <- gridarcid[!sapply(gridarcid, is.null)]
 
-    gridarcx <- upgradeUnit.unit.list(gridarcx[!sapply(gridarcx, is.null)])
-    gridarcy <- upgradeUnit.unit.list(gridarcy[!sapply(gridarcy, is.null)])
-    gridarcid <- unlist(gridarcid[!sapply(gridarcid, is.null)])
+    gridarcx <- upgradeUnit.unit.list(gridarcx)
+    gridarcy <- upgradeUnit.unit.list(gridarcy)
+    gridarcid <- unlist(gridarcid)
 
     gridarcid <- as.numeric(as.factor(gridarcid))
 
