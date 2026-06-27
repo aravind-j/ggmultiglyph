@@ -1100,12 +1100,13 @@ profileglyphGrob <- function(x = .5, y = .5, z,
 
     if (drawgridlines) {
       # plot grid lines
-      grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
+      grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels,
+                            SIMPLIFY = FALSE)
 
       if (mirror) {
         # gridy <- mapply(function(a, b) a - (b * size), ypos2, grid.levels)
         gridy <- mapply(function(a, b) a - unit(b * size, "mm"),
-                        ypos2, grid.levels)
+                        ypos2, grid.levels, SIMPLIFY = FALSE)
         # gridy <- mapply(function(a, b) setdiff(b, a), ypos1, gridy)
       } else {
         # gridy <- lapply(grid.levels, function(a) y - (a * size))
@@ -1113,7 +1114,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
         # gridy <- mapply(function(a, b) setdiff(b, a), y - (z * size), gridy)
       }
 
-      gridx <- mapply(function(a, b) rep(a, length(b)), xpos, gridy)
+      gridx <- mapply(function(a, b) rep(a, length(b)), xpos, gridy,
+                      SIMPLIFY = FALSE)
 
       # gridx <- unlist(gridx)
       # gridy <- unlist(gridy)
@@ -1124,7 +1126,7 @@ profileglyphGrob <- function(x = .5, y = .5, z,
       if (is.na(col.grid)) {
         if (length(col.bar == length(grid.levels))) {
           col.grid <- mapply(function(a, b) rep(a, length(b)),
-                             col.bar, grid.levels)
+                             col.bar, grid.levels, SIMPLIFY = FALSE)
           col.grid <- unlist(col.grid)
         } else {
           col.grid <- col.bar
@@ -1254,12 +1256,14 @@ profileglyphGrob <- function(x = .5, y = .5, z,
 
     if (drawgridlines) {
       # plot grid lines
-      grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
+      grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels,
+                            SIMPLIFY = FALSE)
 
       if (mirror) {
         # gridx <- mapply(function(a, b) a - (b * size), xpos2, grid.levels)
         gridx <- mapply(function(a, b) a - unit(b * size, "mm"),
-                                                xpos2, grid.levels)
+                                                xpos2, grid.levels,
+                        SIMPLIFY = FALSE)
         # gridx <- mapply(function(a, b) a - (b * size), xpos2, grid.levels)
       } else {
         # gridx <- lapply(grid.levels, function(a) x + (a * size))
@@ -1267,7 +1271,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
         # gridx <- mapply(function(a, b) setdiff(b, a), x + (z * size), gridx)
       }
 
-      gridy <- mapply(function(a, b) rep(a, length(b)), ypos, gridx)
+      gridy <- mapply(function(a, b) rep(a, length(b)), ypos, gridx,
+                      SIMPLIFY = FALSE)
 
       # gridx <- unlist(gridx)
       # gridy <- unlist(gridy)
@@ -1278,7 +1283,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
       if (is.na(col.grid)) {
         if (length(col.bar == length(grid.levels))) {
           col.grid <- mapply(function(a, b) rep(a, length(b)),
-                             col.bar, grid.levels)
+                             col.bar, grid.levels,
+                             SIMPLIFY = FALSE)
           col.grid <- unlist(col.grid)
         } else {
           col.grid <- col.bar
