@@ -604,7 +604,7 @@ starglyphGrob <- function(x = .5, y = .5, z,
           starpy <- upgradeUnit.unit.list(starpy)
 
           if (is.na(col.points)) {
-            if (length(col.whisker == length(grid.levels))) {
+            if (length(col.whisker) == length(grid.levels)) {
               col.points <- mapply(function(a, b) rep(a, length(b)),
                                    col.whisker, grid.levels)
               col.points <- unlist(col.points)
