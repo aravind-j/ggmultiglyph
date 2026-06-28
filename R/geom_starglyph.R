@@ -70,12 +70,31 @@
 #' # Prepare the data ----
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' # Scale the data
+#' # Variables to map to glyphs
 #' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-#' mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
 #'
-#' mtcars$cyl <- as.factor(mtcars$cyl)
+#' # Keep a copy of the original data
+#' mtcars_fct <- mtcars
+#'
+#' # Scaled numeric data
+#' mtcars[zs] <- lapply(mtcars[zs], scales::rescale)
+#'
+#' mtcars$cyl <- factor(mtcars$cyl)
 #' mtcars$lab <- row.names(mtcars)
+#'
+#' # Ordered factor data
+#' mtcars_fct[zs[1:3]] <-
+#'   lapply(mtcars_fct[zs[1:3]], function(x)
+#'     ordered(cut(x, breaks = 3,
+#'                 labels = c("low", "medium", "high"))))
+#'
+#' mtcars_fct[zs[4:8]] <-
+#'   lapply(mtcars_fct[zs[4:8]], function(x)
+#'     ordered(cut(x, breaks = 4,
+#'                 labels = c("tiny", "small", "medium", "large"))))
+#'
+#' mtcars_fct$cyl <- factor(mtcars_fct$cyl)
+#' mtcars_fct$lab <- row.names(mtcars_fct)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Both whiskers and contour ----
@@ -194,20 +213,6 @@
 #'                  size = 10, alpha = 1, repel = TRUE) +
 #'   ylim(c(-0, 550)) +
 #'   xlim(c(8, 35))
-#'
-#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # Prepare the data with factor variables ----
-#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' mtcars_fct <- mtcars
-#'
-#' mtcars_fct[ , zs] <- lapply(mtcars_fct[, zs],
-#'                         function(x) cut(x, breaks = 3,
-#'                                         labels = c(1, 2, 3)))
-#' mtcars_fct[ , zs] <- lapply(mtcars_fct[ , zs], as.factor)
-#'
-#' mtcars_fct$cyl <- as.factor(mtcars_fct$cyl)
-#' mtcars_fct$lab <- row.names(mtcars_fct)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # With grid points ----
@@ -485,7 +490,16 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                   # draw_key = ggplot2::draw_key_polygon,
 
                                   setup_params = function(data, params) {
-
+                                    ####
+                                    params$col_max <- lapply(params$cols, function(col) {
+                                      if (is.factor(data[[col]])) {
+                                        nlevels(data[[col]])
+                                      } else {
+                                        ceiling(max(data[[col]], na.rm = TRUE))
+                                      }
+                                    })
+                                    names(params$col_max) <- params$cols
+                                    ####
                                     params
                                   },
 
@@ -514,12 +528,16 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
 
                                     draw.grid <- params$draw.grid
 
+                                    # Check if cols are ordered factor when draw.grid = TRUE
                                     if (draw.grid &
-                                        !all(unlist(lapply(data[, cols], is.factor)))) {
+                                        !all(vapply(data[, cols],
+                                                    function(x) is.factor(x) && is.ordered(x),
+                                                    logical(1)))) {
                                       draw.grid <- FALSE
-                                      warning('All the columns specified as "cols" in ',
-                                              '"data" are not of type factor.\n',
-                                              'Unable to plot grid points.')
+                                      warning(
+                                        'Not all columns specified in "cols" are ordered factors.\n',
+                                        'Unable to plot grid points.'
+                                      )
                                     }
 
                                     # Remove rows with missing values in "cols"
@@ -613,13 +631,8 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
 
                                     # Convert factor columns to equivalent numeric
                                     if (draw.grid) {
-                                      grid.levels <- lapply(data[, cols], function(a) as.integer(levels(a)))
-                                    }
-
-                                    fcols <- names(Filter(is.factor, data[, cols]))
-
-                                    if (length(fcols) > 0)  {
-                                      data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
+                                      grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+                                      data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
                                     }
 
                                     # The nudge is relative to the data.
@@ -709,7 +722,13 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                     # Convert factor columns to equivalent numeric
                                     if (params$draw.grid) {
                                       # grid.levels <- lapply(data[, params$cols], function(a) as.integer(levels(a)))
-                                      grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
+                                      # grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
+
+                                      grid.levels <- lapply(params$cols, function(col) {
+                                        max_val <- min(ceiling(data[[col]]), params$col_max[[col]])
+                                        if (max_val < 1L) integer(0) else seq_len(max_val)
+                                      })
+                                      names(grid.levels) <- params$cols
                                     }
 
                                     starglyphGrob(x = .5, y = .5,
