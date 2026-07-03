@@ -485,21 +485,13 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                                              segment.square = TRUE,
                                                              segment.squareShape = 1,
                                                              segment.inflect = FALSE,
-                                                             segment.debug = FALSE),
+                                                             segment.debug = FALSE,
+                                                             na.rm = FALSE),
 
                                   # draw_key = ggplot2::draw_key_polygon,
 
                                   setup_params = function(data, params) {
-                                    ####
-                                    params$col_max <- lapply(params$cols, function(col) {
-                                      if (is.factor(data[[col]])) {
-                                        nlevels(data[[col]])
-                                      } else {
-                                        ceiling(max(data[[col]], na.rm = TRUE))
-                                      }
-                                    })
-                                    names(params$col_max) <- params$cols
-                                    ####
+
                                     params
                                   },
 
@@ -718,25 +710,28 @@ GeomStarGlyph <- ggplot2::ggproto("GeomStarGlyph", ggplot2::Geom,
                                     }
 
                                     grid.levels <- NULL
-
-                                    # Convert factor columns to equivalent numeric
                                     if (params$draw.grid) {
-                                      # grid.levels <- lapply(data[, params$cols], function(a) as.integer(levels(a)))
-                                      # grid.levels <- lapply(data[, params$cols], function(a) ceiling(a))
 
-                                      grid.levels <- lapply(params$cols, function(col) {
-                                        max_val <- min(ceiling(data[[col]]), params$col_max[[col]])
-                                        if (max_val < 1L) integer(0) else seq_len(max_val)
+                                      vals <- data[, params$cols, drop = FALSE]
+
+                                      vals[] <- lapply(vals, function(x) {
+                                        if (is.character(x) || is.factor(x)) {
+                                          as.numeric(factor(x, levels = unique(x)))
+                                        } else {
+                                          x
+                                        }
                                       })
+
+                                      grid.levels <- lapply(vals, function(a) seq_len((ceiling(a))))
                                       names(grid.levels) <- params$cols
                                     }
 
                                     starglyphGrob(x = .5, y = .5,
-                                                   z = if (params$draw.grid) {
-                                                      ceiling(data[, params$cols])
-                                                    } else {
-                                                      data[, params$cols]
-                                                    },
+                                                  z = if (params$draw.grid) {
+                                                    ceiling(vals)
+                                                  } else {
+                                                    unlist(data[, params$cols])
+                                                  },
                                                   # z = params$zkey,
                                                   size = data$size,
                                                   col.whisker = if (is.null(params$colour.whisker)) {
