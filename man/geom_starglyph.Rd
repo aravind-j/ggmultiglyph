@@ -172,12 +172,31 @@ library(ggplot2)
 # Prepare the data ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Scale the data
+# Variables to map to glyphs
 zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
 
-mtcars$cyl <- as.factor(mtcars$cyl)
+# Keep a copy of the original data
+mtcars_fct <- mtcars
+
+# Scaled numeric data
+mtcars[zs] <- lapply(mtcars[zs], scales::rescale)
+
+mtcars$cyl <- factor(mtcars$cyl)
 mtcars$lab <- row.names(mtcars)
+
+# Ordered factor data
+mtcars_fct[zs[1:3]] <-
+  lapply(mtcars_fct[zs[1:3]], function(x)
+    ordered(cut(x, breaks = 3,
+                labels = c("low", "medium", "high"))))
+
+mtcars_fct[zs[4:8]] <-
+  lapply(mtcars_fct[zs[4:8]], function(x)
+    ordered(cut(x, breaks = 4,
+                labels = c("tiny", "small", "medium", "large"))))
+
+mtcars_fct$cyl <- factor(mtcars_fct$cyl)
+mtcars_fct$lab <- row.names(mtcars_fct)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Both whiskers and contour ----
@@ -296,20 +315,6 @@ ggplot(data = mtcars) +
                  size = 10, alpha = 1, repel = TRUE) +
   ylim(c(-0, 550)) +
   xlim(c(8, 35))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Prepare the data with factor variables ----
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-mtcars_fct <- mtcars
-
-mtcars_fct[ , zs] <- lapply(mtcars_fct[, zs],
-                        function(x) cut(x, breaks = 3,
-                                        labels = c(1, 2, 3)))
-mtcars_fct[ , zs] <- lapply(mtcars_fct[ , zs], as.factor)
-
-mtcars_fct$cyl <- as.factor(mtcars_fct$cyl)
-mtcars_fct$lab <- row.names(mtcars_fct)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # With grid points ----
