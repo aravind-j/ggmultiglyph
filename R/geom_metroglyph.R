@@ -519,6 +519,11 @@ GeomMetroGlyph <- ggplot2::ggproto("GeomMetroGlyph", ggplot2::Geom,
                                                               segment.inflect = FALSE,
                                                               segment.debug = FALSE),
 
+                                   setup_params = function(data, params) {
+
+                                     params
+                                   },
+
                                    setup_data = function(data, params) {
 
                                      cols <- params$cols
