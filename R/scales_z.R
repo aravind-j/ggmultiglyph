@@ -44,14 +44,47 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
 #' @rdname scales_z
 #' @export
 #'
-scale_z_discrete <- function(..., palette = seq_len, z) {
-  discrete_scale(
-    aesthetics = z,
-    scale_name = "z_discrete",
-    palette = palette,
-    ...
-  )
+scale_z_discrete <- function(..., z, na.translate = TRUE, na.value = NA,
+                             guide = "legend") {
+  # Handle both single variable and vector of variables
+  z <- as.character(z)
+
+  dots <- list(...)
+
+  make_one <- function(var) {
+    do.call(discrete_scale, c(
+      list(
+        aesthetics = var,
+        scale_name = "z_discrete",
+        palette = scales::identity_pal(),
+        na.translate = na.translate,
+        na.value = na.value,
+        guide = guide,
+        super = ScaleDiscreteZIdentity
+      ),
+      dots
+    ))
+  }
+
+  if (length(z) == 1) {
+    # Single variable: return a single discrete scale
+    make_one(z)
+  } else {
+    # Multiple variables: return a list of scales, one per variable
+    lapply(z, make_one)
+  }
 }
+
+
+#
+# scale_z_discrete <- function(..., palette = seq_len, z) {
+#   discrete_scale(
+#     aesthetics = z,
+#     scale_name = "z_discrete",
+#     palette = palette,
+#     ...
+#   )
+# }
 
 # scale_z_discrete <- function(..., name = waiver(),palette = seq_len,
 #                              expand = waiver(), guide = waiver(), z) {

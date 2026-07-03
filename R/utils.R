@@ -3,6 +3,17 @@
 ggname <- utils::getFromNamespace("ggname", "ggplot2")
 remove_missing <- utils::getFromNamespace("remove_missing", "ggplot2")
 
+# Get unexported ggproto from ggplot2
+ScaleDiscreteIdentity <-
+  utils::getFromNamespace("ScaleDiscreteIdentity", "ggplot2")
+
+ScaleDiscreteZIdentity <-
+  ggplot2::ggproto("ScaleDiscreteZIdentity",
+                   ScaleDiscreteIdentity,
+                   map = function(self, x, limits = self$get_limits()) {
+                     x
+                   })
+
 # Get unexported functions from grid
 upgradeUnit.unit.list <- utils::getFromNamespace("upgradeUnit.unit.list",
                                                  "grid")
