@@ -118,8 +118,8 @@ the \code{\link[scales]{scales}} package for available options.}
 
 \item{mirror}{logical. If \code{TRUE}, mirror profile is plotted.}
 
-\item{draw.grid}{logical. If \code{TRUE}, grid points are plotted along the
-whiskers if all the variables specified in \code{cols} are of type
+\item{draw.grid}{logical. If \code{TRUE}, grid levels are plotted along the
+profile bars if all the variables specified in \code{cols} are an ordered
 \link[base]{factor}. Default is \code{FALSE}.}
 
 \item{legend.glyph.dims}{The dimensions of the legend glyph plot. Can be a
@@ -147,6 +147,8 @@ control parameters.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
+
+\item{grid.point.size}{The size of the grid points in native units.}
 }
 \value{
 A \code{geom} layer.

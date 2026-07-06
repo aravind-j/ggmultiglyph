@@ -18,6 +18,9 @@
 #' @param linewidth.bar The line width of the bars.
 #' @param linewidth.grid The line width of the grid lines.
 #' @param fill.bar The fill colour of the bars.
+#' @param draw.grid logical. If \code{TRUE}, grid levels are plotted along the
+#'   profile bars if all the variables specified in \code{cols} are an ordered
+#'   \link[base]{factor}. Default is \code{FALSE}.
 #'
 #' @section Aesthetics: \code{geom_pieglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}
@@ -639,11 +642,14 @@ GeomProfileGlyph <- ggplot2::ggproto("GeomProfileGlyph", ggplot2::Geom,
                                        draw.grid <- params$draw.grid
 
                                        if (draw.grid &
-                                           !all(unlist(lapply(data[, cols], is.factor)))) {
+                                           !all(vapply(data[, cols],
+                                                       function(x) is.factor(x) && is.ordered(x),
+                                                       logical(1)))) {
                                          draw.grid <- FALSE
-                                         warning('All the columns specified as "cols" in ',
-                                                 '"data" are not of type factor.\n',
-                                                 'Unable to plot grid points.')
+                                         warning(
+                                           'Not all columns specified in "cols" are ordered factors.\n',
+                                           'Unable to plot grid points.'
+                                         )
                                        }
 
                                        # Remove rows with missing values in "cols"

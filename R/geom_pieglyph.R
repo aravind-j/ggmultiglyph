@@ -5,7 +5,6 @@
 #' scatterplot.
 #'
 #' @template general-arg
-#' @template draw.grid-arg
 #' @template full-arg
 #' @template fill.gradient-arg
 #' @template scale.segment.radius-arg
@@ -13,6 +12,9 @@
 #' @inheritParams ggplot2::layer
 #' @inheritParams pieglyphGrob
 #' @param fill.segment The fill colour of the segments.
+#' @param draw.grid logical. If \code{TRUE}, grid levels are plotted along the
+#'   sectors if all the variables specified in \code{cols} are an ordered
+#'   \link[base]{factor}. Default is \code{FALSE}.
 #' @param colour.grid The colour of grid lines.
 #' @param linewidth The line width of the segments.
 #' @param linewidth.grid The line width for the grid lines.
@@ -297,26 +299,6 @@
 #' mtcars$cyl <- as.factor(mtcars$cyl)
 #' mtcars$lab <- row.names(mtcars)
 #'
-#' # Grid lines (when scale.radius = TRUE)
-#' ggplot(data = mtcars) +
-#'   geom_pieglyph(aes(x = mpg, y = disp, fill = cyl),
-#'                 cols = zs, size = 2,
-#'                 alpha =  0.8, draw.grid = TRUE) +
-#'   ylim(c(-0, 550))
-#'
-#' ggplot(data = mtcars) +
-#'   geom_pieglyph(aes(x = mpg, y = disp, colour = cyl),
-#'                 cols = zs, size = 2,
-#'                 alpha =  0.8, draw.grid = TRUE) +
-#'   ylim(c(-0, 550))
-#'
-#' ggplot(data = mtcars) +
-#'   geom_pieglyph(aes(x = mpg, y = disp),
-#'                 cols = zs, size = 2,
-#'                 scale.radius = TRUE, scale.segment = FALSE,
-#'                 fill.gradient = "Blues",
-#'                 alpha =  0.8, draw.grid = TRUE) +
-#'   ylim(c(-0, 550))
 #'
 geom_pieglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           position = "identity", ...,
@@ -479,11 +461,14 @@ GeomPieGlyph <- ggplot2::ggproto("GeomPieGlyph", ggplot2::Geom,
                                    draw.grid <- params$draw.grid
 
                                    if (draw.grid &
-                                       !all(unlist(lapply(data[, cols], is.factor)))) {
+                                       !all(vapply(data[, cols],
+                                                   function(x) is.factor(x) && is.ordered(x),
+                                                   logical(1)))) {
                                      draw.grid <- FALSE
-                                     warning('All the columns specified as "cols" in ',
-                                             '"data" are not of type factor.\n',
-                                             'Unable to plot grid points.')
+                                     warning(
+                                       'Not all columns specified in "cols" are ordered factors.\n',
+                                       'Unable to plot grid points.'
+                                     )
                                    }
 
                                    # Remove rows with missing values in "cols"

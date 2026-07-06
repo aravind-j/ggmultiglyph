@@ -15,7 +15,9 @@
 #' @param colour.points The colour of grid points.
 #' @param linewidth.whisker The whisker line width.
 #' @param linewidth.contour The contour line width.
-#' @param grid.point.size The size of the grid points in native units.
+#' @param draw.grid logical. If \code{TRUE}, grid points are plotted along the
+#'   whiskers if all the variables specified in \code{cols} are an ordered
+#'   \link[base]{factor}. Default is \code{FALSE}.
 #'
 #' @section Aesthetics: \code{geom_starglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}

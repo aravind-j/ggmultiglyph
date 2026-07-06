@@ -108,8 +108,8 @@ slices) are scaled according to value of \code{cols}.}
 \item{full}{logical. If \code{TRUE}, full star glyphs (360°) are plotted,
 otherwise half star glyphs (180°) are plotted.}
 
-\item{draw.grid}{logical. If \code{TRUE}, grid points are plotted along the
-whiskers if all the variables specified in \code{cols} are of type
+\item{draw.grid}{logical. If \code{TRUE}, grid levels are plotted along the
+sectors if all the variables specified in \code{cols} are an ordered
 \link[base]{factor}. Default is \code{FALSE}.}
 
 \item{legend.glyph.dims}{The dimensions of the legend glyph plot. Can be a
@@ -408,26 +408,6 @@ mtcars[ , zs] <- lapply(mtcars[ , zs], as.factor)
 mtcars$cyl <- as.factor(mtcars$cyl)
 mtcars$lab <- row.names(mtcars)
 
-# Grid lines (when scale.radius = TRUE)
-ggplot(data = mtcars) +
-  geom_pieglyph(aes(x = mpg, y = disp, fill = cyl),
-                cols = zs, size = 2,
-                alpha =  0.8, draw.grid = TRUE) +
-  ylim(c(-0, 550))
-
-ggplot(data = mtcars) +
-  geom_pieglyph(aes(x = mpg, y = disp, colour = cyl),
-                cols = zs, size = 2,
-                alpha =  0.8, draw.grid = TRUE) +
-  ylim(c(-0, 550))
-
-ggplot(data = mtcars) +
-  geom_pieglyph(aes(x = mpg, y = disp),
-                cols = zs, size = 2,
-                scale.radius = TRUE, scale.segment = FALSE,
-                fill.gradient = "Blues",
-                alpha =  0.8, draw.grid = TRUE) +
-  ylim(c(-0, 550))
 
 }
 \references{

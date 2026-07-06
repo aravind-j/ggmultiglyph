@@ -103,7 +103,7 @@ plotted in the glyphs as a character vector.}
 otherwise half star glyphs (180°) are plotted.}
 
 \item{draw.grid}{logical. If \code{TRUE}, grid points are plotted along the
-whiskers if all the variables specified in \code{cols} are of type
+rays if all the variables specified in \code{cols} are an ordered
 \link[base]{factor}. Default is \code{FALSE}.}
 
 \item{grid.point.size}{The size of the grid points in native units.}

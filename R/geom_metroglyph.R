@@ -15,7 +15,9 @@
 #' @param colour.points The colour of grid points.
 #' @param linewidth.ray The ray line width.
 #' @param linewidth.circle The circle line width.
-#' @param grid.point.size The size of the grid points in native units.
+#' @param draw.grid logical. If \code{TRUE}, grid points are plotted along the
+#'   rays if all the variables specified in \code{cols} are an ordered
+#'   \link[base]{factor}. Default is \code{FALSE}.
 #'
 #' @section Aesthetics: \code{geom_metroglyph()} understands the following
 #'   aesthetics (required aesthetics are in bold): \itemize{ \item{\strong{x}}
@@ -551,11 +553,14 @@ GeomMetroGlyph <- ggplot2::ggproto("GeomMetroGlyph", ggplot2::Geom,
                                      draw.grid <- params$draw.grid
 
                                      if (draw.grid &
-                                         !all(unlist(lapply(data[, cols], is.factor)))) {
+                                         !all(vapply(data[, cols],
+                                                     function(x) is.factor(x) && is.ordered(x),
+                                                     logical(1)))) {
                                        draw.grid <- FALSE
-                                       warning('All the columns specified as "cols" in ',
-                                               '"data" are not of type factor.\n',
-                                               'Unable to plot grid points.')
+                                       warning(
+                                         'Not all columns specified in "cols" are ordered factors.\n',
+                                         'Unable to plot grid points.'
+                                       )
                                      }
 
                                      # Remove rows with missing values in "cols"
