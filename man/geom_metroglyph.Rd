@@ -173,12 +173,31 @@ library(ggplot2)
 # Prepare the data ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Scale the data
+# Variables to map to glyphs
 zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
 
-mtcars$cyl <- as.factor(mtcars$cyl)
+# Keep a copy of the original data
+mtcars_fct <- mtcars
+
+# Scaled numeric data
+mtcars[zs] <- lapply(mtcars[zs], scales::rescale)
+
+mtcars$cyl <- factor(mtcars$cyl)
 mtcars$lab <- row.names(mtcars)
+
+# Ordered factor data
+mtcars_fct[zs[1:3]] <-
+  lapply(mtcars_fct[zs[1:3]], function(x)
+    ordered(cut(x, breaks = 3,
+                labels = c("low", "medium", "high"))))
+
+mtcars_fct[zs[4:8]] <-
+  lapply(mtcars_fct[zs[4:8]], function(x)
+    ordered(cut(x, breaks = 4,
+                labels = c("tiny", "small", "medium", "large"))))
+
+mtcars_fct$cyl <- factor(mtcars_fct$cyl)
+mtcars_fct$lab <- row.names(mtcars_fct)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Mapped colour ----
@@ -342,20 +361,6 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Prepare the data with factor variables ----
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-mtcars_fct <- mtcars
-
-mtcars_fct[ , zs] <- lapply(mtcars_fct[, zs],
-                        function(x) cut(x, breaks = 3,
-                                        labels = c(1, 2, 3)))
-mtcars_fct[ , zs] <- lapply(mtcars_fct[ , zs], as.factor)
-
-mtcars_fct$cyl <- as.factor(mtcars_fct$cyl)
-mtcars_fct$lab <- row.names(mtcars_fct)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # With grid points ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -494,6 +499,96 @@ ggplot(data = mtcars) +
                                height = unit(0.1, "npc"),
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 30, b = 30))))
+
+# Legend in plots with grid points
+
+z_grid <- c(hp = 3, drat = 3, wt = 2,
+            qsec = 2, vs = 3, am = 4,
+            gear = 2, carb = 3)
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5,
+                  legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5,
+                  legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
+# metroglyphGrob with grid levels
+
+z_grid_levels <- lapply(z_grid, function(x) 1:x)
+
+guide_metrogrob_grid <-
+  metroglyphGrob(z = z_grid,
+                size = 2.5, draw.grid = TRUE, circle.size = 2,
+                grid.levels = z_grid_levels,
+                grid.point.size = 0.1)
+
+guide_metrogrob_grid <-
+  addlabel.glyphGrob(grob = guide_metrogrob_grid, label = zs,
+                     push = 1, segment = FALSE)
+
+# Another version
+guide_metrogrob_grid2 <-
+  metroglyphGrob(z = rep(3, length(z_grid)),
+                size = 2.5, draw.grid = TRUE, circle.size = 2,
+                grid.levels = replicate(8, 1:3,
+                                        simplify = FALSE),
+                grid.point.size = 0.1)
+guide_metrogrob_grid2 <-
+  addlabel.glyphGrob(grob = guide_metrogrob_grid2, label = zs,
+                     push = 1, segment = FALSE)
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5,
+                  legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_metrogrob_grid,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 20, b = 30))))
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5,
+                  legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_metrogrob_grid2,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 20, b = 30))))
 
 }
 \references{

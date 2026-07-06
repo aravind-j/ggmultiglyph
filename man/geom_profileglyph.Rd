@@ -179,17 +179,44 @@ scatterplot.
 }
 
 \examples{
-# Scale the data
-zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
 
-mtcars$cyl <- as.factor(mtcars$cyl)
-mtcars$lab <- row.names(mtcars)
+\dontshow{gglyph:::.gglyph_ex_setup()}
 
 library(ggplot2)
-theme_set(theme_bw())
-options(ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"))
-options(ggplot2.discrete.fill = RColorBrewer::brewer.pal(8, "Dark2"))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Prepare the data ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Variables to map to glyphs
+zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
+
+# Keep a copy of the original data
+mtcars_fct <- mtcars
+
+# Scaled numeric data
+mtcars[zs] <- lapply(mtcars[zs], scales::rescale)
+
+mtcars$cyl <- factor(mtcars$cyl)
+mtcars$lab <- row.names(mtcars)
+
+# Ordered factor data
+mtcars_fct[zs[1:3]] <-
+  lapply(mtcars_fct[zs[1:3]], function(x)
+    ordered(cut(x, breaks = 3,
+                labels = c("low", "medium", "high"))))
+
+mtcars_fct[zs[4:8]] <-
+  lapply(mtcars_fct[zs[4:8]], function(x)
+    ordered(cut(x, breaks = 4,
+                labels = c("tiny", "small", "medium", "large"))))
+
+mtcars_fct$cyl <- factor(mtcars_fct$cyl)
+mtcars_fct$lab <- row.names(mtcars_fct)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bar, line, mirror and flip.axes combinations ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -218,7 +245,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Mapped fill + line
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped fill + line ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
                     cols = zs, size = 5, width = 1,
@@ -247,7 +277,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Mapped fill + bar
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped fill + bar ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
                     cols = zs, size = 5, width = 1,
@@ -276,7 +309,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Mapped colour + bar and line
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped colour + bar and line ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, colour = cyl),
                     cols = zs, size = 5, width = 1,
@@ -304,7 +340,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Mapped colour + line
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped colour + line ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, colour = cyl),
                     cols = zs, size = 5, width = 1,
@@ -333,7 +372,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Mapped colour + bar
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped colour + bar ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, colour = cyl),
                     cols = zs, size = 5, width = 1,
@@ -362,7 +404,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Bars with different fill + bar and line
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bars with multivariate fill + bar and line ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp),
                     cols = zs, size = 5, width = 1,
@@ -394,7 +439,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Bars with different fill + bar
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bars with multivariate fill + bar ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp),
                     cols = zs, size = 5, width = 1,
@@ -430,7 +478,9 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Bars with gradient fill + bar and line
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bars with gradient fill + bar and line ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp),
                     cols = zs, size = 5, width = 1,
@@ -462,7 +512,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Bars with gradient fill + bar
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bars with gradient fill + bar ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp),
                     cols = zs, size = 5, width = 1,
@@ -498,7 +551,10 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
-# Faceted
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Faceted ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
                     cols = zs, size = 5, width = 1,
@@ -521,7 +577,10 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550)) +
   facet_grid(. ~ cyl)
 
-# Repel glyphs
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Repel glyphs ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -561,36 +620,213 @@ ggplot(data = mtcars) +
                     alpha =  1, repel = TRUE) +
   ylim(c(-0, 550))
 
-rm(mtcars)
-mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# With grid lines (when bar = TRUE) ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mtcars[ , zs] <- lapply(mtcars[, zs],
-                        function(x) cut(x, breaks = 3,
-                                        labels = c(1, 2, 3)))
-mtcars[ , zs] <- lapply(mtcars[ , zs], as.factor)
-
-mtcars$cyl <- as.factor(mtcars$cyl)
-mtcars$lab <- row.names(mtcars)
-
-# Grid lines (when bar = TRUE)
-ggplot(data = mtcars) +
+ggplot(data = mtcars_fct) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
                     cols = zs, size = 3, width = 1,
                     alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
 
-ggplot(data = mtcars) +
+ggplot(data = mtcars_fct) +
   geom_profileglyph(aes(x = mpg, y = disp, col = cyl),
                     cols = zs, size = 3, width = 1,
                     alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
 
-ggplot(data = mtcars) +
+ggplot(data = mtcars_fct) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
                     cols = zs, size = 3, width = 1,
                     fill.gradient = "Blues",
                     alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Legend options ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Default legend/guide
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550))
+
+# Theme modifications for legend
+legend_theme <-
+  theme_bw(base_size = 7.5) +
+  theme(legend.direction = "vertical",
+        legend.box = "horizontal",
+        legend.position = "bottom",
+        legend.text = element_text(margin = margin(l = 7)),
+        legend.key.height = unit(1.5, 'lines'))
+
+# Glyph variable-wise legends
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  scale_z_continuous(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
+# Modifying the `legend.glyph.dims`
+zavg <- # Scaled average of the variables
+  apply(mtcars[, zs], 2,
+        function(x) {
+          scales::rescale(mean(x),
+                          from = range(x), # same range as in scale_z_continuous
+                          to = c(0, 1))
+        })
+zavg
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE,
+                    legend.glyph.dims = zavg) +
+  ylim(c(-0, 550)) +
+  xlim(c(8, 35))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE,
+                    legend.glyph.dims = zavg) +
+  ylim(c(-0, 550)) +
+  scale_z_continuous(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill")  +
+  legend_theme
+
+# Using custom guide
+# profileglyphGrob
+guide_profilegrob <- profileglyphGrob(
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25)
+# Add labels to profileglyphGrob
+guide_profilegrob <-
+  addlabel.glyphGrob(grob = guide_profilegrob, label = zs,
+                     segment = TRUE,
+                     angle = 45, push = 1, hjust = 1)
+
+# Another version
+guide_profilegrob2 <- profileglyphGrob(
+  z = rep(0.5, length(zs)),
+  size = 25)
+guide_profilegrob2 <-
+  addlabel.glyphGrob(grob = guide_profilegrob2, label = zs,
+                     push = 1, segment = FALSE,
+                     angle = 45, hjust = 1)
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_profilegrob,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 20, b = 50))))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 5, width = 1,
+                    alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_profilegrob2,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 7, b = 30))))
+
+# Legend in plots with grid points
+
+z_grid <- c(hp = 3, drat = 3, wt = 2,
+            qsec = 2, vs = 3, am = 4,
+            gear = 2, carb = 3)
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 1, width = 1,
+                    alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 1, width = 1,
+                    alpha =  0.8, draw.grid = TRUE,
+                    legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 1, width = 1,
+                    alpha =  0.8, draw.grid = TRUE,
+                    legend.glyph.dims = z_grid) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
+# profileglyphGrob with grid levels
+
+z_grid_levels <- lapply(z_grid, function(x) 1:x)
+
+guide_profilegrob_grid <-
+  profileglyphGrob(z = z_grid,
+                   size = 3, draw.grid = TRUE,
+                   grid.levels = z_grid_levels)
+
+guide_profilegrob_grid <-
+  addlabel.glyphGrob(grob = guide_profilegrob_grid, label = zs,
+                     push = 1, segment = TRUE,
+                     angle = 45, hjust = 1)
+
+# Another version
+guide_profilegrob_grid2 <-
+  profileglyphGrob(z = rep(3, length(z_grid)),
+                   size = 3, draw.grid = TRUE,
+                   grid.levels = replicate(8, 1:3,
+                                           simplify = FALSE))
+guide_profilegrob_grid2 <-
+  addlabel.glyphGrob(grob = guide_profilegrob_grid2, label = zs,
+                     push = 1, segment = FALSE,
+                     angle = 45, hjust = 1)
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 3, width = 1,
+                    alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_profilegrob_grid,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 5, b = 30))))
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 3, width = 1,
+                    alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_profilegrob_grid2,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 5, b = 30))))
 
 }
 \references{
