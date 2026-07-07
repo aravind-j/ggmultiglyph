@@ -48,67 +48,103 @@
 #' \insertAllCited{}
 #'
 #' @examples
-#'
-#' # Scale the data
-#' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-#' mtcars[ , zs] <- lapply(mtcars[ , zs], scales::rescale)
-#'
-#' mtcars$cyl <- as.factor(mtcars$cyl)
-#' mtcars$lab <- row.names(mtcars)
+#' \dontshow{gglyph:::.gglyph_ex_setup()}
 #'
 #' library(ggplot2)
-#' theme_set(theme_bw())
-#' options(ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"))
-#' options(ggplot2.discrete.fill = RColorBrewer::brewer.pal(8, "Dark2"))
 #'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Prepare the data ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Variables to map to glyphs
+#' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
+#'
+#' # Scaled numeric data
+#' mtcars[zs] <- lapply(mtcars[zs], scales::rescale)
+#'
+#' mtcars$cyl <- factor(mtcars$cyl)
+#' mtcars$lab <- row.names(mtcars)
+#'
+#' # Theme modifications for legend
+#' legend_theme <-
+#'   theme_bw(base_size = 7.5) +
+#'   theme(legend.direction = "vertical",
+#'         legend.box = "horizontal",
+#'         legend.position = "bottom",
+#'         legend.text = element_text(margin = margin(l = 7)),
+#'         legend.key.height = unit(1.5, 'lines'))
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Palette and dimension combos ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' ggplot(data = mtcars) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 2,
-#'                  fill.gradient = "Blues",
 #'                  alpha =  0.5) +
-#'   ylim(c(-0, 550))
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "Blues") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
 #' ggplot(data = mtcars) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 2,
 #'                  nrow = 2,
-#'                  fill.gradient = "Greens",
 #'                  alpha =  0.5) +
-#'   ylim(c(-0, 550))
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "Greens") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
 #' ggplot(data = mtcars) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 1,
 #'                  ratio = 4,
-#'                  fill.gradient = "RdYlBu",
 #'                  alpha =  0.5) +
-#'   ylim(c(-0, 550))
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "RdYlBu") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
 #' ggplot(data = mtcars) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 1,
 #'                  ratio = 4, nrow = 2,
-#'                  fill.gradient = "viridis",
 #'                  alpha =  0.5) +
-#'   ylim(c(-0, 550))
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "viridis") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
-#' # Repel glyphs
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Repel glyphs ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' ggplot(data = mtcars) +
 #'   geom_point(aes(x = mpg, y = disp)) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 2,
-#'                  fill.gradient = "Blues",
-#'                  alpha = 1, repel = TRUE) +
-#'   ylim(c(-0, 550))
+#'                  alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "Blues") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
 #' ggplot(data = mtcars) +
 #'   geom_point(aes(x = mpg, y = disp)) +
 #'   geom_tileglyph(aes(x = mpg, y = disp),
 #'                  cols = zs, size = 1,
 #'                  ratio = 4, nrow = 2,
-#'                  fill.gradient = "viridis",
-#'                  alpha = 1, repel = TRUE) +
-#'   ylim(c(-0, 550))
+#'                  alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_fill_continuous(z = zs, palette = "viridis") +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   theme_bw(base_size = 7.5) +
+#'   legend_theme
 #'
 geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            position = "identity", ...,
