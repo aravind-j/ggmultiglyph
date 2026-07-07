@@ -5,7 +5,6 @@
 #' scatterplot.
 #'
 #' @template general-arg
-#' @template draw.grid-arg
 #' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer

@@ -147,8 +147,6 @@ control parameters.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
-
-\item{grid.point.size}{The size of the grid points in native units.}
 }
 \value{
 A \code{geom} layer.
