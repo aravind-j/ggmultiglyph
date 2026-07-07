@@ -50,87 +50,108 @@
 #'
 #' @examples
 #'
-#' # Convert data to classes
-#' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
-#'
-#' mtcars[ , zs] <- lapply(mtcars[, zs],
-#'                         function(x) cut(x, breaks = 5,
-#'                                         labels = c(1, 2, 3, 4, 5)))
-#' mtcars[ , zs] <- lapply(mtcars[ , zs], as.factor)
-#'
-#' mtcars$cyl <- as.factor(mtcars$cyl)
-#' mtcars$lab <- row.names(mtcars)
+#' \dontshow{gglyph:::.gglyph_ex_setup()}
 #'
 #' library(ggplot2)
-#' theme_set(theme_bw())
-#' options(ggplot2.discrete.colour = RColorBrewer::brewer.pal(8, "Dark2"))
-#' options(ggplot2.discrete.fill = RColorBrewer::brewer.pal(8, "Dark2"))
 #'
-#' # Mapped fill
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Prepare the data ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Variables to map to glyphs
+#' zs <- c("hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")
+#'
+#' # Keep a copy of the original data
+#' mtcars_fct <- mtcars
+#'
+#' # Ordered factor data
+#' mtcars_fct[zs[1:3]] <-
+#'   lapply(mtcars_fct[zs[1:3]], function(x)
+#'     ordered(cut(x, breaks = 3,
+#'                 labels = c("low", "medium", "high"))))
+#'
+#' mtcars_fct[zs[4:8]] <-
+#'   lapply(mtcars_fct[zs[4:8]], function(x)
+#'     ordered(cut(x, breaks = 4,
+#'                 labels = c("tiny", "small", "medium", "large"))))
+#'
+#' mtcars_fct$cyl <- factor(mtcars_fct$cyl)
+#' mtcars_fct$lab <- row.names(mtcars_fct)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Mapped fill ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 flip.axes = TRUE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE, flip.axes = TRUE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Mapped colour
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Mapped colour ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 flip.axes = TRUE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE, flip.axes = TRUE,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Different fill colours
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Multivariate fill colours ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 fill.dot = RColorBrewer::brewer.pal(8, "Dark2"),
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE,
@@ -138,7 +159,7 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 flip.axes = TRUE,
@@ -146,7 +167,7 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE, flip.axes = TRUE,
@@ -154,15 +175,18 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Gradient fill
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Gradient fill ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 fill.gradient = "Greens",
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 fill.gradient = "Blues",
@@ -170,7 +194,7 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 flip.axes = TRUE,
@@ -178,7 +202,7 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 mirror = FALSE, flip.axes = TRUE,
@@ -186,22 +210,25 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
-#' # Faceted
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Faceted ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550)) +
 #'   facet_grid(. ~ cyl)
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550)) +
 #'   facet_grid(. ~ cyl)
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 fill.dot = RColorBrewer::brewer.pal(8, "Dark2"),
@@ -209,7 +236,7 @@
 #'   ylim(c(-0, 550)) +
 #'   facet_grid(. ~ cyl)
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
 #'                 fill.gradient = "viridis",
@@ -217,15 +244,18 @@
 #'   ylim(c(-0, 550)) +
 #'   facet_grid(. ~ cyl)
 #'
-#' # Repel glyphs
-#' ggplot(data = mtcars) +
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Repel glyphs ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' ggplot(data = mtcars_fct) +
 #'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
 #'                 cols = zs, radius = 0.5,
 #'                 alpha =  1, repel = TRUE) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
 #'   geom_dotglyph(aes(x = mpg, y = disp, colour = cyl),
 #'                 cols = zs, radius = 0.5,
@@ -233,7 +263,7 @@
 #'                 alpha =  1, repel = TRUE) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_point(aes(x = mpg, y = disp)) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
@@ -242,7 +272,7 @@
 #'                 alpha =  1, repel = TRUE) +
 #'   ylim(c(-0, 550))
 #'
-#' ggplot(data = mtcars) +
+#' ggplot(data = mtcars_fct) +
 #'   geom_point(aes(x = mpg, y = disp)) +
 #'   geom_dotglyph(aes(x = mpg, y = disp),
 #'                 cols = zs, radius = 0.5,
@@ -250,6 +280,137 @@
 #'                 fill.gradient = "viridis",
 #'                 alpha =  1, repel = TRUE) +
 #'   ylim(c(-0, 550))
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Legend options ----
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Default legend/guide
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5,
+#'                 alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550))
+#'
+#' # Theme modifications for legend
+#' legend_theme <-
+#'   theme_bw(base_size = 7.5) +
+#'   theme(legend.direction = "vertical",
+#'         legend.box = "horizontal",
+#'         legend.position = "bottom",
+#'         legend.text = element_text(margin = margin(l = 7)),
+#'         legend.key.height = unit(1.5, 'lines'))
+#'
+#' # Glyph variable-wise legends
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5,
+#'                 alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_discrete(z = zs) +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   legend_theme
+#'
+#'
+#' # Modifying the `legend.glyph.dims`
+#' z_grid <- c(hp = 3, drat = 3, wt = 2,
+#'             qsec = 2, vs = 3, am = 4,
+#'             gear = 2, carb = 3)
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5,
+#'                 alpha =  1, repel = TRUE,
+#'                 legend.glyph.dims = z_grid) +
+#'   ylim(c(-0, 550))
+#'
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5,
+#'                 alpha =  1, repel = TRUE,
+#'                 legend.glyph.dims = z_grid) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_discrete(z = zs) +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   legend_theme
+#'
+#' # Using custom guide
+#' # dotglyphGrob
+#' guide_dotgrob <-
+#'   dotglyphGrob(z = z_grid, radius = 2.5)
+#' # Add labels to starglyphGrob
+#' guide_dotgrob <-
+#'   addlabel.glyphGrob(grob = guide_dotgrob, label = zs,
+#'                      push = 3, segment = FALSE,
+#'                      angle = 45, hjust = 1)
+#'
+#' # Another version
+#' guide_dotgrob2 <-
+#'   dotglyphGrob(z = rep(3, length(z_grid)), radius = 2,
+#'                mirror = TRUE)
+#' guide_dotgrob2 <-
+#'   addlabel.glyphGrob(grob = guide_dotgrob2, label = zs,
+#'                      push = 8, segment = TRUE,
+#'                      angle = 45, hjust = 1)
+#'
+#' # Multivariate colour version
+#' clrs <- mapply(function(a, b) rep(a, b),
+#'                RColorBrewer::brewer.pal(8, "Dark2"),
+#'                rep(3, 8))
+#' clrs <- unlist(clrs)
+#'
+#' guide_dotgrob_mcol <-
+#'   dotglyphGrob(z = rep(3, length(z_grid)), radius = 2,
+#'                mirror = TRUE,
+#'                fill = clrs)
+#' guide_dotgrob_mcol <-
+#'   addlabel.glyphGrob(grob = guide_dotgrob_mcol, label = zs,
+#'                      push = 8, segment = FALSE,
+#'                      angle = 45, hjust = 1)
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5, mirror = FALSE,
+#'                 alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   guides(fill = guide_legend(order = 1, position = "right"),
+#'          custom = guide_custom(guide_dotgrob,
+#'                                width = unit(0.1, "npc"),
+#'                                height = unit(0.1, "npc"),
+#'                                position = "bottom",
+#'                                theme = theme(legend.margin = margin(t = 30, b = 20))))
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
+#'   geom_dotglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, radius = 0.5, mirror = TRUE,
+#'                 alpha =  1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   guides(fill = guide_legend(order = 1, position = "right"),
+#'          custom = guide_custom(guide_dotgrob2,
+#'                                width = unit(0.1, "npc"),
+#'                                height = unit(0.1, "npc"),
+#'                                position = "bottom",
+#'                                theme = theme(legend.margin = margin(t = 5, b = 30))))
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_point(aes(x = mpg, y = disp), show.legend = FALSE) +
+#'   geom_dotglyph(aes(x = mpg, y = disp),
+#'                 cols = zs, radius = 0.5,
+#'                 fill.dot = RColorBrewer::brewer.pal(8, "Dark2"),
+#'                 alpha = 1, repel = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   guides(fill = guide_legend(order = 1, position = "right"),
+#'          custom = guide_custom(guide_dotgrob_mcol,
+#'                                width = unit(0.1, "npc"),
+#'                                height = unit(0.1, "npc"),
+#'                                position = "bottom",
+#'                                theme = theme(legend.margin = margin(t = 5, b = 30))))
 #'
 geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           position = "identity", ...,
@@ -260,7 +421,7 @@ geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           linewidth = 1,
                           mirror = TRUE,
                           flip.axes = FALSE,
-                          legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
+                          legend.glyph.dims = setNames(rep(1, length(cols)), cols),
                           show.legend = NA,
                           repel = FALSE,
                           repel.control = gglyph.repel.control(),
@@ -390,14 +551,21 @@ GeomDotGlyph <- ggplot2::ggproto("GeomDotGlyph", ggplot2::Geom,
                                    }
 
                                    # Check if cols are numeric or factor
-                                   intfactcols <- unlist(lapply(data[, cols],
-                                                                function(x) FALSE %in% (is.vector(x, mode = "integer") |
-                                                                                          is.vector(x, mode = "numeric") |
-                                                                                          is.factor(x))))
-                                   if (TRUE %in% intfactcols) {
+                                   factcols <- unlist(lapply(data[, cols],
+                                                                function(x) FALSE %in% (is.factor(x))))
+                                   if (TRUE %in% factcols) {
                                      stop('The following column(s) specified as "cols" in ',
-                                          '"data" are not of type numeric, integer or factor:\n',
-                                          paste(names(intfactcols[intfactcols]), collapse = ", "))
+                                          '"data" are not of type factor:\n',
+                                          paste(names(factcols[factcols]), collapse = ", "))
+                                   }
+
+                                   if (!all(vapply(data[, cols],
+                                                   function(x) is.factor(x) && is.ordered(x),
+                                                   logical(1)))) {
+
+                                     stop(
+                                       'Not all columns specified in "cols" are ordered factors.\n'
+                                     )
                                    }
 
                                    # Remove rows with missing values in "cols"
@@ -473,11 +641,11 @@ GeomDotGlyph <- ggplot2::ggproto("GeomDotGlyph", ggplot2::Geom,
 
                                    data <- coord$transform(data, panel_params)
 
-                                   # Convert factor columns to equivalent numeric
+                                   # Convert factor columns to equivalent numeric (integer rank of factor levels)
                                    fcols <- names(Filter(is.factor, data[, cols]))
 
                                    if (length(fcols) > 0)  {
-                                     data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
+                                     data[, fcols] <- lapply(data[, fcols], function(f) as.integer(f))
                                    }
 
                                    # Gradient colour mapping
@@ -559,10 +727,20 @@ GeomDotGlyph <- ggplot2::ggproto("GeomDotGlyph", ggplot2::Geom,
 
                                  draw_key = function(data, params, size) {
 
+                                   vals <- data[, params$cols, drop = FALSE]
+
+                                   vals[] <- lapply(vals, function(x) {
+                                     if (is.character(x) || is.factor(x)) {
+                                       as.numeric(factor(x, levels = unique(x)))
+                                     } else {
+                                       x
+                                     }
+                                   })
+
                                    dotglyphGrob(
                                      x = .5,
                                      y = .5,
-                                     z = unlist(data[, params$cols]),
+                                     z = unlist(ceiling(vals)),
                                      radius = params$radius,
                                      mirror = params$mirror,
                                      flip.axes = params$flip.axes,
