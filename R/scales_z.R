@@ -1,12 +1,35 @@
 #' Alter scales for continuous data mapped to glyphs
 #'
 #' Scale variable(s) mapped to the glyphs to the given range using
-#' \code{\link[scales]{rescale_pal}}.
+#' \code{\link[scales]{rescale_pal}}. Each variable in \code{z} gets its own
+#' independent continuous scale.
 #'
 #' @param ... Additional arguments to be passed on to
 #'   \code{\link[ggplot2]{continuous_scale}}.
 #' @param range The range to which the variable(s) specified in argument
 #'   \code{z} are to be scaled.
+#' @param z The variable(s) mapped to the glyph as a character vector.
+#'
+#' @importFrom scales rescale_pal
+#' @importFrom ggplot2 continuous_scale
+#'
+#' @export
+#'
+scale_z_continuous <- function(..., range = c(0.1, 1), z) {
+  continuous_scale(
+    aesthetics = z,
+    scale_name = "z_continuous",
+    palette = scales::rescale_pal(range),
+    ...
+  )
+}
+
+#' Alter scales for continuous data mapped to glyphs fill colour
+#'
+#' Scale variable(s) mapped to the glyph fill colours.
+#'
+#' @param ... Additional arguments to be passed on to
+#'   \code{\link[ggplot2]{continuous_scale}}.
 #' @param palette One of the following:
 #' \itemize{
 #'   \item \code{NULL} for the default palette stored in the theme.
@@ -19,29 +42,65 @@
 #'   \code{\link[ggplot2]{guides}}for more information.
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
-#' @name scales_z
-#' @rdname scales_z
+#' @importFrom ggplot2 guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
 #'
-#' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale discrete_scale guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
-#'
-NULL
-
-# scale_z_continuous ----
-#' @rdname scales_z
 #' @export
 #'
-scale_z_continuous <- function(..., range = c(0.1, 1), z) {
-  continuous_scale(
-    aesthetics = z,
-    scale_name = "z_continuous",
-    palette = scales::rescale_pal(range),
-    ...
-  )
+scale_z_fill_continuous <- function(..., palette, z,
+                                    guide = c("legend")) {
+
+  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
+           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3",
+           "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
+  rcb_num <- 1:18
+  v <- c("magma", "inferno", "plasma", "viridis", "cividis", "rocket", "mako", "turbo",
+         "A", "B", "C", "D", "E", "F", "G", "H")
+
+  if (guide == "colorbar") {
+    guide = "colourbar"
+  }
+
+  if (guide == "colorsteps") {
+    guide = "coloursteps"
+  }
+
+  guide <- match.arg(guide, c("legend", "colourbar", "coloursteps"))
+
+  if (guide == "colourbar") {
+    guide = guide_colourbar(available_aes = z)
+  }
+
+  if (guide == "coloursteps") {
+    guide = guide_coloursteps(available_aes = z)
+  }
+
+  if(any(palette == rcb) | any(palette == rcb_num)){
+    scale_color_distiller(palette= palette, aesthetics = z, guide = guide, ...)
+  } else if(any(palette == v)){
+    scale_color_viridis_c(option= palette, aesthetics = z, guide = guide, ...)
+  } else{
+    scale_color_continuous(type= palette, aesthetics = z, guide = guide, ...)
+  }
+
 }
 
-# scale_z_discrete ----
-#' @rdname scales_z
+#' Alter scales for discrete data mapped to glyphs
+#'
+#' Scale variable(s) mapped to the glyphs as discrete/ordered factors. Each
+#' variable in \code{z} gets its own independent discrete scale.
+#'
+#' @param ... Additional arguments to be passed on to
+#'   \code{\link[ggplot2]{discrete_scale}}.
+#' @param z The variable(s) mapped to the glyph as a character vector or single
+#'   variable name.
+#' @param na.translate Logical. If TRUE (default), missing values are translated
+#'   to "NA".
+#' @param na.value The aesthetic value to use for missing values.
+#' @param guide A function used to create a guide or its name. See
+#'   \code{\link[ggplot2]{guides}}for more information.
+#'
+#' @importFrom ggplot2 discrete_scale
 #' @export
 #'
 scale_z_discrete <- function(..., z, na.translate = TRUE, na.value = NA,
@@ -98,46 +157,3 @@ scale_z_discrete <- function(..., z, na.translate = TRUE, na.value = NA,
 #     ...
 #   )
 # }
-
-# scale_z_fill_continuous ----
-#' @rdname scales_z
-#' @export
-#'
-scale_z_fill_continuous <- function(..., palette, z,
-                                    guide = c("legend")) {
-
-  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
-           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3",
-           "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
-  rcb_num <- 1:18
-  v <- c("magma", "inferno", "plasma", "viridis", "cividis", "rocket", "mako", "turbo",
-         "A", "B", "C", "D", "E", "F", "G", "H")
-
-  if (guide == "colorbar") {
-    guide = "colourbar"
-  }
-
-  if (guide == "colorsteps") {
-    guide = "coloursteps"
-  }
-
-  guide <- match.arg(guide, c("legend", "colourbar", "coloursteps"))
-
-  if (guide == "colourbar") {
-    guide = guide_colourbar(available_aes = z)
-  }
-
-  if (guide == "coloursteps") {
-    guide = guide_coloursteps(available_aes = z)
-  }
-
-  if(any(palette == rcb) | any(palette == rcb_num)){
-    scale_color_distiller(palette= palette, aesthetics = z, guide = guide, ...)
-  } else if(any(palette == v)){
-    scale_color_viridis_c(option= palette, aesthetics = z, guide = guide, ...)
-  } else{
-    scale_color_continuous(type= palette, aesthetics = z, guide = guide, ...)
-  }
-
-}
