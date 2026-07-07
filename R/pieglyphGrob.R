@@ -560,9 +560,9 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                           z, grid.levels,
                           SIMPLIFY = FALSE)
 
-    grid.levels <- mapply(function(a, b) setdiff(b, a),
-                          z, grid.levels,
-                          SIMPLIFY = FALSE)
+    # grid.levels <- mapply(function(a, b) setdiff(b, a),
+    #                       z, grid.levels,
+    #                       SIMPLIFY = FALSE)
   }
 
   for (i in 1:dimension) {
