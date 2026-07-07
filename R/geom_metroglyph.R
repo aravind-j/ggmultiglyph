@@ -1,7 +1,7 @@
 #' Add Metroglyphs as a Scatterplot
 #'
 #' The metroglyph geom is used to plot multivariate data as metroglyphs
-#' \insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{gglyph}
+#' \insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{ggmultiglyph}
 #' in a scatterplot.
 #'
 #' @template general-arg
@@ -51,7 +51,7 @@
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[gglyph]{metroglyphGrob}}
+#' @seealso \code{\link[ggmultiglyph]{metroglyphGrob}}
 #'
 #' @references
 #'
@@ -59,7 +59,7 @@
 #'
 #' @examples
 #'
-#' \dontshow{gglyph:::.gglyph_ex_setup()}
+#' \dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 #'
 #' library(ggplot2)
 #'
@@ -500,7 +500,7 @@ geom_metroglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                             show.legend = NA,
                             legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                             repel = FALSE,
-                            repel.control = gglyph.repel.control(),
+                            repel.control = ggmultiglyph.repel.control(),
                             inherit.aes = TRUE) {
 
   # Check cols
@@ -899,7 +899,7 @@ makeContent.metroglyphtree <- function(g) {
 
   if (g$repel) {
 
-    repel.debug <- getOption("gglyph.repel.debug", default = FALSE)
+    repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)
 
     # The padding around each bounding box.
     box_padding_x <- grid::convertWidth(g$box.padding, "native", valueOnly = TRUE)

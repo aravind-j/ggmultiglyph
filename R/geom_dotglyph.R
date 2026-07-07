@@ -1,7 +1,7 @@
 #' Add Dot Profile Glyphs as a Scatterplot
 #'
 #' The dotglyph geom is used to plot multivariate data as dot profile glyphs
-#' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph} in a
+#' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph} in a
 #' scatterplot.
 #'
 #' @template general-arg
@@ -42,7 +42,7 @@
 #' @importFrom Rdpack reprompt
 #' @export
 #'
-#' @seealso \code{\link[gglyph]{dotglyphGrob}}
+#' @seealso \code{\link[ggmultiglyph]{dotglyphGrob}}
 #'
 #' @references
 #'
@@ -50,7 +50,7 @@
 #'
 #' @examples
 #'
-#' \dontshow{gglyph:::.gglyph_ex_setup()}
+#' \dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 #'
 #' library(ggplot2)
 #'
@@ -424,7 +424,7 @@ geom_dotglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                           legend.glyph.dims = setNames(rep(1, length(cols)), cols),
                           show.legend = NA,
                           repel = FALSE,
-                          repel.control = gglyph.repel.control(),
+                          repel.control = ggmultiglyph.repel.control(),
                           inherit.aes = TRUE) {
 
   # Check cols
@@ -766,7 +766,7 @@ makeContent.dotglyphtree <- function(g) {
 
   if (g$repel) {
 
-    repel.debug <- getOption("gglyph.repel.debug", default = FALSE)
+    repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)
 
     # The padding around each bounding box.
     box_padding_x <- grid::convertWidth(g$box.padding, "native", valueOnly = TRUE)

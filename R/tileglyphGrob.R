@@ -1,8 +1,8 @@
 #' Draw a Tile Glyph
 #'
 #' Uses \code{\link[grid]{Grid}} graphics to draw a tile glyph similar to
-#' 'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
-#' \insertCite{fuchs_evaluation_2013}{gglyph}.
+#' 'autoglyph' \insertCite{beddow_shape_1990}{ggmultiglyph} or 'stripe glyph'
+#' \insertCite{fuchs_evaluation_2013}{ggmultiglyph}.
 #'
 #' @param x A numeric vector or unit object specifying x-locations.
 #' @param y A numeric vector or unit object specifying y-locations.
@@ -25,14 +25,14 @@
 #' @importFrom grid rectGrob gpar
 #' @export
 #'
-#' @seealso \code{\link[gglyph]{geom_tileglyph}}
+#' @seealso \code{\link[ggmultiglyph]{geom_tileglyph}}
 #'
 #' @references
 #'
 #' \insertAllCited{}
 #'
 #' @examples
-#' library(gglyph)
+#' library(ggmultiglyph)
 #' library(grid)
 #' library(gridExtra)
 #'

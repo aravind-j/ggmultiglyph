@@ -1,7 +1,7 @@
 #' Draw a Pie Glyph
 #'
 #' Uses \code{\link[grid]{Grid}} graphics to draw a circular pie or clock glyph
-#' \insertCite{ward_visualization_2000,fuchs_evaluation_2013}{gglyph}.
+#' \insertCite{ward_visualization_2000,fuchs_evaluation_2013}{ggmultiglyph}.
 #'
 #' @param x A numeric vector or unit object specifying x-locations.
 #' @param y A numeric vector or unit object specifying y-locations.
@@ -40,14 +40,14 @@
 #' @importFrom scales rescale
 #' @export
 #'
-#' @seealso \code{\link[gglyph]{geom_pieglyph}}
+#' @seealso \code{\link[ggmultiglyph]{geom_pieglyph}}
 #'
 #' @references
 #'
 #' \insertAllCited{}
 #'
 #' @examples
-#' library(gglyph)
+#' library(ggmultiglyph)
 #' library(grid)
 #' library(gridExtra)
 #'

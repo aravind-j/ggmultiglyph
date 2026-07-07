@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // euclid
 double euclid(NumericVector a, NumericVector b);
-RcppExport SEXP _gglyph_euclid(SEXP aSEXP, SEXP bSEXP) {
+RcppExport SEXP _ggmultiglyph_euclid(SEXP aSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -24,7 +24,7 @@ END_RCPP
 }
 // centroid
 NumericVector centroid(NumericVector b, double hjust, double vjust);
-RcppExport SEXP _gglyph_centroid(SEXP bSEXP, SEXP hjustSEXP, SEXP vjustSEXP) {
+RcppExport SEXP _ggmultiglyph_centroid(SEXP bSEXP, SEXP hjustSEXP, SEXP vjustSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -37,7 +37,7 @@ END_RCPP
 }
 // intersect_circle_rectangle
 bool intersect_circle_rectangle(NumericVector c, NumericVector r);
-RcppExport SEXP _gglyph_intersect_circle_rectangle(SEXP cSEXP, SEXP rSEXP) {
+RcppExport SEXP _ggmultiglyph_intersect_circle_rectangle(SEXP cSEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -49,7 +49,7 @@ END_RCPP
 }
 // intersect_line_circle
 NumericVector intersect_line_circle(NumericVector p1, NumericVector p2, double r);
-RcppExport SEXP _gglyph_intersect_line_circle(SEXP p1SEXP, SEXP p2SEXP, SEXP rSEXP) {
+RcppExport SEXP _ggmultiglyph_intersect_line_circle(SEXP p1SEXP, SEXP p2SEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -62,7 +62,7 @@ END_RCPP
 }
 // intersect_line_rectangle
 NumericVector intersect_line_rectangle(NumericVector p1, NumericVector p2, NumericVector b);
-RcppExport SEXP _gglyph_intersect_line_rectangle(SEXP p1SEXP, SEXP p2SEXP, SEXP bSEXP) {
+RcppExport SEXP _ggmultiglyph_intersect_line_rectangle(SEXP p1SEXP, SEXP p2SEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -75,7 +75,7 @@ END_RCPP
 }
 // select_line_connection
 NumericVector select_line_connection(NumericVector p1, NumericVector b);
-RcppExport SEXP _gglyph_select_line_connection(SEXP p1SEXP, SEXP bSEXP) {
+RcppExport SEXP _ggmultiglyph_select_line_connection(SEXP p1SEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -87,7 +87,7 @@ END_RCPP
 }
 // approximately_equal
 bool approximately_equal(double x1, double x2);
-RcppExport SEXP _gglyph_approximately_equal(SEXP x1SEXP, SEXP x2SEXP) {
+RcppExport SEXP _ggmultiglyph_approximately_equal(SEXP x1SEXP, SEXP x2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -99,7 +99,7 @@ END_RCPP
 }
 // repel_boxes2
 DataFrame repel_boxes2(NumericMatrix data_points, NumericVector point_size, double point_padding_x, double point_padding_y, NumericMatrix boxes, NumericVector xlim, NumericVector ylim, NumericVector hjust, NumericVector vjust, double force_push, double force_pull, double max_time, double max_overlaps, int max_iter, std::string direction, int verbose);
-RcppExport SEXP _gglyph_repel_boxes2(SEXP data_pointsSEXP, SEXP point_sizeSEXP, SEXP point_padding_xSEXP, SEXP point_padding_ySEXP, SEXP boxesSEXP, SEXP xlimSEXP, SEXP ylimSEXP, SEXP hjustSEXP, SEXP vjustSEXP, SEXP force_pushSEXP, SEXP force_pullSEXP, SEXP max_timeSEXP, SEXP max_overlapsSEXP, SEXP max_iterSEXP, SEXP directionSEXP, SEXP verboseSEXP) {
+RcppExport SEXP _ggmultiglyph_repel_boxes2(SEXP data_pointsSEXP, SEXP point_sizeSEXP, SEXP point_padding_xSEXP, SEXP point_padding_ySEXP, SEXP boxesSEXP, SEXP xlimSEXP, SEXP ylimSEXP, SEXP hjustSEXP, SEXP vjustSEXP, SEXP force_pushSEXP, SEXP force_pullSEXP, SEXP max_timeSEXP, SEXP max_overlapsSEXP, SEXP max_iterSEXP, SEXP directionSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -125,18 +125,18 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_gglyph_euclid", (DL_FUNC) &_gglyph_euclid, 2},
-    {"_gglyph_centroid", (DL_FUNC) &_gglyph_centroid, 3},
-    {"_gglyph_intersect_circle_rectangle", (DL_FUNC) &_gglyph_intersect_circle_rectangle, 2},
-    {"_gglyph_intersect_line_circle", (DL_FUNC) &_gglyph_intersect_line_circle, 3},
-    {"_gglyph_intersect_line_rectangle", (DL_FUNC) &_gglyph_intersect_line_rectangle, 3},
-    {"_gglyph_select_line_connection", (DL_FUNC) &_gglyph_select_line_connection, 2},
-    {"_gglyph_approximately_equal", (DL_FUNC) &_gglyph_approximately_equal, 2},
-    {"_gglyph_repel_boxes2", (DL_FUNC) &_gglyph_repel_boxes2, 16},
+    {"_ggmultiglyph_euclid", (DL_FUNC) &_ggmultiglyph_euclid, 2},
+    {"_ggmultiglyph_centroid", (DL_FUNC) &_ggmultiglyph_centroid, 3},
+    {"_ggmultiglyph_intersect_circle_rectangle", (DL_FUNC) &_ggmultiglyph_intersect_circle_rectangle, 2},
+    {"_ggmultiglyph_intersect_line_circle", (DL_FUNC) &_ggmultiglyph_intersect_line_circle, 3},
+    {"_ggmultiglyph_intersect_line_rectangle", (DL_FUNC) &_ggmultiglyph_intersect_line_rectangle, 3},
+    {"_ggmultiglyph_select_line_connection", (DL_FUNC) &_ggmultiglyph_select_line_connection, 2},
+    {"_ggmultiglyph_approximately_equal", (DL_FUNC) &_ggmultiglyph_approximately_equal, 2},
+    {"_ggmultiglyph_repel_boxes2", (DL_FUNC) &_ggmultiglyph_repel_boxes2, 16},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_gglyph(DllInfo *dll) {
+RcppExport void R_init_ggmultiglyph(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

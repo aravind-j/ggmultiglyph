@@ -20,7 +20,7 @@ geom_dotglyph(
   legend.glyph.dims = setNames(rep(1, length(cols)), cols),
   show.legend = NA,
   repel = FALSE,
-  repel.control = gglyph.repel.control(),
+  repel.control = ggmultiglyph.repel.control(),
   inherit.aes = TRUE
 )
 }
@@ -111,7 +111,7 @@ other to avoid overlaps. Default is \code{FALSE}.}
 
 \item{repel.control}{A list of control settings for the repel algorithm.
 Ignored if \code{repel = FALSE}. See
-\code{\link[gglyph]{gglyph.repel.control}} for details  on the various
+\code{\link[ggmultiglyph]{ggmultiglyph.repel.control}} for details  on the various
 control parameters.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
@@ -124,7 +124,7 @@ A \code{geom} layer.
 }
 \description{
 The dotglyph geom is used to plot multivariate data as dot profile glyphs
-\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph} in a
+\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph} in a
 scatterplot.
 }
 \section{Aesthetics}{
@@ -149,7 +149,7 @@ scatterplot.
 
 \examples{
 
-\dontshow{gglyph:::.gglyph_ex_setup()}
+\dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 
 library(ggplot2)
 
@@ -516,7 +516,7 @@ ggplot(data = mtcars_fct) +
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{dotglyphGrob}}
+\code{\link[ggmultiglyph]{dotglyphGrob}}
 
 Other geoms:
 \code{\link[=geom_metroglyph]{geom_metroglyph()}},

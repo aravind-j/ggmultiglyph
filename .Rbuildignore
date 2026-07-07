@@ -1,8 +1,8 @@
-^gglyph\.Rproj$
+^ggmultiglyph\.Rproj$
 ^\.Rproj\.user$
 ^RoughWork$
 ^Release\.R$
-^gglyph\.pdf$
+^ggmultiglyph\.pdf$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

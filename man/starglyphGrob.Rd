@@ -80,10 +80,10 @@ A \code{\link[grid]{gTree}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a star glyph
-\insertCite{siegel_surgical_1972,chambers_graphical_1983,dutoit_graphical_1986}{gglyph}.
+\insertCite{siegel_surgical_1972,chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -530,7 +530,7 @@ grid.arrange(sg1, sg2, sg3, sg4, sg5, sg6, nrow = 2, ncol = 3)
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_starglyph}}
+\code{\link[ggmultiglyph]{geom_starglyph}}
 
 Other grobs:
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},

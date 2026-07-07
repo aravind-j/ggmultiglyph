@@ -48,11 +48,11 @@ A \code{\link[grid]{grob}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a tile glyph similar to
-'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
-\insertCite{fuchs_evaluation_2013}{gglyph}.
+'autoglyph' \insertCite{beddow_shape_1990}{ggmultiglyph} or 'stripe glyph'
+\insertCite{fuchs_evaluation_2013}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -239,7 +239,7 @@ grid.arrange(tg1, tg2, tg3, tg4,
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_tileglyph}}
+\code{\link[ggmultiglyph]{geom_tileglyph}}
 
 Other grobs:
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},

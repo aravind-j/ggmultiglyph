@@ -1,8 +1,8 @@
 #' Add Tile Glyphs as a Scatterplot
 #'
 #' The tileglyph geom is used to plot multivariate data as tile glyphs similar
-#' to 'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
-#' \insertCite{fuchs_evaluation_2013}{gglyph} in a scatterplot.
+#' to 'autoglyph' \insertCite{beddow_shape_1990}{ggmultiglyph} or 'stripe glyph'
+#' \insertCite{fuchs_evaluation_2013}{ggmultiglyph} in a scatterplot.
 #'
 #' @template general-arg
 #' @template repel-arg
@@ -41,14 +41,14 @@
 #' @importFrom Rdpack reprompt
 #' @export
 #'
-#' @seealso \code{\link[gglyph]{tileglyphGrob}}
+#' @seealso \code{\link[ggmultiglyph]{tileglyphGrob}}
 #'
 #' @references
 #'
 #' \insertAllCited{}
 #'
 #' @examples
-#' \dontshow{gglyph:::.gglyph_ex_setup()}
+#' \dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 #'
 #' library(ggplot2)
 #'
@@ -157,7 +157,7 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                            show.legend = NA,
                            repel = FALSE,
-                           repel.control = gglyph.repel.control(),
+                           repel.control = ggmultiglyph.repel.control(),
                            inherit.aes = TRUE) {
 
   # Check cols
@@ -461,7 +461,7 @@ makeContent.tileglyphtree <- function(g) {
 
   if (g$repel) {
 
-    repel.debug <- getOption("gglyph.repel.debug", default = FALSE)
+    repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)
 
     # The padding around each bounding box.
     box_padding_x <- grid::convertWidth(g$box.padding, "native", valueOnly = TRUE)

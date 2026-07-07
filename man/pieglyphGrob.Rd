@@ -77,10 +77,10 @@ A \code{\link[grid]{gTree}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a circular pie or clock glyph
-\insertCite{ward_visualization_2000,fuchs_evaluation_2013}{gglyph}.
+\insertCite{ward_visualization_2000,fuchs_evaluation_2013}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -508,7 +508,7 @@ grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_pieglyph}}
+\code{\link[ggmultiglyph]{geom_pieglyph}}
 
 Other grobs:
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},

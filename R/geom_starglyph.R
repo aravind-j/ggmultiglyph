@@ -1,7 +1,7 @@
 #' Add Star Glyphs as a Scatterplot
 #'
 #' The starglyph geom is used to plot multivariate data as star glyphs
-#' \insertCite{siegel_surgical_1972,chambers_graphical_1983,dutoit_graphical_1986}{gglyph}
+#' \insertCite{siegel_surgical_1972,chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph}
 #' in a scatterplot.
 #'
 #' @template general-arg
@@ -52,11 +52,11 @@
 #'
 #' @export
 #'
-#' @useDynLib gglyph
+#' @useDynLib ggmultiglyph
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[gglyph]{starglyphGrob}}
+#' @seealso \code{\link[ggmultiglyph]{starglyphGrob}}
 #'
 #' @references
 #'
@@ -64,7 +64,7 @@
 #'
 #' @examples
 #'
-#' \dontshow{gglyph:::.gglyph_ex_setup()}
+#' \dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 #'
 #' library(ggplot2)
 #'
@@ -452,7 +452,7 @@ geom_starglyph <- function(mapping = NULL, data = NULL, stat = "identity",
                            legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
                            show.legend = NA,
                            repel = FALSE,
-                           repel.control = gglyph.repel.control(),
+                           repel.control = ggmultiglyph.repel.control(),
                            inherit.aes = TRUE) {
 
   # Check cols
@@ -865,7 +865,7 @@ makeContent.starglyphtree <- function(g) {
 
   if (g$repel) {
 
-    repel.debug <- getOption("gglyph.repel.debug", default = FALSE)
+    repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)
 
     # The padding around each bounding box.
     box_padding_x <- grid::convertWidth(g$box.padding, "native", valueOnly = TRUE)

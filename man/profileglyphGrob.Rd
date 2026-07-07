@@ -82,10 +82,10 @@ A \code{\link[grid]{gTree}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a profile glyph
-\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph}.
+\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -982,7 +982,7 @@ grid.arrange(barprofileglyph1, barprofileglyph2,
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_profileglyph}}
+\code{\link[ggmultiglyph]{geom_profileglyph}}
 
 Other grobs:
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},

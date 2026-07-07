@@ -1,7 +1,7 @@
 #' Draw a Profile Glyph
 #'
 #' Uses \code{\link[grid]{Grid}} graphics to draw a profile glyph
-#' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph}.
+#' \insertCite{chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph}.
 #'
 #' @param x A numeric vector or unit object specifying x-locations.
 #' @param y A numeric vector or unit object specifying y-locations.
@@ -38,14 +38,14 @@
 #' @importFrom grid rectGrob polygonGrob polylineGrob nullGrob grobTree gpar unit.c
 #' @export
 #'
-#' @seealso \code{\link[gglyph]{geom_profileglyph}}
+#' @seealso \code{\link[ggmultiglyph]{geom_profileglyph}}
 #'
 #' @references
 #'
 #' \insertAllCited{}
 #'
 #' @examples
-#' library(gglyph)
+#' library(ggmultiglyph)
 #' library(grid)
 #' library(gridExtra)
 #'

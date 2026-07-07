@@ -1,7 +1,7 @@
 #' Control Parameters for Drawing Curved Connecting Segments
 #'
 #' Set the contol parameters for drawing xurved segments connecting grobs to
-#' labels in \code{\link[gglyph]{addlabel.glyphGrob}}.
+#' labels in \code{\link[ggmultiglyph]{addlabel.glyphGrob}}.
 #'
 #' @param segment.curvature Numeric, negative for left-hand and positive for
 #'   right-hand curves, 0 for straight lines. Defaults to 0.
@@ -38,12 +38,12 @@
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[gglyph]{addlabel.glyphGrob}}
+#' @seealso \code{\link[ggmultiglyph]{addlabel.glyphGrob}}
 #'
 #' @export
 #'
 #' @export
-gglyph.segment.control <- function(segment.curvature = 0,
+ggmultiglyph.segment.control <- function(segment.curvature = 0,
                                    segment.angle = 90,
                                    segment.ncp = 1,
                                    segment.shape = 0.5,

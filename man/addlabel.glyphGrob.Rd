@@ -8,7 +8,7 @@ addlabel.glyphGrob(
   grob,
   label,
   segment = TRUE,
-  segment.control = gglyph.segment.control(),
+  segment.control = ggmultiglyph.segment.control(),
   push = 10,
   angle = 0,
   hjust = 0.5,
@@ -29,7 +29,7 @@ and the \code{glyphGrob} Default is \code{TRUE}.}
 
 \item{segment.control}{A list of control settings for the line segments.
 Ignored if \code{segment = FALSE}. See
-\code{\link[gglyph]{gglyph.segment.control}} for details  on the various
+\code{\link[ggmultiglyph]{ggmultiglyph.segment.control}} for details  on the various
 control parameters.}
 
 \item{push}{A numeric value indicating how far the labels have to be pushed
@@ -53,7 +53,7 @@ creation of custom guides for glyphs using
 \code{\link[ggplot2]{guide_custom}}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 

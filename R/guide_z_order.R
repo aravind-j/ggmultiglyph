@@ -4,7 +4,7 @@
 #' Helper function to preserve the display order of legends associated with
 #' multiple \code{col} aesthetics.
 #'
-#' This function is primarily intended for use with \code{gglyph} scales such as
+#' This function is primarily intended for use with \code{ggmultiglyph} scales such as
 #' \code{scale_z_continuous()}. Internally, \pkg{ggplot2} may not preserve the
 #' order of aesthetics supplied to a scale when guides are assembled during plot
 #' construction (via the internal guide setup machinery i.e.

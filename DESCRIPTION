@@ -1,4 +1,4 @@
-Package: gglyph
+Package: ggmultiglyph
 Title: Multivariate Data Visualization using Glyphs
 Version: 0.0.0.9000
 Authors@R: c(
@@ -36,9 +36,9 @@ Suggests:
     ggrepel,
     gridExtra,
     RColorBrewer
-URL: https://github.com/aravind-j/gglyph,
-    https://aravind-j.github.io/gglyph/
-BugReports: https://github.com/aravind-j/gglyph/issues
+URL: https://github.com/aravind-j/ggmultiglyph,
+    https://aravind-j.github.io/ggmultiglyph/
+BugReports: https://github.com/aravind-j/ggmultiglyph/issues
 Language: en-GB
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0

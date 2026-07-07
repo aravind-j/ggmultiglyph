@@ -1,8 +1,8 @@
 #' Control Parameters for the Repel Algorithm
 #'
 #' Set the contol parameters for the repel algorithm
-#' \insertCite{slowikowski_ggrepel_2021}{gglyph} used in various geoms
-#' (\code{geom_*()}) implemented in \code{gglyph} to repel the glyphs from each
+#' \insertCite{slowikowski_ggrepel_2021}{ggmultiglyph} used in various geoms
+#' (\code{geom_*()}) implemented in \code{ggmultiglyph} to repel the glyphs from each
 #' other.
 #'
 #' @param nudge_x,nudge_y Horizontal and vertical adjustments to nudge the
@@ -58,13 +58,13 @@
 #' @examples
 #'
 #' # Adjust force
-#' gglyph.repel.control(force = 0.5)
+#' ggmultiglyph.repel.control(force = 0.5)
 #'
 #' # Adjust max.iter
-#' gglyph.repel.control(max.iter = 5000)
+#' ggmultiglyph.repel.control(max.iter = 5000)
 #'
 #'
-gglyph.repel.control <- function(box.padding = 0.25,
+ggmultiglyph.repel.control <- function(box.padding = 0.25,
                                  point.padding = 1e-6,
                                  min.segment.length = 0.5,
                                  arrow = NULL,

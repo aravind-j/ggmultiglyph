@@ -10,7 +10,7 @@ template:
 deploy:
   install_metadata: true
 
-url: https://aravind-j.github.io/gglyph/
+url: https://aravind-j.github.io/ggmultiglyph/
 
 navbar:
   structure:
@@ -56,8 +56,8 @@ reference:
 
     - title: Helpers
       contents:
-         - '`gglyph.repel.control`'
-         - '`gglyph.segment.control`'
+         - '`ggmultiglyph.repel.control`'
+         - '`ggmultiglyph.segment.control`'
          - '`scale_z_continuous`'
          - '`guide_z_order`'
          - '`addlabel.glyphGrob`'

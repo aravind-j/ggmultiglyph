@@ -44,10 +44,10 @@ A \code{\link[grid]{grob}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a dot profile glyph
-\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{gglyph}.
+\insertCite{chambers_graphical_1983,dutoit_graphical_1986}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -448,7 +448,7 @@ grid.arrange(dg1, dg2, dg3, dg4,
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_dotglyph}}
+\code{\link[ggmultiglyph]{geom_dotglyph}}
 
 Other grobs:
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},

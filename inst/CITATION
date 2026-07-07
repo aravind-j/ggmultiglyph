@@ -1,22 +1,22 @@
 year <- sub("-.*", "", meta$Date)
 vers <- sprintf("R package version %s", meta$Version)
 
-hd <- "To cite the R package 'gglyph' in publications use:"
+hd <- "To cite the R package 'ggmultiglyph' in publications use:"
 ft <- paste("This free and open-source software implements academic",
             "research by the authors and co-workers. If you use it, please support",
             "the project by citing the package.", collapse = "\n")
 
 bibentry(header = hd,
          bibtype = "Manual",
-         title  = "gglyph: Multivariate Data Visualization using Glyphs",
+         title  = "ggmultiglyph: Multivariate Data Visualization using Glyphs",
          author = c(person(given = "J.", family = "Aravind",
                            email = "j.aravind@icar.org.in",
                            role = c("aut", "cre"))),
          year = year,
          textVersion = paste(
            "Aravind, J. (",
-           year, ").  gglyph: Multivariate Data Visualization using Glyphs. ",
-           vers, ", ", "https://aravind-j.github.io/gglyph/",
+           year, ").  ggmultiglyph: Multivariate Data Visualization using Glyphs. ",
+           vers, ", ", "https://aravind-j.github.io/ggmultiglyph/",
            ".", sep=""),
-         note = paste(vers, "https://aravind-j.github.io/gglyph/"),
+         note = paste(vers, "https://aravind-j.github.io/ggmultiglyph/"),
          footer = ft)

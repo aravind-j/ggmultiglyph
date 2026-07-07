@@ -18,7 +18,7 @@ geom_tileglyph(
   legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
   show.legend = NA,
   repel = FALSE,
-  repel.control = gglyph.repel.control(),
+  repel.control = ggmultiglyph.repel.control(),
   inherit.aes = TRUE
 )
 }
@@ -103,7 +103,7 @@ other to avoid overlaps. Default is \code{FALSE}.}
 
 \item{repel.control}{A list of control settings for the repel algorithm.
 Ignored if \code{repel = FALSE}. See
-\code{\link[gglyph]{gglyph.repel.control}} for details  on the various
+\code{\link[ggmultiglyph]{ggmultiglyph.repel.control}} for details  on the various
 control parameters.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
@@ -116,8 +116,8 @@ A \code{geom} layer.
 }
 \description{
 The tileglyph geom is used to plot multivariate data as tile glyphs similar
-to 'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
-\insertCite{fuchs_evaluation_2013}{gglyph} in a scatterplot.
+to 'autoglyph' \insertCite{beddow_shape_1990}{ggmultiglyph} or 'stripe glyph'
+\insertCite{fuchs_evaluation_2013}{ggmultiglyph} in a scatterplot.
 }
 \section{Aesthetics}{
  \code{geom_tileglyph()} understands the following
@@ -140,7 +140,7 @@ to 'autoglyph' \insertCite{beddow_shape_1990}{gglyph} or 'stripe glyph'
 }
 
 \examples{
-\dontshow{gglyph:::.gglyph_ex_setup()}
+\dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
 
 library(ggplot2)
 
@@ -243,7 +243,7 @@ ggplot(data = mtcars) +
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{tileglyphGrob}}
+\code{\link[ggmultiglyph]{tileglyphGrob}}
 
 Other geoms:
 \code{\link[=geom_dotglyph]{geom_dotglyph()}},

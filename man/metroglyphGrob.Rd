@@ -73,10 +73,10 @@ A \code{\link[grid]{gTree}} object.
 }
 \description{
 Uses \code{\link[grid]{Grid}} graphics to draw a metroglyph
-\insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{gglyph}.
+\insertCite{anderson_semigraphical_1957,dutoit_graphical_1986}{ggmultiglyph}.
 }
 \examples{
-library(gglyph)
+library(ggmultiglyph)
 library(grid)
 library(gridExtra)
 
@@ -381,7 +381,7 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 \insertAllCited{}
 }
 \seealso{
-\code{\link[gglyph]{geom_metroglyph}}
+\code{\link[ggmultiglyph]{geom_metroglyph}}
 
 Other grobs:
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
