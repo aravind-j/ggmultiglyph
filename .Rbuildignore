@@ -13,3 +13,4 @@
 ^man-roxygen$
 ^\.github$
 ^vignettes/.*\.log$
+^CITATION\.cff$

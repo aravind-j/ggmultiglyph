@@ -1,0 +1,42 @@
+# ------------------------------------------------
+# CITATION.cff file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# ------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "ggmultiglyph" in publications use:'
+type: software
+license:
+- GPL-2.0-only
+- GPL-3.0-only
+title: 'ggmultiglyph: Multivariate Data Visualization using Glyphs'
+version: 0.0.0.9000
+abstract: Provides geoms for visualizing multivariate data as glyphs using 'ggplot2'.
+authors:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.org.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+preferred-citation:
+  type: manual
+  title: 'ggmultiglyph: Multivariate Data Visualization using Glyphs'
+  authors:
+  - family-names: Aravind
+    given-names: J.
+    email: j.aravind@icar.org.in
+    orcid: https://orcid.org/0000-0002-4791-442X
+  notes: R package version 0.0.0.9000 https://aravind-j.github.io/ggmultiglyph/
+repository-code: https://github.com/aravind-j/ggmultiglyph
+url: https://aravind-j.github.io/ggmultiglyph/
+contact:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.org.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+keywords:
+- ggplot-extension
+- ggplot2
+- multivariate-data
+- rstats
+- visualization
+
