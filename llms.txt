@@ -1,0 +1,152 @@
+## `ggmultiglyph`: Multivariate Data Visualization using Glyphs ![logo](https://raw.githubusercontent.com/aravind-j/ggmultiglyph/master/inst/extdata/ggmultiglyph.png)
+
+###### Version : [0.0.0.9000](https://aravind-j.github.io/ggmultiglyph/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
+
+##### Aravind, J.
+
+Division of Germplasm Conservation, ICAR-National Bureau of Plant
+Genetic Resources, New Delhi.
+
+------------------------------------------------------------------------
+
+[![minimal R
+version](https://img.shields.io/badge/R%3E%3D-3.5.0-6666ff.svg?logo=R)](https://cran.r-project.org/)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/ggmultiglyph)](https://cran.r-project.org/package=ggmultiglyph)
+[![Dependencies](https://tinyverse.netlify.app/status/ggmultiglyph)](https://cran.r-project.org/package=ggmultiglyph)
+[![rstudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggmultiglyph?color=green)](https://CRAN.R-project.org/package=ggmultiglyph)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/aravind-j/ggmultiglyph)
+[![Github Code
+Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.svg)](https://github.com/aravind-j/ggmultiglyph)
+[![R-CMD-check](https://github.com/aravind-j/ggmultiglyph/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/ggmultiglyph/actions)
+[![Project Status:
+WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--08-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
+[![Website -
+pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
+[![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
+
+------------------------------------------------------------------------
+
+## Description
+
+Provides geoms for visualizing multivariate data as glyphs using
+‘ggplot2’.
+
+## Installation
+
+The development version can be installed from github as follows:
+
+``` r
+
+# Install development version from Github
+devtools::install_github("aravind-j/ggmultiglyph")
+```
+
+## What’s new
+
+To know whats new in this version type:
+
+``` r
+
+news(package='ggmultiglyph')
+```
+
+## Links
+
+[Github page](https://github.com/aravind-j/ggmultiglyph)
+
+[Documentation website](https://aravind-j.github.io/ggmultiglyph/)
+
+## Citing `ggmultiglyph`
+
+To cite the methods in the package use:
+
+``` r
+
+citation("ggmultiglyph")
+```
+
+``` R
+To cite the R package 'ggmultiglyph' in publications use:
+
+  Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization
+  using Glyphs. R package version 0.0.0.9000,
+  https://aravind-j.github.io/ggmultiglyph/.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {ggmultiglyph: Multivariate Data Visualization using Glyphs},
+    author = {J. Aravind},
+    note = {R package version 0.0.0.9000 https://aravind-j.github.io/ggmultiglyph/},
+    year = {2026},
+  }
+
+This free and open-source software implements academic research by the
+authors and co-workers. If you use it, please support the project by
+citing the package.
+```
+
+# Package index
+
+## Geoms
+
+- [`geom_dotglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_dotglyph.md)
+  : Add Dot Profile Glyphs as a Scatterplot
+- [`geom_metroglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_metroglyph.md)
+  : Add Metroglyphs as a Scatterplot
+- [`geom_pieglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_pieglyph.md)
+  : Add Pie Glyphs as a Scatterplot
+- [`geom_profileglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_profileglyph.md)
+  : Add Profile Glyphs as a Scatterplot
+- [`geom_starglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_starglyph.md)
+  : Add Star Glyphs as a Scatterplot
+- [`geom_tileglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_tileglyph.md)
+  : Add Tile Glyphs as a Scatterplot
+
+## Grobs
+
+- [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md)
+  : Draw a Dot Profile Glyph
+- [`metroglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.md)
+  : Draw a Metroglyph
+- [`pieglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md)
+  : Draw a Pie Glyph
+- [`profileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/profileglyphGrob.md)
+  : Draw a Profile Glyph
+- [`starglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/starglyphGrob.md)
+  : Draw a Star Glyph
+- [`tileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/tileglyphGrob.md)
+  : Draw a Tile Glyph
+
+## Helpers
+
+- [`ggmultiglyph.repel.control()`](https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.repel.control.md)
+  : Control Parameters for the Repel Algorithm
+
+- [`ggmultiglyph.segment.control()`](https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.segment.control.md)
+  : Control Parameters for Drawing Curved Connecting Segments
+
+- [`scale_z_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_continuous.md)
+  : Alter scales for continuous data mapped to glyphs
+
+- [`scale_z_fill_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_fill_continuous.md)
+  : Alter scales for continuous data mapped to glyphs fill colour
+
+- [`scale_z_discrete()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_discrete.md)
+  : Alter scales for discrete data mapped to glyphs
+
+- [`guide_z_order()`](https://aravind-j.github.io/ggmultiglyph/reference/guide_z_order.md)
+  :
+
+  Set guide order for `col` aesthetics
+
+- [`addlabel.glyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/addlabel.glyphGrob.md)
+  :
+
+  Add Labels to a `glyphGrob`
+

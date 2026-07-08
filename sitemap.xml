@@ -1,60 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dotglyphGrob.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_dotglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_metroglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_pieglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_profileglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_starglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_tileglyph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gglyph.repel.control.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/metroglyphGrob.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pieglyphGrob.html</loc>
-  </url>
-  <url>
-    <loc>/reference/profileglyphGrob.html</loc>
-  </url>
-  <url>
-    <loc>/reference/scale_z_continuous.html</loc>
-  </url>
-  <url>
-    <loc>/reference/starglyphGrob.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tileglyphGrob.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/404.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/authors.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/index.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/news/index.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/addlabel.glyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_dotglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_metroglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_pieglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_profileglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_starglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/geom_tileglyph.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.repel.control.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.segment.control.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/guide_z_order.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/index.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/profileglyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/scale_z_continuous.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/scale_z_discrete.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/scale_z_fill_continuous.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/starglyphGrob.html</loc></url>
+<url><loc>https://aravind-j.github.io/ggmultiglyph/reference/tileglyphGrob.html</loc></url>
 </urlset>
+
