@@ -14,3 +14,4 @@
 ^\.github$
 ^vignettes/.*\.log$
 ^CITATION\.cff$
+^codemeta\.json$
