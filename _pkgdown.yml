@@ -59,5 +59,7 @@ reference:
          - '`ggmultiglyph.repel.control`'
          - '`ggmultiglyph.segment.control`'
          - '`scale_z_continuous`'
+         - '`scale_z_fill_continuous`'
+         - '`scale_z_discrete`'
          - '`guide_z_order`'
          - '`addlabel.glyphGrob`'
