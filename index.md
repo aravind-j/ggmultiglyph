@@ -73,9 +73,8 @@ citation("ggmultiglyph")
 ``` R
 To cite the R package 'ggmultiglyph' in publications use:
 
-  Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization
-  using Glyphs. R package version 0.0.0.9000,
-  https://aravind-j.github.io/ggmultiglyph/.
+  Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package
+  version 0.0.0.9000, https://aravind-j.github.io/ggmultiglyph/.
 
 A BibTeX entry for LaTeX users is
 
@@ -86,7 +85,6 @@ A BibTeX entry for LaTeX users is
     year = {2026},
   }
 
-This free and open-source software implements academic research by the
-authors and co-workers. If you use it, please support the project by
-citing the package.
+This free and open-source software implements academic research by the authors and co-workers. If
+you use it, please support the project by citing the package.
 ```
