@@ -290,10 +290,12 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
 
 
                                     # Check if cols are numeric or factor
-                                    intfactcols <- unlist(lapply(data[, cols],
-                                                                 function(x) FALSE %in% (is.vector(x, mode = "integer") |
-                                                                                           is.vector(x, mode = "numeric") |
-                                                                                           is.factor(x))))
+                                    intfactcols <-
+                                      vapply(data[, cols],
+                                             function(x) !(is.integer(x) || is.numeric(x)
+                                                           || is.factor(x)),
+                                             logical(1))
+
                                     if (TRUE %in% intfactcols) {
                                       stop('The following column(s) specified as "cols" in ',
                                            '"data" are not of type numeric, integer or factor:\n',
@@ -464,8 +466,10 @@ makeContent.tileglyphtree <- function(g) {
     repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)
 
     # The padding around each bounding box.
-    box_padding_x <- grid::convertWidth(g$box.padding, "native", valueOnly = TRUE)
-    box_padding_y <- grid::convertHeight(g$box.padding, "native", valueOnly = TRUE)
+    box_padding_x <- grid::convertWidth(g$box.padding, "native",
+                                        valueOnly = TRUE)
+    box_padding_y <- grid::convertHeight(g$box.padding, "native",
+                                         valueOnly = TRUE)
 
     # The padding around each point.
     if (is.na(g$point.padding)) {
@@ -505,13 +509,17 @@ makeContent.tileglyphtree <- function(g) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
       # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i], g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],  boxes2$y2[i], g$data$y[i]),
+      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
+      #                            g$data$x[i],  boxes2$x1[i]),
+      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
+      #                            boxes2$y2[i], g$data$y[i]),
       #                      gp = gpar(col = "grey"))
       # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-        grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i], boxes2$x2[i], boxes2$x1[i]),
-                           y = c(boxes2$y1[i], boxes2$y2[i], boxes2$y2[i], boxes2$y1[i], boxes2$y1[i]),
+        grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
+                                 boxes2$x2[i], boxes2$x1[i]),
+                           y = c(boxes2$y1[i], boxes2$y2[i], boxes2$y2[i],
+                                 boxes2$y1[i], boxes2$y1[i]),
                            gp = gpar(col = "gray"))
       })
     }
@@ -572,7 +580,8 @@ makeContent.tileglyphtree <- function(g) {
 
     if (!repel$too_many_overlaps[i]) {
       row <- g$data[i, , drop = FALSE]
-      grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y, x2 = row$x, y2 = row$y,
+      grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+                      x2 = row$x, y2 = row$y,
                       default.units = "native",
                       curvature = row$segment.curvature,
                       angle = row$segment.angle,
