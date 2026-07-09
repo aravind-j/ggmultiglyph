@@ -230,9 +230,6 @@ tileglyphGrob <- function(x = .5, y = .5, z,
 
   dimension <- length(z)
 
-  # width <- size
-  # height <- size * ratio
-
   width <- unit(size, "mm")
   height <- unit(size, "mm") * ratio
 
@@ -241,8 +238,6 @@ tileglyphGrob <- function(x = .5, y = .5, z,
   zs <- split(z, sort(rep_len(1:nrow, length(z))))
 
   if (nrow > 1) {
-    # ys <- y + (height * seq(-(nrow - 1) / 2, (nrow - 1) / 2,
-    #                         length.out = nrow))
     ys <- unit(y, "native") +
       (height * seq(-(nrow - 1) / 2, (nrow - 1) / 2,
                     length.out = nrow))
@@ -251,36 +246,27 @@ tileglyphGrob <- function(x = .5, y = .5, z,
     ys <- unit(y, "native") + unit(0, "mm")
   }
 
-  # xs <- x + (width * seq(-(dim - 1) / 2, (dim - 1) / 2,
-  #                        length.out = dim))
-
   xs <- unit(x, "native") +
     (width * seq(-(dim - 1) / 2, (dim - 1) / 2,
                  length.out = dim))
 
-  # xylist <- vector("list", nrow)
   xlist <- vector("list", nrow)
   ylist <- vector("list", nrow)
 
   for (i in 1:nrow) {
     nz <- length(zs[[i]])
-    # xylist[[i]] <- data.frame(xpos = xs[1:nz],
-    #                           ypos = rep(ys[[i]], nz))
     xlist[[i]] <- xs[1:nz]
     ylist[[i]] <- rep(ys[[i]], nz)
   }
 
-  # xylist <- dplyr::bind_rows(xylist)
   xlist <- upgradeUnit.unit.list(xlist)
   ylist <- upgradeUnit.unit.list(ylist)
 
-  # grid::grid.points(x = xylist$xpos, y = xylist$ypos, pch =  1)
+  # grid::grid.points(x = xlist, y = ylist, pch =  1)
 
   gridout <-
     grid::rectGrob(x = xlist,
                    y = ylist,
-                   # x = xylist$xpos,
-                   # y = xylist$ypos,
                    width = width, height = height,
                    # default.units = "native",
                    just = "centre",

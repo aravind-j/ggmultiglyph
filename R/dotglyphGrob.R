@@ -453,50 +453,32 @@ dotglyphGrob <- function(x = .5, y = .5, z,
   }
 
   if (!flip.axes) {
-    # xpos <- x + ((radius * 2) * seq(-(dimension - 1) / 2, (dimension - 1) / 2,
-    #                                 length.out = dimension))
     xpos <- unit(x, "native") + stksq
-    # ypos <- rep(y, dimension)
     ypos <- rep(unit(y, "native"), dimension)
 
-    # circx <- mapply(function(a, b) rep(a, b), xpos, z)
     circx <- Map(function(a, b) rep(a, b), xpos, z)
-    # circy <- lapply(z, function(c) y - (1:c * (radius * 2)) + radius)
     circy <- lapply(z, function(c) {
       unit(y, "native") + (1:c * ((radius + lwd2) * 2)) - (radius + lwd2)
     })
 
     if (mirror) {
-      # circy <- mapply(function(a, b) a - ((radius + lwd2) * b), circy, z)
       circy <- Map(function(a, b) a - ((radius + lwd2) * b), circy, z)
     }
 
   } else {
-    # xpos <- rep(x, dimension)
     xpos <- rep(unit(x, "native"), dimension)
-    # ypos <- y - ((radius * 2) * seq(-(dimension - 1) / 2, (dimension - 1) / 2,
-    #                                 length.out = dimension))
     ypos <- unit(y, "native") - stksq
 
-    # circy <- mapply(function(a, b) rep(a, b), ypos, z)
     circy <- Map(function(a, b) rep(a, b), ypos, z)
-    # circx <- lapply(z, function(c) x + (1:c * (radius * 2)) - radius)
     circx <- lapply(z, function(c) {
       unit(x, "native") + (1:c * ((radius + lwd2) * 2)) - (radius + lwd2)
     })
 
     if (mirror) {
-      # circx <- mapply(function(a, b) a - ((radius + lwd2) * b), circx, z)
       circx <- Map(function(a, b) a - ((radius + lwd2) * b), circx, z)
     }
 
   }
-
-  # circx <- unlist(circx)
-  # circy <- unlist(circy)
-
-  # circx <- upgradeUnit.unit.list(circx)
-  # circy <- upgradeUnit.unit.list(circy)
 
   circx <- do.call(grid::unit.c, circx)
   circy <- do.call(grid::unit.c, circy)
@@ -516,7 +498,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
   attr(gridout, "length") <- dimension
   attr(gridout, "mirror") <- mirror
   attr(gridout, "flip.axes") <- flip.axes
-  attr(gridout, "index") <- rep(1:length(z), times = z)
+  attr(gridout, "index") <- rep(seq_along(z), times = z)
 
   return(gridout)
 }

@@ -496,15 +496,15 @@ pieglyphGrob <- function(x = .5, y = .5, z,
   drawgridlines <- FALSE
 
   if (draw.grid) {
-    if (scale.radius ) {
+    if (scale.radius) {
       if (!is.null(grid.levels)) { # Check if grid lines are to be plotted
         # Check if grid.levels is a list in appropriate format
-        if (is.list(grid.levels) &
-            all(unlist( lapply(grid.levels,
-                               function(x) is.numeric(x) | is.integer(x))))) {
+        if (is.list(grid.levels) &&
+            all(vapply(grid.levels, is.numeric, logical(1)))) {
           # Check if z is present in corresponding grid.levels
           if (!all(mapply(function(a, b) a %in% b, z, grid.levels))) {
-            warning('Mismatch in values "z" values and corresponding "grid.levels".\n',
+            warning('Mismatch in values "z" values and corresponding ',
+                    '"grid.levels".\n',
                     'Unable to plot grid lines.')
           } else {
             drawgridlines <- TRUE
@@ -529,32 +529,29 @@ pieglyphGrob <- function(x = .5, y = .5, z,
 
   # Get polygon points
   dimension <- length(z)
-  # angle <- seq(angle.start, 2*base::pi, length.out = dimension + 1)[1:dimension]
+  # angle <- seq(angle.start, 2*base::pi,
+  #              length.out = dimension + 1)[1:dimension]
 
   # Convert z to cumulative proportions
   if (scale.segment) {
     cumpropz <- c(0, cumsum(z) / sum(z))
   } else {
     # Convert z to cumulative proportions
-    # cumpropz <- c(0, scales::rescale(1:dimension))
+
     cumpropz <- c(scales::rescale(0:dimension))
   }
 
   diffz <- diff(cumpropz)
 
-  # segxylist <- vector("list", dimension)
   segarcx <- vector("list", dimension)
   segarcy <- vector("list", dimension)
   segarcid <- vector("list", dimension)
 
   if (drawgridlines) {
-    # gridxylist <- vector("list", dimension)
+
     gridarcx <- vector("list", dimension)
     gridarcy <- vector("list", dimension)
     gridarcid <- vector("list", dimension)
-
-    # grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
-    # grid.levels <- mapply(function(a, b) setdiff(b, a), z, grid.levels)
 
     grid.levels <- mapply(function(a, b) b[b <= a],
                           z, grid.levels,
@@ -573,16 +570,11 @@ pieglyphGrob <- function(x = .5, y = .5, z,
     arcp <- seq.int(cumpropz[i], cumpropz[i + 1], length.out = n)
 
     # Sector arc point radians
-    # arcpr <- (angle.stop * arcp) + (angle.start * (pi / 180))
     arcpr <- angle.start + arcp * (angle.stop - angle.start)
 
     # Sector arc coordinates
 
     if (!scale.radius) {
-      # segxylist[[i]] <-
-      #   data.frame(arcx = c(x, x + (size * cos(arcpr))),
-      #              arcy = c(y, y + (size * sin(arcpr))),
-      #              arcid = i)
       segarcx[[i]] <- unit.c(unit(x, "native") + unit(0, "mm"),
                              unit(x, "native") +
                                unit(size * cos(arcpr), "mm"))
@@ -591,18 +583,6 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                unit(size * sin(arcpr), "mm"))
       segarcid[[i]]  <- rep(i, length(arcp) + 1)
     } else {
-      # segxylist[[i]] <-
-      #   data.frame(arcx = c(x, x + (z[i] * size * cos(arcpr))),
-      #              arcy = c(y, y + (z[i] * size * sin(arcpr))),
-      #              arcid = i)
-      # segarcx[[i]] <- unit.c(unit(x, "native"),
-      #                        unit(x, "native") +
-      #                          unit(z[i] * size * cos(arcpr),
-      #                               "mm"))
-      # segarcy[[i]] <- unit.c(unit(y, "native"),
-      #                        unit(y, "native") +
-      #                          unit(z[i] * size * sin(arcpr),
-      #                               "mm"))
       segarcx[[i]] <- unit.c(unit(x, "native") + unit(0, "mm"),
                              unit(x, "native") +
                                unit(z[i] * size * cos(arcpr),
@@ -633,18 +613,17 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                          unit(b * size * sin(arcpr), "mm"))
               }))
           gridarcid[[i]] <-
-            unlist(lapply(lvls_i, function(b)
-              rep(paste(i, "_", b, sep = ""), length(arcp))))
+            unlist(lapply(lvls_i, function(b) {
+              rep(paste(i, "_", b, sep = ""), length(arcp))
+            }))
         }
       }
     }
   }
 
-  # segxy <- dplyr::bind_rows(segxylist)
   segarcx <- upgradeUnit.unit.list(segarcx)
   segarcy <- upgradeUnit.unit.list(segarcy)
   segarcid <- unlist(segarcid)
-  # segarcid <- rep(1:dimension, each = length(arcp) +1)
 
   #NullGrobs
   circsegGrob <- grid::nullGrob()
@@ -653,9 +632,6 @@ pieglyphGrob <- function(x = .5, y = .5, z,
   circsegGrob <- grid::polygonGrob(x = segarcx,
                                    y = segarcy,
                                    id = segarcid,
-                                   # x = segxy$arcx,
-                                   # y = segxy$arcy,
-                                   # id = segxy$arcid,
                                    # default.units = "native",
                                    gp = grid::gpar(col = col,
                                                    fill = fill,
@@ -664,7 +640,6 @@ pieglyphGrob <- function(x = .5, y = .5, z,
                                                    linejoin = linejoin))
 
   if (drawgridlines) {
-    # gridxy <- dplyr::bind_rows(lapply(gridxylist, dplyr::bind_rows))
 
     gridarcx <- gridarcx[!sapply(gridarcx, is.null)]
     gridarcy <- gridarcy[!sapply(gridarcy, is.null)]
@@ -676,14 +651,9 @@ pieglyphGrob <- function(x = .5, y = .5, z,
 
     gridarcid <- as.numeric(as.factor(gridarcid))
 
-    # gridxy$arcid <- as.numeric(as.factor(gridxy$arcid))
-
     glinesGrob <- grid::polylineGrob(x = gridarcx,
                                      y = gridarcy,
                                      id = gridarcid,
-                                     # x = gridxy$arcx,
-                                     # y = gridxy$arcy,
-                                     # id = gridxy$arcid,
                                      # default.units = "native",
                                      gp = grid::gpar(col = col.grid,
                                                      lwd = lwd.grid,

@@ -343,20 +343,20 @@
 #' grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 #'
 metroglyphGrob <- function(x = .5, y = .5, z,
-                          size = 1, circle.size = 5,
-                          col.circle = "black",
-                          col.ray = "black",
-                          col.points = "black",
-                          fill = NA,
-                          lwd.circle = 1,
-                          lwd.ray = 1,
-                          alpha = 1,
-                          angle.start = 0,
-                          angle.stop = 2 * base::pi,
-                          lineend = c("round", "butt", "square"),
-                          grid.levels = NULL,
-                          draw.grid = FALSE,
-                          grid.point.size = 10) {
+                           size = 1, circle.size = 5,
+                           col.circle = "black",
+                           col.ray = "black",
+                           col.points = "black",
+                           fill = NA,
+                           lwd.circle = 1,
+                           lwd.ray = 1,
+                           alpha = 1,
+                           angle.start = 0,
+                           angle.stop = 2 * base::pi,
+                           lineend = c("round", "butt", "square"),
+                           grid.levels = NULL,
+                           draw.grid = FALSE,
+                           grid.point.size = 10) {
 
   lineend <- match.arg(lineend)
 
@@ -381,28 +381,17 @@ metroglyphGrob <- function(x = .5, y = .5, z,
     angle <- seq(angle.start, angle.stop, length.out = dimension)
   }
 
-  # rayx <- x + (z * size * cos(angle))
-  # rayy <- y + (z * size * sin(angle))
-  # grid.points(rayx, rayy)
-
-  # rayxstp <- x + ((circle.size + (z * size)) * cos(angle))
-  # rayystp <- y + ((circle.size + (z * size)) * sin(angle))
-
   rayxstp <- unit(x, "native") +
     unit((circle.size + (z * size)) * cos(angle), "mm")
   rayystp <- unit(y, "native") +
     unit((circle.size + (z * size)) * sin(angle), "mm")
-  # grid.points(rayxstp, rayystp, pch = 4)
 
-  # rayxstrt <- x + (circle.size * cos(angle))
-  # rayystrt <- y + (circle.size * sin(angle))
+  # grid.points(rayxstp, rayystp, pch = 4)
 
   rayxstrt <- unit(x, "native") + unit(circle.size * cos(angle), "mm")
   rayystrt <- unit(y, "native") + unit(circle.size * sin(angle), "mm")
-  # grid.points(rayxstrt, rayystrt, pch = 20)
 
-  # rayx <- c(rayxstrt, rayxstp)
-  # rayy <- c(rayystrt, rayystp)
+  # grid.points(rayxstrt, rayystrt, pch = 20)
 
   rayx <- grid::unit.c(rayxstrt, rayxstp)
   rayy <- grid::unit.c(rayystrt, rayystp)
@@ -423,43 +412,29 @@ metroglyphGrob <- function(x = .5, y = .5, z,
   if (draw.grid) {
     if (!is.null(grid.levels)) { # Check if grid points are to be plotted
       # Check if grid.levels is a list in appropriate format
-      if (is.list(grid.levels) &
-          all(unlist(lapply(grid.levels,
-                            function(x) is.numeric(x) | is.integer(x))))) {
+      if (is.list(grid.levels) &&
+          all(vapply(grid.levels, is.numeric, logical(1)))) {
+
         # Check if z is present in corresponding grid.levels
         if (!all(mapply(function(a, b) a %in% b, z, grid.levels))) {
-          warning('Mismatch in values "z" values and corresponding "grid.levels".\n',
+          warning('Mismatch in values "z" values and corresponding ',
+                  '"grid.levels".\n',
                   'Unable to plot grid points.')
+
         } else {
+
           # plot points
           grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels)
 
-          # gridx <- mapply(function(a, b) x + ((circle.size +
-          #                                        (a * size)) * cos(b)),
-          #                  grid.levels, angle)
-          # gridy <- mapply(function(a, b) y + ((circle.size +
-          #                                        (a * size)) * sin(b)),
-          #                  grid.levels, angle)
-          #
-          # gridx <- unlist(gridx)
-          # gridy <- unlist(gridy)
-
-          # gridx <- mapply(function(a, b)unit(x, "native")  +
-          #                   unit((circle.size + (a * size)) * cos(b), "mm"),
-          #                 grid.levels, angle)
-          # gridy <- mapply(function(a, b) unit(y, "native")  +
-          #                   unit((circle.size + (a * size)) * sin(b), "mm"),
-          #                 grid.levels, angle)
-
           gridx <- Map(function(a, b) {
-              unit(x, "native") +
-                unit((circle.size + (a * size)) * cos(b), "mm")
-            }, grid.levels, angle)
+            unit(x, "native") +
+              unit((circle.size + (a * size)) * cos(b), "mm")
+          }, grid.levels, angle)
 
           gridy <- Map(function(a, b) {
-              unit(y, "native") +
-                unit((circle.size + (a * size)) * sin(b), "mm")
-            }, grid.levels,  angle)
+            unit(y, "native") +
+              unit((circle.size + (a * size)) * sin(b), "mm")
+          }, grid.levels,  angle)
 
           gridx <- upgradeUnit.unit.list(gridx)
           gridy <- upgradeUnit.unit.list(gridy)

@@ -35,7 +35,9 @@
 #'
 #' @return A \code{\link[grid]{gTree}} object.
 #'
-#' @importFrom grid rectGrob polygonGrob polylineGrob nullGrob grobTree gpar unit.c
+#' @importFrom grid rectGrob polygonGrob polylineGrob nullGrob
+#' @importFrom grid grobTree gpar unit.c
+#'
 #' @export
 #'
 #' @seealso \code{\link[ggmultiglyph]{geom_profileglyph}}
@@ -938,24 +940,24 @@
 #'              nrow = 2, ncol = 2)
 #'
 profileglyphGrob <- function(x = .5, y = .5, z,
-                          size = 1,
-                          col.bar = "black",
-                          col.line = "black",
-                          fill = NA,
-                          lwd.bar = 1,
-                          lwd.line = 1,
-                          alpha = 1,
-                          width = 5,
-                          flip.axes = FALSE,
-                          bar = TRUE,
-                          line = TRUE,
-                          mirror = TRUE,
-                          linejoin = c("mitre", "round", "bevel"),
-                          lineend = c("round", "butt", "square"),
-                          grid.levels = NULL,
-                          draw.grid = FALSE,
-                          col.grid = "grey",
-                          lwd.grid = 1) {
+                             size = 1,
+                             col.bar = "black",
+                             col.line = "black",
+                             fill = NA,
+                             lwd.bar = 1,
+                             lwd.line = 1,
+                             alpha = 1,
+                             width = 5,
+                             flip.axes = FALSE,
+                             bar = TRUE,
+                             line = TRUE,
+                             mirror = TRUE,
+                             linejoin = c("mitre", "round", "bevel"),
+                             lineend = c("round", "butt", "square"),
+                             grid.levels = NULL,
+                             draw.grid = FALSE,
+                             col.grid = "grey",
+                             lwd.grid = 1) {
 
   linejoin <- match.arg(linejoin)
 
@@ -967,12 +969,12 @@ profileglyphGrob <- function(x = .5, y = .5, z,
   if (draw.grid) {
     if (!is.null(grid.levels)) { # Check if grid lines are to be plotted
       # Check if grid.levels is a list in appropriate format
-      if (is.list(grid.levels) &
-          all(unlist(lapply(grid.levels,
-                            function(x) is.numeric(x) | is.integer(x))))) {
+      if (is.list(grid.levels) &&
+          all(vapply(grid.levels, is.numeric, logical(1)))) {
         # Check if z is present in corresponding grid.levels
         if (!all(mapply(function(a, b) a %in% b, z, grid.levels))) {
-          warning('Mismatch in values "z" values and corresponding "grid.levels".\n',
+          warning('Mismatch in values "z" values and corresponding ',
+                  '"grid.levels".\n',
                   'Unable to plot grid lines.')
         } else {
           drawgridlines <- TRUE
@@ -1000,38 +1002,28 @@ profileglyphGrob <- function(x = .5, y = .5, z,
 
   if (!flip.axes) {
     # Get bar central points
-    # xpos <- x + (width * seq(-(dimension - 1) / 2, (dimension - 1) / 2,
-    #                          length.out = dimension))
-    # ypos <- y - z * size
-
     xpos <- unit(x, "native") +
       (width * seq(-(dimension - 1) / 2, (dimension - 1) / 2,
                    length.out = dimension))
-    # ypos <- unit(y, "native") - unit(z * size, "mm")
+
     ypos <- unit(y, "native") + unit(z * size, "mm")
 
     # Specify justification
     if (mirror) {
       barjust <- "center"
       # Line y points
-      # ypos1 <- y - ((z / 2) * size)
-      # ypos2 <- y + ((z / 2) * size)
-
       ypos1 <- unit(y, "native") - unit((z / 2) * size, "mm")
       ypos2 <- unit(y, "native") + unit((z / 2) * size, "mm")
     } else {
-      # barjust <- "top"
       barjust <- "bottom"
     }
 
     # Bar profile with/without line
     if (bar) {
       bargrob <- grid::rectGrob(x = xpos,
-                                # y = rep(y, dimension),
                                 y = rep(unit(y, "native") + unit(0, "mm"),
                                         dimension),
                                 width = width,
-                                # height = z * size,
                                 height = unit(z * size, "mm"),
                                 # default.units = "native",
                                 just = barjust,
@@ -1042,8 +1034,6 @@ profileglyphGrob <- function(x = .5, y = .5, z,
         if (mirror) {
           blinegrob <- grid::polylineGrob(x = grid::unit.c(xpos, rev(xpos)),
                                           y = grid::unit.c(ypos1, rev(ypos2)),
-                                          # x = c(xpos, rev(xpos)),
-                                          # y = c(ypos1, rev(ypos2)),
                                           id = rep(1:2, each = dimension),
                                           # default.units = "native",
                                           gp = grid::gpar(lwd = lwd.line,
@@ -1065,12 +1055,10 @@ profileglyphGrob <- function(x = .5, y = .5, z,
     }
 
     # Line porfile without bar
-    if (!bar & line) {
+    if (!bar && line) {
       if (mirror) {
         blinegrob <- grid::polygonGrob(x = grid::unit.c(xpos, rev(xpos)),
                                        y = grid::unit.c(ypos1, rev(ypos2)),
-                                       # x = c(xpos, rev(xpos)),
-                                       # y = c(ypos1, rev(ypos2)),
                                        # default.units = "native",
                                        gp = grid::gpar(lwd = lwd.line,
                                                        alpha = alpha,
@@ -1078,25 +1066,26 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                                                        lineend = lineend,
                                                        linejoin = linejoin))
       } else {
-        blinegrob <- grid::polygonGrob(x = grid::unit.c(xpos[1],
-                                                        xpos,
-                                                        xpos[dimension]),
-                                       y = grid::unit.c(unit(y, "native") + unit(0, "mm"),
-                                                        ypos,
-                                                        unit(y, "native") + unit(0, "mm")),
-                                       # x = c(xpos[1], xpos, xpos[dimension]),
-                                       # y = c(y, ypos, y),
-                                       # default.units = "native",
-                                       gp = grid::gpar(lwd = lwd.line,
-                                                       alpha = alpha,
-                                                       col = col.line,
-                                                       lineend = lineend,
-                                                       linejoin = linejoin))
+        blinegrob <-
+          grid::polygonGrob(x = grid::unit.c(xpos[1],
+                                             xpos,
+                                             xpos[dimension]),
+                            y = grid::unit.c(unit(y, "native") + unit(0, "mm"),
+                                             ypos,
+                                             unit(y, "native") + unit(0, "mm")),
+                            # default.units = "native",
+                            gp = grid::gpar(lwd = lwd.line,
+                                            alpha = alpha,
+                                            col = col.line,
+                                            lineend = lineend,
+                                            linejoin = linejoin))
       }
     }
 
-    # grid::grid.points(x= xpos, y = rep(y, dimension), default.units = "native")
-    # grid::grid.points(x= xpos, y = rep(unit(y, "native"), dimension), default.units = "native")
+    # grid::grid.points(x= xpos, y = rep(y, dimension),
+    #                   default.units = "native")
+    # grid::grid.points(x= xpos, y = rep(unit(y, "native"), dimension),
+    #                   default.units = "native")
 
     if (drawgridlines) {
       # plot grid lines
@@ -1104,21 +1093,17 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                             SIMPLIFY = FALSE)
 
       if (mirror) {
-        # gridy <- mapply(function(a, b) a - (b * size), ypos2, grid.levels)
         gridy <- mapply(function(a, b) a - unit(b * size, "mm"),
                         ypos2, grid.levels, SIMPLIFY = FALSE)
         # gridy <- mapply(function(a, b) setdiff(b, a), ypos1, gridy)
       } else {
-        # gridy <- lapply(grid.levels, function(a) y - (a * size))
-        gridy <- lapply(grid.levels, function(a) unit(y, "native") + unit(a * size, "mm"))
+        gridy <- lapply(grid.levels, function(a) unit(y, "native") +
+                          unit(a * size, "mm"))
         # gridy <- mapply(function(a, b) setdiff(b, a), y - (z * size), gridy)
       }
 
       gridx <- mapply(function(a, b) rep(a, length(b)), xpos, gridy,
                       SIMPLIFY = FALSE)
-
-      # gridx <- unlist(gridx)
-      # gridy <- unlist(gridy)
 
       gridx <- upgradeUnit.unit.list(gridx)
       gridy <- upgradeUnit.unit.list(gridy)
@@ -1141,9 +1126,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
       # grid::grid.points(c(gridxstrt, gridxstp), rep(gridy, 2), pch = 20)
 
       glinesGrob <- grid::polylineGrob(x = grid::unit.c(gridxstrt, gridxstp),
-                                       # x = c(gridxstrt, gridxstp),
                                        y = rep(gridy, 2),
-                                       id = rep(seq_len(length(gridx)), 2),
+                                       id = rep(seq_along(gridx), 2),
                                        # default.units = "native",
                                        gp = gpar(col = col.grid,
                                                  lwd = lwd.grid,
@@ -1156,10 +1140,6 @@ profileglyphGrob <- function(x = .5, y = .5, z,
 
   } else {
     # Get bar central points
-    # xpos <- x + z * size
-    # ypos <- y + (width * seq(-(dimension - 1) / 2, (dimension - 1)/ 2,
-    #                          length.out = dimension))
-
     xpos <- unit(x, "native") + unit(z * size, "mm")
     ypos <- unit(y, "native") +
       (width * seq(-(dimension - 1) / 2, (dimension - 1) / 2,
@@ -1170,9 +1150,6 @@ profileglyphGrob <- function(x = .5, y = .5, z,
       barjust <- "center"
       barjusth <- NULL
       # Line x points
-      # xpos1 <- x - ((z / 2) * size)
-      # xpos2 <- x + ((z / 2) * size)
-
       xpos1 <- unit(x, "native") - unit((z / 2) * size, "mm")
       xpos2 <- unit(x, "native") + unit((z / 2) * size, "mm")
     } else {
@@ -1183,11 +1160,9 @@ profileglyphGrob <- function(x = .5, y = .5, z,
     # Bar profile with/without line
     if (bar) {
       bargrob <- grid::rectGrob(x = rep(unit(x, "native") + unit(0, "mm"),
-                                       dimension),
-                                # x= rep(x, dimension),
+                                        dimension),
                                 y = ypos,
                                 width = unit(z * size, "mm"),
-                                # width = z * size,
                                 height = width,
                                 # default.units = "native",
                                 just = barjust,
@@ -1199,8 +1174,6 @@ profileglyphGrob <- function(x = .5, y = .5, z,
         if (mirror) {
           blinegrob <- grid::polylineGrob(x = grid::unit.c(xpos1, rev(xpos2)),
                                           y = grid::unit.c(ypos, rev(ypos)),
-                                          # x = c(xpos1, rev(xpos2)),
-                                          # y = c(ypos, rev(ypos)),
                                           id = rep(1:2, each = dimension),
                                           # default.units = "native",
                                           gp = grid::gpar(lwd = lwd.line,
@@ -1222,12 +1195,10 @@ profileglyphGrob <- function(x = .5, y = .5, z,
     }
 
     # Line porfile without bar
-    if (!bar & line) {
+    if (!bar && line) {
       if (mirror) {
         blinegrob <- grid::polygonGrob(x = grid::unit.c(xpos1, rev(xpos2)),
                                        y = grid::unit.c(ypos, rev(ypos)),
-                                       # x = c(xpos1, rev(xpos2)),
-                                       # y = c(ypos, rev(ypos)),
                                        # default.units = "native",
                                        gp = grid::gpar(lwd = lwd.line,
                                                        alpha = alpha,
@@ -1235,24 +1206,24 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                                                        lineend = lineend,
                                                        linejoin = linejoin))
       } else {
-        blinegrob <- grid::polygonGrob(x = grid::unit.c(unit(x, "native") + unit(0, "mm"),
-                                                        xpos,
-                                                        unit(x, "native") + unit(0, "mm")),
-                                       y = grid::unit.c(ypos[1],
-                                                        ypos,
-                                                        ypos[dimension]),
-                                       # x = c(x, xpos, x),
-                                       # y = c(ypos[1], ypos, ypos[dimension]),
-                                       default.units = "native",
-                                       gp = grid::gpar(lwd = lwd.line,
-                                                       alpha = alpha,
-                                                       col = col.line,
-                                                       lineend = lineend,
-                                                       linejoin = linejoin))
+        blinegrob <-
+          grid::polygonGrob(x = grid::unit.c(unit(x, "native") + unit(0, "mm"),
+                                             xpos,
+                                             unit(x, "native") + unit(0, "mm")),
+                            y = grid::unit.c(ypos[1],
+                                             ypos,
+                                             ypos[dimension]),
+                            default.units = "native",
+                            gp = grid::gpar(lwd = lwd.line,
+                                            alpha = alpha,
+                                            col = col.line,
+                                            lineend = lineend,
+                                            linejoin = linejoin))
       }
     }
 
-    # grid::grid.points(x= rep(y, dimension), y = ypos, default.units = "native")
+    # grid::grid.points(x= rep(y, dimension), y = ypos,
+    #                   default.units = "native")
 
     if (drawgridlines) {
       # plot grid lines
@@ -1260,22 +1231,18 @@ profileglyphGrob <- function(x = .5, y = .5, z,
                             SIMPLIFY = FALSE)
 
       if (mirror) {
-        # gridx <- mapply(function(a, b) a - (b * size), xpos2, grid.levels)
         gridx <- mapply(function(a, b) a - unit(b * size, "mm"),
-                                                xpos2, grid.levels,
+                        xpos2, grid.levels,
                         SIMPLIFY = FALSE)
         # gridx <- mapply(function(a, b) a - (b * size), xpos2, grid.levels)
       } else {
-        # gridx <- lapply(grid.levels, function(a) x + (a * size))
-        gridx <- lapply(grid.levels, function(a) unit(x, "native") + unit(a * size, "mm"))
+        gridx <- lapply(grid.levels, function(a) unit(x, "native") +
+                          unit(a * size, "mm"))
         # gridx <- mapply(function(a, b) setdiff(b, a), x + (z * size), gridx)
       }
 
       gridy <- mapply(function(a, b) rep(a, length(b)), ypos, gridx,
                       SIMPLIFY = FALSE)
-
-      # gridx <- unlist(gridx)
-      # gridy <- unlist(gridy)
 
       gridx <- upgradeUnit.unit.list(gridx)
       gridy <- upgradeUnit.unit.list(gridy)
@@ -1299,9 +1266,8 @@ profileglyphGrob <- function(x = .5, y = .5, z,
       # grid::grid.points(rep(gridx, 2), c(gridystrt, gridystp), pch = 20)
 
       glinesGrob <- grid::polylineGrob(x = rep(gridx, 2),
-                                       # y = c(gridystrt, gridystp),
                                        y = grid::unit.c(gridystrt, gridystp),
-                                       id = rep(seq_len(length(gridy)), 2),
+                                       id = rep(seq_along(gridy), 2),
                                        # default.units = "native",
                                        gp = gpar(col = col.grid,
                                                  lwd = lwd.grid,

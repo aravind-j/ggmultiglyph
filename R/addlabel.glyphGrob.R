@@ -348,12 +348,16 @@ addlabel.glyphGrob <- function(grob, label,
 
   # Radial anchors (including tileglyphGrob) ----
 
+  rad_anch_grobs <- c("starglyphGrob", "metroglyphGrob",
+                      "pieglyphGrob", "tileglyphGrob")
+
   ## Get anchors ----
 
-  if (any(class(grob) %in% c("starglyphGrob", "metroglyphGrob",
-                             "pieglyphGrob", "tileglyphGrob"))) {
+  if (any(vapply(rad_anch_grobs, inherits, logical(1), x = grob))) {
 
-    if (any(class(grob) %in% c("starglyphGrob", "metroglyphGrob"))) {
+    if (any(vapply(c("starglyphGrob", "metroglyphGrob"),
+                   inherits, logical(1), x = grob))) {
+
       # Find which of the grob children are polygonGrob/polylineGrob
       polygon_ind <- sapply(grob$children, function(k) {
         inherits(k, "polygon")
@@ -368,13 +372,13 @@ addlabel.glyphGrob <- function(grob, label,
       xn <- grob$children[[p_ind]]$x
       yn <- grob$children[[p_ind]]$y
 
-      if (any(class(grob) %in% c("metroglyphGrob"))) {
+      if (inherits(grob, "metroglyphGrob")) {
         xn <- tail(xn, length(xn) / 2)
         yn <- tail(yn, length(yn) / 2)
       }
     }
 
-    if (any(class(grob) %in% c("pieglyphGrob"))) {
+    if (inherits(grob, "pieglyphGrob")) {
 
       # Get coordinates for the anchor points on the glyphgrob
       xn_list <- split(grob$children[[1]]$x, grob$children[[1]]$id)
@@ -404,7 +408,7 @@ addlabel.glyphGrob <- function(grob, label,
 
     }
 
-    if (any(class(grob) %in% c("tileglyphGrob"))) {
+    if (inherits(grob, "tileglyphGrob")) {
 
       # Get coordinates for the anchor points on the glyphgrob
       xn <- grob$x
@@ -414,12 +418,11 @@ addlabel.glyphGrob <- function(grob, label,
 
     ## Generate label coordinates ----
 
-    if ((any(class(grob) %in% c("tileglyphGrob")) &&
-         attr(grob, "nrow") == 1) |
-        (any(class(grob) %in% c("tileglyphGrob")) &&
+    if (inherits(grob, "tileglyphGrob") &&
+        (attr(grob, "nrow") == 1 ||
          attr(grob, "nrow") == attr(grob, "length"))) {
 
-      if (any(class(grob) %in% c("tileglyphGrob")) &&
+      if (inherits(grob, "tileglyphGrob") &&
           attr(grob, "nrow") == 1) {
 
         # Get pushed labels coordinates
@@ -428,7 +431,7 @@ addlabel.glyphGrob <- function(grob, label,
 
       }
 
-      if (any(class(grob) %in% c("tileglyphGrob")) &&
+      if (inherits(grob, "tileglyphGrob") &&
           attr(grob, "nrow") == attr(grob, "length")) {
 
         # Get pushed labels coordinates
@@ -488,8 +491,8 @@ addlabel.glyphGrob <- function(grob, label,
   }
 
   # Linear anchors (profileglyphGrob) ----
-  # browser()
-  if (any(class(grob) %in% c("profileglyphGrob"))) {
+
+  if (inherits(grob, "profileglyphGrob")) {
 
     ## Get anchors ----
 
@@ -584,7 +587,7 @@ addlabel.glyphGrob <- function(grob, label,
 
   # Linear anchors (dotglyphGrob) ----
 
-  if (any(class(grob) %in% c("dotglyphGrob"))) {
+  if (inherits(grob, "dotglyphGrob")) {
 
     ## Get anchors ----
 
@@ -595,12 +598,12 @@ addlabel.glyphGrob <- function(grob, label,
 
     if (attr(grob, "flip.axes") == FALSE) {
 
-      xn <- do.call(unit.c ,
+      xn <- do.call(unit.c,
                     lapply(split(grob$x, c_ind),
                            function(cg) {
                              boxdim(cg, anchor_what)
                            }))
-      yn <- do.call(unit.c ,
+      yn <- do.call(unit.c,
                     lapply(split(grob$y, c_ind),
                            function(cg) {
 
@@ -611,7 +614,7 @@ addlabel.glyphGrob <- function(grob, label,
 
     } else { # "flip.axes" == TRUE
 
-      xn <- do.call(unit.c ,
+      xn <- do.call(unit.c,
                     lapply(split(grob$x, c_ind),
                            function(cg) {
 
@@ -620,7 +623,7 @@ addlabel.glyphGrob <- function(grob, label,
                              boxdim(cg, anchor_what)
 
                            }))
-      yn <- do.call(unit.c ,
+      yn <- do.call(unit.c,
                     lapply(split(grob$y, c_ind),
                            function(cg) {
                              boxdim(cg, anchor_what)

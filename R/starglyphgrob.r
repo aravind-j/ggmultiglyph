@@ -523,9 +523,6 @@ starglyphGrob <- function(x = .5, y = .5, z,
                  length.out = dimension)
   }
 
-  # starx <- x + (z * size * cos(angle))
-  # stary <- y + (z * size * sin(angle))
-
   starx <- unit(x, "native") + unit(z * size * cos(angle), "mm")
   stary <- unit(y, "native") + unit(z * size * sin(angle), "mm")
 
@@ -549,9 +546,6 @@ starglyphGrob <- function(x = .5, y = .5, z,
 
   # Plot whiskers
   if (whisker == TRUE) {
-    # rayx <- unlist(t(expand.grid(x, starx)))
-    # rayy <- unlist(t(expand.grid(y, stary)))
-    # rayid <- rep(1:dimension, each = 2)
 
     rayx <- grid::unit.c(rep(unit(x, "native") + unit(0, "mm"), dimension),
                          starx)
@@ -574,12 +568,12 @@ starglyphGrob <- function(x = .5, y = .5, z,
   if (draw.grid) {
     if (!is.null(grid.levels)) { # Check if grid points are to be plotted
       # Check if grid.levels is a list in appropriate format
-      if (is.list(grid.levels) &
-          all(unlist(lapply(grid.levels,
-                            function(x) is.numeric(x) | is.integer(x))))) {
+      if (is.list(grid.levels) &&
+          all(vapply(grid.levels, is.numeric, logical(1)))) {
         # Check if z is present in corresponding grid.levels
         if (!all(mapply(function(a, b) a %in% b, z, grid.levels))) {
-          warning('Mismatch in values "z" values and corresponding "grid.levels".\n',
+          warning('Mismatch in values "z" values and corresponding ',
+                  '"grid.levels".\n',
                   'Unable to plot grid points.')
         } else {
 
@@ -587,18 +581,14 @@ starglyphGrob <- function(x = .5, y = .5, z,
           grid.levels <- mapply(function(a, b) b[b <= a], z, grid.levels,
                                 SIMPLIFY = FALSE)
 
-          # starpx <- mapply(function(a, b) x + (a * size * cos(b)),
-          #                  grid.levels, angle)
-          # starpy <- mapply(function(a, b) y + (a * size * sin(b)),
-          #                  grid.levels, angle)
-          #
-          # starpx <- unlist(starpx)
-          # starpy <- unlist(starpy)
-
-          starpx <- mapply(function(a, b) unit(x, "native") + unit(a * size * cos(b), "mm"),
-                           grid.levels, angle, SIMPLIFY = FALSE)
-          starpy <- mapply(function(a, b) unit(y, "native") + unit(a * size * sin(b), "mm"),
-                           grid.levels, angle, SIMPLIFY = FALSE)
+          starpx <- mapply(function(a, b) {
+            unit(x, "native") + unit(a * size * cos(b), "mm")
+          },
+          grid.levels, angle, SIMPLIFY = FALSE)
+          starpy <- mapply(function(a, b) {
+            unit(y, "native") + unit(a * size * sin(b), "mm")
+          },
+          grid.levels, angle, SIMPLIFY = FALSE)
 
           starpx <- upgradeUnit.unit.list(starpx)
           starpy <- upgradeUnit.unit.list(starpy)
