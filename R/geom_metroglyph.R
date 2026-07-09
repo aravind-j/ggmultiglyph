@@ -673,13 +673,13 @@ GeomMetroGlyph <-
                      }
 
                      # Check if col.ray are valid
-                     if (!is.null(params$col.ray)) {
-                       if (length(params$col.ray) != length(cols))
+                     if (!is.null(params$colour.ray)) {
+                       if (length(params$colour.ray) != length(cols))
                          stop('The number of colours specified in',
                               '"col.ray" are not equal to the number',
                               'of variables specified in "cols".')
 
-                       if (!all(iscolour(params$col.ray))) {
+                       if (!all(iscolour(params$colour.ray))) {
                          stop('Invalid colour(s) specified in "col.ray".')
                        }
 
