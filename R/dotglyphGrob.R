@@ -439,7 +439,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
 
   # grid::grid.points(x = x, y = y, pch =  20)
   radius <- grid::unit(radius, "mm")
-  lwd2 <- grid::convertUnit(unit(lwd, "points")/4, "mm") # how does this work ?
+  lwd2 <- grid::convertUnit(unit(lwd, "points") / 4, "mm") # how does this work ?
 
   if (mirror) {
     stksq <- stackseq(z, radius + lwd2)
@@ -462,8 +462,9 @@ dotglyphGrob <- function(x = .5, y = .5, z,
     # circx <- mapply(function(a, b) rep(a, b), xpos, z)
     circx <- Map(function(a, b) rep(a, b), xpos, z)
     # circy <- lapply(z, function(c) y - (1:c * (radius * 2)) + radius)
-    circy <- lapply(z, function(c) unit(y, "native") +
-                      (1:c * ((radius + lwd2) * 2)) - (radius + lwd2))
+    circy <- lapply(z, function(c) {
+      unit(y, "native") + (1:c * ((radius + lwd2) * 2)) - (radius + lwd2)
+    })
 
     if (mirror) {
       # circy <- mapply(function(a, b) a - ((radius + lwd2) * b), circy, z)
@@ -480,8 +481,9 @@ dotglyphGrob <- function(x = .5, y = .5, z,
     # circy <- mapply(function(a, b) rep(a, b), ypos, z)
     circy <- Map(function(a, b) rep(a, b), ypos, z)
     # circx <- lapply(z, function(c) x + (1:c * (radius * 2)) - radius)
-    circx <- lapply(z, function(c) unit(x, "native") +
-                      (1:c * ((radius + lwd2) * 2)) - (radius + lwd2))
+    circx <- lapply(z, function(c) {
+      unit(x, "native") + (1:c * ((radius + lwd2) * 2)) - (radius + lwd2)
+    })
 
     if (mirror) {
       # circx <- mapply(function(a, b) a - ((radius + lwd2) * b), circx, z)
@@ -523,7 +525,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
 stackseq <- function(z, r) {
 
   zevn <- (z %% 2) == 0
-  apthm <- (sqrt(3)/2) * r
+  apthm <- (sqrt(3) / 2) * r
 
   sq <- vector("list", length(z))
 
@@ -531,10 +533,10 @@ stackseq <- function(z, r) {
     if (i == 1) {
       sq[[i]] <- r + unit(0, "mm")
     } else {
-      if (zevn[i] == zevn[i-1]) {
-        sq[[i]] <- sq[[i-1]] + r
+      if (zevn[i] == zevn[i - 1]) {
+        sq[[i]] <- sq[[i - 1]] + r
       } else {
-        sq[[i]] <- sq[[i-1]] + apthm
+        sq[[i]] <- sq[[i - 1]] + apthm
       }
     }
   }

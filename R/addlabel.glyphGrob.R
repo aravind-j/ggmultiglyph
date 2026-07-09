@@ -14,8 +14,8 @@
 #'   and the \code{glyphGrob} Default is \code{TRUE}.
 #' @param segment.control A list of control settings for the line segments.
 #'   Ignored if \code{segment = FALSE}. See
-#'   \code{\link[ggmultiglyph]{ggmultiglyph.segment.control}} for details  on the various
-#'   control parameters.
+#'   \code{\link[ggmultiglyph]{ggmultiglyph.segment.control}} for details on
+#'   the various control parameters.
 #' @param push A numeric value indicating how far the labels have to be pushed
 #'   out from the \code{glyphGrob}.
 #' @param angle Text angle (in \ifelse{html}{\out{<code class="reqn">[0,
@@ -27,7 +27,8 @@
 #'
 #' @return A \code{\link[grid]{grob}} object.
 #'
-#' @importFrom grid convertUnit convertX convertY curveGrob gList gTree textGrob unit unitType unit.c
+#' @importFrom grid convertUnit convertX convertY curveGrob gList gTree
+#' @importFrom grid textGrob unit unitType unit.c
 #' @importFrom methods is
 #' @importFrom utils tail
 #' @export
@@ -327,7 +328,7 @@ addlabel.glyphGrob <- function(grob, label,
                                segment = TRUE,
                                segment.control = ggmultiglyph.segment.control(),
                                push = 10, angle = 0,
-                               hjust = 0.5 , vjust = 0.5) {
+                               hjust = 0.5, vjust = 0.5) {
 
   # Check if grob is a glyphGrob
   if (!is(grob, "glyphGrob")) {
@@ -444,8 +445,8 @@ addlabel.glyphGrob <- function(grob, label,
     } else { # starglyphGrob, metrhoglyphGrob and pieglyphGrob
 
       # Check if segement.control compoents are 1 or equal to no. of labels
-      if(any(!(sapply(segment.control, length) %in%
-               c(0, 1, length(label))))) {
+      if (any(!(sapply(segment.control, length) %in%
+                c(0, 1, length(label))))) {
         stop('"segment.control" elements should be of length 1, ',
              'or length equal to length of "label", or ',
              'a NULL object.')
@@ -474,7 +475,8 @@ addlabel.glyphGrob <- function(grob, label,
       # grid.draw(grob)
       # grid.draw(pointsGrob(x = cx, y = cy, gp = gpar(col = "red")))
       # grid.draw(pointsGrob(x = xn, y = yn, gp = gpar(col = "blue")))
-      # grid.draw(pointsGrob(x = x_label, y = y_label, gp = gpar(col = "green")))
+      # grid.draw(pointsGrob(x = x_label, y = y_label,
+      #                      gp = gpar(col = "green")))
 
       # Smart justification
       just_x <- ifelse(cos(angles) > 0, 0, 1)
@@ -487,7 +489,7 @@ addlabel.glyphGrob <- function(grob, label,
   }
 
   # Linear anchors (profileglyphGrob) ----
-# browser()
+  # browser()
   if (any(class(grob) %in% c("profileglyphGrob"))) {
 
     ## Get anchors ----
@@ -664,9 +666,10 @@ addlabel.glyphGrob <- function(grob, label,
                       inflect = segment.control$segment.inflect,
                       debug = segment.control$segment.debug,
                       gp = gpar(col = segment.control$segment.colour,
-                                lwd = segment.control$segment.size * ggplot2::.pt,
+                                lwd = segment.control$segment.size *
+                                  ggplot2::.pt,
                                 lty = segment.control$segment.linetype),
-                      arrow = if(is.null(segment.control$segment.arrow)) {
+                      arrow = if (is.null(segment.control$segment.arrow)) {
                         NULL
                       } else {
                         segment.control$segment.arrow
@@ -685,8 +688,6 @@ addlabel.glyphGrob <- function(grob, label,
     gridout <-
       grid::gTree(children = gList(grob, labelgorb))
   }
-
-
 
   return(gridout)
 }

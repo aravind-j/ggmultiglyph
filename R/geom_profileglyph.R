@@ -827,312 +827,313 @@ geom_profileglyph <-
   }
 
 GeomProfileGlyph <-
-  ggplot2::ggproto("GeomProfileGlyph", ggplot2::Geom,
-                   required_aes = c("x", "y"),
-                   default_aes = ggplot2::aes(colour = "black",
-                                              fill = NA,
-                                              alpha = 1,
-                                              # repel aes
-                                              point.size = 1,
-                                              segment.linetype = 1,
-                                              segment.colour = NULL,
-                                              segment.size = 0.5,
-                                              segment.alpha = NULL,
-                                              segment.curvature = -1e-20,
-                                              segment.angle = 20,
-                                              segment.ncp = 3,
-                                              segment.shape = 0.5,
-                                              segment.square = TRUE,
-                                              segment.squareShape = 1,
-                                              segment.inflect = FALSE,
-                                              segment.debug = FALSE),
+  ggplot2::ggproto(
+    "GeomProfileGlyph", ggplot2::Geom,
+    required_aes = c("x", "y"),
+    default_aes = ggplot2::aes(colour = "black",
+                               fill = NA,
+                               alpha = 1,
+                               # repel aes
+                               point.size = 1,
+                               segment.linetype = 1,
+                               segment.colour = NULL,
+                               segment.size = 0.5,
+                               segment.alpha = NULL,
+                               segment.curvature = -1e-20,
+                               segment.angle = 20,
+                               segment.ncp = 3,
+                               segment.shape = 0.5,
+                               segment.square = TRUE,
+                               segment.squareShape = 1,
+                               segment.inflect = FALSE,
+                               segment.debug = FALSE),
 
-                   setup_params = function(data, params) {
+    setup_params = function(data, params) {
 
-                     params
-                   },
+      params
+    },
 
-                   setup_data = function(data, params) {
+    setup_data = function(data, params) {
 
-                     cols <- params$cols
+      cols <- params$cols
 
-                     # Check if "cols" exist in data
-                     if (FALSE %in% (cols %in% colnames(data))) {
-                       stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
-                                  paste(cols[!(cols %in% colnames(data))],
-                                        collapse = ", "),
-                                  sep = ""))
-                     }
+      # Check if "cols" exist in data
+      if (FALSE %in% (cols %in% colnames(data))) {
+        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+                   paste(cols[!(cols %in% colnames(data))],
+                         collapse = ", "),
+                   sep = ""))
+      }
 
 
-                     # Check if cols are numeric or factor
-                     intfactcols <-
-                       vapply(data[, cols],
-                              function(x) !(is.integer(x) || is.numeric(x)
-                                            || is.factor(x)),
-                              logical(1))
+      # Check if cols are numeric or factor
+      intfactcols <-
+        vapply(data[, cols],
+               function(x) !(is.integer(x) || is.numeric(x)
+                             || is.factor(x)),
+               logical(1))
 
-                     if (TRUE %in% intfactcols) {
-                       stop('The following column(s) specified as "cols" in ',
-                            '"data" are not of type numeric, integer or factor:\n',
-                            paste(names(intfactcols[intfactcols]), collapse = ", "))
-                     }
+      if (TRUE %in% intfactcols) {
+        stop('The following column(s) specified as "cols" in ',
+             '"data" are not of type numeric, integer or factor:\n',
+             paste(names(intfactcols[intfactcols]), collapse = ", "))
+      }
 
-                     draw.grid <- params$draw.grid
+      draw.grid <- params$draw.grid
 
-                     if (draw.grid &
-                         !all(vapply(data[, cols],
-                                     function(x) is.factor(x) && is.ordered(x),
-                                     logical(1)))) {
-                       draw.grid <- FALSE
-                       warning(
-                         'Not all columns specified in "cols" are ordered factors.\n',
-                         'Unable to plot grid points.'
-                       )
-                     }
+      if (draw.grid &
+          !all(vapply(data[, cols],
+                      function(x) is.factor(x) && is.ordered(x),
+                      logical(1)))) {
+        draw.grid <- FALSE
+        warning(
+          'Not all columns specified in "cols" are ordered factors.\n',
+          'Unable to plot grid points.'
+        )
+      }
 
-                     # Remove rows with missing values in "cols"
-                     # check for missing values
-                     missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
-                     if (TRUE %in% missvcols) {
-                       warning(paste('The following column(s) in "data" have missing values:\n',
-                                     paste(names(missvcols[missvcols]), collapse = ", ")))
+      # Remove rows with missing values in "cols"
+      # check for missing values
+      missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
+      if (TRUE %in% missvcols) {
+        warning(paste('The following column(s) in "data" have missing values:\n',
+                      paste(names(missvcols[missvcols]), collapse = ", ")))
 
-                       data <- remove_missing(df = data, vars = cols)
-                     }
+        data <- remove_missing(df = data, vars = cols)
+      }
 
-                     # Check if fill.bar are valid
-                     if (!is.null(params$fill.bar)) {
-                       if (length(params$fill.bar) != length(cols))
-                         stop('The number of colours specified in',
-                              '"fill.bar" are not equal to the number',
-                              'of variables specified in "cols".')
+      # Check if fill.bar are valid
+      if (!is.null(params$fill.bar)) {
+        if (length(params$fill.bar) != length(cols))
+          stop('The number of colours specified in',
+               '"fill.bar" are not equal to the number',
+               'of variables specified in "cols".')
 
-                       if (!all(iscolour(params$fill.bar))) {
-                         stop('Invalid colour(s) specified in "fill.bar".')
-                       }
+        if (!all(iscolour(params$fill.bar))) {
+          stop('Invalid colour(s) specified in "fill.bar".')
+        }
 
-                       data$colour <- NULL
-                     }
+        data$colour <- NULL
+      }
 
-                     data$linewidth.bar <- params$linewidth.bar
-                     data$linewidth.line <- params$linewidth.line
-                     data$linewidth.grid <- params$linewidth.grid
-                     data$linejoin <- "mitre"
-                     data$lineend <- "round"
-                     data$size <- params$size
-                     data
-                   },
+      data$linewidth.bar <- params$linewidth.bar
+      data$linewidth.line <- params$linewidth.line
+      data$linewidth.grid <- params$linewidth.grid
+      data$linejoin <- "mitre"
+      data$lineend <- "round"
+      data$size <- params$size
+      data
+    },
 
-                   draw_panel = function(data, panel_params,
-                                         coord, cols,
-                                         width,
-                                         size,
-                                         colour.grid,
-                                         colour.line,
-                                         colour.bar,
-                                         linewidth.line,
-                                         linewidth.bar,
-                                         linewidth.grid,
-                                         fill.bar,
-                                         fill.gradient,
-                                         flip.axes,
-                                         bar, line,
-                                         mirror,
-                                         draw.grid,
-                                         repel,
-                                         point.size,
-                                         box.padding,
-                                         point.padding,
-                                         min.segment.length,
-                                         arrow,
-                                         force,
-                                         force_pull,
-                                         max.time,
-                                         max.iter,
-                                         max.overlaps,
-                                         nudge_x,
-                                         nudge_y,
-                                         xlim,
-                                         ylim,
-                                         direction,
-                                         seed,
-                                         verbose) {
+    draw_panel = function(data, panel_params,
+                          coord, cols,
+                          width,
+                          size,
+                          colour.grid,
+                          colour.line,
+                          colour.bar,
+                          linewidth.line,
+                          linewidth.bar,
+                          linewidth.grid,
+                          fill.bar,
+                          fill.gradient,
+                          flip.axes,
+                          bar, line,
+                          mirror,
+                          draw.grid,
+                          repel,
+                          point.size,
+                          box.padding,
+                          point.padding,
+                          min.segment.length,
+                          arrow,
+                          force,
+                          force_pull,
+                          max.time,
+                          max.iter,
+                          max.overlaps,
+                          nudge_x,
+                          nudge_y,
+                          xlim,
+                          ylim,
+                          direction,
+                          seed,
+                          verbose) {
 
-                     # if needed rename columns using our convention
-                     for (this_dim in c("x", "y")) {
-                       this_orig <- sprintf("%s_orig", this_dim)
-                       this_nudge <- sprintf("nudge_%s", this_dim)
-                       if (!this_nudge %in% colnames(data)) {
-                         data[[this_nudge]] <- data[[this_dim]]
-                         if (this_orig %in% colnames(data)) {
-                           data[[this_dim]] <- data[[this_orig]]
-                           data[[this_orig]] <- NULL
-                         }
-                       }
-                     }
+      # if needed rename columns using our convention
+      for (this_dim in c("x", "y")) {
+        this_orig <- sprintf("%s_orig", this_dim)
+        this_nudge <- sprintf("nudge_%s", this_dim)
+        if (!this_nudge %in% colnames(data)) {
+          data[[this_nudge]] <- data[[this_dim]]
+          if (this_orig %in% colnames(data)) {
+            data[[this_dim]] <- data[[this_orig]]
+            data[[this_orig]] <- NULL
+          }
+        }
+      }
 
-                     # Transform the nudges to the panel scales.
-                     nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
-                     nudges <- coord$transform(nudges, panel_params)
+      # Transform the nudges to the panel scales.
+      nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
+      nudges <- coord$transform(nudges, panel_params)
 
-                     data <- coord$transform(data, panel_params)
+      data <- coord$transform(data, panel_params)
 
-                     grid.levels <- NULL
+      grid.levels <- NULL
 
-                     # Convert factor columns to equivalent numeric
-                     if (draw.grid) {
-                       grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
-                       data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
-                     }
+      # Convert factor columns to equivalent numeric
+      if (draw.grid) {
+        grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+        data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
+      }
 
-                     # Gradient colour mapping
-                     gdata <- NULL
-                     if (is.null(fill.bar) & !is.null(fill.gradient)) {
-                       gdata <- data[, cols]
+      # Gradient colour mapping
+      gdata <- NULL
+      if (is.null(fill.bar) & !is.null(fill.gradient)) {
+        gdata <- data[, cols]
 
-                       gdata <- lapply(gdata,
-                                       function(x) scales::col_numeric(palette = fill.gradient,
-                                                                       domain = min(x):max(x))(x))
-                       gdata <- data.frame(gdata)
-                     }
+        gdata <- lapply(gdata,
+                        function(x) scales::col_numeric(palette = fill.gradient,
+                                                        domain = min(x):max(x))(x))
+        gdata <- data.frame(gdata)
+      }
 
-                     # The nudge is relative to the data.
-                     data$nudge_x <- nudges$x - data$x
-                     data$nudge_y <- nudges$y - data$y
+      # The nudge is relative to the data.
+      data$nudge_x <- nudges$x - data$x
+      data$nudge_y <- nudges$y - data$y
 
-                     # Transform limits to panel scales.
-                     limits <- data.frame(x = xlim, y = ylim)
-                     limits <- coord$transform(limits, panel_params)
+      # Transform limits to panel scales.
+      limits <- data.frame(x = xlim, y = ylim)
+      limits <- coord$transform(limits, panel_params)
 
-                     # Allow Inf.
-                     if (length(limits$x) == length(xlim)) {
-                       limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
-                     }
-                     if (length(limits$y) == length(ylim)) {
-                       limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
-                     }
+      # Allow Inf.
+      if (length(limits$x) == length(xlim)) {
+        limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
+      }
+      if (length(limits$y) == length(ylim)) {
+        limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
+      }
 
-                     # Fill NAs with defaults.
-                     limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
-                     limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
+      # Fill NAs with defaults.
+      limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
+      limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
-                     ggname("geom_profileglyph",
-                            grid::gTree(data=data,
-                                        # x = x, y = y,
-                                        cols=cols,
-                                        # fill = fill,
-                                        width = width,
-                                        mirror = mirror,
-                                        flip.axes = flip.axes,
-                                        colour.bar = colour.bar,
-                                        colour.line = colour.line,
-                                        fill.bar = fill.bar,
-                                        fill.gradient = fill.gradient,
-                                        gdata = gdata,
-                                        # alpha = alpha,
-                                        bar = bar,
-                                        line = line,
-                                        # linejoin = "mitre",
-                                        # lineend = "round",
-                                        grid.levels = grid.levels,
-                                        draw.grid = draw.grid,
-                                        colour.grid = colour.grid,
-                                        repel = repel,
-                                        limits = limits,
-                                        box.padding = box.padding,
-                                        point.padding = point.padding,
-                                        min.segment.length = min.segment.length,
-                                        arrow = arrow,
-                                        force = force,
-                                        force_pull = force_pull,
-                                        max.time = max.time,
-                                        max.iter = max.iter,
-                                        max.overlaps = max.overlaps,
-                                        nudge_x = nudge_x,
-                                        nudge_y = nudge_y,
-                                        xlim = xlim,
-                                        ylim = ylim,
-                                        direction = direction,
-                                        seed = seed,
-                                        verbose = verbose,
-                                        cl="profileglyphtree"))
+      ggname("geom_profileglyph",
+             grid::gTree(data=data,
+                         # x = x, y = y,
+                         cols=cols,
+                         # fill = fill,
+                         width = width,
+                         mirror = mirror,
+                         flip.axes = flip.axes,
+                         colour.bar = colour.bar,
+                         colour.line = colour.line,
+                         fill.bar = fill.bar,
+                         fill.gradient = fill.gradient,
+                         gdata = gdata,
+                         # alpha = alpha,
+                         bar = bar,
+                         line = line,
+                         # linejoin = "mitre",
+                         # lineend = "round",
+                         grid.levels = grid.levels,
+                         draw.grid = draw.grid,
+                         colour.grid = colour.grid,
+                         repel = repel,
+                         limits = limits,
+                         box.padding = box.padding,
+                         point.padding = point.padding,
+                         min.segment.length = min.segment.length,
+                         arrow = arrow,
+                         force = force,
+                         force_pull = force_pull,
+                         max.time = max.time,
+                         max.iter = max.iter,
+                         max.overlaps = max.overlaps,
+                         nudge_x = nudge_x,
+                         nudge_y = nudge_y,
+                         xlim = xlim,
+                         ylim = ylim,
+                         direction = direction,
+                         seed = seed,
+                         verbose = verbose,
+                         cl="profileglyphtree"))
 
-                     # ggname("geom_profileglyph",
-                     #        grid::gTree(
-                     #          children = grid::gList(
-                     #            grid::pointsGrob(x = data$x,
-                     #                             y = data$y,
-                     #                             default.units = "native",
-                     #                             pch = 20,
-                     #                             gp = grid::gpar(col = data$colour,
-                     #                                             fill = data$fill))
-                     #          )))
-                   },
+      # ggname("geom_profileglyph",
+      #        grid::gTree(
+      #          children = grid::gList(
+      #            grid::pointsGrob(x = data$x,
+      #                             y = data$y,
+      #                             default.units = "native",
+      #                             pch = 20,
+      #                             gp = grid::gpar(col = data$colour,
+      #                                             fill = data$fill))
+      #          )))
+    },
 
-                   draw_key = function(data, params, size) {
+    draw_key = function(data, params, size) {
 
-                     grid.levels <- NULL
-                     if (params$draw.grid) {
+      grid.levels <- NULL
+      if (params$draw.grid) {
 
-                       vals <- data[, params$cols, drop = FALSE]
+        vals <- data[, params$cols, drop = FALSE]
 
-                       vals[] <- lapply(vals, function(x) {
-                         if (is.character(x) || is.factor(x)) {
-                           as.numeric(factor(x, levels = unique(x)))
-                         } else {
-                           x
-                         }
-                       })
+        vals[] <- lapply(vals, function(x) {
+          if (is.character(x) || is.factor(x)) {
+            as.numeric(factor(x, levels = unique(x)))
+          } else {
+            x
+          }
+        })
 
-                       grid.levels <- lapply(vals, function(a) seq_len((ceiling(a))))
-                       names(grid.levels) <- params$cols
-                     }
+        grid.levels <- lapply(vals, function(a) seq_len((ceiling(a))))
+        names(grid.levels) <- params$cols
+      }
 
-                     profileglyphGrob(
-                       x = .5,
-                       y = .5,
-                       z = if (params$draw.grid) {
-                         ceiling(vals)
-                       } else {
-                         unlist(data[, params$cols])
-                       },
-                       size = params$size,
-                       width = params$width,
-                       mirror = params$mirror,
-                       flip.axes = params$flip.axes,
-                       col.bar = if (is.null(params$colour.bar)) {
-                         data$colour
-                       } else {
-                         params$colour.bar
-                       },
-                       col.line = if (is.null(params$colour.line)) {
-                         data$colour
-                       } else {
-                         params$colour.line
-                       },
-                       fill = if (is.null(params$fill.bar)) {
-                         data$fill
-                       }else {
-                         params$fill.bar
-                       },
-                       lwd.bar = params$linewidth.bar,
-                       lwd.line = params$linewidth.line,
-                       lwd.grid = params$linewidth.grid,
-                       alpha = data$alpha,
-                       bar = params$bar,
-                       line = params$line,
-                       linejoin = "mitre",
-                       lineend = "round",
-                       grid.levels = grid.levels,
-                       draw.grid = params$draw.grid,
-                       col.grid = if (is.null(params$colour.grid)) {
-                         data$colour
-                       } else {
-                         params$colour.grid
-                       }
-                     )
-                   },
+      profileglyphGrob(
+        x = .5,
+        y = .5,
+        z = if (params$draw.grid) {
+          ceiling(vals)
+        } else {
+          unlist(data[, params$cols])
+        },
+        size = params$size,
+        width = params$width,
+        mirror = params$mirror,
+        flip.axes = params$flip.axes,
+        col.bar = if (is.null(params$colour.bar)) {
+          data$colour
+        } else {
+          params$colour.bar
+        },
+        col.line = if (is.null(params$colour.line)) {
+          data$colour
+        } else {
+          params$colour.line
+        },
+        fill = if (is.null(params$fill.bar)) {
+          data$fill
+        }else {
+          params$fill.bar
+        },
+        lwd.bar = params$linewidth.bar,
+        lwd.line = params$linewidth.line,
+        lwd.grid = params$linewidth.grid,
+        alpha = data$alpha,
+        bar = params$bar,
+        line = params$line,
+        linejoin = "mitre",
+        lineend = "round",
+        grid.levels = grid.levels,
+        draw.grid = params$draw.grid,
+        col.grid = if (is.null(params$colour.grid)) {
+          data$colour
+        } else {
+          params$colour.grid
+        }
+      )
+    },
   )
 
 #' grid::makeContent function for the grobTree of profileglyphGrob objects

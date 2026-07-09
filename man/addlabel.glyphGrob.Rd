@@ -29,8 +29,8 @@ and the \code{glyphGrob} Default is \code{TRUE}.}
 
 \item{segment.control}{A list of control settings for the line segments.
 Ignored if \code{segment = FALSE}. See
-\code{\link[ggmultiglyph]{ggmultiglyph.segment.control}} for details  on the various
-control parameters.}
+\code{\link[ggmultiglyph]{ggmultiglyph.segment.control}} for details on
+the various control parameters.}
 
 \item{push}{A numeric value indicating how far the labels have to be pushed
 out from the \code{glyphGrob}.}

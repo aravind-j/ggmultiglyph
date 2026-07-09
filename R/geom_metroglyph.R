@@ -594,305 +594,306 @@ geom_metroglyph <-
   }
 
 GeomMetroGlyph <-
-  ggplot2::ggproto("GeomMetroGlyph", ggplot2::Geom,
-                   required_aes = c("x", "y"),
-                   default_aes = ggplot2::aes(colour = "black",
-                                              size = 1,
-                                              circle.size = 1,
-                                              fill = NA,
-                                              # linetype = 1,
-                                              alpha = 1,
-                                              grid.point.size = 1,
-                                              # repel aes
-                                              point.size = 1,
-                                              segment.linetype = 1,
-                                              segment.colour = NULL,
-                                              segment.size = 0.5,
-                                              segment.alpha = NULL,
-                                              segment.curvature = -1e-20,
-                                              segment.angle = 20,
-                                              segment.ncp = 3,
-                                              segment.shape = 0.5,
-                                              segment.square = TRUE,
-                                              segment.squareShape = 1,
-                                              segment.inflect = FALSE,
-                                              segment.debug = FALSE),
+  ggplot2::ggproto(
+    "GeomMetroGlyph", ggplot2::Geom,
+    required_aes = c("x", "y"),
+    default_aes = ggplot2::aes(colour = "black",
+                               size = 1,
+                               circle.size = 1,
+                               fill = NA,
+                               # linetype = 1,
+                               alpha = 1,
+                               grid.point.size = 1,
+                               # repel aes
+                               point.size = 1,
+                               segment.linetype = 1,
+                               segment.colour = NULL,
+                               segment.size = 0.5,
+                               segment.alpha = NULL,
+                               segment.curvature = -1e-20,
+                               segment.angle = 20,
+                               segment.ncp = 3,
+                               segment.shape = 0.5,
+                               segment.square = TRUE,
+                               segment.squareShape = 1,
+                               segment.inflect = FALSE,
+                               segment.debug = FALSE),
 
-                   setup_params = function(data, params) {
+    setup_params = function(data, params) {
 
-                     params
-                   },
+      params
+    },
 
-                   setup_data = function(data, params) {
+    setup_data = function(data, params) {
 
-                     cols <- params$cols
+      cols <- params$cols
 
-                     # Check if "cols" exist in data
-                     if (FALSE %in% (cols %in% colnames(data))) {
-                       stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
-                                  paste(cols[!(cols %in% colnames(data))],
-                                        collapse = ", "),
-                                  sep = ""))
-                     }
+      # Check if "cols" exist in data
+      if (FALSE %in% (cols %in% colnames(data))) {
+        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+                   paste(cols[!(cols %in% colnames(data))],
+                         collapse = ", "),
+                   sep = ""))
+      }
 
 
-                     # Check if cols are numeric or factor
-                     intfactcols <-
-                       vapply(data[, cols],
-                              function(x) !(is.integer(x) || is.numeric(x)
-                                            || is.factor(x)),
-                              logical(1))
+      # Check if cols are numeric or factor
+      intfactcols <-
+        vapply(data[, cols],
+               function(x) !(is.integer(x) || is.numeric(x)
+                             || is.factor(x)),
+               logical(1))
 
-                     if (TRUE %in% intfactcols) {
-                       stop('The following column(s) specified as "cols" in ',
-                            '"data" are not of type numeric, integer or factor:\n',
-                            paste(names(intfactcols[intfactcols]), collapse = ", "))
-                     }
+      if (TRUE %in% intfactcols) {
+        stop('The following column(s) specified as "cols" in ',
+             '"data" are not of type numeric, integer or factor:\n',
+             paste(names(intfactcols[intfactcols]), collapse = ", "))
+      }
 
-                     draw.grid <- params$draw.grid
+      draw.grid <- params$draw.grid
 
-                     if (draw.grid &
-                         !all(vapply(data[, cols],
-                                     function(x) is.factor(x) && is.ordered(x),
-                                     logical(1)))) {
-                       draw.grid <- FALSE
-                       warning(
-                         'Not all columns specified in "cols" are ordered factors.\n',
-                         'Unable to plot grid points.'
-                       )
-                     }
+      if (draw.grid &
+          !all(vapply(data[, cols],
+                      function(x) is.factor(x) && is.ordered(x),
+                      logical(1)))) {
+        draw.grid <- FALSE
+        warning(
+          'Not all columns specified in "cols" are ordered factors.\n',
+          'Unable to plot grid points.'
+        )
+      }
 
-                     # Remove rows with missing values in "cols"
-                     # check for missing values
-                     missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
-                     if (TRUE %in% missvcols) {
-                       warning(paste('The following column(s) in "data" have missing values:\n',
-                                     paste(names(missvcols[missvcols]), collapse = ", ")))
+      # Remove rows with missing values in "cols"
+      # check for missing values
+      missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
+      if (TRUE %in% missvcols) {
+        warning(paste('The following column(s) in "data" have missing values:\n',
+                      paste(names(missvcols[missvcols]), collapse = ", ")))
 
-                       data <- remove_missing(df = data, vars = cols)
-                     }
+        data <- remove_missing(df = data, vars = cols)
+      }
 
-                     # Check if col.ray are valid
-                     if (!is.null(params$colour.ray)) {
-                       if (length(params$colour.ray) != length(cols))
-                         stop('The number of colours specified in',
-                              '"col.ray" are not equal to the number',
-                              'of variables specified in "cols".')
+      # Check if col.ray are valid
+      if (!is.null(params$colour.ray)) {
+        if (length(params$colour.ray) != length(cols))
+          stop('The number of colours specified in',
+               '"col.ray" are not equal to the number',
+               'of variables specified in "cols".')
 
-                       if (!all(iscolour(params$colour.ray))) {
-                         stop('Invalid colour(s) specified in "col.ray".')
-                       }
+        if (!all(iscolour(params$colour.ray))) {
+          stop('Invalid colour(s) specified in "col.ray".')
+        }
 
-                       data$colour <- NULL
-                     }
+        data$colour <- NULL
+      }
 
-                     data$linewidth.ray <- params$linewidth.ray
-                     data$linewidth.circle <- params$linewidth.circle
-                     data$lineend <- params$lineend
-                     data
-                   },
+      data$linewidth.ray <- params$linewidth.ray
+      data$linewidth.circle <- params$linewidth.circle
+      data$lineend <- params$lineend
+      data
+    },
 
-                   draw_panel = function(data, panel_params,
-                                         circle.size,
-                                         coord, cols,
-                                         linewidth.ray,
-                                         linewidth.circle,
-                                         colour.ray,
-                                         colour.circle,
-                                         colour.points,
-                                         full,
-                                         lineend,
-                                         draw.grid,
-                                         grid.point.size,
-                                         repel,
-                                         point.size,
-                                         box.padding,
-                                         point.padding,
-                                         min.segment.length,
-                                         arrow,
-                                         force,
-                                         force_pull,
-                                         max.time,
-                                         max.iter,
-                                         max.overlaps,
-                                         nudge_x,
-                                         nudge_y,
-                                         xlim,
-                                         ylim,
-                                         direction,
-                                         seed,
-                                         verbose) {
+    draw_panel = function(data, panel_params,
+                          circle.size,
+                          coord, cols,
+                          linewidth.ray,
+                          linewidth.circle,
+                          colour.ray,
+                          colour.circle,
+                          colour.points,
+                          full,
+                          lineend,
+                          draw.grid,
+                          grid.point.size,
+                          repel,
+                          point.size,
+                          box.padding,
+                          point.padding,
+                          min.segment.length,
+                          arrow,
+                          force,
+                          force_pull,
+                          max.time,
+                          max.iter,
+                          max.overlaps,
+                          nudge_x,
+                          nudge_y,
+                          xlim,
+                          ylim,
+                          direction,
+                          seed,
+                          verbose) {
 
-                     # if needed rename columns using our convention
-                     for (this_dim in c("x", "y")) {
-                       this_orig <- sprintf("%s_orig", this_dim)
-                       this_nudge <- sprintf("nudge_%s", this_dim)
-                       if (!this_nudge %in% colnames(data)) {
-                         data[[this_nudge]] <- data[[this_dim]]
-                         if (this_orig %in% colnames(data)) {
-                           data[[this_dim]] <- data[[this_orig]]
-                           data[[this_orig]] <- NULL
-                         }
-                       }
-                     }
+      # if needed rename columns using our convention
+      for (this_dim in c("x", "y")) {
+        this_orig <- sprintf("%s_orig", this_dim)
+        this_nudge <- sprintf("nudge_%s", this_dim)
+        if (!this_nudge %in% colnames(data)) {
+          data[[this_nudge]] <- data[[this_dim]]
+          if (this_orig %in% colnames(data)) {
+            data[[this_dim]] <- data[[this_orig]]
+            data[[this_orig]] <- NULL
+          }
+        }
+      }
 
-                     # Transform the nudges to the panel scales.
-                     nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
-                     nudges <- coord$transform(nudges, panel_params)
+      # Transform the nudges to the panel scales.
+      nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
+      nudges <- coord$transform(nudges, panel_params)
 
-                     data <- coord$transform(data, panel_params)
+      data <- coord$transform(data, panel_params)
 
-                     if (full) {
-                       astrt <- 0
-                       astp <- 2 * base::pi
-                     } else {
-                       astrt <- 0
-                       astp <- base::pi
-                     }
+      if (full) {
+        astrt <- 0
+        astp <- 2 * base::pi
+      } else {
+        astrt <- 0
+        astp <- base::pi
+      }
 
-                     grid.levels <- NULL
+      grid.levels <- NULL
 
-                     # Convert factor columns to equivalent numeric
-                     if (draw.grid) {
-                       grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
-                       data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
-                     }
+      # Convert factor columns to equivalent numeric
+      if (draw.grid) {
+        grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+        data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
+      }
 
-                     # The nudge is relative to the data.
-                     data$nudge_x <- nudges$x - data$x
-                     data$nudge_y <- nudges$y - data$y
+      # The nudge is relative to the data.
+      data$nudge_x <- nudges$x - data$x
+      data$nudge_y <- nudges$y - data$y
 
-                     # Transform limits to panel scales.
-                     limits <- data.frame(x = xlim, y = ylim)
-                     limits <- coord$transform(limits, panel_params)
+      # Transform limits to panel scales.
+      limits <- data.frame(x = xlim, y = ylim)
+      limits <- coord$transform(limits, panel_params)
 
-                     # Allow Inf.
-                     if (length(limits$x) == length(xlim)) {
-                       limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
-                     }
-                     if (length(limits$y) == length(ylim)) {
-                       limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
-                     }
+      # Allow Inf.
+      if (length(limits$x) == length(xlim)) {
+        limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
+      }
+      if (length(limits$y) == length(ylim)) {
+        limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
+      }
 
-                     # Fill NAs with defaults.
-                     limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
-                     limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
+      # Fill NAs with defaults.
+      limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
+      limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
-                     ggname("geom_metroglyph",
-                            grid::gTree(data=data,
-                                        # x = x, y = y,
-                                        cols=cols,
-                                        # fill = fill,
-                                        colour.ray = colour.ray,
-                                        colour.circle = colour.circle,
-                                        linewidth.ray = linewidth.ray,
-                                        linewidth.circle = linewidth.circle,
-                                        # alpha = alpha,
-                                        astrt = astrt,
-                                        astp = astp,
-                                        # lineend = "round",
-                                        grid.levels = grid.levels,
-                                        draw.grid = draw.grid,
-                                        grid.point.size = grid.point.size,
-                                        colour.points = colour.points,
-                                        repel = repel,
-                                        limits = limits,
-                                        box.padding = box.padding,
-                                        point.padding = point.padding,
-                                        min.segment.length = min.segment.length,
-                                        arrow = arrow,
-                                        force = force,
-                                        force_pull = force_pull,
-                                        max.time = max.time,
-                                        max.iter = max.iter,
-                                        max.overlaps = max.overlaps,
-                                        nudge_x = nudge_x,
-                                        nudge_y = nudge_y,
-                                        xlim = xlim,
-                                        ylim = ylim,
-                                        direction = direction,
-                                        seed = seed,
-                                        verbose = verbose,
-                                        cl="metroglyphtree"))
+      ggname("geom_metroglyph",
+             grid::gTree(data=data,
+                         # x = x, y = y,
+                         cols=cols,
+                         # fill = fill,
+                         colour.ray = colour.ray,
+                         colour.circle = colour.circle,
+                         linewidth.ray = linewidth.ray,
+                         linewidth.circle = linewidth.circle,
+                         # alpha = alpha,
+                         astrt = astrt,
+                         astp = astp,
+                         # lineend = "round",
+                         grid.levels = grid.levels,
+                         draw.grid = draw.grid,
+                         grid.point.size = grid.point.size,
+                         colour.points = colour.points,
+                         repel = repel,
+                         limits = limits,
+                         box.padding = box.padding,
+                         point.padding = point.padding,
+                         min.segment.length = min.segment.length,
+                         arrow = arrow,
+                         force = force,
+                         force_pull = force_pull,
+                         max.time = max.time,
+                         max.iter = max.iter,
+                         max.overlaps = max.overlaps,
+                         nudge_x = nudge_x,
+                         nudge_y = nudge_y,
+                         xlim = xlim,
+                         ylim = ylim,
+                         direction = direction,
+                         seed = seed,
+                         verbose = verbose,
+                         cl="metroglyphtree"))
 
-                     # ggname("geom_metroglyph",
-                     #        grid::gTree(
-                     #          children = grid::gList(
-                     #            grid::pointsGrob(x = data$x,
-                     #                             y = data$y,
-                     #                             default.units = "native",
-                     #                             pch = 20,
-                     #                             gp = grid::gpar(col = data$colour,
-                     #                                             fill = data$fill))
-                     #          )))
-                   },
-                   draw_key = function(data, params, size) {
+      # ggname("geom_metroglyph",
+      #        grid::gTree(
+      #          children = grid::gList(
+      #            grid::pointsGrob(x = data$x,
+      #                             y = data$y,
+      #                             default.units = "native",
+      #                             pch = 20,
+      #                             gp = grid::gpar(col = data$colour,
+      #                                             fill = data$fill))
+      #          )))
+    },
+    draw_key = function(data, params, size) {
 
-                     if (params$full) {
-                       astrt <- 0
-                       astp <- 2 * base::pi
-                     } else {
-                       astrt <- 0
-                       astp <- base::pi
-                     }
+      if (params$full) {
+        astrt <- 0
+        astp <- 2 * base::pi
+      } else {
+        astrt <- 0
+        astp <- base::pi
+      }
 
-                     grid.levels <- NULL
-                     if (params$draw.grid) {
+      grid.levels <- NULL
+      if (params$draw.grid) {
 
-                       vals <- data[, params$cols, drop = FALSE]
+        vals <- data[, params$cols, drop = FALSE]
 
-                       vals[] <- lapply(vals, function(x) {
-                         if (is.character(x) || is.factor(x)) {
-                           as.numeric(factor(x, levels = unique(x)))
-                         } else {
-                           x
-                         }
-                       })
+        vals[] <- lapply(vals, function(x) {
+          if (is.character(x) || is.factor(x)) {
+            as.numeric(factor(x, levels = unique(x)))
+          } else {
+            x
+          }
+        })
 
-                       grid.levels <- lapply(vals, function(a) seq_len((ceiling(a))))
-                       names(grid.levels) <- params$cols
-                     }
+        grid.levels <- lapply(vals, function(a) seq_len((ceiling(a))))
+        names(grid.levels) <- params$cols
+      }
 
-                     metroglyphGrob(
-                       x = .5,
-                       y = .5,
-                       z = if (params$draw.grid) {
-                         ceiling(vals)
-                       } else {
-                         unlist(data[, params$cols])
-                       },
-                       size = data$size,
-                       circle.size = data$circle.size,
-                       col.ray = if (is.null(params$colour.ray)) {
-                         data$colour
-                       } else {
-                         params$colour.ray
-                       },
-                       col.circle = if (is.null(params$colour.circle)) {
-                         data$colour
-                       } else {
-                         params$colour.circle
-                       },
-                       col.points = if (is.null(params$colour.points)) {
-                         if (is.null(params$colour.ray)) {
-                           data$colour
-                         } else {
-                           NA}
-                       } else {
-                         params$colour.points
-                       },
-                       fill = data$fill,
-                       lwd.ray = params$linewidth.ray,
-                       lwd.circle = params$linewidth.circle,
-                       alpha = data$alpha,
-                       angle.start = astrt,
-                       angle.stop = astp,
-                       lineend = params$lineend,
-                       grid.levels = grid.levels,
-                       draw.grid = params$draw.grid,
-                       grid.point.size = grid::unit(params$grid.point.size, "pt")
-                     )
-                   }
+      metroglyphGrob(
+        x = .5,
+        y = .5,
+        z = if (params$draw.grid) {
+          ceiling(vals)
+        } else {
+          unlist(data[, params$cols])
+        },
+        size = data$size,
+        circle.size = data$circle.size,
+        col.ray = if (is.null(params$colour.ray)) {
+          data$colour
+        } else {
+          params$colour.ray
+        },
+        col.circle = if (is.null(params$colour.circle)) {
+          data$colour
+        } else {
+          params$colour.circle
+        },
+        col.points = if (is.null(params$colour.points)) {
+          if (is.null(params$colour.ray)) {
+            data$colour
+          } else {
+            NA}
+        } else {
+          params$colour.points
+        },
+        fill = data$fill,
+        lwd.ray = params$linewidth.ray,
+        lwd.circle = params$linewidth.circle,
+        alpha = data$alpha,
+        angle.start = astrt,
+        angle.stop = astp,
+        lineend = params$lineend,
+        grid.levels = grid.levels,
+        draw.grid = params$draw.grid,
+        grid.point.size = grid::unit(params$grid.point.size, "pt")
+      )
+    }
   )
 
 #' grid::makeContent function for the grobTree of metroglyphGrob objects

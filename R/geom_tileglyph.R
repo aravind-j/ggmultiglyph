@@ -247,210 +247,211 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
 
 }
 
-GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
-                                  required_aes = c("x", "y"),
-                                  default_aes = ggplot2::aes(size = 1,
-                                                             alpha = 1,
-                                                             # repel aes
-                                                             point.size = 1,
-                                                             segment.linetype = 1,
-                                                             segment.colour = NULL,
-                                                             segment.size = 0.5,
-                                                             segment.alpha = NULL,
-                                                             segment.curvature = -1e-20,
-                                                             segment.angle = 20,
-                                                             segment.ncp = 3,
-                                                             segment.shape = 0.5,
-                                                             segment.square = TRUE,
-                                                             segment.squareShape = 1,
-                                                             segment.inflect = FALSE,
-                                                             segment.debug = FALSE),
+GeomTileGlyph <- ggplot2::ggproto(
+  "GeomTileGlyph", ggplot2::Geom,
+  required_aes = c("x", "y"),
+  default_aes = ggplot2::aes(size = 1,
+                             alpha = 1,
+                             # repel aes
+                             point.size = 1,
+                             segment.linetype = 1,
+                             segment.colour = NULL,
+                             segment.size = 0.5,
+                             segment.alpha = NULL,
+                             segment.curvature = -1e-20,
+                             segment.angle = 20,
+                             segment.ncp = 3,
+                             segment.shape = 0.5,
+                             segment.square = TRUE,
+                             segment.squareShape = 1,
+                             segment.inflect = FALSE,
+                             segment.debug = FALSE),
 
-                                  # draw_key = ggplot2::draw_key_polygon,
+  # draw_key = ggplot2::draw_key_polygon,
 
-                                  setup_params = function(data, params) {
+  setup_params = function(data, params) {
 
-                                    params$min <- apply(data[, params$cols], 2, min)
-                                    params$max <- apply(data[, params$cols], 2, max)
+    params$min <- apply(data[, params$cols], 2, min)
+    params$max <- apply(data[, params$cols], 2, max)
 
-                                    params
-                                  },
+    params
+  },
 
-                                  setup_data = function(data, params) {
+  setup_data = function(data, params) {
 
-                                    cols <- params$cols
+    cols <- params$cols
 
-                                    # Check if "cols" exist in data
-                                    if (FALSE %in% (cols %in% colnames(data))) {
-                                      stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
-                                                 paste(cols[!(cols %in% colnames(data))],
-                                                       collapse = ", "),
-                                                 sep = ""))
-                                    }
-
-
-                                    # Check if cols are numeric or factor
-                                    intfactcols <-
-                                      vapply(data[, cols],
-                                             function(x) !(is.integer(x) || is.numeric(x)
-                                                           || is.factor(x)),
-                                             logical(1))
-
-                                    if (TRUE %in% intfactcols) {
-                                      stop('The following column(s) specified as "cols" in ',
-                                           '"data" are not of type numeric, integer or factor:\n',
-                                           paste(names(intfactcols[intfactcols]), collapse = ", "))
-                                    }
-
-                                    # Remove rows with missing values in "cols"
-                                    # check for missing values
-                                    missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
-                                    if (TRUE %in% missvcols) {
-                                      warning(paste('The following column(s) in "data" have missing values:\n',
-                                                    paste(names(missvcols[missvcols]), collapse = ", ")))
-
-                                      data <- remove_missing(df = data, vars = cols)
-                                    }
-
-                                    data$linewidth <- params$linewidth
-                                    data$colour <- params$colour
-                                    # data$fill <- params$fill
-                                    data
-                                  },
-
-                                  draw_panel = function(data, panel_params,
-                                                        coord, cols,
-                                                        ratio,
-                                                        nrow,
-                                                        colour,
-                                                        # fill,
-                                                        linewidth,
-                                                        repel,
-                                                        box.padding,
-                                                        point.padding,
-                                                        min.segment.length,
-                                                        arrow,
-                                                        force,
-                                                        force_pull,
-                                                        max.time,
-                                                        max.iter,
-                                                        max.overlaps,
-                                                        nudge_x,
-                                                        nudge_y,
-                                                        xlim,
-                                                        ylim,
-                                                        direction,
-                                                        seed,
-                                                        verbose) {
-
-                                    # if needed rename columns using our convention
-                                    for (this_dim in c("x", "y")) {
-                                      this_orig <- sprintf("%s_orig", this_dim)
-                                      this_nudge <- sprintf("nudge_%s", this_dim)
-                                      if (!this_nudge %in% colnames(data)) {
-                                        data[[this_nudge]] <- data[[this_dim]]
-                                        if (this_orig %in% colnames(data)) {
-                                          data[[this_dim]] <- data[[this_orig]]
-                                          data[[this_orig]] <- NULL
-                                        }
-                                      }
-                                    }
-
-                                    # Transform the nudges to the panel scales.
-                                    nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
-                                    nudges <- coord$transform(nudges, panel_params)
-
-                                    data <- coord$transform(data, panel_params)
-
-                                    grid.levels <- NULL
-
-                                    # Convert factor columns to equivalent numeric
-                                    fcols <- names(Filter(is.factor, data[, cols]))
-
-                                    if (length(fcols) > 0)  {
-                                      data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
-                                    }
-
-                                    # The nudge is relative to the data.
-                                    data$nudge_x <- nudges$x - data$x
-                                    data$nudge_y <- nudges$y - data$y
-
-                                    # Transform limits to panel scales.
-                                    limits <- data.frame(x = xlim, y = ylim)
-                                    limits <- coord$transform(limits, panel_params)
-
-                                    # Allow Inf.
-                                    if (length(limits$x) == length(xlim)) {
-                                      limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
-                                    }
-                                    if (length(limits$y) == length(ylim)) {
-                                      limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
-                                    }
-
-                                    # Fill NAs with defaults.
-                                    limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
-                                    limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
-
-                                    ggname("geom_tileglyph",
-                                           grid::gTree(data=data,
-                                                       # x = x, y = y,
-                                                       cols=cols,
-                                                       # fill = fill,
-                                                       ratio = ratio,
-                                                       nrow = nrow,
-                                                       linewidth = linewidth,
-                                                       # gdata = gdata,
-                                                       colour = colour,
-                                                       # alpha = alpha,
-                                                       # linejoin = "mitre",
-                                                       repel = repel,
-                                                       limits = limits,
-                                                       box.padding = box.padding,
-                                                       point.padding = point.padding,
-                                                       min.segment.length = min.segment.length,
-                                                       arrow = arrow,
-                                                       force = force,
-                                                       force_pull = force_pull,
-                                                       max.time = max.time,
-                                                       max.iter = max.iter,
-                                                       max.overlaps = max.overlaps,
-                                                       nudge_x = nudge_x,
-                                                       nudge_y = nudge_y,
-                                                       xlim = xlim,
-                                                       ylim = ylim,
-                                                       direction = direction,
-                                                       seed = seed,
-                                                       verbose = verbose,
-                                                       cl="tileglyphtree"))
-
-                                    # ggname("geom_tileglyph",
-                                    #        grid::gTree(
-                                    #          children = grid::gList(
-                                    #            grid::pointsGrob(x = data$x,
-                                    #                             y = data$y,
-                                    #                             default.units = "native",
-                                    #                             pch = 20,
-                                    #                             gp = grid::gpar(col = data$colour,
-                                    #                                             fill = data$fill))
-                                    #          )))
-                                  },
-
-                                  draw_key = function(data, params, size) {
+    # Check if "cols" exist in data
+    if (FALSE %in% (cols %in% colnames(data))) {
+      stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+                 paste(cols[!(cols %in% colnames(data))],
+                       collapse = ", "),
+                 sep = ""))
+    }
 
 
-                                    gdata <- unlist(data[, params$cols])
+    # Check if cols are numeric or factor
+    intfactcols <-
+      vapply(data[, cols],
+             function(x) !(is.integer(x) || is.numeric(x)
+                           || is.factor(x)),
+             logical(1))
 
-                                    tileglyphGrob(x = .5, y = .5,
-                                                  z = unlist(data[, params$cols]),
-                                                  size = data$size,
-                                                  ratio = params$ratio,
-                                                  nrow = params$nrow,
-                                                  fill = unlist(gdata),
-                                                  col = params$colour,
-                                                  lwd = params$linewidth,
-                                                  alpha = data$alpha,
-                                                  linejoin = "mitre")
-                                  }
+    if (TRUE %in% intfactcols) {
+      stop('The following column(s) specified as "cols" in ',
+           '"data" are not of type numeric, integer or factor:\n',
+           paste(names(intfactcols[intfactcols]), collapse = ", "))
+    }
+
+    # Remove rows with missing values in "cols"
+    # check for missing values
+    missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
+    if (TRUE %in% missvcols) {
+      warning(paste('The following column(s) in "data" have missing values:\n',
+                    paste(names(missvcols[missvcols]), collapse = ", ")))
+
+      data <- remove_missing(df = data, vars = cols)
+    }
+
+    data$linewidth <- params$linewidth
+    data$colour <- params$colour
+    # data$fill <- params$fill
+    data
+  },
+
+  draw_panel = function(data, panel_params,
+                        coord, cols,
+                        ratio,
+                        nrow,
+                        colour,
+                        # fill,
+                        linewidth,
+                        repel,
+                        box.padding,
+                        point.padding,
+                        min.segment.length,
+                        arrow,
+                        force,
+                        force_pull,
+                        max.time,
+                        max.iter,
+                        max.overlaps,
+                        nudge_x,
+                        nudge_y,
+                        xlim,
+                        ylim,
+                        direction,
+                        seed,
+                        verbose) {
+
+    # if needed rename columns using our convention
+    for (this_dim in c("x", "y")) {
+      this_orig <- sprintf("%s_orig", this_dim)
+      this_nudge <- sprintf("nudge_%s", this_dim)
+      if (!this_nudge %in% colnames(data)) {
+        data[[this_nudge]] <- data[[this_dim]]
+        if (this_orig %in% colnames(data)) {
+          data[[this_dim]] <- data[[this_orig]]
+          data[[this_orig]] <- NULL
+        }
+      }
+    }
+
+    # Transform the nudges to the panel scales.
+    nudges <- data.frame(x = data$nudge_x, y = data$nudge_y)
+    nudges <- coord$transform(nudges, panel_params)
+
+    data <- coord$transform(data, panel_params)
+
+    grid.levels <- NULL
+
+    # Convert factor columns to equivalent numeric
+    fcols <- names(Filter(is.factor, data[, cols]))
+
+    if (length(fcols) > 0)  {
+      data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
+    }
+
+    # The nudge is relative to the data.
+    data$nudge_x <- nudges$x - data$x
+    data$nudge_y <- nudges$y - data$y
+
+    # Transform limits to panel scales.
+    limits <- data.frame(x = xlim, y = ylim)
+    limits <- coord$transform(limits, panel_params)
+
+    # Allow Inf.
+    if (length(limits$x) == length(xlim)) {
+      limits$x[is.infinite(xlim)] <- xlim[is.infinite(xlim)]
+    }
+    if (length(limits$y) == length(ylim)) {
+      limits$y[is.infinite(ylim)] <- ylim[is.infinite(ylim)]
+    }
+
+    # Fill NAs with defaults.
+    limits$x[is.na(limits$x)] <- c(0, 1)[is.na(limits$x)]
+    limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
+
+    ggname("geom_tileglyph",
+           grid::gTree(data=data,
+                       # x = x, y = y,
+                       cols=cols,
+                       # fill = fill,
+                       ratio = ratio,
+                       nrow = nrow,
+                       linewidth = linewidth,
+                       # gdata = gdata,
+                       colour = colour,
+                       # alpha = alpha,
+                       # linejoin = "mitre",
+                       repel = repel,
+                       limits = limits,
+                       box.padding = box.padding,
+                       point.padding = point.padding,
+                       min.segment.length = min.segment.length,
+                       arrow = arrow,
+                       force = force,
+                       force_pull = force_pull,
+                       max.time = max.time,
+                       max.iter = max.iter,
+                       max.overlaps = max.overlaps,
+                       nudge_x = nudge_x,
+                       nudge_y = nudge_y,
+                       xlim = xlim,
+                       ylim = ylim,
+                       direction = direction,
+                       seed = seed,
+                       verbose = verbose,
+                       cl="tileglyphtree"))
+
+    # ggname("geom_tileglyph",
+    #        grid::gTree(
+    #          children = grid::gList(
+    #            grid::pointsGrob(x = data$x,
+    #                             y = data$y,
+    #                             default.units = "native",
+    #                             pch = 20,
+    #                             gp = grid::gpar(col = data$colour,
+    #                                             fill = data$fill))
+    #          )))
+  },
+
+  draw_key = function(data, params, size) {
+
+
+    gdata <- unlist(data[, params$cols])
+
+    tileglyphGrob(x = .5, y = .5,
+                  z = unlist(data[, params$cols]),
+                  size = data$size,
+                  ratio = params$ratio,
+                  nrow = params$nrow,
+                  fill = unlist(gdata),
+                  col = params$colour,
+                  lwd = params$linewidth,
+                  alpha = data$alpha,
+                  linejoin = "mitre")
+  }
 )
 
 #' grid::makeContent function for the grobTree of tileglyphGrob objects
@@ -479,18 +480,18 @@ makeContent.tileglyphtree <- function(x) {
     }
 
     # Original glyph grob
-      glorg <- lapply(seq_along(g$data$x),
-                      function(i) tileglyphGrob(x = g$data$x[i],
-                                                y = g$data$y[i],
-                                                z = unlist(g$data[i, g$cols]),
-                                                size = g$data$size[i],
-                                                ratio = g$ratio,
-                                                nrow = g$nrow,
-                                                fill = "transparent",
-                                                col = "grey",
-                                                lwd = g$data$linewidth[i],
-                                                alpha = g$data$alpha[i],
-                                                linejoin = "mitre"))
+    glorg <- lapply(seq_along(g$data$x),
+                    function(i) tileglyphGrob(x = g$data$x[i],
+                                              y = g$data$y[i],
+                                              z = unlist(g$data[i, g$cols]),
+                                              size = g$data$size[i],
+                                              ratio = g$ratio,
+                                              nrow = g$nrow,
+                                              fill = "transparent",
+                                              col = "grey",
+                                              lwd = g$data$linewidth[i],
+                                              alpha = g$data$alpha[i],
+                                              linejoin = "mitre"))
 
     # Create a dataframe with x1 y1 x2 y2 - Computed from bounding box
     boxes <- lapply(seq_along(glorg), function(i) {
@@ -526,81 +527,81 @@ makeContent.tileglyphtree <- function(x) {
       })
     }
 
-  # Make the repulsion reproducible if desired.
-  if (is.null(g$seed) || !is.na(g$seed)) {
-    set.seed(g$seed)
-  }
-
-  # Beware the magic numbers. I do not understand them.
-  # I just accept them as necessary to get the code to work.
-  p_width <- grid::convertWidth(unit(1, "npc"), "inch", TRUE)
-  p_height <- grid::convertHeight(unit(1, "npc"), "inch", TRUE)
-  p_ratio <- (p_width / p_height)
-  if (p_ratio > 1) {
-    p_ratio <- p_ratio ^ (1 / (1.15 * p_ratio))
-  }
-  point_size <- p_ratio * grid::convertWidth(
-    grid::unit(g$data$point.size, "lines"), "native", valueOnly = TRUE
-  ) / 13
-  point_padding <- p_ratio * grid::convertWidth(
-    grid::unit(g$point.padding, "lines"), "native", valueOnly = TRUE
-  ) / 13
-
-  # Repel overlapping bounding boxes away from each other.
-  repel <- repel_boxes2(
-    data_points     = as.matrix(g$data[,c("x","y")]),
-    point_size      = point_size,
-    point_padding_x = point_padding,
-    point_padding_y = point_padding,
-    boxes           = do.call(rbind, boxes),
-    xlim            = range(g$limits$x),
-    ylim            = range(g$limits$y),
-    hjust           = rep (0.5, nrow(g$data)),
-    vjust           = rep (0.5, nrow(g$data)),
-    force_push      = g$force * 1e-6,
-    force_pull      = g$force_pull * 1e-2,
-    max_time        = g$max.time,
-    max_iter        = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
-    max_overlaps    = g$max.overlaps,
-    direction       = g$direction,
-    verbose         = g$verbose
-  )
-
-  if (any(repel$too_many_overlaps)) {
-    warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-            ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
-  }
-
-  # if (all(repel$too_many_overlaps)) {
-  #   grobs <- list()
-  #   class(grobs) <- "gList"
-  #   return(setChildren(x, grobs))
-  # }
-
-  # create segment grobs
-  segg <- lapply(seq_along(g$data$x), function(i) {
-
-    if (!repel$too_many_overlaps[i]) {
-      row <- g$data[i, , drop = FALSE]
-      grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
-                      x2 = row$x, y2 = row$y,
-                      default.units = "native",
-                      curvature = row$segment.curvature,
-                      angle = row$segment.angle,
-                      ncp = row$segment.ncp,
-                      shape = row$segment.shape,
-                      square = row$segment.square,
-                      squareShape = row$segment.squareShape,
-                      inflect = row$segment.inflect,
-                      debug = row$segment.debug,
-                      gp = gpar(col = row$segment.colour,
-                                lwd = row$segment.size * ggplot2::.pt,
-                                lty = row$segment.linetype),
-                      arrow = row$arrow)
-    } else {
-      grid::nullGrob()
+    # Make the repulsion reproducible if desired.
+    if (is.null(g$seed) || !is.na(g$seed)) {
+      set.seed(g$seed)
     }
-  })
+
+    # Beware the magic numbers. I do not understand them.
+    # I just accept them as necessary to get the code to work.
+    p_width <- grid::convertWidth(unit(1, "npc"), "inch", TRUE)
+    p_height <- grid::convertHeight(unit(1, "npc"), "inch", TRUE)
+    p_ratio <- (p_width / p_height)
+    if (p_ratio > 1) {
+      p_ratio <- p_ratio ^ (1 / (1.15 * p_ratio))
+    }
+    point_size <- p_ratio * grid::convertWidth(
+      grid::unit(g$data$point.size, "lines"), "native", valueOnly = TRUE
+    ) / 13
+    point_padding <- p_ratio * grid::convertWidth(
+      grid::unit(g$point.padding, "lines"), "native", valueOnly = TRUE
+    ) / 13
+
+    # Repel overlapping bounding boxes away from each other.
+    repel <- repel_boxes2(
+      data_points     = as.matrix(g$data[,c("x","y")]),
+      point_size      = point_size,
+      point_padding_x = point_padding,
+      point_padding_y = point_padding,
+      boxes           = do.call(rbind, boxes),
+      xlim            = range(g$limits$x),
+      ylim            = range(g$limits$y),
+      hjust           = rep (0.5, nrow(g$data)),
+      vjust           = rep (0.5, nrow(g$data)),
+      force_push      = g$force * 1e-6,
+      force_pull      = g$force_pull * 1e-2,
+      max_time        = g$max.time,
+      max_iter        = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
+      max_overlaps    = g$max.overlaps,
+      direction       = g$direction,
+      verbose         = g$verbose
+    )
+
+    if (any(repel$too_many_overlaps)) {
+      warning(sum(repel$too_many_overlaps, na.rm = TRUE),
+              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+    }
+
+    # if (all(repel$too_many_overlaps)) {
+    #   grobs <- list()
+    #   class(grobs) <- "gList"
+    #   return(setChildren(x, grobs))
+    # }
+
+    # create segment grobs
+    segg <- lapply(seq_along(g$data$x), function(i) {
+
+      if (!repel$too_many_overlaps[i]) {
+        row <- g$data[i, , drop = FALSE]
+        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+                        x2 = row$x, y2 = row$y,
+                        default.units = "native",
+                        curvature = row$segment.curvature,
+                        angle = row$segment.angle,
+                        ncp = row$segment.ncp,
+                        shape = row$segment.shape,
+                        square = row$segment.square,
+                        squareShape = row$segment.squareShape,
+                        inflect = row$segment.inflect,
+                        debug = row$segment.debug,
+                        gp = gpar(col = row$segment.colour,
+                                  lwd = row$segment.size * ggplot2::.pt,
+                                  lty = row$segment.linetype),
+                        arrow = row$arrow)
+      } else {
+        grid::nullGrob()
+      }
+    })
 
   }
 
