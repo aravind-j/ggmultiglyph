@@ -766,7 +766,9 @@ GeomDotGlyph <-
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.dotglyphtree <- function(g) {
+makeContent.dotglyphtree <- function(x) {
+
+  g <- x
 
   if (g$repel) {
 

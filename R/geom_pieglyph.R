@@ -1016,8 +1016,9 @@ GeomPieGlyph <-
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.pieglyphtree <- function(g) {
+makeContent.pieglyphtree <- function(x) {
 
+  g <- x
 
   if (g$repel) {
 

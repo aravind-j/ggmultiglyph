@@ -1139,7 +1139,9 @@ GeomProfileGlyph <-
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.profileglyphtree <- function(g) {
+makeContent.profileglyphtree <- function(x) {
+
+  g <- x
 
   if (g$repel) {
     repel.debug <- getOption("ggmultiglyph.repel.debug", default = FALSE)

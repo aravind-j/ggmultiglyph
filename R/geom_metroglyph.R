@@ -899,7 +899,9 @@ GeomMetroGlyph <-
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.metroglyphtree <- function(g) {
+makeContent.metroglyphtree <- function(x) {
+
+  g <- x
 
   if (g$repel) {
 

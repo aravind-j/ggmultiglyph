@@ -865,7 +865,9 @@ GeomStarGlyph <-
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.starglyphtree <- function(g) {
+makeContent.starglyphtree <- function(x) {
+
+  g <- x
 
   if (g$repel) {
 

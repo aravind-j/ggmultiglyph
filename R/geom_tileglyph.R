@@ -457,7 +457,9 @@ GeomTileGlyph <- ggplot2::ggproto("GeomTileGlyph", ggplot2::Geom,
 #' @param g A grid grobTree.
 #' @export
 #' @noRd
-makeContent.tileglyphtree <- function(g) {
+makeContent.tileglyphtree <- function(x) {
+
+  g <- x
 
   gdata <- g$data[, g$cols]
 
