@@ -1288,6 +1288,6 @@ profileglyphGrob <- function(x = .5, y = .5, z,
   attr(gridout, "mirror") <- mirror
   attr(gridout, "flip.axes") <- flip.axes
 
-  return(gridout)
+  gridout
 
 }

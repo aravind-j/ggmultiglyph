@@ -632,5 +632,5 @@ starglyphGrob <- function(x = .5, y = .5, z,
 
   attr(gridout, "length") <- dimension
 
-  return(gridout)
+  gridout
 }

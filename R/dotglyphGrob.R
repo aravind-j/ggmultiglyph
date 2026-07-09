@@ -500,7 +500,7 @@ dotglyphGrob <- function(x = .5, y = .5, z,
   attr(gridout, "flip.axes") <- flip.axes
   attr(gridout, "index") <- rep(seq_along(z), times = z)
 
-  return(gridout)
+  gridout
 }
 
 
@@ -526,5 +526,5 @@ stackseq <- function(z, r) {
   sq <- unlist(sq)
   sq <- sq - mean(sq)
 
-  return(sq)
+  sq
 }

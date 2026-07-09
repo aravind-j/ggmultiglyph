@@ -282,5 +282,5 @@ tileglyphGrob <- function(x = .5, y = .5, z,
   attr(gridout, "ratio") <- ratio
   attr(gridout, "nrow") <- nrow
 
-  return(gridout)
+  gridout
 }
