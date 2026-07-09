@@ -104,10 +104,11 @@ mglyph2_lab <- addlabel.glyphGrob(grob = mglyph2, label = label,
 mglyph3_lab <- addlabel.glyphGrob(grob = mglyph3, label = label,
                                   push = 1, segment = FALSE)
 
-grid.arrange(mglyph1, mglyph2, mglyph3,
-             mglyph1_lab, mglyph2_lab, mglyph3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(mglyph1, mglyph1_lab)
 
+grid.arrange(mglyph2, mglyph2_lab)
+
+grid.arrange(mglyph3, mglyph3_lab, nrow = 1)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,9 +139,11 @@ sg2_lab <- addlabel.glyphGrob(grob = sg2, label = label,
 sg3_lab <- addlabel.glyphGrob(grob = sg3, label = label,
                                   push = 1, segment = FALSE)
 
-grid.arrange(sg1, sg2, sg3,
-             sg1_lab, sg2_lab, sg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(sg1, sg1_lab)
+
+grid.arrange(sg2, sg2_lab)
+
+grid.arrange(sg3, sg3_lab, nrow = 1)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,9 +171,11 @@ pg2_lab <- addlabel.glyphGrob(grob = pg2, label = label,
 pg3_lab <- addlabel.glyphGrob(grob = pg3, label = label,
                              push = 5, segment = FALSE)
 
-grid.arrange(pg1, pg2, pg3,
-             pg1_lab, pg2_lab, pg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(pg1, pg1_lab)
+
+grid.arrange(pg2, pg2_lab)
+
+grid.arrange(pg3, pg3_lab)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -198,9 +203,11 @@ bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label, segment = TRUE,
 bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
                               angle = 45, push = -35, hjust = 0)
 
-grid.arrange(bg1, bg2, bg3,
-             bg1_lab, bg2_lab, bg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(bg1, bg1_lab, nrow = 1)
+
+grid.arrange(bg2, bg2_lab, nrow = 1)
+
+grid.arrange(bg3, bg3_lab, nrow = 1)
 
 
 bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -225,9 +232,11 @@ bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label, segment = TRUE,
 bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
                               angle = 45, push = -25, hjust = 0)
 
-grid.arrange(bg1, bg2, bg3,
-             bg1_lab, bg2_lab, bg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(bg1, bg1_lab, nrow = 1)
+
+grid.arrange(bg2, bg2_lab, nrow = 1)
+
+grid.arrange(bg3, bg3_lab, nrow = 1)
 
 
 bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -253,9 +262,11 @@ bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label, segment = TRUE,
 bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
                               angle = 45, push = -30, hjust = 0)
 
-grid.arrange(bg1, bg2, bg3,
-             bg1_lab, bg2_lab, bg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(bg1, bg1_lab, nrow = 1)
+
+grid.arrange(bg2, bg2_lab, nrow = 1)
+
+grid.arrange(bg3, bg3_lab, nrow = 1)
 
 
 bg1 <- profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -282,9 +293,11 @@ bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label, segment = TRUE,
 bg3_lab <- addlabel.glyphGrob(grob = bg3, label = label, segment = TRUE,
                               angle = 45, push = -25, hjust = 0)
 
-grid.arrange(bg1, bg2, bg3,
-             bg1_lab, bg2_lab, bg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(bg1, bg1_lab, nrow = 1)
+
+grid.arrange(bg2, bg2_lab, nrow = 1)
+
+grid.arrange(bg3, bg3_lab, nrow = 1)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -325,9 +338,11 @@ dg3_lab <- addlabel.glyphGrob(grob = dg3, label = label, segment = FALSE,
 dg4_lab <- addlabel.glyphGrob(grob = dg4, label = label, segment = TRUE,
                               push = 20,  hjust = 1)
 
-grid.arrange(dg1, dg2, dg3,
-             dg1_lab, dg2_lab, dg3_lab,
-             nrow = 2, ncol = 3)
+grid.arrange(dg1, dg1_lab, nrow = 1)
+
+grid.arrange(dg2, dg2_lab, nrow = 1)
+
+grid.arrange(dg3, dg3_lab, nrow = 1)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
