@@ -121,9 +121,10 @@
 #'
 #' grid.arrange(barglyph1, profileglyph1, barprofileglyph1,
 #'              barglyph2, profileglyph2, barprofileglyph2,
-#'              barglyph3, profileglyph3, barprofileglyph3,
+#'              nrow = 2, ncol = 3)
+#' grid.arrange(barglyph3, profileglyph3, barprofileglyph3,
 #'              barglyph4, profileglyph4, barprofileglyph4,
-#'              nrow = 4, ncol = 3)
+#'              nrow = 2, ncol = 3)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust size
@@ -174,10 +175,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, line = TRUE, bar = FALSE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -227,10 +227,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, mirror = FALSE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -280,10 +279,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, flip.axes = TRUE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -336,10 +334,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 20, mirror = FALSE, flip.axes = TRUE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust width
@@ -390,10 +387,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 10, line = TRUE, bar = FALSE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -443,11 +439,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 10, mirror = FALSE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
-#'
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -497,10 +491,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 10, flip.axes = TRUE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -553,10 +546,9 @@
 #'                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
 #'                    size = 10, mirror = FALSE, flip.axes = TRUE)
 #'
-#' grid.arrange(barglyph1, barglyph2, barglyph3,
-#'              profileglyph1, profileglyph2, profileglyph3,
-#'              barprofileglyph1, barprofileglyph2, barprofileglyph3,
-#'              nrow = 3, ncol = 3)
+#' grid.arrange(barglyph1, barglyph2, barglyph3, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, profileglyph3, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, barprofileglyph3, nrow = 1)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust bar and profile line width
@@ -656,10 +648,9 @@
 #'                    size = 15,
 #'                    fill = "salmon")
 #'
-#' grid.arrange(barglyph1, barglyph2,
-#'              profileglyph1, profileglyph2,
-#'              barprofileglyph1, barprofileglyph2,
-#'              nrow = 3, ncol = 2)
+#' grid.arrange(barglyph1, barglyph2, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, nrow = 1)
 #'
 #' barglyph1 <-
 #'   profileglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
@@ -697,10 +688,9 @@
 #'                    size = 15,
 #'                    mirror = FALSE, fill = "salmon")
 #'
-#' grid.arrange(barglyph1, barglyph2,
-#'              profileglyph1, profileglyph2,
-#'              barprofileglyph1, barprofileglyph2,
-#'              nrow = 3, ncol = 2)
+#' grid.arrange(barglyph1, barglyph2, nrow = 1)
+#' grid.arrange(profileglyph1, profileglyph2, nrow = 1)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, nrow = 1)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Multivariate bar fill colour
@@ -757,9 +747,10 @@
 #'
 #' grid.arrange(barglyph1, barprofileglyph1,
 #'              barglyph2, barprofileglyph2,
-#'              barglyph3, barprofileglyph3,
+#'              nrow = 2, ncol = 2)
+#' grid.arrange(barglyph3, barprofileglyph3,
 #'              barglyph4, barprofileglyph4,
-#'              nrow = 2, ncol = 4)
+#'              nrow = 2, ncol = 2)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust line join style
@@ -887,9 +878,8 @@
 #'                    draw.grid = TRUE, lwd.bar = 5, mirror = FALSE,
 #'                    grid.levels = gl, col.grid = "black")
 #'
-#' grid.arrange(barprofileglyph1, barprofileglyph2,
-#'              barprofileglyph3, barprofileglyph4,
-#'              nrow = 2, ncol = 2)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, nrow = 1)
+#' grid.arrange(barprofileglyph3, barprofileglyph4, nrow = 1)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Adjust grid level colours
@@ -935,9 +925,8 @@
 #'                    col.grid = "white", col.bar = "white",
 #'                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
 #'
-#' grid.arrange(barprofileglyph1, barprofileglyph2,
-#'              barprofileglyph3, barprofileglyph4,
-#'              nrow = 2, ncol = 2)
+#' grid.arrange(barprofileglyph1, barprofileglyph2, nrow = 1)
+#' grid.arrange(barprofileglyph3, barprofileglyph4, nrow = 1)
 #'
 profileglyphGrob <- function(x = .5, y = .5, z,
                              size = 1,

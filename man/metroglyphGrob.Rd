@@ -93,7 +93,7 @@ mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 20)
 
-grid.arrange(mg1, mg2, mg3, nrow = 2, ncol = 3)
+grid.arrange(mg1, mg2, mg3, nrow = 1)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Adjust circle size
@@ -111,7 +111,7 @@ mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
                       circle.size = 5, size = 15)
 
-grid.arrange(mg1, mg2, mg3, nrow = 2, ncol = 3)
+grid.arrange(mg1, mg2, mg3, nrow = 1)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Adjust angle
