@@ -521,12 +521,13 @@ geom_metroglyph <-
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
               && all(cols %in% names(legend.glyph.dims)))) {
-          stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+          stop('Names specified in "legend.glyph.dims" and "cols" ',
+               'do not match.')
         }
 
       } else {
-        stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
-             'a numeric vector of same length as "cols" ',
+        stop('"legend.glyph.dims" should be a numeric vector of unit ',
+             'length or a numeric vector of same length as "cols" ',
              'with the "cols" as names.')
       }
     }
@@ -568,9 +569,6 @@ geom_metroglyph <-
       ...)
 
     # Modify geom aesthetics to include cols
-    # geomout <- GeomMetroGlyph
-    # geomout$required_aes <- c(geomout$required_aes, cols)
-
     geomout <-
       ggproto(NULL, GeomMetroGlyph,
               required_aes = c(GeomMetroGlyph$required_aes, cols),
@@ -630,7 +628,8 @@ GeomMetroGlyph <-
 
       # Check if "cols" exist in data
       if (FALSE %in% (cols %in% colnames(data))) {
-        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+        stop(paste('The following column(s) specified as "cols" are not ',
+                   'present in "data":\n',
                    paste(cols[!(cols %in% colnames(data))],
                          collapse = ", "),
                    sep = ""))
@@ -667,7 +666,8 @@ GeomMetroGlyph <-
       # check for missing values
       missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
       if (TRUE %in% missvcols) {
-        warning(paste('The following column(s) in "data" have missing values:\n',
+        warning(paste('The following column(s) in "data" have missing ',
+                      'values:\n',
                       paste(names(missvcols[missvcols]), collapse = ", ")))
 
         data <- remove_missing(df = data, vars = cols)
@@ -755,7 +755,10 @@ GeomMetroGlyph <-
 
       # Convert factor columns to equivalent numeric
       if (draw.grid) {
-        grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+        grid.levels <-
+          lapply(data[, cols], function(a) {
+            as.integer(levels(as.factor(as.integer(a))))
+          })
         data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
       }
 
@@ -921,26 +924,31 @@ makeContent.metroglyphtree <- function(x) {
 
     # Original glyph grob
     glorg <- lapply(seq_along(g$data$x),
-                    function(i) metroglyphGrob(x = g$data$x[i],
-                                               y = g$data$y[i],
-                                               z = unlist(g$data[i, g$cols]),
-                                               size = g$data$size[i],
-                                               circle.size = g$data$circle.size[i],
-                                               col.ray = "grey",
-                                               col.circle = "grey",
-                                               angle.start = g$astrt,
-                                               angle.stop = g$astp,
-                                               lwd.ray = g$data$linewidth.ray[i],
-                                               lwd.circle = g$data$linewidth.circle[i],
-                                               lineend = g$data$lineend[i],
-                    ))
+                    function(i) {
+                      metroglyphGrob(x = g$data$x[i],
+                                     y = g$data$y[i],
+                                     z = unlist(g$data[i, g$cols]),
+                                     size = g$data$size[i],
+                                     circle.size = g$data$circle.size[i],
+                                     col.ray = "grey",
+                                     col.circle = "grey",
+                                     angle.start = g$astrt,
+                                     angle.stop = g$astp,
+                                     lwd.ray = g$data$linewidth.ray[i],
+                                     lwd.circle = g$data$linewidth.circle[i],
+                                     lineend = g$data$lineend[i])
+                    })
 
     # Create a dataframe with x1 y1 x2 y2 - Computed from bounding box
     boxes <- lapply(seq_along(glorg), function(i) {
-      x1 <- grid::convertWidth(boxdim(glorg[[i]]$children[[2]]$x, "min"), "native", TRUE)
-      x2 <- grid::convertWidth(boxdim(glorg[[i]]$children[[2]]$x, "max"), "native", TRUE)
-      y1 <- grid::convertHeight(boxdim(glorg[[i]]$children[[2]]$y, "min"), "native", TRUE)
-      y2 <- grid::convertHeight(boxdim(glorg[[i]]$children[[2]]$y, "max"), "native", TRUE)
+      x1 <- grid::convertWidth(boxdim(glorg[[i]]$children[[2]]$x, "min"),
+                               "native", TRUE)
+      x2 <- grid::convertWidth(boxdim(glorg[[i]]$children[[2]]$x, "max"),
+                               "native", TRUE)
+      y1 <- grid::convertHeight(boxdim(glorg[[i]]$children[[2]]$y, "min"),
+                                "native", TRUE)
+      y2 <- grid::convertHeight(boxdim(glorg[[i]]$children[[2]]$y, "max"),
+                                "native", TRUE)
       c(
         "x1" = x1 - box_padding_x + g$nudge_x,
         "y1" = y1 - box_padding_y + g$nudge_y,
@@ -952,13 +960,6 @@ makeContent.metroglyphtree <- function(x) {
     if (repel.debug) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
-      # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
-      #                            g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
-      #                            boxes2$y2[i], g$data$y[i]),
-      #                      gp = gpar(col = "grey"))
-      # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
         grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
                                  boxes2$x2[i], boxes2$x1[i]),
@@ -1013,14 +1014,9 @@ makeContent.metroglyphtree <- function(x) {
 
     if (any(repel$too_many_overlaps)) {
       warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+              ' glyphs have too many overlaps.\nConsider increasing ',
+              '"max.overlaps"')
     }
-
-    # if (all(repel$too_many_overlaps)) {
-    #   grobs <- list()
-    #   class(grobs) <- "gList"
-    #   return(setChildren(x, grobs))
-    # }
 
     # create segment grobs
     segg <- lapply(seq_along(g$data$x), function(i) {
@@ -1097,11 +1093,17 @@ makeContent.metroglyphtree <- function(x) {
 
     if (repel.debug) {
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], glorg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], glorg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], bboxg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], bboxg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], segg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], segg[[i]])
+      })
 
       # reorder grobs
       gl <- lapply(seq_along(gl),

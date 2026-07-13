@@ -177,12 +177,13 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
       # Check names of legend.glyph.dims
       if (!(all(names(legend.glyph.dims) %in% cols)
             && all(cols %in% names(legend.glyph.dims)))) {
-        stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+        stop('Names specified in "legend.glyph.dims" and "cols" ',
+             'do not match.')
       }
 
     } else {
-      stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
-           'a numeric vector of same length as "cols" ',
+      stop('"legend.glyph.dims" should be a numeric vector of unit ',
+           'length or a numeric vector of same length as "cols" ',
            'with the "cols" as names.')
     }
   }
@@ -219,12 +220,6 @@ geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
     ...)
 
   # Modify geom aesthetics to include cols
-  # geomout <- GeomTileGlyph
-  # geomout$required_aes <- c(geomout$required_aes, cols)
-  #
-  # geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
-  # class(geomout$default_aes) <- "uneval"
-
   geomout <- ggplot2::ggproto(NULL, GeomTileGlyph,
                               required_aes = c(GeomTileGlyph$required_aes,
                                                cols),
@@ -283,7 +278,8 @@ GeomTileGlyph <- ggplot2::ggproto(
 
     # Check if "cols" exist in data
     if (FALSE %in% (cols %in% colnames(data))) {
-      stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+      stop(paste('The following column(s) specified as "cols" are not ',
+                 'present in "data":\n',
                  paste(cols[!(cols %in% colnames(data))],
                        collapse = ", "),
                  sep = ""))
@@ -307,7 +303,8 @@ GeomTileGlyph <- ggplot2::ggproto(
     # check for missing values
     missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
     if (TRUE %in% missvcols) {
-      warning(paste('The following column(s) in "data" have missing values:\n',
+      warning(paste('The following column(s) in "data" have missing ',
+                    'values:\n',
                     paste(names(missvcols[missvcols]), collapse = ", ")))
 
       data <- remove_missing(df = data, vars = cols)
@@ -369,7 +366,8 @@ GeomTileGlyph <- ggplot2::ggproto(
     fcols <- names(Filter(is.factor, data[, cols]))
 
     if (length(fcols) > 0)  {
-      data[, fcols] <- lapply(data[, cols], function(f) as.numeric(levels(f))[f])
+      data[, fcols] <-
+        lapply(data[, cols], function(f) as.numeric(levels(f))[f])
     }
 
     # The nudge is relative to the data.
@@ -481,24 +479,30 @@ makeContent.tileglyphtree <- function(x) {
 
     # Original glyph grob
     glorg <- lapply(seq_along(g$data$x),
-                    function(i) tileglyphGrob(x = g$data$x[i],
-                                              y = g$data$y[i],
-                                              z = unlist(g$data[i, g$cols]),
-                                              size = g$data$size[i],
-                                              ratio = g$ratio,
-                                              nrow = g$nrow,
-                                              fill = "transparent",
-                                              col = "grey",
-                                              lwd = g$data$linewidth[i],
-                                              alpha = g$data$alpha[i],
-                                              linejoin = "mitre"))
+                    function(i) {
+                      tileglyphGrob(x = g$data$x[i],
+                                    y = g$data$y[i],
+                                    z = unlist(g$data[i, g$cols]),
+                                    size = g$data$size[i],
+                                    ratio = g$ratio,
+                                    nrow = g$nrow,
+                                    fill = "transparent",
+                                    col = "grey",
+                                    lwd = g$data$linewidth[i],
+                                    alpha = g$data$alpha[i],
+                                    linejoin = "mitre")
+                    })
 
     # Create a dataframe with x1 y1 x2 y2 - Computed from bounding box
     boxes <- lapply(seq_along(glorg), function(i) {
-      x1 <- grid::convertWidth(grid::grobX(glorg[[i]], "west"), "native", TRUE)
-      x2 <- grid::convertWidth(grid::grobX(glorg[[i]], "east"), "native", TRUE)
-      y1 <- grid::convertHeight(grid::grobY(glorg[[i]], "south"), "native", TRUE)
-      y2 <- grid::convertHeight(grid::grobY(glorg[[i]], "north"), "native", TRUE)
+      x1 <- grid::convertWidth(grid::grobX(glorg[[i]], "west"),
+                               "native", TRUE)
+      x2 <- grid::convertWidth(grid::grobX(glorg[[i]], "east"),
+                               "native", TRUE)
+      y1 <- grid::convertHeight(grid::grobY(glorg[[i]], "south"),
+                                "native", TRUE)
+      y2 <- grid::convertHeight(grid::grobY(glorg[[i]], "north"),
+                                "native", TRUE)
       c(
         "x1" = x1 - box_padding_x + g$nudge_x,
         "y1" = y1 - box_padding_y + g$nudge_y,
@@ -511,13 +515,6 @@ makeContent.tileglyphtree <- function(x) {
     if (repel.debug) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
-      # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
-      #                            g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
-      #                            boxes2$y2[i], g$data$y[i]),
-      #                      gp = gpar(col = "grey"))
-      # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
         grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
                                  boxes2$x2[i], boxes2$x1[i]),
@@ -569,14 +566,9 @@ makeContent.tileglyphtree <- function(x) {
 
     if (any(repel$too_many_overlaps)) {
       warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+              ' glyphs have too many overlaps.\nConsider increasing ',
+              '"max.overlaps"')
     }
-
-    # if (all(repel$too_many_overlaps)) {
-    #   grobs <- list()
-    #   class(grobs) <- "gList"
-    #   return(setChildren(x, grobs))
-    # }
 
     # create segment grobs
     segg <- lapply(seq_along(g$data$x), function(i) {
@@ -632,11 +624,17 @@ makeContent.tileglyphtree <- function(x) {
 
     if (repel.debug) {
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], glorg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], glorg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], bboxg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], bboxg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], segg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], segg[[i]])
+      })
 
       # reorder grobs
       gl <- lapply(seq_along(gl),

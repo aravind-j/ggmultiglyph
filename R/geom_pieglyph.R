@@ -632,12 +632,13 @@ geom_pieglyph <-
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
               && all(cols %in% names(legend.glyph.dims)))) {
-          stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+          stop('Names specified in "legend.glyph.dims" and "cols" ',
+               'do not match.')
         }
 
       } else {
-        stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
-             'a numeric vector of same length as "cols" ',
+        stop('"legend.glyph.dims" should be a numeric vector of unit ',
+             'length or a numeric vector of same length as "cols" ',
              'with the "cols" as names.')
       }
     }
@@ -738,7 +739,8 @@ GeomPieGlyph <-
 
       # Check if "cols" exist in data
       if (FALSE %in% (cols %in% colnames(data))) {
-        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+        stop(paste('The following column(s) specified as "cols" are not ',
+                   'present in "data":\n',
                    paste(cols[!(cols %in% colnames(data))],
                          collapse = ", "),
                    sep = ""))
@@ -775,7 +777,8 @@ GeomPieGlyph <-
       # check for missing values
       missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
       if (TRUE %in% missvcols) {
-        warning(paste('The following column(s) in "data" have missing values:\n',
+        warning(paste('The following column(s) in "data" have missing ',
+                      'values:\n',
                       paste(names(missvcols[missvcols]), collapse = ", ")))
 
         data <- remove_missing(df = data, vars = cols)
@@ -864,7 +867,10 @@ GeomPieGlyph <-
 
       # Convert factor columns to equivalent numeric
       if (draw.grid) {
-        grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+        grid.levels <-
+          lapply(data[, cols], function(a) {
+            as.integer(levels(as.factor(as.integer(a))))
+          })
         data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
       }
 
@@ -873,9 +879,12 @@ GeomPieGlyph <-
       if (is.null(fill.segment) & !is.null(fill.gradient)) {
         gdata <- data[, cols]
 
-        gdata <- lapply(gdata,
-                        function(x) scales::col_numeric(palette = fill.gradient,
-                                                        domain = min(x):max(x))(x))
+        gdata <-
+          lapply(gdata,
+                 function(x) {
+                   scales::col_numeric(palette = fill.gradient,
+                                       domain = min(x):max(x))(x)
+                 })
         gdata <- data.frame(gdata)
       }
 
@@ -1038,20 +1047,22 @@ makeContent.pieglyphtree <- function(x) {
 
     # Minimal Original glyph grob
     glorg <- lapply(seq_along(g$data$x),
-                    function(i) pieglyphGrob(x = g$data$x[i],
-                                             y = g$data$y[i],
-                                             z = unlist(g$data[i, g$cols]),
-                                             size = g$data$size[i],
-                                             edges = g$edges,
-                                             col = "gray",
-                                             lwd = g$data$linewidth[i],
-                                             lwd.grid = g$data$linewidth.grid[i],
-                                             angle.start = g$astrt,
-                                             angle.stop = g$astp,
-                                             scale.segment = g$scale.segment,
-                                             scale.radius = g$scale.radius,
-                                             linejoin = g$data$linejoin[i],
-                                             draw.grid = FALSE))
+                    function(i) {
+                      pieglyphGrob(x = g$data$x[i],
+                                   y = g$data$y[i],
+                                   z = unlist(g$data[i, g$cols]),
+                                   size = g$data$size[i],
+                                   edges = g$edges,
+                                   col = "gray",
+                                   lwd = g$data$linewidth[i],
+                                   lwd.grid = g$data$linewidth.grid[i],
+                                   angle.start = g$astrt,
+                                   angle.stop = g$astp,
+                                   scale.segment = g$scale.segment,
+                                   scale.radius = g$scale.radius,
+                                   linejoin = g$data$linejoin[i],
+                                   draw.grid = FALSE)
+                    })
     glorg <- lapply(seq_along(g$data$x),
                     function(i) glorg[[i]]$children[[1]])
 
@@ -1072,13 +1083,6 @@ makeContent.pieglyphtree <- function(x) {
     if (repel.debug) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
-      # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
-      #                            g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
-      #                            boxes2$y2[i], g$data$y[i]),
-      #                      gp = gpar(col = "grey"))
-      # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
         grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
                                  boxes2$x2[i], boxes2$x1[i]),
@@ -1133,14 +1137,9 @@ makeContent.pieglyphtree <- function(x) {
 
     if (any(repel$too_many_overlaps)) {
       warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+              ' glyphs have too many overlaps.\nConsider increasing ',
+              '"max.overlaps"')
     }
-
-    # if (all(repel$too_many_overlaps)) {
-    #   grobs <- list()
-    #   class(grobs) <- "gList"
-    #   return(setChildren(x, grobs))
-    # }
 
     # create segment grobs
     segg <- lapply(seq_along(g$data$x), function(i) {
@@ -1214,11 +1213,17 @@ makeContent.pieglyphtree <- function(x) {
 
     if (repel.debug) {
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], glorg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], glorg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], bboxg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], bboxg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], segg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], segg[[i]])
+      })
 
       # reorder grobs
       gl <- lapply(seq_along(gl),

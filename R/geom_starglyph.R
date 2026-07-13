@@ -473,12 +473,13 @@ geom_starglyph <-
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
               && all(cols %in% names(legend.glyph.dims)))) {
-          stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+          stop('Names specified in "legend.glyph.dims" and "cols" ',
+               'do not match.')
         }
 
       } else {
-        stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
-             'a numeric vector of same length as "cols" ',
+        stop('"legend.glyph.dims" should be a numeric vector of unit ',
+             'length or a numeric vector of same length as "cols" ',
              'with the "cols" as names.')
       }
     }
@@ -520,12 +521,6 @@ geom_starglyph <-
       ...)
 
     # Modify geom aesthetics to include cols
-    # geomout <- GeomStarGlyph
-    # geomout$required_aes <- c(geomout$required_aes, cols)
-    #
-    # geomout$default_aes <- c(geomout$default_aes, legend.glyph.dims)
-    # class(geomout$default_aes) <- "uneval"
-
     geomout <-
       ggplot2::ggproto(NULL, GeomStarGlyph,
                        required_aes = c(GeomStarGlyph$required_aes,
@@ -592,7 +587,8 @@ GeomStarGlyph <-
 
       # Check if "cols" exist in data
       if (FALSE %in% (cols %in% colnames(data))) {
-        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+        stop(paste('The following column(s) specified as "cols" are not ',
+                   'present in "data":\n',
                    paste(cols[!(cols %in% colnames(data))],
                          collapse = ", "),
                    sep = ""))
@@ -630,9 +626,9 @@ GeomStarGlyph <-
       # check for missing values
       missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
       if (TRUE %in% missvcols) {
-        warning(paste('The following column(s) in "data" have missing values:\n',
-                      paste(names(missvcols[missvcols]),
-                            collapse = ", ")))
+        warning(paste('The following column(s) in "data" have missing ',
+                      'values:\n',
+                      paste(names(missvcols[missvcols]), collapse = ", ")))
 
         data <- remove_missing(df = data, vars = cols)
       }
@@ -718,7 +714,10 @@ GeomStarGlyph <-
 
       # Convert factor columns to equivalent numeric
       if (draw.grid) {
-        grid.levels <- lapply(data[, cols], function(a) as.integer(levels(as.factor(as.integer(a)))))
+        grid.levels <-
+          lapply(data[, cols], function(a) {
+            as.integer(levels(as.factor(as.integer(a))))
+          })
         data[, cols] <- lapply(data[, cols], function(a) as.integer(a))
       }
 
@@ -889,17 +888,19 @@ makeContent.starglyphtree <- function(x) {
 
     # Minimal Original glyph grob
     glorg <- lapply(seq_along(g$data$x),
-                    function(i) starglyphGrob(x = g$data$x[i],
-                                              y = g$data$y[i],
-                                              z = unlist(g$data[i, g$cols]),
-                                              size = g$data$size[i],
-                                              angle.start = g$astrt,
-                                              angle.stop = g$astp,
-                                              lwd.contour = g$data$linewidth.contour[i],
-                                              col.contour = "grey",
-                                              whisker = FALSE,
-                                              contour = TRUE,
-                                              draw.grid = FALSE))
+                    function(i) {
+                      starglyphGrob(x = g$data$x[i],
+                                    y = g$data$y[i],
+                                    z = unlist(g$data[i, g$cols]),
+                                    size = g$data$size[i],
+                                    angle.start = g$astrt,
+                                    angle.stop = g$astp,
+                                    lwd.contour = g$data$linewidth.contour[i],
+                                    col.contour = "grey",
+                                    whisker = FALSE,
+                                    contour = TRUE,
+                                    draw.grid = FALSE)
+                    })
     glorg <- lapply(seq_along(g$data$x),
                     function(i) glorg[[i]]$children[[1]])
 
@@ -920,13 +921,6 @@ makeContent.starglyphtree <- function(x) {
     if (repel.debug) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
-      # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
-      #                            g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
-      #                            boxes2$y2[i], g$data$y[i]),
-      #                      gp = gpar(col = "grey"))
-      # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
         grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
                                  boxes2$x2[i], boxes2$x1[i]),
@@ -981,14 +975,9 @@ makeContent.starglyphtree <- function(x) {
 
     if (any(repel$too_many_overlaps)) {
       warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+              ' glyphs have too many overlaps.\nConsider increasing ',
+              '"max.overlaps"')
     }
-
-    # if (all(repel$too_many_overlaps)) {
-    #   grobs <- list()
-    #   class(grobs) <- "gList"
-    #   return(setChildren(x, grobs))
-    # }
 
     # create segment grobs
     segg <- lapply(seq_along(g$data$x), function(i) {
@@ -1067,11 +1056,17 @@ makeContent.starglyphtree <- function(x) {
 
     if (repel.debug) {
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], glorg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], glorg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], bboxg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], bboxg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], segg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], segg[[i]])
+      })
 
       # reorder grobs
       gl <- lapply(seq_along(gl),

@@ -445,12 +445,13 @@ geom_dotglyph <-
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
               && all(cols %in% names(legend.glyph.dims)))) {
-          stop('Names specified in "legend.glyph.dims" and "cols" do not match.')
+          stop('Names specified in "legend.glyph.dims" and "cols" ',
+               'do not match.')
         }
 
       } else {
-        stop('"legend.glyph.dims" should be a numeric vector of unit length or ',
-             'a numeric vector of same length as "cols" ',
+        stop('"legend.glyph.dims" should be a numeric vector of unit ',
+             'length or a numeric vector of same length as "cols" ',
              'with the "cols" as names.')
       }
     }
@@ -488,9 +489,6 @@ geom_dotglyph <-
       ...)
 
     # Modify geom aesthetics to include cols
-    # geomout <- GeomDotGlyph
-    # geomout$required_aes <- c(geomout$required_aes, cols)
-
     geomout <-
       ggplot2::ggproto(NULL, GeomDotGlyph,
                        required_aes = c(GeomDotGlyph$required_aes,
@@ -547,7 +545,8 @@ GeomDotGlyph <-
 
       # Check if "cols" exist in data
       if (FALSE %in% (cols %in% colnames(data))) {
-        stop(paste('The following column(s) specified as "cols" are not present in "data":\n',
+        stop(paste('The following column(s) specified as "cols" are not ',
+                   'present in "data":\n',
                    paste(cols[!(cols %in% colnames(data))],
                          collapse = ", "),
                    sep = ""))
@@ -577,7 +576,8 @@ GeomDotGlyph <-
       # check for missing values
       missvcols <- unlist(lapply(data[, cols], function(x) TRUE %in% is.na(x)))
       if (TRUE %in% missvcols) {
-        warning(paste('The following column(s) in "data" have missing values:\n',
+        warning(paste('The following column(s) in "data" have missing ',
+                      'values:\n',
                       paste(names(missvcols[missvcols]), collapse = ", ")))
 
         data <- remove_missing(df = data, vars = cols)
@@ -646,7 +646,8 @@ GeomDotGlyph <-
 
       data <- coord$transform(data, panel_params)
 
-      # Convert factor columns to equivalent numeric (integer rank of factor levels)
+      # Convert factor columns to equivalent numeric
+      # (integer rank of factor levels)
       fcols <- names(Filter(is.factor, data[, cols]))
 
       if (length(fcols) > 0)  {
@@ -658,9 +659,12 @@ GeomDotGlyph <-
       if (is.null(fill.dot) & !is.null(fill.gradient)) {
         gdata <- data[, cols]
 
-        gdata <- lapply(gdata,
-                        function(x) scales::col_numeric(palette = fill.gradient,
-                                                        domain = min(x):max(x))(x))
+        gdata <-
+          lapply(gdata,
+                 function(x) {
+                   scales::col_numeric(palette = fill.gradient,
+                                       domain = min(x):max(x))(x)
+                 })
         gdata <- data.frame(gdata)
       }
 
@@ -685,9 +689,9 @@ GeomDotGlyph <-
       limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
       ggname("geom_dotglyph",
-             grid::gTree(data=data,
+             grid::gTree(data = data,
                          # x = x, y = y,
-                         cols=cols,
+                         cols = cols,
                          # fill = fill,
                          radius = radius,
                          mirror = mirror,
@@ -716,7 +720,7 @@ GeomDotGlyph <-
                          direction = direction,
                          seed = seed,
                          verbose = verbose,
-                         cl="dotglyphtree"))
+                         cl = "dotglyphtree"))
 
       # ggname("geom_dotglyph",
       #        grid::gTree(
@@ -788,24 +792,26 @@ makeContent.dotglyphtree <- function(x) {
 
     # Minimal Original glyph grob
     glorg <- lapply(seq_along(g$data$x),
-                    function(i) dotglyphGrob(x = g$data$x[i],
-                                             y = g$data$y[i],
-                                             z = unlist(g$data[i, g$cols]),
-                                             radius = g$radius,
-                                             mirror = g$mirror,
-                                             flip.axes = g$flip.axes,
-                                             col = "gray"))
+                    function(i) {
+                      dotglyphGrob(x = g$data$x[i],
+                                   y = g$data$y[i],
+                                   z = unlist(g$data[i, g$cols]),
+                                   radius = g$radius,
+                                   mirror = g$mirror,
+                                   flip.axes = g$flip.axes,
+                                   col = "gray")
+                    })
 
     # Create a dataframe with x1 y1 x2 y2 - Computed from bounding box
     boxes <- lapply(seq_along(glorg), function(i) {
-      x1 <- grid::convertWidth(grid::grobX(glorg[[i]], "west"), "native", TRUE)
-      x2 <- grid::convertWidth(grid::grobX(glorg[[i]], "east"), "native", TRUE)
-      y1 <- grid::convertHeight(grid::grobY(glorg[[i]], "south"), "native", TRUE)
-      y2 <- grid::convertHeight(grid::grobY(glorg[[i]], "north"), "native", TRUE)
-      # x1 <- grid::convertWidth(boxdim(glorg[[i]]$x, "min"), "native", TRUE)
-      # x2 <- grid::convertWidth(boxdim(glorg[[i]]$x, "max"), "native", TRUE)
-      # y1 <- grid::convertHeight(boxdim(glorg[[i]]$y, "min"), "native", TRUE)
-      # y2 <- grid::convertHeight(boxdim(glorg[[i]]$y, "max"), "native", TRUE)
+      x1 <- grid::convertWidth(grid::grobX(glorg[[i]], "west"),
+                               "native", TRUE)
+      x2 <- grid::convertWidth(grid::grobX(glorg[[i]], "east"),
+                               "native", TRUE)
+      y1 <- grid::convertHeight(grid::grobY(glorg[[i]], "south"),
+                                "native", TRUE)
+      y2 <- grid::convertHeight(grid::grobY(glorg[[i]], "north"),
+                                "native", TRUE)
       c(
         "x1" = x1 - box_padding_x + g$nudge_x,
         "y1" = y1 - box_padding_y + g$nudge_y,
@@ -817,13 +823,6 @@ makeContent.dotglyphtree <- function(x) {
     if (repel.debug) {
       # Bounding box grob
       boxes2 <- data.frame(do.call(rbind, boxes))
-      # bboxg <- lapply(seq_along(boxes2$x1), function(i) {
-      #   grid::polylineGrob(x = c(boxes2$x1[i], g$data$x[i],  boxes2$x2[i],
-      #                            g$data$x[i],  boxes2$x1[i]),
-      #                      y = c(g$data$y[i],  boxes2$y1[i], g$data$y[i],
-      #                            boxes2$y2[i], g$data$y[i]),
-      #                      gp = gpar(col = "grey"))
-      # })
       bboxg <- lapply(seq_along(boxes2$x1), function(i) {
         grid::polylineGrob(x = c(boxes2$x1[i], boxes2$x1[i], boxes2$x2[i],
                                  boxes2$x2[i], boxes2$x1[i]),
@@ -858,7 +857,7 @@ makeContent.dotglyphtree <- function(x) {
 
     # Repel overlapping bounding boxes away from each other.
     repel <- repel_boxes2(
-      data_points     = as.matrix(g$data[,c("x","y")]),
+      data_points     = as.matrix(g$data[, c("x", "y")]),
       point_size      = point_size,
       point_padding_x = point_padding,
       point_padding_y = point_padding,
@@ -878,21 +877,16 @@ makeContent.dotglyphtree <- function(x) {
 
     if (any(repel$too_many_overlaps)) {
       warning(sum(repel$too_many_overlaps, na.rm = TRUE),
-              ' glyphs have too many overlaps.\nConsider increasing "max.overlaps"')
+              ' glyphs have too many overlaps.\nConsider increasing ',
+              '"max.overlaps"')
     }
-
-    # if (all(repel$too_many_overlaps)) {
-    #   grobs <- list()
-    #   class(grobs) <- "gList"
-    #   return(setChildren(x, grobs))
-    # }
 
     # create segment grobs
     segg <- lapply(seq_along(g$data$x), function(i) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -952,11 +946,17 @@ makeContent.dotglyphtree <- function(x) {
 
     if (repel.debug) {
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], glorg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], glorg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], bboxg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], bboxg[[i]])
+      })
 
-      gl <- lapply(seq_along(gl), function(i) grid::addGrob(gl[[i]], segg[[i]]))
+      gl <- lapply(seq_along(gl), function(i) {
+        grid::addGrob(gl[[i]], segg[[i]])
+      })
 
       # reorder grobs
       gl <- lapply(seq_along(gl),
