@@ -24,7 +24,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.s
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--09-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--14-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
 [![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
