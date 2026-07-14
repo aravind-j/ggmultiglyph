@@ -46,7 +46,8 @@
 #' @importFrom rlang as_quosures syms
 #' @importFrom utils modifyList
 #' @importFrom ggplot2 layer ggproto aes guide_legend guides
-#' @importFrom grid addGrob convertHeight convertWidth grobTree grobX grobY makeContent setChildren unit
+#' @importFrom grid addGrob convertHeight convertWidth grobTree grobX grobY
+#' @importFrom grid makeContent setChildren unit
 #' @importFrom Rdpack reprompt
 #' @importFrom stats setNames
 #'
@@ -457,18 +458,18 @@ geom_starglyph <-
            inherit.aes = TRUE) {
 
     # Check cols
-    if (!(is.character(cols) & length(cols) >= 2)) {
+    if (!(is.character(cols) && length(cols) >= 2)) {
       stop('"cols" should be a charachter vector of at least length 2.')
     }
 
     # Check legend.glyph.dims
-    if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+    if (is.numeric(legend.glyph.dims) && length(legend.glyph.dims) == 1) {
 
       legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
 
     } else { # Check if legend.glyph.dims has same length as cols
       if (is.numeric(legend.glyph.dims)
-          & length(legend.glyph.dims) == length(cols)) {
+          && length(legend.glyph.dims) == length(cols)) {
 
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
@@ -597,8 +598,10 @@ GeomStarGlyph <-
       # Check if cols are numeric or factor
       intfactcols <-
         vapply(data[, cols],
-               function(x) !(is.integer(x) || is.numeric(x)
-                             || is.factor(x)),
+               function(x) {
+                 !(is.integer(x) || is.numeric(x)
+                   || is.factor(x))
+               },
                logical(1))
 
       if (TRUE %in% intfactcols) {
@@ -742,9 +745,9 @@ GeomStarGlyph <-
       limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
       ggname("geom_starglyph",
-             grid::gTree(data=data,
+             grid::gTree(data = data,
                          # x = x, y = y,
-                         cols=cols,
+                         cols = cols,
                          # fill = fill,
                          colour.whisker = colour.whisker,
                          colour.contour = colour.contour,
@@ -779,7 +782,7 @@ GeomStarGlyph <-
                          direction = direction,
                          seed = seed,
                          verbose = verbose,
-                         cl="starglyphtree"))
+                         cl = "starglyphtree"))
 
       # ggname("geom_starglyph",
       #        grid::gTree(
@@ -955,22 +958,22 @@ makeContent.starglyphtree <- function(x) {
 
     # Repel overlapping bounding boxes away from each other.
     repel <- repel_boxes2(
-      data_points     = as.matrix(g$data[,c("x","y")]),
-      point_size      = point_size,
+      data_points = as.matrix(g$data[, c("x", "y")]),
+      point_size = point_size,
       point_padding_x = point_padding,
       point_padding_y = point_padding,
-      boxes           = do.call(rbind, boxes),
-      xlim            = range(g$limits$x),
-      ylim            = range(g$limits$y),
-      hjust           = rep (0.5, nrow(g$data)),
-      vjust           = rep (0.5, nrow(g$data)),
-      force_push      = g$force * 1e-6,
-      force_pull      = g$force_pull * 1e-2,
-      max_time        = g$max.time,
-      max_iter        = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
-      max_overlaps    = g$max.overlaps,
-      direction       = g$direction,
-      verbose         = g$verbose
+      boxes = do.call(rbind, boxes),
+      xlim = range(g$limits$x),
+      ylim = range(g$limits$y),
+      hjust = rep(0.5, nrow(g$data)),
+      vjust = rep(0.5, nrow(g$data)),
+      force_push = g$force * 1e-6,
+      force_pull = g$force_pull * 1e-2,
+      max_time = g$max.time,
+      max_iter = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
+      max_overlaps = g$max.overlaps,
+      direction = g$direction,
+      verbose = g$verbose
     )
 
     if (any(repel$too_many_overlaps)) {
@@ -984,7 +987,7 @@ makeContent.starglyphtree <- function(x) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -1007,50 +1010,52 @@ makeContent.starglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) starglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               size = g$data$size[i],
-               col.whisker = if (is.null(g$colour.whisker)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.whisker
-               },
-               col.contour = if (is.null(g$colour.contour)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.contour
-               },
-               fill = g$data$fill[i],
-               lwd.whisker = g$data$linewidth.whisker[i],
-               lwd.contour = g$data$linewidth.contour[i],
-               alpha = g$data$alpha[i],
-               angle.start = g$astrt,
-               angle.stop = g$astp,
-               whisker = g$whisker,
-               contour = g$contour,
-               linejoin = g$data$linejoin[i],
-               lineend = g$data$lineend[i],
-               grid.levels = g$grid.levels,
-               draw.grid = g$draw.grid,
-               grid.point.size = grid::unit(g$grid.point.size, "pt"),
-               col.points = if (is.null(g$colour.points)) {
-                 if (is.null(g$colour.whisker)) {
+               function(i) {
+                 starglyphGrob(x = if (g$repel) {
+                   repel$x[i]
+                 } else {
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 size = g$data$size[i],
+                 col.whisker = if (is.null(g$colour.whisker)) {
                    g$data$colour[i]
                  } else {
-                   NA
-                 }
-               } else {
-                 g$colour.points
-               }))
+                   g$colour.whisker
+                 },
+                 col.contour = if (is.null(g$colour.contour)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.contour
+                 },
+                 fill = g$data$fill[i],
+                 lwd.whisker = g$data$linewidth.whisker[i],
+                 lwd.contour = g$data$linewidth.contour[i],
+                 alpha = g$data$alpha[i],
+                 angle.start = g$astrt,
+                 angle.stop = g$astp,
+                 whisker = g$whisker,
+                 contour = g$contour,
+                 linejoin = g$data$linejoin[i],
+                 lineend = g$data$lineend[i],
+                 grid.levels = g$grid.levels,
+                 draw.grid = g$draw.grid,
+                 grid.point.size = grid::unit(g$grid.point.size, "pt"),
+                 col.points = if (is.null(g$colour.points)) {
+                   if (is.null(g$colour.whisker)) {
+                     g$data$colour[i]
+                   } else {
+                     NA
+                   }
+                 } else {
+                   g$colour.points
+                 })
+               })
 
   if (g$repel) {
 

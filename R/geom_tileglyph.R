@@ -546,15 +546,15 @@ makeContent.tileglyphtree <- function(x) {
 
     # Repel overlapping bounding boxes away from each other.
     repel <- repel_boxes2(
-      data_points     = as.matrix(g$data[,c("x","y")]),
+      data_points     = as.matrix(g$data[, c("x", "y")]),
       point_size      = point_size,
       point_padding_x = point_padding,
       point_padding_y = point_padding,
       boxes           = do.call(rbind, boxes),
       xlim            = range(g$limits$x),
       ylim            = range(g$limits$y),
-      hjust           = rep (0.5, nrow(g$data)),
-      vjust           = rep (0.5, nrow(g$data)),
+      hjust           = rep(0.5, nrow(g$data)),
+      vjust           = rep(0.5, nrow(g$data)),
       force_push      = g$force * 1e-6,
       force_pull      = g$force_pull * 1e-2,
       max_time        = g$max.time,

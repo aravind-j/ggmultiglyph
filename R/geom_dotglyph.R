@@ -857,22 +857,22 @@ makeContent.dotglyphtree <- function(x) {
 
     # Repel overlapping bounding boxes away from each other.
     repel <- repel_boxes2(
-      data_points     = as.matrix(g$data[, c("x", "y")]),
-      point_size      = point_size,
+      data_points = as.matrix(g$data[, c("x", "y")]),
+      point_size = point_size,
       point_padding_x = point_padding,
       point_padding_y = point_padding,
-      boxes           = do.call(rbind, boxes),
-      xlim            = range(g$limits$x),
-      ylim            = range(g$limits$y),
-      hjust           = rep (0.5, nrow(g$data)),
-      vjust           = rep (0.5, nrow(g$data)),
-      force_push      = g$force * 1e-6,
-      force_pull      = g$force_pull * 1e-2,
-      max_time        = g$max.time,
-      max_iter        = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
-      max_overlaps    = g$max.overlaps,
-      direction       = g$direction,
-      verbose         = g$verbose
+      boxes = do.call(rbind, boxes),
+      xlim = range(g$limits$x),
+      ylim = range(g$limits$y),
+      hjust = rep(0.5, nrow(g$data)),
+      vjust = rep(0.5, nrow(g$data)),
+      force_push = g$force * 1e-6,
+      force_pull = g$force_pull * 1e-2,
+      max_time = g$max.time,
+      max_iter = ifelse(is.infinite(g$max.iter), 1e9, g$max.iter),
+      max_overlaps = g$max.overlaps,
+      direction = g$direction,
+      verbose = g$verbose
     )
 
     if (any(repel$too_many_overlaps)) {
