@@ -536,6 +536,14 @@ GeomDotGlyph <-
 
     setup_params = function(data, params) {
 
+      # Precompute factor levels for each col for use in draw_key
+        cols <- params$cols
+
+        params$col_levels <- lapply(cols, function(cn) {
+          if (is.factor(data[[cn]])) levels(data[[cn]]) else NULL
+        })
+        names(params$col_levels) <- cols
+
       params
     },
 
@@ -738,13 +746,18 @@ GeomDotGlyph <-
 
       vals <- data[, params$cols, drop = FALSE]
 
-      vals[] <- lapply(vals, function(x) {
+      vals[] <- Map(function(x, cn) {
         if (is.character(x) || is.factor(x)) {
-          as.numeric(factor(x, levels = unique(x)))
+          lvls <- params$col_levels[[cn]]
+          if (!is.null(lvls)) {
+            match(as.character(x), lvls)
+          } else {
+            as.numeric(factor(x, levels = unique(x)))
+          }
         } else {
           x
         }
-      })
+      }, vals, names(vals))
 
       dotglyphGrob(
         x = .5,
