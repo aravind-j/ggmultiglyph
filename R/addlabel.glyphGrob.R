@@ -691,5 +691,5 @@ addlabel.glyphGrob <- function(grob, label,
       grid::gTree(children = gList(grob, labelgorb))
   }
 
-  return(gridout)
+  gridout
 }

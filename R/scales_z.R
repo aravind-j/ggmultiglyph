@@ -42,19 +42,25 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
 #'   \code{\link[ggplot2]{guides}}for more information.
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
-#' @importFrom ggplot2 guide_colourbar guide_coloursteps scale_color_continuous scale_color_distiller scale_color_viridis_c
+#' @importFrom ggplot2 guide_colourbar guide_coloursteps scale_color_continuous
+#' @importFrom ggplot2 scale_color_distiller scale_color_viridis_c
 #'
 #' @export
 #'
 scale_z_fill_continuous <- function(..., palette, z,
                                     guide = c("legend")) {
 
-  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
-           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3",
-           "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
+  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens",
+           "Greys", "Oranges", "OrRd", "PuBu",
+           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds",
+           "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2",
+           "Set1", "Set2", "Set3",
+           "BrBG", "PiYG", "PRGn", "PuOr",
+           "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
   rcb_num <- 1:18
-  v <- c("magma", "inferno", "plasma", "viridis", "cividis", "rocket", "mako", "turbo",
+  v <- c("magma", "inferno", "plasma", "viridis", "cividis",
+         "rocket", "mako", "turbo",
          "A", "B", "C", "D", "E", "F", "G", "H")
 
   if (guide == "colorbar") {
@@ -75,12 +81,12 @@ scale_z_fill_continuous <- function(..., palette, z,
     guide = guide_coloursteps(available_aes = z)
   }
 
-  if(any(palette == rcb) | any(palette == rcb_num)){
-    scale_color_distiller(palette= palette, aesthetics = z, guide = guide, ...)
-  } else if(any(palette == v)){
-    scale_color_viridis_c(option= palette, aesthetics = z, guide = guide, ...)
-  } else{
-    scale_color_continuous(type= palette, aesthetics = z, guide = guide, ...)
+  if (any(palette == rcb) || any(palette == rcb_num)) {
+    scale_color_distiller(palette = palette, aesthetics = z, guide = guide, ...)
+  } else if (any(palette == v)) {
+    scale_color_viridis_c(option = palette, aesthetics = z, guide = guide, ...)
+  } else {
+    scale_color_continuous(type = palette, aesthetics = z, guide = guide, ...)
   }
 
 }

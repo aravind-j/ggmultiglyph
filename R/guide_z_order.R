@@ -4,11 +4,11 @@
 #' Helper function to preserve the display order of legends associated with
 #' multiple \code{col} aesthetics.
 #'
-#' This function is primarily intended for use with \code{ggmultiglyph} scales such as
-#' \code{scale_z_continuous()}. Internally, \pkg{ggplot2} may not preserve the
-#' order of aesthetics supplied to a scale when guides are assembled during plot
-#' construction (via the internal guide setup machinery i.e.
-#' \code{ggplot2:::Guides$setup()} in \code{ggplot2} v 4.0.0). As a result,
+#' This function is primarily intended for use with \code{ggmultiglyph} scales
+#' such as \code{scale_z_continuous()}. Internally, \pkg{ggplot2} may not
+#' preserve the order of aesthetics supplied to a scale when guides are
+#' assembled during plot construction (via the internal guide setup machinery
+#' i.e. \code{ggplot2:::Guides$setup()} in \code{ggplot2} v 4.0.0). As a result,
 #' legends corresponding to \code{z} aesthetics can appear in an order that
 #' differs from the order specified by the user.
 #'

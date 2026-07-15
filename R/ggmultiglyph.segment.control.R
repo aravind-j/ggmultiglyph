@@ -44,17 +44,17 @@
 #'
 #' @export
 ggmultiglyph.segment.control <- function(segment.curvature = 0,
-                                   segment.angle = 90,
-                                   segment.ncp = 1,
-                                   segment.shape = 0.5,
-                                   segment.square = TRUE,
-                                   segment.squareShape = 1,
-                                   segment.inflect = FALSE,
-                                   segment.debug = FALSE,
-                                   segment.colour = "black",
-                                   segment.size = 0.2,
-                                   segment.linetype = 1,
-                                   segment.arrow = NULL) {
+                                         segment.angle = 90,
+                                         segment.ncp = 1,
+                                         segment.shape = 0.5,
+                                         segment.square = TRUE,
+                                         segment.squareShape = 1,
+                                         segment.inflect = FALSE,
+                                         segment.debug = FALSE,
+                                         segment.colour = "black",
+                                         segment.size = 0.2,
+                                         segment.linetype = 1,
+                                         segment.arrow = NULL) {
 
   out <- list(segment.curvature = 0,
               segment.angle = 90,
@@ -69,6 +69,5 @@ ggmultiglyph.segment.control <- function(segment.curvature = 0,
               segment.linetype = 1,
               segment.arrow = NULL)
 
-  return(out)
-
+  out
 }

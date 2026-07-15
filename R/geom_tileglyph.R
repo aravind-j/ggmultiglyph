@@ -146,101 +146,102 @@
 #'   theme_bw(base_size = 7.5) +
 #'   legend_theme
 #'
-geom_tileglyph <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", ...,
-                           cols = character(0L),
-                           colour = "black",
-                           # fill = NA,
-                           ratio = 1,
-                           nrow = 1,
-                           linewidth = 1,
-                           legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
-                           show.legend = NA,
-                           repel = FALSE,
-                           repel.control = ggmultiglyph.repel.control(),
-                           inherit.aes = TRUE) {
+geom_tileglyph <-
+  function(mapping = NULL, data = NULL, stat = "identity",
+           position = "identity", ...,
+           cols = character(0L),
+           colour = "black",
+           # fill = NA,
+           ratio = 1,
+           nrow = 1,
+           linewidth = 1,
+           legend.glyph.dims = setNames(rep(0.5, length(cols)), cols),
+           show.legend = NA,
+           repel = FALSE,
+           repel.control = ggmultiglyph.repel.control(),
+           inherit.aes = TRUE) {
 
-  # Check cols
-  if (!(is.character(cols) & length(cols) >= 2)) {
-    stop('"cols" should be a charachter vector of at least length 2.')
-  }
-
-  # Check legend.glyph.dims
-  if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
-
-    legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
-
-  } else { # Check if legend.glyph.dims has same length as cols
-    if (is.numeric(legend.glyph.dims)
-        & length(legend.glyph.dims) == length(cols)) {
-
-      # Check names of legend.glyph.dims
-      if (!(all(names(legend.glyph.dims) %in% cols)
-            && all(cols %in% names(legend.glyph.dims)))) {
-        stop('Names specified in "legend.glyph.dims" and "cols" ',
-             'do not match.')
-      }
-
-    } else {
-      stop('"legend.glyph.dims" should be a numeric vector of unit ',
-           'length or a numeric vector of same length as "cols" ',
-           'with the "cols" as names.')
+    # Check cols
+    if (!(is.character(cols) && length(cols) >= 2)) {
+      stop('"cols" should be a charachter vector of at least length 2.')
     }
+
+    # Check legend.glyph.dims
+    if (is.numeric(legend.glyph.dims) && length(legend.glyph.dims) == 1) {
+
+      legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
+
+    } else { # Check if legend.glyph.dims has same length as cols
+      if (is.numeric(legend.glyph.dims)
+          && length(legend.glyph.dims) == length(cols)) {
+
+        # Check names of legend.glyph.dims
+        if (!(all(names(legend.glyph.dims) %in% cols)
+              && all(cols %in% names(legend.glyph.dims)))) {
+          stop('Names specified in "legend.glyph.dims" and "cols" ',
+               'do not match.')
+        }
+
+      } else {
+        stop('"legend.glyph.dims" should be a numeric vector of unit ',
+             'length or a numeric vector of same length as "cols" ',
+             'with the "cols" as names.')
+      }
+    }
+
+    # Modify mapping to include cols
+    mcols <- rlang::as_quosures(rlang::syms(cols), .GlobalEnv)
+    names(mcols) <- cols
+    mapping <- modifyList(mapping, mcols)
+
+    params <- list(
+      ratio = ratio,
+      nrow = nrow,
+      colour = colour,
+      # fill = fill,
+      linewidth = linewidth,
+      repel = repel,
+      cols = cols,
+      box.padding = unit(repel.control$box.padding, "lines"),
+      point.padding = unit(repel.control$point.padding, "lines"),
+      min.segment.length = unit(repel.control$min.segment.length, "lines"),
+      arrow = repel.control$arrow,
+      force = repel.control$force,
+      force_pull = repel.control$force_pull,
+      max.time = repel.control$max.time,
+      max.iter = repel.control$max.iter,
+      max.overlaps = repel.control$max.overlaps,
+      nudge_x = repel.control$nudge_x,
+      nudge_y = repel.control$nudge_y,
+      xlim = repel.control$xlim,
+      ylim = repel.control$ylim,
+      direction = repel.control$direction,
+      seed = repel.control$seed,
+      verbose = repel.control$verbose,
+      ...)
+
+    # Modify geom aesthetics to include cols
+    geomout <- ggplot2::ggproto(NULL, GeomTileGlyph,
+                                required_aes = c(GeomTileGlyph$required_aes,
+                                                 cols),
+                                default_aes = {
+                                  aes_new <- c(GeomTileGlyph$default_aes,
+                                               legend.glyph.dims)
+                                  class(aes_new) <- "uneval"
+                                  aes_new
+                                })
+
+    ggplot2::layer(
+      data = data,
+      mapping = mapping,
+      stat = stat,
+      geom = geomout,
+      position = position,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params = params)
+
   }
-
-  # Modify mapping to include cols
-  mcols <- rlang::as_quosures(rlang::syms(cols), .GlobalEnv)
-  names(mcols) <- cols
-  mapping <- modifyList(mapping, mcols)
-
-  params <- list(
-    ratio = ratio,
-    nrow = nrow,
-    colour = colour,
-    # fill = fill,
-    linewidth = linewidth,
-    repel = repel,
-    cols = cols,
-    box.padding = unit(repel.control$box.padding, "lines"),
-    point.padding = unit(repel.control$point.padding, "lines"),
-    min.segment.length = unit(repel.control$min.segment.length, "lines"),
-    arrow = repel.control$arrow,
-    force = repel.control$force,
-    force_pull = repel.control$force_pull,
-    max.time = repel.control$max.time,
-    max.iter = repel.control$max.iter,
-    max.overlaps = repel.control$max.overlaps,
-    nudge_x = repel.control$nudge_x,
-    nudge_y = repel.control$nudge_y,
-    xlim = repel.control$xlim,
-    ylim = repel.control$ylim,
-    direction = repel.control$direction,
-    seed = repel.control$seed,
-    verbose = repel.control$verbose,
-    ...)
-
-  # Modify geom aesthetics to include cols
-  geomout <- ggplot2::ggproto(NULL, GeomTileGlyph,
-                              required_aes = c(GeomTileGlyph$required_aes,
-                                               cols),
-                              default_aes = {
-                                aes_new <- c(GeomTileGlyph$default_aes,
-                                             legend.glyph.dims)
-                                class(aes_new) <- "uneval"
-                                aes_new
-                              })
-
-  ggplot2::layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = geomout,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = params)
-
-}
 
 GeomTileGlyph <- ggplot2::ggproto(
   "GeomTileGlyph", ggplot2::Geom,
@@ -289,8 +290,9 @@ GeomTileGlyph <- ggplot2::ggproto(
     # Check if cols are numeric or factor
     intfactcols <-
       vapply(data[, cols],
-             function(x) !(is.integer(x) || is.numeric(x)
-                           || is.factor(x)),
+             function(x) {
+               !(is.integer(x) || is.numeric(x) || is.factor(x))
+             },
              logical(1))
 
     if (TRUE %in% intfactcols) {
@@ -391,9 +393,9 @@ GeomTileGlyph <- ggplot2::ggproto(
     limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
     ggname("geom_tileglyph",
-           grid::gTree(data=data,
+           grid::gTree(data = data,
                        # x = x, y = y,
-                       cols=cols,
+                       cols = cols,
                        # fill = fill,
                        ratio = ratio,
                        nrow = nrow,
@@ -420,7 +422,7 @@ GeomTileGlyph <- ggplot2::ggproto(
                        direction = direction,
                        seed = seed,
                        verbose = verbose,
-                       cl="tileglyphtree"))
+                       cl = "tileglyphtree"))
 
     # ggname("geom_tileglyph",
     #        grid::gTree(
@@ -575,7 +577,7 @@ makeContent.tileglyphtree <- function(x) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -598,25 +600,27 @@ makeContent.tileglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) tileglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               size = g$data$size[i],
-               ratio = g$ratio,
-               nrow = g$nrow,
-               fill = unlist(gdata[i, ]),
-               col = g$colour,
-               lwd = g$data$linewidth[i],
-               alpha = g$data$alpha[i],
-               linejoin = "mitre"))
+               function(i) {
+                 tileglyphGrob(x = if (g$repel) {
+                   repel$x[i]
+                 } else {
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 size = g$data$size[i],
+                 ratio = g$ratio,
+                 nrow = g$nrow,
+                 fill = unlist(gdata[i, ]),
+                 col = g$colour,
+                 lwd = g$data$linewidth[i],
+                 alpha = g$data$alpha[i],
+                 linejoin = "mitre")
+               })
 
   if (g$repel) {
 

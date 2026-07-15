@@ -732,18 +732,18 @@ geom_profileglyph <-
            inherit.aes = TRUE) {
 
     # Check cols
-    if (!(is.character(cols) & length(cols) >= 2)) {
+    if (!(is.character(cols) && length(cols) >= 2)) {
       stop('"cols" should be a charachter vector of at least length 2.')
     }
 
     # Check legend.glyph.dims
-    if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+    if (is.numeric(legend.glyph.dims) && length(legend.glyph.dims) == 1) {
 
       legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
 
     } else { # Check if legend.glyph.dims has same length as cols
       if (is.numeric(legend.glyph.dims)
-          & length(legend.glyph.dims) == length(cols)) {
+          && length(legend.glyph.dims) == length(cols)) {
 
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
@@ -868,8 +868,9 @@ GeomProfileGlyph <-
       # Check if cols are numeric or factor
       intfactcols <-
         vapply(data[, cols],
-               function(x) !(is.integer(x) || is.numeric(x)
-                             || is.factor(x)),
+               function(x) {
+                 !(is.integer(x) || is.numeric(x) || is.factor(x))
+               },
                logical(1))
 
       if (TRUE %in% intfactcols) {
@@ -1025,9 +1026,9 @@ GeomProfileGlyph <-
       limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
       ggname("geom_profileglyph",
-             grid::gTree(data=data,
+             grid::gTree(data = data,
                          # x = x, y = y,
-                         cols=cols,
+                         cols = cols,
                          # fill = fill,
                          width = width,
                          mirror = mirror,
@@ -1063,7 +1064,7 @@ GeomProfileGlyph <-
                          direction = direction,
                          seed = seed,
                          verbose = verbose,
-                         cl="profileglyphtree"))
+                         cl = "profileglyphtree"))
 
       # ggname("geom_profileglyph",
       #        grid::gTree(
@@ -1271,7 +1272,7 @@ makeContent.profileglyphtree <- function(x) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -1293,55 +1294,57 @@ makeContent.profileglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) profileglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               size = g$data$size[i],
-               width = g$width,
-               mirror = g$mirror,
-               flip.axes = g$flip.axes,
-               col.bar = if (is.null(g$colour.bar)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.bar
-               },
-               col.line = if (is.null(g$colour.line)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.line
-               },
-               fill = if (is.null(g$fill.bar)) {
-                 if (!is.null(g$fill.gradient)) {
-                   unlist(g$gdata[i, ])
+               function(i) {
+                 profileglyphGrob(x = if (g$repel) {
+                   repel$x[i]
                  } else {
-                   g$data$fill[i]
-                 }
-               } else {
-                 g$fill.bar
-               },
-               lwd.bar = g$data$linewidth.bar[i],
-               lwd.line = g$data$linewidth.line[i],
-               lwd.grid = g$data$linewidth.grid[i],
-               alpha = g$data$alpha[i],
-               bar = g$bar,
-               line = g$line,
-               linejoin = g$data$linejoin[i],
-               lineend = g$data$lineend[i],
-               grid.levels = g$grid.levels,
-               draw.grid = g$draw.grid,
-               col.grid = if (is.null(g$colour.grid)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.grid
-               }))
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 size = g$data$size[i],
+                 width = g$width,
+                 mirror = g$mirror,
+                 flip.axes = g$flip.axes,
+                 col.bar = if (is.null(g$colour.bar)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.bar
+                 },
+                 col.line = if (is.null(g$colour.line)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.line
+                 },
+                 fill = if (is.null(g$fill.bar)) {
+                   if (!is.null(g$fill.gradient)) {
+                     unlist(g$gdata[i, ])
+                   } else {
+                     g$data$fill[i]
+                   }
+                 } else {
+                   g$fill.bar
+                 },
+                 lwd.bar = g$data$linewidth.bar[i],
+                 lwd.line = g$data$linewidth.line[i],
+                 lwd.grid = g$data$linewidth.grid[i],
+                 alpha = g$data$alpha[i],
+                 bar = g$bar,
+                 line = g$line,
+                 linejoin = g$data$linejoin[i],
+                 lineend = g$data$lineend[i],
+                 grid.levels = g$grid.levels,
+                 draw.grid = g$draw.grid,
+                 col.grid = if (is.null(g$colour.grid)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.grid
+                 })
+               })
 
   if (g$repel) {
 

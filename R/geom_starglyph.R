@@ -599,8 +599,7 @@ GeomStarGlyph <-
       intfactcols <-
         vapply(data[, cols],
                function(x) {
-                 !(is.integer(x) || is.numeric(x)
-                   || is.factor(x))
+                 !(is.integer(x) || is.numeric(x) || is.factor(x))
                },
                logical(1))
 
@@ -829,7 +828,6 @@ GeomStarGlyph <-
                     } else {
                       unlist(data[, params$cols])
                     },
-                    # z = params$zkey,
                     size = data$size,
                     col.whisker = if (is.null(params$colour.whisker)) {
                       data$colour

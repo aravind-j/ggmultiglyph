@@ -909,36 +909,38 @@ makeContent.dotglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) dotglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               radius = g$radius,
-               mirror = g$mirror,
-               flip.axes = g$flip.axes,
-               fill = if (is.null(g$fill.dot)) {
-                 if (!is.null(g$fill.gradient)) {
-                   unlist(mapply(function(a, b) rep(a, b),
-                                 unlist(g$gdata[i, ]),
-                                 round(unlist(g$data[i, g$cols]))))
+               function(i) {
+                 dotglyphGrob(x = if (g$repel) {
+                   repel$x[i]
                  } else {
-                   g$data$fill[i]
-                 }
-               } else {
-                 unlist(mapply(function(a, b) rep(a, b),
-                               g$fill.dot,
-                               round(unlist(g$data[i, g$cols]))))
-               },
-               col = g$data$colour[i],
-               lwd = g$data$linewidth[i],
-               alpha = g$data$alpha[i]))
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 radius = g$radius,
+                 mirror = g$mirror,
+                 flip.axes = g$flip.axes,
+                 fill = if (is.null(g$fill.dot)) {
+                   if (!is.null(g$fill.gradient)) {
+                     unlist(mapply(function(a, b) rep(a, b),
+                                   unlist(g$gdata[i, ]),
+                                   round(unlist(g$data[i, g$cols]))))
+                   } else {
+                     g$data$fill[i]
+                   }
+                 } else {
+                   unlist(mapply(function(a, b) rep(a, b),
+                                 g$fill.dot,
+                                 round(unlist(g$data[i, g$cols]))))
+                 },
+                 col = g$data$colour[i],
+                 lwd = g$data$linewidth[i],
+                 alpha = g$data$alpha[i])
+               })
 
   if (g$repel) {
 

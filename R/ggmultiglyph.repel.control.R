@@ -2,8 +2,8 @@
 #'
 #' Set the contol parameters for the repel algorithm
 #' \insertCite{slowikowski_ggrepel_2021}{ggmultiglyph} used in various geoms
-#' (\code{geom_*()}) implemented in \code{ggmultiglyph} to repel the glyphs from each
-#' other.
+#' (\code{geom_*()}) implemented in \code{ggmultiglyph} to repel the glyphs from
+#' each other.
 #'
 #' @param nudge_x,nudge_y Horizontal and vertical adjustments to nudge the
 #'   starting position of each glyph. The units for \code{nudge_x} and
@@ -64,43 +64,44 @@
 #' ggmultiglyph.repel.control(max.iter = 5000)
 #'
 #'
-ggmultiglyph.repel.control <- function(box.padding = 0.25,
-                                 point.padding = 1e-6,
-                                 min.segment.length = 0.5,
-                                 arrow = NULL,
-                                 force = 1,
-                                 force_pull = 1,
-                                 max.time = 0.5,
-                                 max.iter = 10000,
-                                 max.overlaps = getOption("ggrepel.max.overlaps", default = 10),
-                                 nudge_x = 0,
-                                 nudge_y = 0,
-                                 xlim = c(NA, NA),
-                                 ylim = c(NA, NA),
-                                 direction = c("both","y","x"),
-                                 seed = NA,
-                                 verbose = FALSE,
-                                 ...) {
+ggmultiglyph.repel.control <-
+  function(box.padding = 0.25,
+           point.padding = 1e-6,
+           min.segment.length = 0.5,
+           arrow = NULL,
+           force = 1,
+           force_pull = 1,
+           max.time = 0.5,
+           max.iter = 10000,
+           max.overlaps = getOption("ggrepel.max.overlaps", default = 10),
+           nudge_x = 0,
+           nudge_y = 0,
+           xlim = c(NA, NA),
+           ylim = c(NA, NA),
+           direction = c("both", "y", "x"),
+           seed = NA,
+           verbose = FALSE,
+           ...) {
 
-  direction <- match.arg(direction)
+    direction <- match.arg(direction)
 
-  out <- list(box.padding = box.padding,
-              point.padding = point.padding,
-              min.segment.length = min.segment.length,
-              arrow = arrow,
-              force = force,
-              force_pull = force_pull,
-              max.time = max.time,
-              max.iter = max.iter,
-              max.overlaps = max.overlaps,
-              nudge_x = nudge_x,
-              nudge_y = nudge_y,
-              xlim = xlim,
-              ylim = ylim,
-              direction = direction,
-              seed = NA,
-              verbose = FALSE,
-              ...)
+    out <- list(box.padding = box.padding,
+                point.padding = point.padding,
+                min.segment.length = min.segment.length,
+                arrow = arrow,
+                force = force,
+                force_pull = force_pull,
+                max.time = max.time,
+                max.iter = max.iter,
+                max.overlaps = max.overlaps,
+                nudge_x = nudge_x,
+                nudge_y = nudge_y,
+                xlim = xlim,
+                ylim = ylim,
+                direction = direction,
+                seed = NA,
+                verbose = FALSE,
+                ...)
 
-  return(out)
-}
+    out
+  }

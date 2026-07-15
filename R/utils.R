@@ -44,7 +44,7 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
   })
 
   if (length(unique(input_anchor_unit)) == 1 &&
-      length(unique(input_2nd_unit)) == 1 ) {
+      length(unique(input_2nd_unit)) == 1) {
     input_anchor_unit <- unique(input_anchor_unit)
     input_2nd_unit <- unique(input_2nd_unit)
   } else {
@@ -72,7 +72,7 @@ boxdim <- function(x, what = c("min", "max", "mean")) {
   # out <- unit(d1, "native") + unit(d2, "mm")
   out <- unit(d1, input_anchor_unit) + unit(d2, input_2nd_unit)
 
-  return(out)
+  out
 
 }
 
@@ -98,7 +98,7 @@ raw_units <- function(sumunit) {
     out <- sumunit
   }
 
-  return(out)
+  out
 }
 
 # Get simplified units from a sum unit :
@@ -122,7 +122,7 @@ reconstruct_sumunit <- function(toconvert, raw_units) {
 
   out <- unit(raw_units["native"], "native") + unit(mm_new, "mm")
 
-  return(out)
+  out
 }
 
 
@@ -141,4 +141,3 @@ expnd_lim <- function(lim, frac = 0.25) {
   )
   invisible(NULL)
 }
-

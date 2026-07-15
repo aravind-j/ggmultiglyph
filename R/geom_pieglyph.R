@@ -616,18 +616,18 @@ geom_pieglyph <-
            inherit.aes = TRUE) {
 
     # Check cols
-    if (!(is.character(cols) & length(cols) >= 2)) {
+    if (!(is.character(cols) && length(cols) >= 2)) {
       stop('"cols" should be a charachter vector of at least length 2.')
     }
 
     # Check legend.glyph.dims
-    if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+    if (is.numeric(legend.glyph.dims) && length(legend.glyph.dims) == 1) {
 
       legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
 
     } else { # Check if legend.glyph.dims has same length as cols
       if (is.numeric(legend.glyph.dims)
-          & length(legend.glyph.dims) == length(cols)) {
+          && length(legend.glyph.dims) == length(cols)) {
 
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
@@ -680,8 +680,6 @@ geom_pieglyph <-
       ...)
 
     # Modify geom aesthetics to include cols
-    geomout <- GeomPieGlyph
-    # geomout$required_aes <- c(geomout$required_aes, cols)
     geomout <-
       ggplot2::ggproto(NULL, GeomPieGlyph,
                        required_aes = c(GeomPieGlyph$required_aes,
@@ -750,8 +748,9 @@ GeomPieGlyph <-
       # Check if cols are numeric or factor
       intfactcols <-
         vapply(data[, cols],
-               function(x) !(is.integer(x) || is.numeric(x)
-                             || is.factor(x)),
+               function(x) {
+                 !(is.integer(x) || is.numeric(x) || is.factor(x))
+               },
                logical(1))
 
       if (TRUE %in% intfactcols) {
@@ -909,9 +908,9 @@ GeomPieGlyph <-
       limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
       ggname("geom_pieglyph",
-             grid::gTree(data=data,
+             grid::gTree(data = data,
                          # x = x, y = y,
-                         cols=cols,
+                         cols = cols,
                          # fill = fill,
                          edges = edges,
                          fill.segment = fill.segment,
@@ -944,7 +943,7 @@ GeomPieGlyph <-
                          direction = direction,
                          seed = seed,
                          verbose = verbose,
-                         cl="pieglyphtree"))
+                         cl = "pieglyphtree"))
 
       # ggname("geom_pieglyph",
       #        grid::gTree(
@@ -998,8 +997,7 @@ GeomPieGlyph <-
         col = data$colour,
         fill = if (is.null(params$fill.segment)) {
           data$fill
-        }
-        else {
+        } else {
           params$fill.segment
         },
         lwd = params$linewidth,
@@ -1014,8 +1012,7 @@ GeomPieGlyph <-
         draw.grid = params$draw.grid,
         col.grid = if (is.null(params$colour.grid)) {
           data$colour
-        }
-        else {
+        } else {
           params$colour.grid
         }
       )
@@ -1146,7 +1143,7 @@ makeContent.pieglyphtree <- function(x) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -1169,44 +1166,46 @@ makeContent.pieglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) pieglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               size = g$data$size[i],
-               edges = g$edges,
-               col = g$data$colour[i],
-               fill = if (is.null(g$fill.segment)) {
-                 if (!is.null(g$fill.gradient)) {
-                   unlist(g$gdata[i, ])
+               function(i) {
+                 pieglyphGrob(x = if (g$repel) {
+                   repel$x[i]
                  } else {
-                   g$data$fill[i]
-                 }
-               } else {
-                 g$fill.segment
-               },
-               lwd = g$data$linewidth[i],
-               lwd.grid = g$data$linewidth.grid[i],
-               alpha = g$data$alpha[i],
-               angle.start = g$astrt,
-               angle.stop = g$astp,
-               scale.segment = g$scale.segment,
-               scale.radius = g$scale.radius,
-               linejoin = g$data$linejoin[i],
-               grid.levels = g$grid.levels,
-               draw.grid = g$draw.grid,
-               col.grid = if (is.null(g$colour.grid)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.grid
-               }))
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 size = g$data$size[i],
+                 edges = g$edges,
+                 col = g$data$colour[i],
+                 fill = if (is.null(g$fill.segment)) {
+                   if (!is.null(g$fill.gradient)) {
+                     unlist(g$gdata[i, ])
+                   } else {
+                     g$data$fill[i]
+                   }
+                 } else {
+                   g$fill.segment
+                 },
+                 lwd = g$data$linewidth[i],
+                 lwd.grid = g$data$linewidth.grid[i],
+                 alpha = g$data$alpha[i],
+                 angle.start = g$astrt,
+                 angle.stop = g$astp,
+                 scale.segment = g$scale.segment,
+                 scale.radius = g$scale.radius,
+                 linejoin = g$data$linejoin[i],
+                 grid.levels = g$grid.levels,
+                 draw.grid = g$draw.grid,
+                 col.grid = if (is.null(g$colour.grid)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.grid
+                 })
+               })
 
 
   if (g$repel) {
@@ -1245,4 +1244,3 @@ makeContent.pieglyphtree <- function(x) {
 
   grid::setChildren(g, gl)
 }
-

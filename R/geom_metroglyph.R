@@ -505,18 +505,18 @@ geom_metroglyph <-
            inherit.aes = TRUE) {
 
     # Check cols
-    if (!(is.character(cols) & length(cols) >= 2)) {
+    if (!(is.character(cols) && length(cols) >= 2)) {
       stop('"cols" should be a charachter vector of at least length 2.')
     }
 
     # Check legend.glyph.dims
-    if (is.numeric(legend.glyph.dims) & length(legend.glyph.dims) == 1) {
+    if (is.numeric(legend.glyph.dims) && length(legend.glyph.dims) == 1) {
 
       legend.glyph.dims <- setNames(rep(legend.glyph.dims, length(cols)), cols)
 
     } else { # Check if legend.glyph.dims has same length as cols
       if (is.numeric(legend.glyph.dims)
-          & length(legend.glyph.dims) == length(cols)) {
+          && length(legend.glyph.dims) == length(cols)) {
 
         # Check names of legend.glyph.dims
         if (!(all(names(legend.glyph.dims) %in% cols)
@@ -639,8 +639,9 @@ GeomMetroGlyph <-
       # Check if cols are numeric or factor
       intfactcols <-
         vapply(data[, cols],
-               function(x) !(is.integer(x) || is.numeric(x)
-                             || is.factor(x)),
+               function(x) {
+                 !(is.integer(x) || is.numeric(x) || is.factor(x))
+               },
                logical(1))
 
       if (TRUE %in% intfactcols) {
@@ -783,9 +784,9 @@ GeomMetroGlyph <-
       limits$y[is.na(limits$y)] <- c(0, 1)[is.na(limits$y)]
 
       ggname("geom_metroglyph",
-             grid::gTree(data=data,
+             grid::gTree(data = data,
                          # x = x, y = y,
-                         cols=cols,
+                         cols = cols,
                          # fill = fill,
                          colour.ray = colour.ray,
                          colour.circle = colour.circle,
@@ -817,7 +818,7 @@ GeomMetroGlyph <-
                          direction = direction,
                          seed = seed,
                          verbose = verbose,
-                         cl="metroglyphtree"))
+                         cl = "metroglyphtree"))
 
       # ggname("geom_metroglyph",
       #        grid::gTree(
@@ -881,7 +882,8 @@ GeomMetroGlyph <-
           if (is.null(params$colour.ray)) {
             data$colour
           } else {
-            NA}
+            NA
+            }
         } else {
           params$colour.points
         },
@@ -994,7 +996,7 @@ makeContent.metroglyphtree <- function(x) {
 
     # Repel overlapping bounding boxes away from each other.
     repel <- repel_boxes2(
-      data_points = as.matrix(g$data[,c("x","y")]),
+      data_points = as.matrix(g$data[, c("x", "y")]),
       point_size = point_size,
       point_padding_x = point_padding,
       point_padding_y = point_padding,
@@ -1023,7 +1025,7 @@ makeContent.metroglyphtree <- function(x) {
 
       if (!repel$too_many_overlaps[i]) {
         row <- g$data[i, , drop = FALSE]
-        grid::curveGrob(x1 = repel[i,]$x, y1 = repel[i,]$y,
+        grid::curveGrob(x1 = repel[i, ]$x, y1 = repel[i, ]$y,
                         x2 = row$x, y2 = row$y,
                         default.units = "native",
                         curvature = row$segment.curvature,
@@ -1046,48 +1048,50 @@ makeContent.metroglyphtree <- function(x) {
   }
 
   gl <- lapply(seq_along(g$data$x),
-               function(i) metroglyphGrob(x = if (g$repel) {
-                 repel$x[i]
-               } else {
-                 g$data$x[i]
-               },
-               y = if (g$repel) {
-                 repel$y[i]
-               } else {
-                 g$data$y[i]
-               },
-               z = unlist(g$data[i, g$cols]),
-               size = g$data$size[i],
-               circle.size = g$data$circle.size[i],
-               col.ray = if (is.null(g$colour.ray)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.ray
-               },
-               col.circle = if (is.null(g$colour.circle)) {
-                 g$data$colour[i]
-               } else {
-                 g$colour.circle
-               },
-               fill = g$data$fill[i],
-               lwd.ray = g$data$linewidth.ray[i],
-               lwd.circle = g$data$linewidth.circle[i],
-               alpha = g$data$alpha[i],
-               angle.start = g$astrt,
-               angle.stop = g$astp,
-               lineend = g$data$lineend[i],
-               grid.levels = g$grid.levels,
-               draw.grid = g$draw.grid,
-               grid.point.size = grid::unit(g$grid.point.size, "pt"),
-               col.points = if (is.null(g$colour.points)) {
-                 if (is.null(g$colour.ray)) {
+               function(i) {
+                 metroglyphGrob(x = if (g$repel) {
+                   repel$x[i]
+                 } else {
+                   g$data$x[i]
+                 },
+                 y = if (g$repel) {
+                   repel$y[i]
+                 } else {
+                   g$data$y[i]
+                 },
+                 z = unlist(g$data[i, g$cols]),
+                 size = g$data$size[i],
+                 circle.size = g$data$circle.size[i],
+                 col.ray = if (is.null(g$colour.ray)) {
                    g$data$colour[i]
                  } else {
-                   NA
-                 }
-               } else {
-                 g$colour.points
-               }))
+                   g$colour.ray
+                 },
+                 col.circle = if (is.null(g$colour.circle)) {
+                   g$data$colour[i]
+                 } else {
+                   g$colour.circle
+                 },
+                 fill = g$data$fill[i],
+                 lwd.ray = g$data$linewidth.ray[i],
+                 lwd.circle = g$data$linewidth.circle[i],
+                 alpha = g$data$alpha[i],
+                 angle.start = g$astrt,
+                 angle.stop = g$astp,
+                 lineend = g$data$lineend[i],
+                 grid.levels = g$grid.levels,
+                 draw.grid = g$draw.grid,
+                 grid.point.size = grid::unit(g$grid.point.size, "pt"),
+                 col.points = if (is.null(g$colour.points)) {
+                   if (is.null(g$colour.ray)) {
+                     g$data$colour[i]
+                   } else {
+                     NA
+                   }
+                 } else {
+                   g$colour.points
+                 })
+               })
 
   if (g$repel) {
 
