@@ -463,6 +463,15 @@ ggplot(data = mtcars_fct) +
                  grid.point.size = 5) +
   ylim(c(-0, 550))
 
+ggplot(data = mtcars_fct) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 1.5, alpha =  0.5, draw.grid = TRUE,
+                 grid.point.size = 5) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
 
 ggplot(data = mtcars_fct) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),

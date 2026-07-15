@@ -515,7 +515,7 @@
 #'                                position = "bottom",
 #'                                theme = theme(legend.margin = margin(t = 30, b = 30))))
 #'
-#' # Legend in plots with grid points (when scale.radius = TRUE)
+#' # Legend in plots with grid lines (when scale.radius = TRUE)
 #'
 #' z_grid <- c(hp = 3, drat = 3, wt = 2,
 #'             qsec = 2, vs = 3, am = 4,
@@ -526,6 +526,15 @@
 #'                 cols = zs, size = 1,
 #'                 alpha =  0.8, draw.grid = TRUE) +
 #'   ylim(c(-0, 550))
+#'
+#' ggplot(data = mtcars_fct) +
+#'   geom_pieglyph(aes(x = mpg, y = disp, fill = cyl),
+#'                 cols = zs, size = 1,
+#'                 alpha =  0.8, draw.grid = TRUE) +
+#'   ylim(c(-0, 550)) +
+#'   scale_z_discrete(z = zs) +
+#'   guide_z_order(z = zs, default_aes = "fill") +
+#'   legend_theme
 #'
 #' ggplot(data = mtcars_fct) +
 #'   geom_pieglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -779,7 +788,7 @@ GeomPieGlyph <-
         draw.grid <- FALSE
         warning(
           'Not all columns specified in "cols" are ordered factors.\n',
-          'Unable to plot grid points.'
+          'Unable to plot grid lines.'
         )
       }
 

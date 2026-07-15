@@ -771,7 +771,7 @@ ggplot(data = mtcars) +
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 5, b = 30))))
 
-# Legend in plots with grid points
+# Legend in plots with grid lines
 
 z_grid <- c(hp = 3, drat = 3, wt = 2,
             qsec = 2, vs = 3, am = 4,
@@ -782,6 +782,15 @@ ggplot(data = mtcars_fct) +
                     cols = zs, size = 1, width = 1,
                     alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
+                    cols = zs, size = 1, width = 1,
+                    alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
 
 ggplot(data = mtcars_fct) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),

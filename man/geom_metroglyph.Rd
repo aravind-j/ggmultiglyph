@@ -519,6 +519,17 @@ ggplot(data = mtcars_fct) +
                   cols = zs, circle.size = 1, colour.ray = NULL,
                   linewidth.circle = 2, linewidth.ray = 2,
                   size = 1.5, alpha =  0.8,
+                  draw.grid = TRUE, grid.point.size = 5) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
+ggplot(data = mtcars_fct) +
+  geom_metroglyph(aes(x = mpg, y = disp, colour = cyl),
+                  cols = zs, circle.size = 1, colour.ray = NULL,
+                  linewidth.circle = 2, linewidth.ray = 2,
+                  size = 1.5, alpha =  0.8,
                   draw.grid = TRUE, grid.point.size = 5,
                   legend.glyph.dims = z_grid) +
   ylim(c(-0, 550))
