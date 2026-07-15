@@ -722,6 +722,15 @@ guide_profilegrob2 <-
                      push = 1, segment = FALSE,
                      angle = 45, hjust = 1)
 
+# Multivariate colour version
+guide_profilegrob_mcol <- profileglyphGrob(
+  z = rep(0.5, length(zs)),
+  size = 25, fill = RColorBrewer::brewer.pal(8, "Dark2"))
+guide_profilegrob_mcol <-
+  addlabel.glyphGrob(grob = guide_profilegrob_mcol, label = zs,
+                     push = 1, segment = FALSE,
+                     angle = 45, hjust = 1)
+
 ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
   geom_profileglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -747,6 +756,20 @@ ggplot(data = mtcars) +
                                height = unit(0.1, "npc"),
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 7, b = 30))))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp)) +
+  geom_profileglyph(aes(x = mpg, y = disp),
+                    cols = zs, size = 5, width = 1,
+                    fill.bar = RColorBrewer::brewer.pal(8, "Dark2"),
+                    alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550)) +
+  guides(fill = guide_legend(order = 1, position = "right"),
+         custom = guide_custom(guide_profilegrob_mcol,
+                               width = unit(0.1, "npc"),
+                               height = unit(0.1, "npc"),
+                               position = "bottom",
+                               theme = theme(legend.margin = margin(t = 5, b = 30))))
 
 # Legend in plots with grid points
 
