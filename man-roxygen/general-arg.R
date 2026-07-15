@@ -1,5 +1,6 @@
-#' @param cols Name of at least two columns specifying the variables to be
-#'   plotted in the glyphs as a character vector.
+#' @param cols A character vector containing the names of at least two columns
+#'   specifying the variables to be plotted in the glyphs. The selected columns
+#'   must be either numeric or factor variables.
 #' @param legend.glyph.dims The dimensions of the legend glyph plot. Can be a
 #'   numeric vector of unit length (where all the dimensions will have same
 #'   value) or a numeric vector of same length as "cols" with the "cols" as

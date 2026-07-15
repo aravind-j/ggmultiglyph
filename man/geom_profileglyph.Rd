@@ -85,8 +85,9 @@ are often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "green"} or \code{size = 3}. They may also be parameters to
 the paired geom/stat.}
 
-\item{cols}{Name of at least two columns specifying the variables to be
-plotted in the glyphs as a character vector.}
+\item{cols}{A character vector containing the names of at least two columns
+specifying the variables to be plotted in the glyphs. The selected columns
+must be either numeric or factor variables.}
 
 \item{width}{The width of the bars.}
 

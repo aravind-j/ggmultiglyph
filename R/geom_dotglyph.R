@@ -5,6 +5,9 @@
 #' scatterplot.
 #'
 #' @template general-arg
+#' @param cols A character vector containing the names of at least two columns
+#'   specifying the variables to be plotted in the glyphs. The selected columns
+#'   must be factor variables.
 #' @template fill.gradient-arg
 #' @template repel-arg
 #' @inheritParams ggplot2::layer
