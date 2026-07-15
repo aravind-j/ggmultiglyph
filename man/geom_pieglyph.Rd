@@ -219,6 +219,7 @@ ggplot(data = mtcars) +
                 alpha =  0.8, full = FALSE) +
   ylim(c(-0, 550))
 
+\donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Mapped fill + scaled segment ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -714,6 +715,7 @@ ggplot(data = mtcars_fct) +
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 
+}
 }
 \references{
 \insertAllCited{}

@@ -212,6 +212,7 @@ ggplot(data = mtcars) +
   theme_bw(base_size = 7.5) +
   legend_theme
 
+\donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Repel glyphs ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,6 +238,7 @@ ggplot(data = mtcars) +
   guide_z_order(z = zs, default_aes = "fill") +
   theme_bw(base_size = 7.5) +
   legend_theme
+}
 
 }
 \references{

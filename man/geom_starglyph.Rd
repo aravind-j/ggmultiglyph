@@ -228,6 +228,7 @@ ggplot(data = mtcars) +
                  linewidth.whisker = 1, linewidth.contour = 3) +
   ylim(c(-0, 550))
 
+\donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Only contours (polygon) ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -544,6 +545,7 @@ ggplot(data = mtcars_fct) +
                                height = unit(0.1, "npc"),
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 20, b = 30))))
+}
 
 }
 \references{

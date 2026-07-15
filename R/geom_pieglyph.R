@@ -109,6 +109,7 @@
 #'                 alpha =  0.8, full = FALSE) +
 #'   ylim(c(-0, 550))
 #'
+#' \donttest{
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Mapped fill + scaled segment ----
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -604,6 +605,7 @@
 #'                                position = "bottom",
 #'                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 #'
+#' }
 geom_pieglyph <-
   function(mapping = NULL, data = NULL, stat = "identity",
            position = "identity", ...,

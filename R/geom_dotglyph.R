@@ -109,6 +109,7 @@
 #'                 alpha =  0.8) +
 #'   ylim(c(-0, 550))
 #'
+#' \donttest{
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Mapped colour ----
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,6 +412,7 @@
 #'                                height = unit(0.1, "npc"),
 #'                                position = "bottom",
 #'                                theme = theme(legend.margin = margin(t = 5, b = 30))))
+#' }
 #'
 geom_dotglyph <-
   function(mapping = NULL, data = NULL, stat = "identity",

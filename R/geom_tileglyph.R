@@ -120,6 +120,7 @@
 #'   theme_bw(base_size = 7.5) +
 #'   legend_theme
 #'
+#' \donttest{
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Repel glyphs ----
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,6 +146,7 @@
 #'   guide_z_order(z = zs, default_aes = "fill") +
 #'   theme_bw(base_size = 7.5) +
 #'   legend_theme
+#' }
 #'
 geom_tileglyph <-
   function(mapping = NULL, data = NULL, stat = "identity",

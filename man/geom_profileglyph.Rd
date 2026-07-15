@@ -243,6 +243,7 @@ ggplot(data = mtcars) +
                     alpha =  0.8) +
   ylim(c(-0, 550))
 
+\donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Mapped fill + line ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -857,6 +858,7 @@ ggplot(data = mtcars_fct) +
                                height = unit(0.1, "npc"),
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 5, b = 30))))
+}
 
 }
 \references{
