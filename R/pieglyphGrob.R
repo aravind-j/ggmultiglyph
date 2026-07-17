@@ -490,8 +490,6 @@ pieglyphGrob <- function(x = .5, y = .5, z,
 
   # grid::grid.points(x = x, y = y, pch =  20)
 
-  drawgridlines <- FALSE
-
   # Checks for grid lines
   drawgridlines <- FALSE
 
