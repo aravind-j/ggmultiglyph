@@ -18,11 +18,11 @@ Source:
 [`inst/CITATION`](https://github.com/aravind-j/ggmultiglyph/blob/master/inst/CITATION)
 
 Aravind, J. (). ggmultiglyph: Multivariate Data Visualization using
-Glyphs. R package version 0.0.0.9000,
+Glyphs. R package version 0.1.0,
 https://aravind-j.github.io/ggmultiglyph/.
 
     @Manual{,
       title = {ggmultiglyph: Multivariate Data Visualization using Glyphs},
       author = {J. Aravind},
-      note = {R package version 0.0.0.9000 https://aravind-j.github.io/ggmultiglyph/},
+      note = {R package version 0.1.0 https://aravind-j.github.io/ggmultiglyph/},
     }

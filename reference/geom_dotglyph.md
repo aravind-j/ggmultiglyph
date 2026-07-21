@@ -105,8 +105,9 @@ geom_dotglyph(
 
 - cols:
 
-  Name of at least two columns specifying the variables to be plotted in
-  the glyphs as a character vector.
+  A character vector containing the names of at least two columns
+  specifying the variables to be plotted in the glyphs. The selected
+  columns must be factor variables.
 
 - radius:
 
@@ -316,6 +317,7 @@ ggplot(data = mtcars_fct) +
   ylim(c(-0, 550))
 
 
+# \donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Mapped colour ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -645,4 +647,5 @@ ggplot(data = mtcars_fct) +
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 5, b = 30))))
 
+# }
 ```

@@ -19,7 +19,7 @@ scatterplot."><!-- Global site tag (gtag.js) - Google Analytics --><script async
 
     <a class="navbar-brand me-2" href="../index.html">ggmultiglyph</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,8 +150,9 @@ the paired geom/stat.</p></dd>
 
 
 <dt id="arg-cols">cols<a class="anchor" aria-label="anchor" href="#arg-cols"></a></dt>
-<dd><p>Name of at least two columns specifying the variables to be
-plotted in the glyphs as a character vector.</p></dd>
+<dd><p>A character vector containing the names of at least two columns
+specifying the variables to be plotted in the glyphs. The selected columns
+must be either numeric or factor variables.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
@@ -378,6 +379,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">550</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_profileglyph-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Mapped fill + line ----</span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
@@ -910,6 +912,15 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                     push <span class="op">=</span> <span class="fl">1</span>, segment <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                     angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Multivariate colour version</span></span></span>
+<span class="r-in"><span><span class="va">guide_profilegrob_mcol</span> <span class="op">&lt;-</span> <span class="fu"><a href="profileglyphGrob.html">profileglyphGrob</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">zs</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  size <span class="op">=</span> <span class="fl">25</span>, fill <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">guide_profilegrob_mcol</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="addlabel.glyphGrob.html">addlabel.glyphGrob</a></span><span class="op">(</span>grob <span class="op">=</span> <span class="va">guide_profilegrob_mcol</span>, label <span class="op">=</span> <span class="va">zs</span>,</span></span>
+<span class="r-in"><span>                     push <span class="op">=</span> <span class="fl">1</span>, segment <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                     angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, colour <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, fill <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span></span>
@@ -938,7 +949,22 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                               theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">7</span>, b <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_profileglyph-57.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Legend in plots with grid points</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    cols <span class="op">=</span> <span class="va">zs</span>, size <span class="op">=</span> <span class="fl">5</span>, width <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                    fill.bar <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    alpha <span class="op">=</span>  <span class="fl">1</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">550</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">1</span>, position <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         custom <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_custom.html" class="external-link">guide_custom</a></span><span class="op">(</span><span class="va">guide_profilegrob_mcol</span>,</span></span>
+<span class="r-in"><span>                               width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                               height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                               position <span class="op">=</span> <span class="st">"bottom"</span>,</span></span>
+<span class="r-in"><span>                               theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">5</span>, b <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_profileglyph-58.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Legend in plots with grid lines</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">z_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>hp <span class="op">=</span> <span class="fl">3</span>, drat <span class="op">=</span> <span class="fl">3</span>, wt <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>            qsec <span class="op">=</span> <span class="fl">2</span>, vs <span class="op">=</span> <span class="fl">3</span>, am <span class="op">=</span> <span class="fl">4</span>,</span></span>
@@ -949,7 +975,17 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                    cols <span class="op">=</span> <span class="va">zs</span>, size <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span>  <span class="fl">0.8</span>, draw.grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">550</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_profileglyph-58.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_profileglyph-59.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars_fct</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, fill <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    cols <span class="op">=</span> <span class="va">zs</span>, size <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                    alpha <span class="op">=</span>  <span class="fl">0.8</span>, draw.grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">550</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="scale_z_discrete.html">scale_z_discrete</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">zs</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="guide_z_order.html">guide_z_order</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">zs</span>, default_aes <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="va">legend_theme</span></span></span>
+<span class="r-plt img"><img src="geom_profileglyph-60.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars_fct</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, fill <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span></span>
@@ -957,7 +993,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                    alpha <span class="op">=</span>  <span class="fl">0.8</span>, draw.grid <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                    legend.glyph.dims <span class="op">=</span> <span class="va">z_grid</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">550</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_profileglyph-59.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_profileglyph-61.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars_fct</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, fill <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span></span>
@@ -968,7 +1004,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>  <span class="fu"><a href="scale_z_discrete.html">scale_z_discrete</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">zs</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="guide_z_order.html">guide_z_order</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">zs</span>, default_aes <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="va">legend_theme</span></span></span>
-<span class="r-plt img"><img src="geom_profileglyph-60.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_profileglyph-62.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># profileglyphGrob with grid levels</span></span></span>
 <span class="r-in"><span></span></span>
@@ -1006,7 +1042,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                               height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               position <span class="op">=</span> <span class="st">"bottom"</span>,</span></span>
 <span class="r-in"><span>                               theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">5</span>, b <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_profileglyph-61.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_profileglyph-63.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars_fct</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_profileglyph</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span>, fill <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span></span>
@@ -1019,7 +1055,8 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                               height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               position <span class="op">=</span> <span class="st">"bottom"</span>,</span></span>
 <span class="r-in"><span>                               theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">5</span>, b <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_profileglyph-62.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_profileglyph-64.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

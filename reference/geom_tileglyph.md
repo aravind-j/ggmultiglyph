@@ -104,8 +104,9 @@ geom_tileglyph(
 
 - cols:
 
-  Name of at least two columns specifying the variables to be plotted in
-  the glyphs as a character vector.
+  A character vector containing the names of at least two columns
+  specifying the variables to be plotted in the glyphs. The selected
+  columns must be either numeric or factor variables.
 
 - colour:
 
@@ -313,6 +314,7 @@ ggplot(data = mtcars) +
   legend_theme
 
 
+# \donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Repel glyphs ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -340,4 +342,5 @@ ggplot(data = mtcars) +
   theme_bw(base_size = 7.5) +
   legend_theme
 
+# }
 ```

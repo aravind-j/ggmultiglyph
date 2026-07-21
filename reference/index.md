@@ -30,6 +30,15 @@
 - [`tileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/tileglyphGrob.md)
   : Draw a Tile Glyph
 
+## Scales
+
+- [`scale_z_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_continuous.md)
+  : Alter scales for continuous data mapped to glyphs
+- [`scale_z_fill_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_fill_continuous.md)
+  : Alter scales for continuous data mapped to glyphs fill colour
+- [`scale_z_discrete()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_discrete.md)
+  : Alter scales for discrete data mapped to glyphs
+
 ## Helpers
 
 - [`ggmultiglyph.repel.control()`](https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.repel.control.md)
@@ -37,15 +46,6 @@
 
 - [`ggmultiglyph.segment.control()`](https://aravind-j.github.io/ggmultiglyph/reference/ggmultiglyph.segment.control.md)
   : Control Parameters for Drawing Curved Connecting Segments
-
-- [`scale_z_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_continuous.md)
-  : Alter scales for continuous data mapped to glyphs
-
-- [`scale_z_fill_continuous()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_fill_continuous.md)
-  : Alter scales for continuous data mapped to glyphs fill colour
-
-- [`scale_z_discrete()`](https://aravind-j.github.io/ggmultiglyph/reference/scale_z_discrete.md)
-  : Alter scales for discrete data mapped to glyphs
 
 - [`guide_z_order()`](https://aravind-j.github.io/ggmultiglyph/reference/guide_z_order.md)
   :

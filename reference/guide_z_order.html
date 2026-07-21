@@ -15,7 +15,7 @@ multiple col aesthetics."><!-- Global site tag (gtag.js) - Google Analytics --><
 
     <a class="navbar-brand me-2" href="../index.html">ggmultiglyph</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,11 +78,11 @@ whose legend should appear first. Defaults to <code>"fill"</code>.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is primarily intended for use with <code>ggmultiglyph</code> scales such as
-<code><a href="scale_z_continuous.html">scale_z_continuous()</a></code>. Internally, <span class="pkg">ggplot2</span> may not preserve the
-order of aesthetics supplied to a scale when guides are assembled during plot
-construction (via the internal guide setup machinery i.e.
-<code>ggplot2:::Guides$setup()</code> in <code>ggplot2</code> v 4.0.0). As a result,
+    <p>This function is primarily intended for use with <code>ggmultiglyph</code> scales
+such as <code><a href="scale_z_continuous.html">scale_z_continuous()</a></code>. Internally, <span class="pkg">ggplot2</span> may not
+preserve the order of aesthetics supplied to a scale when guides are
+assembled during plot construction (via the internal guide setup machinery
+i.e. <code>ggplot2:::Guides$setup()</code> in <code>ggplot2</code> v 4.0.0). As a result,
 legends corresponding to <code>z</code> aesthetics can appear in an order that
 differs from the order specified by the user.</p>
 <p><code>guide_z_order()</code> constructs a <code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides()</a></code> specification that

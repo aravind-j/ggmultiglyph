@@ -110,8 +110,9 @@ geom_starglyph(
 
 - cols:
 
-  Name of at least two columns specifying the variables to be plotted in
-  the glyphs as a character vector.
+  A character vector containing the names of at least two columns
+  specifying the variables to be plotted in the glyphs. The selected
+  columns must be either numeric or factor variables.
 
 - whisker:
 
@@ -352,6 +353,7 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550))
 
 
+# \donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Only contours (polygon) ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -614,6 +616,16 @@ ggplot(data = mtcars_fct) +
   ylim(c(-0, 550))
 
 
+ggplot(data = mtcars_fct) +
+  geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
+                 cols = zs, whisker = TRUE, contour = TRUE,
+                 size = 1.5, alpha =  0.5, draw.grid = TRUE,
+                 grid.point.size = 5) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
+
 
 ggplot(data = mtcars_fct) +
   geom_starglyph(aes(x = mpg, y = disp, fill = cyl),
@@ -690,4 +702,5 @@ ggplot(data = mtcars_fct) +
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 
+# }
 ```

@@ -109,8 +109,9 @@ geom_pieglyph(
 
 - cols:
 
-  Name of at least two columns specifying the variables to be plotted in
-  the glyphs as a character vector.
+  A character vector containing the names of at least two columns
+  specifying the variables to be plotted in the glyphs. The selected
+  columns must be either numeric or factor variables.
 
 - edges:
 
@@ -333,6 +334,7 @@ ggplot(data = mtcars) +
   ylim(c(-0, 550))
 
 
+# \donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Mapped fill + scaled segment ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -786,7 +788,7 @@ ggplot(data = mtcars) +
                                theme = theme(legend.margin = margin(t = 30, b = 30))))
 
 
-# Legend in plots with grid points (when scale.radius = TRUE)
+# Legend in plots with grid lines (when scale.radius = TRUE)
 
 z_grid <- c(hp = 3, drat = 3, wt = 2,
             qsec = 2, vs = 3, am = 4,
@@ -797,6 +799,16 @@ ggplot(data = mtcars_fct) +
                 cols = zs, size = 1,
                 alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
+
+
+ggplot(data = mtcars_fct) +
+  geom_pieglyph(aes(x = mpg, y = disp, fill = cyl),
+                cols = zs, size = 1,
+                alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550)) +
+  scale_z_discrete(z = zs) +
+  guide_z_order(z = zs, default_aes = "fill") +
+  legend_theme
 
 
 ggplot(data = mtcars_fct) +
@@ -870,4 +882,6 @@ ggplot(data = mtcars_fct) +
                                position = "bottom",
                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 
+
+# }
 ```
