@@ -13,8 +13,10 @@ Authors@R: c(
     person("ICAR-NBGPR",
            role = c("cph"),
 		       comment = c(url = "https://nbpgr.org.in/")))
-Description: Provides geoms for visualizing multivariate data as glyphs using 
-     'ggplot2'.
+Description: Provides 'ggplot2' geoms for visualizing multivariate data using 
+    glyphs. The package implements several established glyph designs described 
+    in the information visualization literature, including the review by Borgo 
+    et al. (2013) <doi:10.2312/conf/EG2013/stars/039-063>.
 Copyright: 2021-2026, ICAR-NBPGR
 License: GPL-2 | GPL-3
 Encoding: UTF-8

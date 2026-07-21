@@ -34,9 +34,9 @@ Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resour
 ***
 [![minimal R version](https://img.shields.io/badge/R>%3D-3.5.0-6666ff.svg?logo=R)](https://cran.r-project.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/ggmultiglyph)](https://cran.r-project.org/package=ggmultiglyph)
-[![Dependencies](https://tinyverse.netlify.app/status/ggmultiglyph)](https://cran.r-project.org/package=ggmultiglyph)
-[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggmultiglyph?color=green)](https://CRAN.R-project.org/package=ggmultiglyph)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/ggmultiglyph)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
+[![Dependencies](https://tinyverse.netlify.app/status/ggmultiglyph)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggmultiglyph?color=green)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
 ```{r, results='asis', echo=FALSE}
 dver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("ggmultiglyph")) != "",
                yes = getNamespaceVersion("ggmultiglyph"),
