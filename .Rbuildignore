@@ -15,3 +15,5 @@
 ^vignettes/.*\.log$
 ^CITATION\.cff$
 ^codemeta\.json$
+^cran-comments-archive\.md$
+^cran-comments\.md$
