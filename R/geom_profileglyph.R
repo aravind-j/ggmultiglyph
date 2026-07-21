@@ -1207,7 +1207,7 @@ GeomProfileGlyph <-
           params$colour.grid
         }
       )
-    },
+    }
   )
 
 #' grid::makeContent function for the grobTree of profileglyphGrob objects
