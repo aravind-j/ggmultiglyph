@@ -22,7 +22,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Dependencies](https://tinyverse.netlify.app/status/ggmultiglyph)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggmultiglyph?color=green)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/aravind-j/ggmultiglyph)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.1.0-orange.svg)](https://github.com/aravind-j/ggmultiglyph)
 [![Github Code
 Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.svg)](https://github.com/aravind-j/ggmultiglyph)
 [![R-CMD-check](https://github.com/aravind-j/ggmultiglyph/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/ggmultiglyph/actions)
@@ -98,7 +98,8 @@ citation("ggmultiglyph")
 
     To cite the R package 'ggmultiglyph' in publications use:
 
-      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package version 0.1.0,
+      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization
+      using Glyphs. R package version 0.1.0,
       https://aravind-j.github.io/ggmultiglyph/.
 
     A BibTeX entry for LaTeX users is
@@ -110,5 +111,6 @@ citation("ggmultiglyph")
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If you use it, please support the
-    project by citing the package.
+    This free and open-source software implements academic research by the
+    authors and co-workers. If you use it, please support the project by
+    citing the package.
