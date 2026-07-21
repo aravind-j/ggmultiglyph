@@ -1,6 +1,6 @@
 Package: ggmultiglyph
 Title: Multivariate Data Visualization using Glyphs
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.org.in",
@@ -15,6 +15,7 @@ Authors@R: c(
 		       comment = c(url = "https://nbpgr.org.in/")))
 Description: Provides geoms for visualizing multivariate data as glyphs using 
      'ggplot2'.
+Copyright: 2021-2026, ICAR-NBPGR
 License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: true

@@ -5,7 +5,7 @@
 
 ## `ggmultiglyph`: Multivariate Data Visualization using Glyphs <img src="https://raw.githubusercontent.com/aravind-j/ggmultiglyph/master/inst/extdata/ggmultiglyph.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.0.0.9000](https://aravind-j.github.io/ggmultiglyph/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.0](https://aravind-j.github.io/ggmultiglyph/); Copyright (C) 2021-2026: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### Aravind, J.
 
@@ -29,11 +29,12 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.s
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--08-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--21-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxxx) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
-[![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
+<!-- [![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon) -->
+[![GoatCounter](https://ggmultiglyph-gh.goatcounter.com/count?p=/test)](https://ggmultiglyph-gh.goatcounter.com/)
 <!-- [![packageversion](https://img.shields.io/badge/Package%20version-0.2.3.3-orange.svg)](https://github.com/aravind-j/ggmultiglyph) -->
 <!-- [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/aravind-j/ggmultiglyph/total.svg)] -->
 <!-- [![Rdoc](http://www.rdocumentation.org/badges/version/ggmultiglyph)](http://www.rdocumentation.org/packages/ggmultiglyph) -->
@@ -94,8 +95,8 @@ citation("ggmultiglyph")
 
     To cite the R package 'ggmultiglyph' in publications use:
 
-      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package
-      version 0.0.0.9000, https://aravind-j.github.io/ggmultiglyph/.
+      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package version
+      0.0.0.9000, https://aravind-j.github.io/ggmultiglyph/.
 
     A BibTeX entry for LaTeX users is
 
@@ -106,5 +107,5 @@ citation("ggmultiglyph")
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If
-    you use it, please support the project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If you use
+    it, please support the project by citing the package.
