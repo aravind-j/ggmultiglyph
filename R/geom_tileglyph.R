@@ -388,7 +388,7 @@ GeomTileGlyph <- ggplot2::ggproto(
 
     if (length(fcols) > 0)  {
       data[, fcols] <-
-        lapply(data[, cols], function(f) as.numeric(levels(f))[f])
+        lapply(data[, fcols], function(f) as.numeric(levels(f))[f])
     }
 
     # The nudge is relative to the data.
