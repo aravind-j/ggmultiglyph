@@ -148,7 +148,12 @@ expnd_lim <- function(lim, frac = 0.25) {
   lim + c(-1, 1) * r * frac
 }
 
-# Not exported; used only in examples
+#' Internal Setup for Examples
+#'
+#' Sets up the theme and colour options for example code.
+#'
+#' @keywords internal
+#' @export
 .ggmultiglyph_ex_setup <- function() {
   ggplot2::theme_set(ggplot2::theme_bw())
   options(
