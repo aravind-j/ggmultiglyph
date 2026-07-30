@@ -45,7 +45,7 @@
 #'   \code{grid::arrow()}.
 #'
 #'
-#' @return A list with the following components to control the repel algorithm
+#' @return A list with the following components to control the xurved segments
 #'   corresponding to the same in \strong{Arguments}. \item{segment.curvature}{}
 #'   \item{segment.angle}{} \item{segment.ncp}{} \item{segment.shape}{}
 #'   \item{segment.square}{} \item{segment.squareShape}{}
@@ -56,8 +56,6 @@
 #' @encoding UTF-8
 #'
 #' @seealso \code{\link[ggmultiglyph]{addlabel.glyphGrob}}
-#'
-#' @export
 #'
 #' @export
 ggmultiglyph.segment.control <- function(segment.curvature = 0,

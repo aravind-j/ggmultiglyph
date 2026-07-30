@@ -57,7 +57,7 @@ points inserted if square is \code{TRUE}. Defaults to 1.}
 \code{grid::arrow()}.}
 }
 \value{
-A list with the following components to control the repel algorithm
+A list with the following components to control the xurved segments
   corresponding to the same in \strong{Arguments}. \item{segment.curvature}{}
   \item{segment.angle}{} \item{segment.ncp}{} \item{segment.shape}{}
   \item{segment.square}{} \item{segment.squareShape}{}
