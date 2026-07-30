@@ -24,6 +24,16 @@ scale_z_fill_continuous(..., palette, z, guide = c("legend"))
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[ggplot2]{guides}}for more information.}
 }
+\value{
+A continuous colour scale object (one of
+  \code{\link[ggplot2]{scale_color_distiller}},
+  \code{\link[ggplot2]{scale_color_viridis_c}}, or
+  \code{\link[ggplot2]{scale_color_continuous}}, depending on \code{palette})
+  that can be added to a \code{ggplot} object. The returned scale applies to
+  all aesthetics named in \code{z} simultaneously, mapping their combined,
+  pooled range to a continuous colour gradient for use as the fill/colour of
+  glyph segments in the corresponding \code{geom_*glyph()} layer.
+}
 \description{
 Scale variable(s) mapped to the glyph fill colours.
 }

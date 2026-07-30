@@ -15,6 +15,13 @@ scale_z_continuous(..., range = c(0.1, 1), z)
 
 \item{z}{The variable(s) mapped to the glyph as a character vector.}
 }
+\value{
+A \code{\link[ggplot2]{continuous_scale}} object that can be added to
+  a \code{ggplot} object. The returned scale applies to all aesthetics named
+  in \code{z} simultaneously (i.e. the variables specified via \code{cols} in
+  the corresponding \code{geom_*glyph()} layer), rescaling their combined,
+  pooled range to \code{range} for use in determining glyph dimensions.
+}
 \description{
 Scale variable(s) mapped to the glyphs to the given range using
 \code{\link[scales]{rescale_pal}}. Each variable in \code{z} gets its own

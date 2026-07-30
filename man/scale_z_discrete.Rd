@@ -21,6 +21,19 @@ to "NA".}
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[ggplot2]{guides}}for more information.}
 }
+\value{
+If \code{z} is of length one, a single
+  \code{\link[ggplot2]{discrete_scale}} object built on
+  \code{ScaleDiscreteZIdentity}. If \code{z} has length greater than one, a
+  \code{list} of such \code{discrete_scale} objects, one per variable named
+  in \code{z}, which can be added to a \code{ggplot} object (via \code{+})
+  to attach independent identity scales to each variable. Each scale passes
+  the ordinal rank of the ordered factor levels through unchanged (rather
+  than mapping them to a palette), so that \code{draw.grid = TRUE} in the
+  corresponding \code{geom_*glyph()} layer can use the values directly for
+  grid-level placement, while still providing a legend showing the factor
+  levels for each variable.
+}
 \description{
 Scale variable(s) mapped to the glyphs as discrete/ordered factors. Each
 variable in \code{z} gets its own independent discrete scale.

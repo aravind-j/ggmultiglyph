@@ -27,6 +27,12 @@
 #'   \code{z} are to be scaled.
 #' @param z The variable(s) mapped to the glyph as a character vector.
 #'
+#' @return A \code{\link[ggplot2]{continuous_scale}} object that can be added to
+#'   a \code{ggplot} object. The returned scale applies to all aesthetics named
+#'   in \code{z} simultaneously (i.e. the variables specified via \code{cols} in
+#'   the corresponding \code{geom_*glyph()} layer), rescaling their combined,
+#'   pooled range to \code{range} for use in determining glyph dimensions.
+#'
 #' @importFrom scales rescale_pal
 #' @importFrom ggplot2 continuous_scale
 #'
@@ -58,6 +64,15 @@ scale_z_continuous <- function(..., range = c(0.1, 1), z) {
 #' @param guide A function used to create a guide or its name. See
 #'   \code{\link[ggplot2]{guides}}for more information.
 #' @param z The variable(s) mapped to the glyph as a character vector.
+#'
+#' @return A continuous colour scale object (one of
+#'   \code{\link[ggplot2]{scale_color_distiller}},
+#'   \code{\link[ggplot2]{scale_color_viridis_c}}, or
+#'   \code{\link[ggplot2]{scale_color_continuous}}, depending on \code{palette})
+#'   that can be added to a \code{ggplot} object. The returned scale applies to
+#'   all aesthetics named in \code{z} simultaneously, mapping their combined,
+#'   pooled range to a continuous colour gradient for use as the fill/colour of
+#'   glyph segments in the corresponding \code{geom_*glyph()} layer.
 #'
 #' @importFrom ggplot2 guide_colourbar guide_coloursteps scale_color_continuous
 #' @importFrom ggplot2 scale_color_distiller scale_color_viridis_c
@@ -122,6 +137,18 @@ scale_z_fill_continuous <- function(..., palette, z,
 #' @param na.value The aesthetic value to use for missing values.
 #' @param guide A function used to create a guide or its name. See
 #'   \code{\link[ggplot2]{guides}}for more information.
+#'
+#' @return If \code{z} is of length one, a single
+#'   \code{\link[ggplot2]{discrete_scale}} object built on
+#'   \code{ScaleDiscreteZIdentity}. If \code{z} has length greater than one, a
+#'   \code{list} of such \code{discrete_scale} objects, one per variable named
+#'   in \code{z}, which can be added to a \code{ggplot} object (via \code{+})
+#'   to attach independent identity scales to each variable. Each scale passes
+#'   the ordinal rank of the ordered factor levels through unchanged (rather
+#'   than mapping them to a palette), so that \code{draw.grid = TRUE} in the
+#'   corresponding \code{geom_*glyph()} layer can use the values directly for
+#'   grid-level placement, while still providing a legend showing the factor
+#'   levels for each variable.
 #'
 #' @importFrom ggplot2 discrete_scale
 #' @export
