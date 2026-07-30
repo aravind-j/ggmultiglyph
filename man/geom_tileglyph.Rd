@@ -141,7 +141,7 @@ to 'autoglyph' \insertCite{beddow_shape_1990}{ggmultiglyph} or 'stripe glyph'
 }
 
 \examples{
-\dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
+\dontshow{ggmultiglyph::.ggmultiglyph_ex_setup()}
 
 library(ggplot2)
 

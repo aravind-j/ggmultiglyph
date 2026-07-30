@@ -165,7 +165,7 @@ in a scatterplot.
 
 \examples{
 
-\dontshow{ggmultiglyph:::.ggmultiglyph_ex_setup()}
+\dontshow{ggmultiglyph::.ggmultiglyph_ex_setup()}
 
 library(ggplot2)
 
