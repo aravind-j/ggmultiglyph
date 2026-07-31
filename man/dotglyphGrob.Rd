@@ -442,6 +442,8 @@ grid.arrange(dg3, dg4, nrow = 1)
 \code{\link[ggmultiglyph]{geom_dotglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
+\code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},
 \code{\link[=profileglyphGrob]{profileglyphGrob()}},

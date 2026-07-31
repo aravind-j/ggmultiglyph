@@ -511,7 +511,9 @@ grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
 \code{\link[ggmultiglyph]{geom_pieglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=profileglyphGrob]{profileglyphGrob()}},
 \code{\link[=starglyphGrob]{starglyphGrob()}},

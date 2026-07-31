@@ -869,7 +869,9 @@ ggplot(data = mtcars_fct) +
 \code{\link[ggmultiglyph]{profileglyphGrob}}
 
 Other geoms:
+\code{\link[=geom_bubbleglyph]{geom_bubbleglyph()}},
 \code{\link[=geom_dotglyph]{geom_dotglyph()}},
+\code{\link[=geom_flowerglyph]{geom_flowerglyph()}},
 \code{\link[=geom_metroglyph]{geom_metroglyph()}},
 \code{\link[=geom_pieglyph]{geom_pieglyph()}},
 \code{\link[=geom_starglyph]{geom_starglyph()}},

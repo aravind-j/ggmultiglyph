@@ -242,7 +242,9 @@ grid.arrange(tg1, tg2, tg3, tg4,
 \code{\link[ggmultiglyph]{geom_tileglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
+\code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},
 \code{\link[=profileglyphGrob]{profileglyphGrob()}},
