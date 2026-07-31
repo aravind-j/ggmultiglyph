@@ -7,7 +7,7 @@ always_allow_html: true
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "",
-  fig.path = "inst/extdata/"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -61,6 +61,86 @@ cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver
 
 ## Description
 `r gsub("(<doi:)(.+)(>)", "[doi:\\2](https://doi.org/\\2)", gsub("\\n", " ", packageDescription("ggmultiglyph", fields = "Description")))`
+
+```{r readme-plot, echo=FALSE, out.width='100%', fig.height=10, fig.width=8, out.width='100%', dpi = 250}
+
+suppressPackageStartupMessages(library(ggmultiglyph))
+
+library(grid)
+library(gridExtra)
+
+
+gp_vec <- gpar(fontsize = 12, fontface = "bold")
+
+z_grid <- c(hp = 3, drat = 3, wt = 2,
+            qsec = 2, vs = 3, am = 4,
+            gear = 2, carb = 3)
+
+clrs <- mapply(function(a, b) rep(a, b),
+               RColorBrewer::brewer.pal(8, "Dark2"),
+               z_grid)
+clrs <- unlist(clrs)
+
+
+dotgrob <-
+  dotglyphGrob(x = 0.6, z = z_grid, radius = 2,
+               mirror = TRUE,
+               fill = clrs)
+
+dot_ant <- textGrob(x = 0.1, label = "Dot Profile Glyph", gp = gp_vec)
+
+metrogrob <- metroglyphGrob(x = 0.3,
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.5,
+  size = 25, col.ray = RColorBrewer::brewer.pal(8, "Dark2"),
+  lwd.ray = 10,
+  fill = "gray80")
+
+metro_ant <- textGrob(x = 0.9, label = "Metroglyph", gp = gp_vec)
+
+piegrob <- pieglyphGrob(x = 0.7,
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25, fill = RColorBrewer::brewer.pal(8, "Dark2"))
+
+pie_ant <- textGrob(x = 0.1, label = "Pie Glyph", gp = gp_vec)
+
+profilegrob <- profileglyphGrob(x = 0.4,
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25, fill = RColorBrewer::brewer.pal(8, "Dark2"))
+
+profile_ant <- textGrob(x = 0.9, label = "Profile Glyph", gp = gp_vec)
+
+stargrob <- starglyphGrob(x = 0.7,
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25, col.whisker = RColorBrewer::brewer.pal(8, "Dark2"),
+  lwd.whisker = 5, lwd.contour = 0.5)
+
+star_ant <- textGrob(x = 0.1, label = "Star Glyph", gp = gp_vec)
+
+tilegrob <- tileglyphGrob(x = 0.3,
+  z = c(4, 3.5, 2.7, 6.8, 3.4, 5.7, 4.3),
+  size = 8, nrow = 2,
+  fill = RColorBrewer::brewer.pal(7, "Dark2"))
+
+tile_ant <- textGrob(x = 0.9, label = "Tile Glyph", gp = gp_vec)
+
+flowergrob <- flowerglyphGrob(x = 0.7,
+  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
+  size = 25, fill = RColorBrewer::brewer.pal(8, "Dark2"),
+  petal.base.shape = 2,
+  petal.width = 0.3, scale.area = TRUE, scale.length = FALSE)
+
+flower_ant <- textGrob(x = 0.1, label = "Flower Glyph", gp = gp_vec)
+
+grid.arrange(arrangeGrob(dotgrob, dot_ant, nrow = 1),
+             arrangeGrob(metro_ant, metrogrob, nrow = 1),
+             arrangeGrob(piegrob, pie_ant, nrow = 1),
+             arrangeGrob(profile_ant, profilegrob, nrow = 1),
+             arrangeGrob(stargrob, star_ant, nrow = 1),
+             arrangeGrob(tile_ant, tilegrob, nrow = 1),
+             arrangeGrob(flowergrob, flower_ant, nrow = 1),
+             nrow = 7)
+
+```
 
 ## Installation
 <!-- The package can be installed from CRAN as follows: -->

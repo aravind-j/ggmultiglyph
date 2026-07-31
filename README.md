@@ -22,14 +22,14 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Dependencies](https://tinyverse.netlify.app/status/ggmultiglyph)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggmultiglyph?color=green)](https://cran.r-project.org/web/checks/check_results_j.aravind_at_icar.org.in.html)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/aravind-j/ggmultiglyph)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.1.0-orange.svg)](https://github.com/aravind-j/ggmultiglyph)
 [![Github Code
 Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.svg)](https://github.com/aravind-j/ggmultiglyph)
 [![R-CMD-check](https://github.com/aravind-j/ggmultiglyph/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/ggmultiglyph/actions)
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--07--21-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--01-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxxx) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
@@ -48,6 +48,8 @@ The package implements several established glyph designs described in
 the information visualization literature, including the review by Borgo
 et al. (2013)
 [doi:10.2312/conf/EG2013/stars/039-063](https://doi.org/10.2312/conf/EG2013/stars/039-063).
+
+<img src="man/figures/README-readme-plot-1.png" alt="" width="100%" />
 
 ## Installation
 
@@ -110,5 +112,5 @@ citation("ggmultiglyph")
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If you use it, please support the
-    project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If you use
+    it, please support the project by citing the package.
