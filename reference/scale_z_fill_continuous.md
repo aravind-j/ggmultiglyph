@@ -37,3 +37,16 @@ scale_z_fill_continuous(..., palette, z, guide = c("legend"))
   A function used to create a guide or its name. See
   [`guides`](https://ggplot2.tidyverse.org/reference/guides.html)for
   more information.
+
+## Value
+
+A continuous colour scale object (one of
+[`scale_color_distiller`](https://ggplot2.tidyverse.org/reference/scale_brewer.html),
+[`scale_color_viridis_c`](https://ggplot2.tidyverse.org/reference/scale_viridis.html),
+or
+[`scale_color_continuous`](https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html),
+depending on `palette`) that can be added to a `ggplot` object. The
+returned scale applies to all aesthetics named in `z` simultaneously,
+mapping their combined, pooled range to a continuous colour gradient for
+use as the fill/colour of glyph segments in the corresponding
+`geom_*glyph()` layer.

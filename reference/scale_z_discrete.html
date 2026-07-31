@@ -86,6 +86,20 @@ to "NA".</p></dd>
 <code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></code>for more information.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>If <code>z</code> is of length one, a single
+  <code><a href="https://ggplot2.tidyverse.org/reference/discrete_scale.html" class="external-link">discrete_scale</a></code> object built on
+  <code>ScaleDiscreteZIdentity</code>. If <code>z</code> has length greater than one, a
+  <code>list</code> of such <code>discrete_scale</code> objects, one per variable named
+  in <code>z</code>, which can be added to a <code>ggplot</code> object (via <code>+</code>)
+  to attach independent identity scales to each variable. Each scale passes
+  the ordinal rank of the ordered factor levels through unchanged (rather
+  than mapping them to a palette), so that <code>draw.grid = TRUE</code> in the
+  corresponding <code>geom_*glyph()</code> layer can use the values directly for
+  grid-level placement, while still providing a legend showing the factor
+  levels for each variable.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

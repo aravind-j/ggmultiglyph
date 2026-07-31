@@ -81,7 +81,7 @@ ggmultiglyph.segment.control(
 
 ## Value
 
-A list with the following components to control the repel algorithm
+A list with the following components to control the xurved segments
 corresponding to the same in **Arguments**.
 
 - segment.curvature:

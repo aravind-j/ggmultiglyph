@@ -25,3 +25,13 @@ scale_z_continuous(..., range = c(0.1, 1), z)
 - z:
 
   The variable(s) mapped to the glyph as a character vector.
+
+## Value
+
+A
+[`continuous_scale`](https://ggplot2.tidyverse.org/reference/continuous_scale.html)
+object that can be added to a `ggplot` object. The returned scale
+applies to all aesthetics named in `z` simultaneously (i.e. the
+variables specified via `cols` in the corresponding `geom_*glyph()`
+layer), rescaling their combined, pooled range to `range` for use in
+determining glyph dimensions.

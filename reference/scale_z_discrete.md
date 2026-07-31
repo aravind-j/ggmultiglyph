@@ -34,3 +34,17 @@ scale_z_discrete(..., z, na.translate = TRUE, na.value = NA, guide = "legend")
   A function used to create a guide or its name. See
   [`guides`](https://ggplot2.tidyverse.org/reference/guides.html)for
   more information.
+
+## Value
+
+If `z` is of length one, a single
+[`discrete_scale`](https://ggplot2.tidyverse.org/reference/discrete_scale.html)
+object built on `ScaleDiscreteZIdentity`. If `z` has length greater than
+one, a `list` of such `discrete_scale` objects, one per variable named
+in `z`, which can be added to a `ggplot` object (via `+`) to attach
+independent identity scales to each variable. Each scale passes the
+ordinal rank of the ordered factor levels through unchanged (rather than
+mapping them to a palette), so that `draw.grid = TRUE` in the
+corresponding `geom_*glyph()` layer can use the values directly for
+grid-level placement, while still providing a legend showing the factor
+levels for each variable.
