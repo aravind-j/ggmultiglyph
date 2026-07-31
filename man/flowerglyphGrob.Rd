@@ -143,6 +143,12 @@ zero.}
 \item{linejoin}{The line join style for the petal outlines. Either
 \code{"mitre"}, \code{"round"} or \code{"bevel"}.}
 
+\item{scale.length}{logical. If \code{TRUE}, the petal lengths are scaled
+according to value of \code{z}.}
+
+\item{scale.area}{logical. If \code{TRUE}, the area of the petals are scaled
+according to value of \code{z}.}
+
 \item{centre}{logical. If \code{TRUE}, a central point is drawn at the glyph
 origin. Default is \code{TRUE}.}
 
@@ -159,9 +165,9 @@ petals. Default is \code{FALSE}.}
 values in \code{z} at which points are to be plotted. The values in
 \code{z} should be present in the list specified.}
 
-\item{grid.point.size}{The size of the grid levels in native units.}
+\item{col.grid}{The colour of the nested grid petal lines.}
 
-\item{col.points}{The colour of grid levels.}
+\item{lwd.grid}{The line width of the nested grid petal lines.}
 }
 \value{
 A \code{\link[grid]{gTree}} object.

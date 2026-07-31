@@ -102,6 +102,10 @@
 #'   \eqn{2\pi}.
 #' @param linejoin The line join style for the petal outlines. Either
 #'   \code{"mitre"}, \code{"round"} or \code{"bevel"}.
+#' @param scale.length logical. If \code{TRUE}, the petal lengths are scaled
+#'   according to value of \code{z}.
+#' @param scale.area logical. If \code{TRUE}, the area of the petals are scaled
+#'   according to value of \code{z}.
 #' @param centre logical. If \code{TRUE}, a central point is drawn at the glyph
 #'   origin. Default is \code{TRUE}.
 #' @param centre.size The size (radius, in mm) of the central point.
@@ -112,8 +116,8 @@
 #' @param grid.levels A list of grid levels (as vectors) corresponding to the
 #'   values in \code{z} at which points are to be plotted. The values in
 #'   \code{z} should be present in the list specified.
-#' @param grid.point.size The size of the grid levels in native units.
-#' @param col.points The colour of grid levels.
+#' @param lwd.grid The line width of the nested grid petal lines.
+#' @param col.grid The colour of the nested grid petal lines.
 #'
 #' @family grobs
 #'

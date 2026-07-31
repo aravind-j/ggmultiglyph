@@ -179,6 +179,12 @@ curvature into a localized bend, whereas larger values distribute the
 curvature more evenly along the petal, producing a broader, more gradual
 arc.}
 
+\item{scale.length}{logical. If \code{TRUE}, the petal lengths are scaled
+according to value of \code{z}.}
+
+\item{scale.area}{logical. If \code{TRUE}, the area of the petals are scaled
+according to value of \code{z}.}
+
 \item{fill.petal}{The fill colour of the petals.}
 
 \item{fill.gradient}{The palette for gradient fill of the segments. See
