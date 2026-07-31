@@ -623,6 +623,7 @@
 #'                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 #'
 #' }
+#'
 geom_pieglyph <-
   function(mapping = NULL, data = NULL, stat = "identity",
            position = "identity", ...,
@@ -646,6 +647,12 @@ geom_pieglyph <-
     # Check cols
     if (!(is.character(cols) && length(cols) >= 2)) {
       stop('"cols" should be a charachter vector of at least length 2.')
+    }
+
+    if (scale.radius && scale.segment) {
+      stop(
+        'Only one of "scale.radius" and "scale.segment" may be TRUE.'
+      )
     }
 
     # Check legend.glyph.dims

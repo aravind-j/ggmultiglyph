@@ -717,6 +717,7 @@ ggplot(data = mtcars_fct) +
                                theme = theme(legend.margin = margin(t = 20, b = 30))))
 
 }
+
 }
 \references{
 \insertAllCited{}

@@ -368,6 +368,12 @@ geom_flowerglyph <-
       stop('"cols" should be a charachter vector of at least length 2.')
     }
 
+    if (scale.length && scale.area) {
+      stop(
+        'Only one of "scale.length" and "scale.area" may be TRUE.'
+      )
+    }
+
     linejoin <- match.arg(linejoin)
 
     # Check legend.glyph.dims
