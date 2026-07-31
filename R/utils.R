@@ -152,6 +152,9 @@ expnd_lim <- function(lim, frac = 0.25) {
 #'
 #' Sets up the theme and colour options for example code.
 #'
+#' @return Called for altering \code{ggplot2} global states. Returns `NULL`
+#'   invisibly.
+#'
 #' @keywords internal
 #' @export
 .ggmultiglyph_ex_setup <- function() {

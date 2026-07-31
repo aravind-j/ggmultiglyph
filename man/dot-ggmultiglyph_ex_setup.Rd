@@ -6,6 +6,10 @@
 \usage{
 .ggmultiglyph_ex_setup()
 }
+\value{
+Called for altering \code{ggplot2} global states. Returns `NULL`
+  invisibly.
+}
 \description{
 Sets up the theme and colour options for example code.
 }
