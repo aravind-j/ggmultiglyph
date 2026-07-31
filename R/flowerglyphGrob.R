@@ -413,7 +413,7 @@
 #'                        petal.base.shape = 1.25, petal.tip.shape = 1,
 #'                        petal.width = 0.25,
 #'                        scale.area = TRUE, scale.length = FALSE,
-#'                        lwd = 3)
+#'                        lwd = 5)
 #'
 #' grid.arrange(fg1, fg2, fg3, nrow = 1)
 #'
@@ -439,7 +439,7 @@
 #'                        petal.base.shape = 1.25, petal.tip.shape = 1,
 #'                        petal.width = 0.25,
 #'                        scale.area = FALSE, scale.length = TRUE,
-#'                        lwd = 3)
+#'                        lwd = 5)
 #'
 #' grid.arrange(fg1, fg2, fg3, nrow = 1)
 #'
@@ -465,7 +465,7 @@
 #'                        petal.base.shape = 1.25, petal.tip.shape = 1,
 #'                        petal.width = 0.25,
 #'                        scale.area = FALSE, scale.length = FALSE,
-#'                        lwd = 3)
+#'                        lwd = 5)
 #'
 #' grid.arrange(fg1, fg2, fg3, nrow = 1)
 #'

@@ -465,7 +465,7 @@ fg3 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                        petal.base.shape = 1.25, petal.tip.shape = 1,
                        petal.width = 0.25,
                        scale.area = TRUE, scale.length = FALSE,
-                       lwd = 3)
+                       lwd = 5)
 
 grid.arrange(fg1, fg2, fg3, nrow = 1)
 
@@ -491,7 +491,7 @@ fg3 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                        petal.base.shape = 1.25, petal.tip.shape = 1,
                        petal.width = 0.25,
                        scale.area = FALSE, scale.length = TRUE,
-                       lwd = 3)
+                       lwd = 5)
 
 grid.arrange(fg1, fg2, fg3, nrow = 1)
 
@@ -517,7 +517,7 @@ fg3 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                        petal.base.shape = 1.25, petal.tip.shape = 1,
                        petal.width = 0.25,
                        scale.area = FALSE, scale.length = FALSE,
-                       lwd = 3)
+                       lwd = 5)
 
 grid.arrange(fg1, fg2, fg3, nrow = 1)
 
@@ -1685,7 +1685,6 @@ grid.arrange(
 \code{\link[ggmultiglyph]{geom_flowerglyph}}
 
 Other grobs:
-\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},

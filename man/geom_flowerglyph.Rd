@@ -308,30 +308,50 @@ mtcars_fct$cyl <- factor(mtcars_fct$cyl)
 mtcars_fct$lab <- row.names(mtcars_fct)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Mapped fill ----
+# Mapped fill + scaled length ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
                    alpha =  0.8) +
-  ylim(c(-0, 550))
-
-ggplot(data = mtcars) +
-  geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
-                   cols = zs, size = 10,
-                   alpha =  0.8, full = FALSE) +
   ylim(c(-0, 550))
 
 \donttest{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Mapped colour ----
+# Mapped fill + scaled area ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ggplot(data = mtcars) +
-  geom_flowerglyph(aes(x = mpg, y = disp, colour = cyl),
-                   cols = zs, size = 10, fill = "white",
-                   alpha =  0.8, linewidth = 2) +
+  geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   scale.length = FALSE, scale.area = TRUE,
+                   alpha =  0.8) +
+  ylim(c(-0, 550))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped colour + scaled length ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ggplot(data = mtcars) +
+  geom_flowerglyph(aes(x = mpg, y = disp, colour  = cyl),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   alpha =  0.8) +
+  ylim(c(-0, 550))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Mapped colour + scaled area ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ggplot(data = mtcars) +
+  geom_flowerglyph(aes(x = mpg, y = disp, colour  = cyl),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   scale.length = FALSE, scale.area = TRUE,
+                   alpha =  0.8) +
   ylim(c(-0, 550))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -341,13 +361,14 @@ ggplot(data = mtcars) +
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 10,
-                   petal.base.shape = 3, petal.tip.shape = 0.5,
+                   petal.base.shape = 5, petal.width = 0.25,
                    alpha =  0.8) +
   ylim(c(-0, 550))
 
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
                    petal.tip.notch = 0.3,
                    alpha =  0.8) +
   ylim(c(-0, 550))
@@ -359,6 +380,7 @@ ggplot(data = mtcars) +
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp),
                    cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
                    fill.petal = RColorBrewer::brewer.pal(8, "Dark2"),
                    alpha =  0.8) +
   ylim(c(-0, 550))
@@ -370,7 +392,16 @@ ggplot(data = mtcars) +
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp),
                    cols = zs, size = 10,
-                   fill.gradient = "viridis",
+                   petal.base.shape = 3, petal.width = 0.25,
+                   fill.gradient = "Greens",
+                   alpha =  0.8) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars) +
+  geom_flowerglyph(aes(x = mpg, y = disp),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   fill.gradient = "RdYlBu",
                    alpha =  0.8) +
   ylim(c(-0, 550))
 
@@ -381,6 +412,24 @@ ggplot(data = mtcars) +
 ggplot(data = mtcars) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   alpha =  0.8) +
+  ylim(c(-0, 550)) +
+  facet_grid(. ~ cyl)
+
+ggplot(data = mtcars) +
+  geom_flowerglyph(aes(x = mpg, y = disp, colour = cyl),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   alpha =  0.8) +
+  ylim(c(-0, 550)) +
+  facet_grid(. ~ cyl)
+
+ggplot(data = mtcars) +
+  geom_flowerglyph(aes(x = mpg, y = disp),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   fill.petal = RColorBrewer::brewer.pal(8, "Dark2"),
                    alpha =  0.8) +
   ylim(c(-0, 550)) +
   facet_grid(. ~ cyl)
@@ -393,16 +442,34 @@ ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl)) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   alpha =  1, repel = TRUE) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = mpg, y = disp, colour = cyl)) +
+  geom_flowerglyph(aes(x = mpg, y = disp, colour = cyl),
+                   cols = zs, size = 10,
+                   petal.base.shape = 3, petal.width = 0.25,
                    alpha =  1, repel = TRUE) +
   ylim(c(-0, 550))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Grid lines (ordered factor variables) ----
+# Grid as nested petals ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ggplot(data = mtcars_fct) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
-                   cols = zs, size = 2,
+                   cols = zs, size = 4,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   alpha =  0.8, draw.grid = TRUE) +
+  ylim(c(-0, 550))
+
+ggplot(data = mtcars_fct) +
+  geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
+                   cols = zs, size = 5,
+                   petal.base.shape = 3, petal.width = 0.25,
+                   scale.length = FALSE, scale.area = TRUE,
                    alpha =  0.8, draw.grid = TRUE) +
   ylim(c(-0, 550))
 
@@ -424,6 +491,7 @@ ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 5,
+                   petal.base.shape = 3, petal.width = 0.25,
                    alpha =  1, repel = TRUE) +
   ylim(c(-0, 550)) +
   scale_z_continuous(z = zs) +
@@ -432,17 +500,19 @@ ggplot(data = mtcars) +
 
 # Using custom guide
 # flowerglyphGrob
-guide_flowergrob <- flowerglyphGrob(
-  z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25) * 0.75,
-  size = 25)
 guide_flowergrob <-
-  addlabel.glyphGrob(grob = guide_flowergrob, label = zs,
-                     push = 1, segment = FALSE)
+  flowerglyphGrob(z = c(0.54, 0.75, 0.8, 1.4, 0.85, 0.53, 0.6, 0.65),
+                  petal.base.shape = 3, petal.width = 0.25,
+                  size = 15)
+# guide_flowergrob <-
+#   addlabel.glyphGrob(grob = guide_flowergrob, label = zs,
+#                      push = 1, segment = FALSE)
 
 ggplot(data = mtcars) +
   geom_point(aes(x = mpg, y = disp, colour = cyl), show.legend = FALSE) +
   geom_flowerglyph(aes(x = mpg, y = disp, fill = cyl),
                    cols = zs, size = 5,
+                   petal.base.shape = 3, petal.width = 0.25,
                    alpha =  1, repel = TRUE) +
   ylim(c(-0, 550)) +
   guides(fill = guide_legend(order = 1, position = "right"),
@@ -458,7 +528,6 @@ ggplot(data = mtcars) +
 \code{\link[ggmultiglyph]{flowerglyphGrob}}
 
 Other geoms:
-\code{\link[=geom_bubbleglyph]{geom_bubbleglyph()}},
 \code{\link[=geom_dotglyph]{geom_dotglyph()}},
 \code{\link[=geom_metroglyph]{geom_metroglyph()}},
 \code{\link[=geom_pieglyph]{geom_pieglyph()}},

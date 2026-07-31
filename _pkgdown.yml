@@ -38,7 +38,6 @@ home:
 reference:
     - title: Geoms
       contents:
-         - '`geom_bubbleglyph`'
          - '`geom_dotglyph`'
          - '`geom_flowerglyph`'
          - '`geom_metroglyph`'
@@ -49,7 +48,6 @@ reference:
 
     - title: Grobs
       contents:
-         - '`bubbleglyphGrob`'
          - '`dotglyphGrob`'
          - '`flowerglyphGrob`'
          - '`metroglyphGrob`'

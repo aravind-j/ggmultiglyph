@@ -384,7 +384,6 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 \code{\link[ggmultiglyph]{geom_metroglyph}}
 
 Other grobs:
-\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
 \code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},
