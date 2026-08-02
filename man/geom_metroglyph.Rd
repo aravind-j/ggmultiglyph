@@ -612,6 +612,7 @@ ggplot(data = mtcars_fct) +
 \code{\link[ggmultiglyph]{metroglyphGrob}}
 
 Other geoms:
+\code{\link[=geom_bubbleglyph]{geom_bubbleglyph()}},
 \code{\link[=geom_dotglyph]{geom_dotglyph()}},
 \code{\link[=geom_flowerglyph]{geom_flowerglyph()}},
 \code{\link[=geom_pieglyph]{geom_pieglyph()}},

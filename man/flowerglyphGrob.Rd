@@ -1691,6 +1691,7 @@ grid.arrange(
 \code{\link[ggmultiglyph]{geom_flowerglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},

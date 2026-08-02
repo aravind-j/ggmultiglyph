@@ -249,6 +249,7 @@ ggplot(data = mtcars) +
 \code{\link[ggmultiglyph]{tileglyphGrob}}
 
 Other geoms:
+\code{\link[=geom_bubbleglyph]{geom_bubbleglyph()}},
 \code{\link[=geom_dotglyph]{geom_dotglyph()}},
 \code{\link[=geom_flowerglyph]{geom_flowerglyph()}},
 \code{\link[=geom_metroglyph]{geom_metroglyph()}},

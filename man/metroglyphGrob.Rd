@@ -225,6 +225,45 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 
 mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "salmon")
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "cyan")
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "green")
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "salmon")
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "cyan")
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "green")
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate ray colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
                       col.ray = RColorBrewer::brewer.pal(6, "Dark2"),
                       col.circle = "gray")
 
@@ -384,6 +423,7 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 \code{\link[ggmultiglyph]{geom_metroglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
 \code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=pieglyphGrob]{pieglyphGrob()}},

@@ -974,6 +974,7 @@ grid.arrange(barprofileglyph3, barprofileglyph4, nrow = 1)
 \code{\link[ggmultiglyph]{geom_profileglyph}}
 
 Other grobs:
+\code{\link[=bubbleglyphGrob]{bubbleglyphGrob()}},
 \code{\link[=dotglyphGrob]{dotglyphGrob()}},
 \code{\link[=flowerglyphGrob]{flowerglyphGrob()}},
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
