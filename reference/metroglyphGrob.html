@@ -179,7 +179,9 @@ ISBN 978-1-4612-9371-2.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_metroglyph.html">geom_metroglyph</a></code></p>
 <p>Other grobs:
+<code><a href="bubbleglyphGrob.html">bubbleglyphGrob()</a></code>,
 <code><a href="dotglyphGrob.html">dotglyphGrob()</a></code>,
+<code><a href="flowerglyphGrob.html">flowerglyphGrob()</a></code>,
 <code><a href="pieglyphGrob.html">pieglyphGrob()</a></code>,
 <code><a href="profileglyphGrob.html">profileglyphGrob()</a></code>,
 <code><a href="starglyphGrob.html">starglyphGrob()</a></code>,
@@ -342,6 +344,46 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mg1</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg2</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"cyan"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg3</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg4</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      angle.start <span class="op">=</span> <span class="fl">0</span>, angle.stop <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/Constants.html" class="external-link">pi</a></span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg5</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      angle.start <span class="op">=</span> <span class="fl">0</span>, angle.stop <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/Constants.html" class="external-link">pi</a></span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"cyan"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg6</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
+<span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                      angle.start <span class="op">=</span> <span class="fl">0</span>, angle.stop <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/Constants.html" class="external-link">pi</a></span>,</span></span>
+<span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">mg1</span>, <span class="va">mg2</span>, <span class="va">mg3</span>, <span class="va">mg4</span>, <span class="va">mg5</span>, <span class="va">mg6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="metroglyphGrob-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Multivariate ray colour</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mg1</span> <span class="op">&lt;-</span> <span class="fu">metroglyphGrob</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span>,</span></span>
 <span class="r-in"><span>                      col.ray <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"Dark2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                      col.circle <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -378,7 +420,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                      col.circle <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">mg1</span>, <span class="va">mg2</span>, <span class="va">mg3</span>, <span class="va">mg4</span>, <span class="va">mg5</span>, <span class="va">mg6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="metroglyphGrob-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="metroglyphGrob-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Adjust line end style</span></span></span>
@@ -397,7 +439,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                      lwd.ray <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">mg1</span>, <span class="va">mg2</span>, <span class="va">mg3</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="metroglyphGrob-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="metroglyphGrob-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Adjust grid levels</span></span></span>
@@ -463,7 +505,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                      draw.grid <span class="op">=</span> <span class="cn">FALSE</span>, grid.levels <span class="op">=</span> <span class="va">gl</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">mg1</span>, <span class="va">mg2</span>, <span class="va">mg3</span>, <span class="va">mg4</span>, <span class="va">mg5</span>, <span class="va">mg6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="metroglyphGrob-8.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="metroglyphGrob-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Adjust fill, ray and grid level colours</span></span></span>
@@ -513,7 +555,7 @@ ISBN 978-1-4612-9371-2.</p>
 <span class="r-in"><span>                      grid.point.size <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">mg1</span>, <span class="va">mg2</span>, <span class="va">mg3</span>, <span class="va">mg4</span>, <span class="va">mg5</span>, <span class="va">mg6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="metroglyphGrob-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="metroglyphGrob-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -526,7 +568,7 @@ ISBN 978-1-4612-9371-2.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.9000.</p>
 </div>
 
     </footer></div>

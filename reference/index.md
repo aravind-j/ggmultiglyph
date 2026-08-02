@@ -2,8 +2,12 @@
 
 ## Geoms
 
+- [`geom_bubbleglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_bubbleglyph.md)
+  : Add Bubble Glyphs as a Scatterplot
 - [`geom_dotglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_dotglyph.md)
   : Add Dot Profile Glyphs as a Scatterplot
+- [`geom_flowerglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_flowerglyph.md)
+  : Add Flower Glyphs as a Scatterplot
 - [`geom_metroglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_metroglyph.md)
   : Add Metroglyphs as a Scatterplot
 - [`geom_pieglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_pieglyph.md)
@@ -17,8 +21,12 @@
 
 ## Grobs
 
+- [`bubbleglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/bubbleglyphGrob.md)
+  : Draw a Bubble Glyph
 - [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md)
   : Draw a Dot Profile Glyph
+- [`flowerglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/flowerglyphGrob.md)
+  : Draw a Flower Glyph
 - [`metroglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.md)
   : Draw a Metroglyph
 - [`pieglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md)

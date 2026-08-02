@@ -273,7 +273,9 @@ analysis of cyclic multivariate data.” *Metrika*, **51**(1), 27–37.
 [`pieglyphGrob`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md)
 
 Other geoms:
+[`geom_bubbleglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_bubbleglyph.md),
 [`geom_dotglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_dotglyph.md),
+[`geom_flowerglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_flowerglyph.md),
 [`geom_metroglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_metroglyph.md),
 [`geom_profileglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_profileglyph.md),
 [`geom_starglyph()`](https://aravind-j.github.io/ggmultiglyph/reference/geom_starglyph.md),

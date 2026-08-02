@@ -130,7 +130,9 @@ analysis of cyclic multivariate data.” *Metrika*, **51**(1), 27–37.
 [`geom_pieglyph`](https://aravind-j.github.io/ggmultiglyph/reference/geom_pieglyph.md)
 
 Other grobs:
+[`bubbleglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/bubbleglyphGrob.md),
 [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md),
+[`flowerglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/flowerglyphGrob.md),
 [`metroglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.md),
 [`profileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/profileglyphGrob.md),
 [`starglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/starglyphGrob.md),
@@ -421,6 +423,112 @@ grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9,
 
 
 pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, fill = "salmon")
+
+pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, fill = "salmon")
+
+pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, fill = "salmon")
+
+pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, fill = "cyan")
+
+pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, fill = "cyan")
+
+pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, fill = "cyan")
+
+pg7 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, fill = "green")
+
+pg8 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, fill = "green")
+
+pg9 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, fill = "green")
+
+grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9,
+             nrow = 3, ncol = 3)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Adjust line colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, lwd = 3, col = "salmon")
+
+pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, lwd = 3, col = "salmon")
+
+pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, lwd = 3, col = "salmon")
+
+pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, lwd = 3, col = "cyan")
+
+pg5 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, lwd = 3, col = "cyan")
+
+pg6 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, lwd = 3, col = "cyan")
+
+pg7 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    size = 10, lwd = 3, col = "green")
+
+pg8 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 0, angle.stop = base::pi,
+                    size = 10, lwd = 3, col = "green")
+
+pg9 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                    z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                    angle.start = 90 * (base::pi/180),
+                    angle.stop = 270 * (base::pi/180),
+                    size = 10, lwd = 3, col = "green")
+
+grid.arrange(pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9,
+             nrow = 3, ncol = 3)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate fill colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+pg1 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 10,
                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
 
@@ -495,7 +603,7 @@ grid.arrange(pg1, pg2, pg3, nrow = 1, ncol = 3)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Adjust grid levels
+# Adjust grid levels (when scale.radius = TRUE)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Grid levels
@@ -534,24 +642,11 @@ pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     draw.grid = TRUE, grid.levels = gl,
                     lwd = 2, col.grid = "black")
 
-pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                    z = c(1, 3, 2, 1, 2, 3), size = 5,
-                    scale.segment = TRUE,
-                    draw.grid = TRUE, grid.levels = gl,
-                    lwd = 2, col.grid = "black")
-
-pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                    angle.start = 0, angle.stop = base::pi,
-                    z = c(1, 3, 2, 1, 2, 3), size = 5,
-                    scale.segment = TRUE,
-                    draw.grid = TRUE, grid.levels = gl,
-                    lwd = 2, col.grid = "black")
-
-grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
+grid.arrange(pg1, pg2, ncol = 2)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Adjust grid level colours
+# Adjust grid level colours (when scale.radius = TRUE)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Grid levels
@@ -592,21 +687,6 @@ pg2 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                     lwd = 2, col = "white", col.grid = "white",
                     fill = RColorBrewer::brewer.pal(6, "Dark2"))
 
-pg3 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                    z = c(1, 3, 2, 1, 2, 3), size = 5,
-                    scale.segment = TRUE,
-                    draw.grid = TRUE, grid.levels = gl,
-                    lwd = 2, col = "white", col.grid = "white",
-                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
-
-pg4 <- pieglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-                    angle.start = 0, angle.stop = base::pi,
-                    z = c(1, 3, 2, 1, 2, 3), size = 5,
-                    scale.segment = TRUE,
-                    draw.grid = TRUE, grid.levels = gl,
-                    lwd = 2, col = "white", col.grid = "white",
-                    fill = RColorBrewer::brewer.pal(6, "Dark2"))
-
-grid.arrange(pg1, pg2, pg3, pg4, nrow = 2, ncol = 2)
+grid.arrange(pg1, pg2, ncol = 2)
 
 ```

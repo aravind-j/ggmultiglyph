@@ -437,6 +437,61 @@ out from the <code>glyphGrob</code>.</p></dd>
 <span class="r-in"><span>             nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="addlabel.glyphGrob-25.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Add labels to flowerglyphGrob</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span>, <span class="st">"qsec"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flowerglyphGrob.html">flowerglyphGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.54</span>, <span class="fl">0.75</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.85</span>, <span class="fl">1.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       petal.base.shape <span class="op">=</span> <span class="fl">2</span>, petal.width <span class="op">=</span> <span class="fl">0.35</span>,</span></span>
+<span class="r-in"><span>                       size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flowerglyphGrob.html">flowerglyphGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.54</span>, <span class="fl">0.75</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.85</span>, <span class="fl">1.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       petal.base.shape <span class="op">=</span> <span class="fl">2</span>, petal.width <span class="op">=</span> <span class="fl">0.35</span>,</span></span>
+<span class="r-in"><span>                       size <span class="op">=</span> <span class="fl">18</span>,</span></span>
+<span class="r-in"><span>                       lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"Dark2"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fg1_lab</span> <span class="op">&lt;-</span> <span class="fu">addlabel.glyphGrob</span><span class="op">(</span>grob <span class="op">=</span> <span class="va">fg1</span>, label <span class="op">=</span> <span class="va">label</span>,</span></span>
+<span class="r-in"><span>                              push <span class="op">=</span> <span class="fl">2</span>, segment <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fg2_lab</span> <span class="op">&lt;-</span> <span class="fu">addlabel.glyphGrob</span><span class="op">(</span>grob <span class="op">=</span> <span class="va">fg2</span>, label <span class="op">=</span> <span class="va">label</span>,</span></span>
+<span class="r-in"><span>                              push <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">fg1</span>, <span class="va">fg1_lab</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="addlabel.glyphGrob-26.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">fg2</span>, <span class="va">fg2_lab</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="addlabel.glyphGrob-27.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Add labels to bubbleglyphGrob</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span>, <span class="st">"qsec"</span>, <span class="st">"vs"</span>, <span class="st">"am"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="bubbleglyphGrob.html">bubbleglyphGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.75</span>,</span></span>
+<span class="r-in"><span>                       size <span class="op">=</span> <span class="fl">8</span>, layout <span class="op">=</span> <span class="st">"circle"</span>,</span></span>
+<span class="r-in"><span>                       connector <span class="op">=</span> <span class="st">"background"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="bubbleglyphGrob.html">bubbleglyphGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"npc"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">0.33</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       size <span class="op">=</span> <span class="fl">8</span>, layout <span class="op">=</span> <span class="st">"pack"</span>,</span></span>
+<span class="r-in"><span>                       fill <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"Dark2"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bg1_lab</span> <span class="op">&lt;-</span> <span class="fu">addlabel.glyphGrob</span><span class="op">(</span>grob <span class="op">=</span> <span class="va">bg1</span>, label <span class="op">=</span> <span class="va">label</span>,</span></span>
+<span class="r-in"><span>                              push <span class="op">=</span> <span class="fl">10</span>, segment <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bg2_lab</span> <span class="op">&lt;-</span> <span class="fu">addlabel.glyphGrob</span><span class="op">(</span>grob <span class="op">=</span> <span class="va">bg2</span>, label <span class="op">=</span> <span class="va">label</span>,</span></span>
+<span class="r-in"><span>                              push <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">bg1</span>, <span class="va">bg1_lab</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="addlabel.glyphGrob-28.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">bg2</span>, <span class="va">bg2_lab</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="addlabel.glyphGrob-29.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -448,7 +503,7 @@ out from the <code>glyphGrob</code>.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.9000.</p>
 </div>
 
     </footer></div>

@@ -90,7 +90,9 @@ Factors in Computing Systems*, 3237–3246. ISBN 978-1-4503-1899-0.
 [`geom_tileglyph`](https://aravind-j.github.io/ggmultiglyph/reference/geom_tileglyph.md)
 
 Other grobs:
+[`bubbleglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/bubbleglyphGrob.md),
 [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md),
+[`flowerglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/flowerglyphGrob.md),
 [`metroglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.md),
 [`pieglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md),
 [`profileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/profileglyphGrob.md),

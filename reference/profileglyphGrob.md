@@ -142,7 +142,9 @@ Analysis*, Springer Texts in Statistics. Springer-Verlag, New York. ISBN
 [`geom_profileglyph`](https://aravind-j.github.io/ggmultiglyph/reference/geom_profileglyph.md)
 
 Other grobs:
+[`bubbleglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/bubbleglyphGrob.md),
 [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md),
+[`flowerglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/flowerglyphGrob.md),
 [`metroglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/metroglyphGrob.md),
 [`pieglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md),
 [`starglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/starglyphGrob.md),

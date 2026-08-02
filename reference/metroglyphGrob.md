@@ -125,7 +125,9 @@ Analysis*, Springer Texts in Statistics. Springer-Verlag, New York. ISBN
 [`geom_metroglyph`](https://aravind-j.github.io/ggmultiglyph/reference/geom_metroglyph.md)
 
 Other grobs:
+[`bubbleglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/bubbleglyphGrob.md),
 [`dotglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/dotglyphGrob.md),
+[`flowerglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/flowerglyphGrob.md),
 [`pieglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/pieglyphGrob.md),
 [`profileglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/profileglyphGrob.md),
 [`starglyphGrob()`](https://aravind-j.github.io/ggmultiglyph/reference/starglyphGrob.md),
@@ -284,6 +286,46 @@ grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Adjust ray colour
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "salmon")
+
+mg2 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "cyan")
+
+mg3 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      col.ray = "green")
+
+mg4 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "salmon")
+
+mg5 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "cyan")
+
+mg6 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                      z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33), size = 15,
+                      lwd.ray = 3,
+                      angle.start = 0, angle.stop = base::pi,
+                      col.ray = "green")
+
+grid.arrange(mg1, mg2, mg3, mg4, mg5, mg6, nrow = 2, ncol = 3)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Multivariate ray colour
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 mg1 <- metroglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
