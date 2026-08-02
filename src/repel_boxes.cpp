@@ -16,8 +16,15 @@
 // #  https://www.r-project.org/Licenses/
 
 #include <Rcpp.h>
+#ifdef __EMSCRIPTEN__
+#define __linux
 #include <Rcpp/Benchmark/Timer.h>
+#undef __linux
+#else
+#include <Rcpp/Benchmark/Timer.h>
+#endif
 #include <deque>
+#include <cmath>
 using namespace Rcpp;
 
 // Exported convenience functions ---------------------------------------------
@@ -197,7 +204,7 @@ NumericVector select_line_connection(
   bool right = false;
   bool bottom = false;
 
-  if ((p1[0] >= b[0]) & (p1[0] <= b[2])) {
+  if ((p1[0] >= b[0]) && (p1[0] <= b[2])) {
     out[0] = p1[0];
   } else if (p1[0] > b[2]) {
     out[0] = b[2];
@@ -207,7 +214,7 @@ NumericVector select_line_connection(
     left = true;
   }
 
-  if ((p1[1] >= b[1]) & (p1[1] <= b[3])) {
+  if ((p1[1] >= b[1]) && (p1[1] <= b[3])) {
     out[1] = p1[1];
   } else if (p1[1] > b[3]) {
     out[1] = b[3];
@@ -335,6 +342,14 @@ bool approximately_equal(double x1, double x2) {
 
 bool line_intersect(Point p1, Point q1, Point p2, Point q2) {
 
+  // Return false if any coordinate is NaN (e.g., from NA factor levels)
+  if (std::isnan(p1.x) || std::isnan(p1.y) ||
+      std::isnan(q1.x) || std::isnan(q1.y) ||
+      std::isnan(p2.x) || std::isnan(p2.y) ||
+      std::isnan(q2.x) || std::isnan(q2.y)) {
+    return false;
+  }
+
   // Special exception, where q1 and q2 are equal (do intersect)
   if (q1.x == q2.x && q1.y == q2.y)
     return false;
@@ -457,6 +472,11 @@ Point centroid(Box b, double hjust, double vjust) {
 //' @param b A box like \code{c(x1, y1, x2, y2)}
 //' @noRd
 bool overlaps(Box a, Box b) {
+  // Return false if any coordinate is NaN (e.g., from NA factor levels)
+  if (std::isnan(a.x1) || std::isnan(a.y1) || std::isnan(a.x2) || std::isnan(a.y2) ||
+      std::isnan(b.x1) || std::isnan(b.y1) || std::isnan(b.x2) || std::isnan(b.y2)) {
+    return false;
+  }
   return
     b.x1 <= a.x2 &&
     b.y1 <= a.y2 &&
@@ -464,11 +484,16 @@ bool overlaps(Box a, Box b) {
     b.y2 >= a.y1;
 }
 
-//' Test if a box overlaps another box.
-//' @param a A box like \code{c(x1, y1, x2, y2)}
-//' @param b A box like \code{c(x1, y1, x2, y2)}
+//' Test if a circle overlaps a box.
+//' @param c A circle like \code{c(x, y, r)}
+//' @param r A box like \code{c(x1, y1, x2, y2)}
 //' @noRd
 bool overlaps(Circle c, Box r) {
+  // Return false if any coordinate is NaN (e.g., from NA factor levels)
+  if (std::isnan(c.x) || std::isnan(c.y) || std::isnan(c.r) ||
+      std::isnan(r.x1) || std::isnan(r.y1) || std::isnan(r.x2) || std::isnan(r.y2)) {
+    return false;
+  }
   // Center of the circle.
   double c_x = c.x;
   double c_radius = c.r;
@@ -572,6 +597,11 @@ Point repel_force_x(
 Point repel_force(
     Point a, Point b, double force = 0.000001, std::string direction = "both"
 ) {
+  // Return zero force if any coordinate is NaN (e.g., from NA factor levels)
+  if (std::isnan(a.x) || std::isnan(a.y) || std::isnan(b.x) || std::isnan(b.y)) {
+    Point zero = {0, 0};
+    return zero;
+  }
   Point out;
   if (direction == "x") {
     out = repel_force_x(a, b, force);
@@ -625,6 +655,11 @@ Point spring_force_x(
 Point spring_force(
     Point a, Point b, double force = 0.000001, std::string direction = "both"
 ) {
+  // Return zero force if any coordinate is NaN (e.g., from NA factor levels)
+  if (std::isnan(a.x) || std::isnan(a.y) || std::isnan(b.x) || std::isnan(b.y)) {
+    Point zero = {0, 0};
+    return zero;
+  }
   Point out;
   if (direction == "x") {
     out = spring_force_x(a, b, force);
@@ -690,6 +725,10 @@ DataFrame repel_boxes2(
   }
   if (NumericVector::is_na(force_pull)) {
     force_pull = 1e-6;
+  }
+
+  if (force_push == 0) {
+    max_iter = 0;
   }
 
   // Try to catch errors.
@@ -957,20 +996,20 @@ DataFrame repel_boxes2(
 
   if (verbose) {
     if (elapsed_time > max_time) {
-      Rprintf(
-        "%.2fs elapsed for %d iterations, %d overlaps. Consider increasing 'max.time'.\n",
-        max_time / 1e9, iter, p_overlaps
-      );
+      std::string msg = "ggmultiglyph: " + std::to_string(max_time / 1e9) +
+        "s elapsed for " + std::to_string(iter) + " iterations, " +
+        std::to_string(p_overlaps) + " overlaps. Consider increasing 'max.time'.";
+      Rcpp::message(Rcpp::wrap(msg));
     } else if (iter >= max_iter) {
-      Rprintf(
-        "%d iterations in %.2fs, %d overlaps. Consider increasing 'max.iter'.\n",
-        max_iter, elapsed_time / 1e9, p_overlaps
-      );
+      std::string msg = "ggmultiglyph: " + std::to_string(max_iter) + " iterations in " +
+        std::to_string(elapsed_time / 1e9) + "s, " + std::to_string(p_overlaps) +
+        " overlaps. Consider increasing 'max.iter'.";
+      Rcpp::message(Rcpp::wrap(msg));
     } else {
-      Rprintf(
-        "text repel complete in %d iterations (%.2fs), %d overlaps\n",
-        iter, elapsed_time / 1e9, p_overlaps
-      );
+      std::string msg = "ggmultiglyph: text repel complete in " + std::to_string(iter) +
+        " iterations (" + std::to_string(elapsed_time / 1e9) + "s), " +
+        std::to_string(p_overlaps) + " overlaps";
+      Rcpp::message(Rcpp::wrap(msg));
     }
   }
 
