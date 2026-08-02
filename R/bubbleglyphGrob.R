@@ -984,6 +984,10 @@ bubbleglyphGrob <- function(x = .5,
   class(gridout) <-
     append(class(gridout), c("glyphGrob", "bubbleglyphGrob"))
 
+  attr(gridout, "bubble.index") <-
+    switch(connector,
+           none = 1, foreground = 1, background = 3)
+
   attr(gridout, "length") <- dimension
   attr(gridout, "layout") <- layout
 

@@ -342,4 +342,55 @@ grid.arrange(tg1, tg2, tg3, tg4,
              tg1_lab, tg2_lab, tg3_lab, tg4_lab,
              nrow = 2, ncol = 4)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Add labels to flowerglyphGrob
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+label <- c("hp", "drat", "wt", "qsec", "vs", "am")
+
+fg1 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                       z = c(0.54, 0.75, 0.8, 1.4, 0.85, 1.1),
+                       petal.base.shape = 2, petal.width = 0.35,
+                       size = 18)
+
+fg2 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                       z = c(0.54, 0.75, 0.8, 1.4, 0.85, 1.1),
+                       petal.base.shape = 2, petal.width = 0.35,
+                       size = 18,
+                       lwd = 2, col = RColorBrewer::brewer.pal(6, "Dark2"))
+
+fg1_lab <- addlabel.glyphGrob(grob = fg1, label = label,
+                              push = 2, segment = FALSE)
+
+fg2_lab <- addlabel.glyphGrob(grob = fg2, label = label,
+                              push = 3)
+
+grid.arrange(fg1, fg1_lab)
+grid.arrange(fg2, fg2_lab)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Add labels to bubbleglyphGrob
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+label <- c("hp", "drat", "wt", "qsec", "vs", "am")
+
+bg1 <- bubbleglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33) * 0.75,
+                       size = 8, layout = "circle",
+                       connector = "background")
+
+bg2 <- bubbleglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+                       z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+                       size = 8, layout = "pack",
+                       fill = RColorBrewer::brewer.pal(6, "Dark2"))
+
+bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label,
+                              push = 10, segment = FALSE)
+
+bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label,
+                              push = 15)
+
+grid.arrange(bg1, bg1_lab)
+grid.arrange(bg2, bg2_lab)
+
 }

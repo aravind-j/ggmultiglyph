@@ -340,6 +340,57 @@
 #'              tg1_lab, tg2_lab, tg3_lab, tg4_lab,
 #'              nrow = 2, ncol = 4)
 #'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Add labels to flowerglyphGrob
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' label <- c("hp", "drat", "wt", "qsec", "vs", "am")
+#'
+#' fg1 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                        z = c(0.54, 0.75, 0.8, 1.4, 0.85, 1.1),
+#'                        petal.base.shape = 2, petal.width = 0.35,
+#'                        size = 18)
+#'
+#' fg2 <- flowerglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                        z = c(0.54, 0.75, 0.8, 1.4, 0.85, 1.1),
+#'                        petal.base.shape = 2, petal.width = 0.35,
+#'                        size = 18,
+#'                        lwd = 2, col = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' fg1_lab <- addlabel.glyphGrob(grob = fg1, label = label,
+#'                               push = 2, segment = FALSE)
+#'
+#' fg2_lab <- addlabel.glyphGrob(grob = fg2, label = label,
+#'                               push = 3)
+#'
+#' grid.arrange(fg1, fg1_lab)
+#' grid.arrange(fg2, fg2_lab)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Add labels to bubbleglyphGrob
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' label <- c("hp", "drat", "wt", "qsec", "vs", "am")
+#'
+#' bg1 <- bubbleglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                        z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33) * 0.75,
+#'                        size = 8, layout = "circle",
+#'                        connector = "background")
+#'
+#' bg2 <- bubbleglyphGrob(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+#'                        z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33),
+#'                        size = 8, layout = "pack",
+#'                        fill = RColorBrewer::brewer.pal(6, "Dark2"))
+#'
+#' bg1_lab <- addlabel.glyphGrob(grob = bg1, label = label,
+#'                               push = 10, segment = FALSE)
+#'
+#' bg2_lab <- addlabel.glyphGrob(grob = bg2, label = label,
+#'                               push = 15)
+#'
+#' grid.arrange(bg1, bg1_lab)
+#' grid.arrange(bg2, bg2_lab)
+#'
 addlabel.glyphGrob <- function(grob, label,
                                segment = TRUE,
                                segment.control = ggmultiglyph.segment.control(),
@@ -366,13 +417,14 @@ addlabel.glyphGrob <- function(grob, label,
   # Radial anchors (including tileglyphGrob) ----
 
   rad_anch_grobs <- c("starglyphGrob", "metroglyphGrob",
-                      "pieglyphGrob", "tileglyphGrob")
+                      "pieglyphGrob", "tileglyphGrob",
+                      "flowerglyphGrob", "bubbleglyphGrob")
 
   ## Get anchors ----
 
   if (any(vapply(rad_anch_grobs, inherits, logical(1), x = grob))) {
 
-    if (any(vapply(c("starglyphGrob", "metroglyphGrob"),
+    if (any(vapply(c("starglyphGrob", "metroglyphGrob", "flowerglyphGrob"),
                    inherits, logical(1), x = grob))) {
 
       # Find which of the grob children are polygonGrob/polylineGrob
@@ -392,6 +444,26 @@ addlabel.glyphGrob <- function(grob, label,
       if (inherits(grob, "metroglyphGrob")) {
         xn <- tail(xn, length(xn) / 2)
         yn <- tail(yn, length(yn) / 2)
+      }
+
+      # For flowerglyphGrob, extract the tip of each petal
+      if (inherits(grob, "flowerglyphGrob")) {
+        petal_id <- grob$children[[p_ind]]$id
+        xn_list <- split(xn, petal_id)
+        yn_list <- split(yn, petal_id)
+
+        # Use the terminal point of each petal (tip)
+        xn <- lapply(seq_along(xn_list), function(i) {
+          xn_list[[i]][ceiling(length(xn_list[[i]]) / 2)]
+        })
+
+        yn <- lapply(seq_along(yn_list), function(i) {
+          yn_list[[i]][ceiling(length(yn_list[[i]]) / 2)]
+        })
+
+        xn <- do.call(grid::unit.c, xn)
+        yn <- do.call(grid::unit.c, yn)
+
       }
     }
 
@@ -433,6 +505,21 @@ addlabel.glyphGrob <- function(grob, label,
 
     }
 
+    if (inherits(grob, "bubbleglyphGrob")) {
+
+      # Index of bubble grob
+      c_ind <- attr(grob, "bubble.index", TRUE)
+
+      # Get coordinates for each bubble center and radius
+      if (length(c_ind) > 0) {
+        bubble_grobs <- grob$children[c_ind]
+
+        xn <- bubble_grobs[[1]]$x
+        yn <- bubble_grobs[[1]]$y
+      }
+
+    }
+
     ## Generate label coordinates ----
 
     if (inherits(grob, "tileglyphGrob") &&
@@ -461,7 +548,8 @@ addlabel.glyphGrob <- function(grob, label,
       just_x <- hjust
       just_y <- vjust
 
-    } else { # starglyphGrob, metrhoglyphGrob and pieglyphGrob
+    } else { # starglyphGrob, metrhoglyphGrob flowerglyphGrob,
+             # bubbleglyphGrob and pieglyphGrob
 
       # Check if segement.control compoents are 1 or equal to no. of labels
       if (any(!(sapply(segment.control, length) %in%
@@ -504,6 +592,21 @@ addlabel.glyphGrob <- function(grob, label,
       just_y <- ifelse(sin(angles) > 0, 0, 1)
       just_y <- ifelse(abs(round(cos(angles), 2)) == 1, 0.5, just_y)
 
+      # Special handling for bubbleglyphGrob: push outward from bubble surface
+      if (inherits(grob, "bubbleglyphGrob")) {
+        radii <- attr(xn, "radii")
+        if (!is.null(radii)) {
+          # Offset label position by bubble radius in addition to push distance
+          x_label <- xn + unit(push * cos(angles), "mm") +
+            unit(radii, "native") * cos(angles)
+          y_label <- yn + unit(push * sin(angles), "mm") +
+            unit(radii, "native") * sin(angles)
+        } else {
+          # Fallback to standard radial pushing
+          x_label <- xn + unit(push * cos(angles), "mm")
+          y_label <- yn + unit(push * sin(angles), "mm")
+        }
+      }
     }
   }
 
