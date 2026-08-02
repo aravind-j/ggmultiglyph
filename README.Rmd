@@ -62,7 +62,7 @@ cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver
 ## Description
 `r gsub("(<doi:)(.+)(>)", "[doi:\\2](https://doi.org/\\2)", gsub("\\n", " ", packageDescription("ggmultiglyph", fields = "Description")))`
 
-```{r readme-plot, echo=FALSE, out.width='100%', fig.height=10, fig.width=8, out.width='100%', dpi = 250}
+```{r readme-plot, echo=FALSE, out.width='80%', fig.height=10, fig.width=8, out.width='80%', dpi = 250}
 
 suppressPackageStartupMessages(library(ggmultiglyph))
 
@@ -131,6 +131,13 @@ flowergrob <- flowerglyphGrob(x = 0.7,
 
 flower_ant <- textGrob(x = 0.1, label = "Flower Glyph", gp = gp_vec)
 
+bubblegrob <- bubbleglyphGrob(x = 0.3,
+                              z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25),
+                              size = 5, fill = RColorBrewer::brewer.pal(8, "Dark2"), 
+                              layout = "pack")
+
+bubble_ant <- textGrob(x = 0.9, label = "Bubble Glyph", gp = gp_vec)
+
 grid.arrange(arrangeGrob(dotgrob, dot_ant, nrow = 1),
              arrangeGrob(metro_ant, metrogrob, nrow = 1),
              arrangeGrob(piegrob, pie_ant, nrow = 1),
@@ -138,7 +145,13 @@ grid.arrange(arrangeGrob(dotgrob, dot_ant, nrow = 1),
              arrangeGrob(stargrob, star_ant, nrow = 1),
              arrangeGrob(tile_ant, tilegrob, nrow = 1),
              arrangeGrob(flowergrob, flower_ant, nrow = 1),
-             nrow = 7)
+             arrangeGrob(bubble_ant, bubblegrob, nrow = 1),
+             nrow = 8)
+
+rm(dotgrob, dot_ant, metro_ant, metrogrob, piegrob, pie_ant,
+   profile_ant, profilegrob, stargrob, star_ant,
+   tile_ant, tilegrob, flowergrob, flower_ant,
+   gp_vec, z_grid)
 
 ```
 
