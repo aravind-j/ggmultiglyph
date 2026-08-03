@@ -21,6 +21,8 @@
 #' scatterplot. Each variable specified in \code{cols} is depicted as a circle,
 #' with the radius (or area) scaled according to the corresponding value.
 #'
+#' @inheritSection bubbleglyphGrob Layouts
+#'
 #' @template general-arg
 #' @template fill.gradient-arg
 #' @template repel-arg
@@ -65,6 +67,10 @@
 #' @encoding UTF-8
 #'
 #' @seealso \code{\link[ggmultiglyph]{bubbleglyphGrob}}
+#'
+#' @references
+#'
+#' \insertAllCited{}
 #'
 #' @examples
 #'
@@ -325,12 +331,12 @@ geom_bubbleglyph <-
            cols = character(0L),
            scale.radius = TRUE,
            scale.area = FALSE,
-           layout = c("annulus",
-                      "circle",
-                      "line",
-                      "chain",
-                      "hub",
-                      "pack"),
+           bubble.layout = c("annulus",
+                             "circle",
+                             "line",
+                             "chain",
+                             "hub",
+                             "pack"),
            connector = c("none", "foreground", "background"),
            fill.bubble = NULL,
            fill.gradient = NULL,
@@ -348,7 +354,7 @@ geom_bubbleglyph <-
            repel.control = ggmultiglyph.repel.control(),
            inherit.aes = TRUE) {
 
-    layout <- match.arg(layout)
+    bubble.layout <- match.arg(bubble.layout)
     connector <- match.arg(connector)
 
     # Check cols
@@ -395,7 +401,7 @@ geom_bubbleglyph <-
     params <- list(
       scale.radius = scale.radius,
       scale.area = scale.area,
-      layout = layout,
+      bubble.layout = bubble.layout,
       connector = connector,
       fill.bubble = fill.bubble,
       fill.gradient = fill.gradient,
@@ -581,7 +587,7 @@ GeomBubbleGlyph <-
                           coord, cols,
                           scale.radius,
                           scale.area,
-                          layout,
+                          bubble.layout,
                           connector,
                           fill.bubble,
                           fill.gradient,
@@ -684,7 +690,7 @@ GeomBubbleGlyph <-
                          cols = cols,
                          scale.radius = scale.radius,
                          scale.area = scale.area,
-                         layout = layout,
+                         bubble.layout = bubble.layout,
                          connector = connector,
                          # fill = fill,
                          fill.gradient = fill.gradient,
@@ -774,7 +780,7 @@ GeomBubbleGlyph <-
         size = data$size,
         scale.radius = params$scale.radius,
         scale.area = params$scale.area,
-        layout = params$layout,
+        bubble.layout = params$bubble.layout,
         connector = params$connector,
         col = if (is.null(params$colour.bubble)) {
           data$colour
@@ -835,7 +841,7 @@ makeContent.bubbleglyphtree <- function(x) {
                                       size = g$data$size[i],
                                       scale.radius = g$scale.radius,
                                       scale.area = g$scale.area,
-                                      layout = g$layout,
+                                      bubble.layout = g$bubble.layout,
                                       connector = g$connector,
                                       col = "gray",
                                       lwd = g$data$linewidth[i],
@@ -965,7 +971,7 @@ makeContent.bubbleglyphtree <- function(x) {
                  size = g$data$size[i],
                  scale.radius = g$scale.radius,
                  scale.area = g$scale.area,
-                 layout = g$layout,
+                 bubble.layout = g$bubble.layout,
                  connector = g$connector,
                  lwd = g$data$linewidth[i],
                  angle.start = g$astrt,

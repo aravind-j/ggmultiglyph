@@ -14,7 +14,7 @@ geom_bubbleglyph(
   cols = character(0L),
   scale.radius = TRUE,
   scale.area = FALSE,
-  layout = c("annulus", "circle", "line", "chain", "hub", "pack"),
+  bubble.layout = c("annulus", "circle", "line", "chain", "hub", "pack"),
   connector = c("none", "foreground", "background"),
   fill.bubble = NULL,
   fill.gradient = NULL,
@@ -92,12 +92,13 @@ must be either numeric or factor variables.}
 \item{scale.radius}{logical. If \code{TRUE}, the values in \code{z} are used
 directly as the bubble radii.}
 
-\item{scale.area}{logical. If \code{TRUE}, values in \code{z} are
-treated as bubble areas, and radii are derived as \eqn{\sqrt{z}}, so that
-bubble area (rather than radius) is proportional to \code{z}.}
+\item{scale.area}{logical. If \code{TRUE}, values in \code{z} are treated as
+bubble areas, and radii are derived as \eqn{\sqrt{z}}, so that bubble area
+(rather than radius) is proportional to \code{z}.}
 
-\item{layout}{Argument to control layout at the layer level. Consult the
-faceting documentation to view appropriate values.}
+\item{bubble.layout}{The layout algorithm used to position the bubbles. One of
+\code{"circle"}, \code{"line"}, \code{"chain"}, \code{"hub"}, \code{"pack"}
+or \code{"annulus"} (See \strong{Layouts} for more details).}
 
 \item{connector}{The style used to connect bubbles to one another. One of
 \code{"none"} (no connectors are drawn), \code{"foreground"} (connectors
@@ -183,6 +184,48 @@ with the radius (or area) scaled according to the corresponding value.
   See \code{ggrepel}
   \href{https://ggrepel.slowkow.com/articles/examples.html}{examples} page
   for further details on setting these aesthetics.
+}
+
+\section{Layouts}{
+
+
+The following layouts are available.
+\describe{
+  \item{\code{"circle"}}{Bubbles are arranged around the circumference of an
+  invisible circle, evenly spaced by angle between \code{angle.start} and
+  \code{angle.stop}. The radius of this invisible circle is derived from the
+  bubble radii (the largest bubble radius plus the mean bubble radius, with
+  a small buffer added) so that bubbles do not overlap regardless of their
+  individual sizes. This is the default layout.}
+  \item{\code{"line"}}{Bubbles are arranged side by side along a straight
+  line passing through the glyph centre, each bubble touching its
+  neighbours. The line may be rotated to any orientation using the
+  \code{line.angle} argument (in radians).}
+  \item{\code{"chain"}}{Bubbles are linked together in a meandering tangent
+  chain. Each new bubble is placed tangent to its immediate predecessor,
+  alternating between opposite sides of the chain to produce a distinctive
+  zig-zag arrangement. Where necessary, the placement is adjusted to
+  minimise overlap with previously placed bubbles while preserving the
+  ordering of the data.}
+  \item{\code{"hub"}}{One bubble (the one with the largest radius) is
+  treated as a central "hub", and all other bubbles are placed around it,
+  each touching the hub bubble, at angles spaced between \code{angle.start}
+  and \code{angle.stop}. This is a quick, deterministic layout: because the
+  surrounding bubbles are not tested against one another for overlap,
+  bubbles can overlap when several of them are large relative to the hub.}
+  \item{\code{"pack"}}{Bubbles are arranged using a circle-packing algorithm
+  (\code{\link[packcircles]{circleProgressiveLayout}}), which places bubbles
+  as close together as possible without any overlap
+  \insertCite{collins_circle_2003,wang_visualization_2006,bedward_packcircles_2024}{ggmultiglyph}.
+  This produces the most compact, space-efficient arrangement of the
+  available layouts, at the cost of the arrangement having no inherent order
+  or direction (bubbles are not ordered along an axis or around a hub).}
+  \item{\code{"annulus"}}{Bubbles are arranged, in the order supplied,
+  around the circumference of a ring (annulus), with each bubble touching
+  its immediate neighbours on either side (the last bubble touching the
+  first, closing the ring). The radius of the ring is solved numerically so
+  that all adjacent bubbles are mutually tangent.}
+}
 }
 
 \examples{
@@ -438,6 +481,9 @@ ggplot(data = mtcars) +
                                theme = theme(legend.margin = margin(t = 40, b = 30))))
 }
 
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link[ggmultiglyph]{bubbleglyphGrob}}

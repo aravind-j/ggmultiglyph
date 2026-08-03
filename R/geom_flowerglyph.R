@@ -17,10 +17,11 @@
 
 #' Add Flower Glyphs as a Scatterplot
 #'
-#' The flowerglyph geom is used to plot multivariate data as flower glyphs in a
-#' scatterplot. Each variable specified in \code{cols} is depicted as a "petal"
-#' radiating from the data point, with the petal length (or area) scaled
-#' according to the corresponding value.
+#' The flowerglyph geom is used to plot multivariate data as flower glyphs
+#' \insertCite{van_onzenoodt_out_2023}{ggmultiglyph} in a scatterplot. Each
+#' variable specified in \code{cols} is depicted as a "petal" radiating from the
+#' data point, with the petal length (or area) scaled according to the
+#' corresponding value.
 #'
 #' @template general-arg
 #' @template fill.gradient-arg
@@ -70,6 +71,10 @@
 #' @encoding UTF-8
 #'
 #' @seealso \code{\link[ggmultiglyph]{flowerglyphGrob}}
+#'
+#' @references
+#'
+#' \insertAllCited{}
 #'
 #' @examples
 #'

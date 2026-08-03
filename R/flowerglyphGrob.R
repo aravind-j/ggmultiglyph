@@ -17,9 +17,10 @@
 
 #' Draw a Flower Glyph
 #'
-#' Uses \code{\link[grid]{Grid}} graphics to draw a flower glyph. Each variable
-#' in \code{z} is depicted as a "petal" radiating from a central point, with the
-#' petal length scaled according to the corresponding value in \code{z}. The
+#' Uses \code{\link[grid]{Grid}} graphics to draw a flower glyph
+#' \insertCite{van_onzenoodt_out_2023}{ggmultiglyph}. Each variable in \code{z}
+#' is depicted as a "petal" radiating from a central point, with the petal
+#' length scaled according to the corresponding value in \code{z}. The
 #' silhouette of each petal is generated from a continuous parametric taper
 #' profile whose widening from the base and tapering towards the tip are
 #' controlled independently by \code{petal.base.shape} and
@@ -128,6 +129,10 @@
 #' @export
 #'
 #' @seealso \code{\link[ggmultiglyph]{geom_flowerglyph}}
+#'
+#' @references
+#'
+#' \insertAllCited{}
 #'
 #' @examples
 #'

@@ -251,10 +251,11 @@ the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{ann
 A \code{geom} layer.
 }
 \description{
-The flowerglyph geom is used to plot multivariate data as flower glyphs in a
-scatterplot. Each variable specified in \code{cols} is depicted as a "petal"
-radiating from the data point, with the petal length (or area) scaled
-according to the corresponding value.
+The flowerglyph geom is used to plot multivariate data as flower glyphs
+\insertCite{van_onzenoodt_out_2023}{ggmultiglyph} in a scatterplot. Each
+variable specified in \code{cols} is depicted as a "petal" radiating from the
+data point, with the petal length (or area) scaled according to the
+corresponding value.
 }
 \section{Aesthetics}{
  \code{geom_flowerglyph()} understands the following
@@ -529,6 +530,9 @@ ggplot(data = mtcars) +
                                theme = theme(legend.margin = margin(t = 40, b = 30))))
 }
 
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link[ggmultiglyph]{flowerglyphGrob}}

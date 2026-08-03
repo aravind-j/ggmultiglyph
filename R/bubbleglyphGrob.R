@@ -19,6 +19,8 @@
 #'
 #' Uses \code{\link[grid]{Grid}} graphics to draw a bubble glyph.
 #'
+#' @section Layouts:
+#'
 #' The following layouts are available.
 #' \describe{
 #'   \item{\code{"circle"}}{Bubbles are arranged around the circumference of an
@@ -45,10 +47,11 @@
 #'   bubbles can overlap when several of them are large relative to the hub.}
 #'   \item{\code{"pack"}}{Bubbles are arranged using a circle-packing algorithm
 #'   (\code{\link[packcircles]{circleProgressiveLayout}}), which places bubbles
-#'   as close together as possible without any overlap. This produces the most
-#'   compact, space-efficient arrangement of the available layouts, at the cost
-#'   of the arrangement having no inherent order or direction (bubbles are not
-#'   ordered along an axis or around a hub).}
+#'   as close together as possible without any overlap
+#'   \insertCite{collins_circle_2003,wang_visualization_2006,bedward_packcircles_2024}{ggmultiglyph}.
+#'   This produces the most compact, space-efficient arrangement of the
+#'   available layouts, at the cost of the arrangement having no inherent order
+#'   or direction (bubbles are not ordered along an axis or around a hub).}
 #'   \item{\code{"annulus"}}{Bubbles are arranged, in the order supplied,
 #'   around the circumference of a ring (annulus), with each bubble touching
 #'   its immediate neighbours on either side (the last bubble touching the
@@ -62,12 +65,12 @@
 #' @param size The size of bubbles.
 #' @param scale.radius logical. If \code{TRUE}, the values in \code{z} are used
 #'   directly as the bubble radii.
-#' @param scale.area logical. If \code{TRUE}, values in \code{z} are
-#'   treated as bubble areas, and radii are derived as \eqn{\sqrt{z}}, so that
-#'   bubble area (rather than radius) is proportional to \code{z}.
-#' @param layout The layout algorithm used to position the bubbles. One of
+#' @param scale.area logical. If \code{TRUE}, values in \code{z} are treated as
+#'   bubble areas, and radii are derived as \eqn{\sqrt{z}}, so that bubble area
+#'   (rather than radius) is proportional to \code{z}.
+#' @param bubble.layout The layout algorithm used to position the bubbles. One of
 #'   \code{"circle"}, \code{"line"}, \code{"chain"}, \code{"hub"}, \code{"pack"}
-#'   or \code{"annulus"}.
+#'   or \code{"annulus"} (See \strong{Layouts} for more details).
 #' @param connector The style used to connect bubbles to one another. One of
 #'   \code{"none"} (no connectors are drawn), \code{"foreground"} (connectors
 #'   are drawn on top of the bubbles) or \code{"background"} (connectors are
@@ -86,8 +89,8 @@
 #'   = "circle"} and \code{layout = "hub"}. Default is \eqn{2\pi}.
 #' @param lwd.connector The line width of the connectors.
 #' @param col.connector The colour of the connectors.
-#' @param connector.point logical. If \code{TRUE}, a small point is drawn at
-#'   the centre of each bubble where connectors meet. Default is \code{FALSE}.
+#' @param connector.point logical. If \code{TRUE}, a small point is drawn at the
+#'   centre of each bubble where connectors meet. Default is \code{FALSE}.
 #' @param connector.point.size The size of the connector points as a fraction of
 #'   native coordinates. Default is \code{0.01}.
 #' @param col.connector.point The colour of the connector points. Default is
@@ -120,6 +123,9 @@
 #' @seealso \code{\link[ggmultiglyph]{geom_bubbleglyph}},
 #'   \code{\link[packcircles]{circleProgressiveLayout}}
 #'
+#' @references
+#'
+#' \insertAllCited{}
 #'
 #' @examples
 #'
@@ -686,12 +692,12 @@ bubbleglyphGrob <- function(x = .5,
                             size = 1,
                             scale.radius = TRUE,
                             scale.area = FALSE,
-                            layout = c("circle",
-                                       "line",
-                                       "chain",
-                                       "hub",
-                                       "pack",
-                                       "annulus"),
+                            bubble.layout = c("circle",
+                                              "line",
+                                              "chain",
+                                              "hub",
+                                              "pack",
+                                              "annulus"),
                             connector = c("none", "foreground", "background"),
                             line.angle = 0,
                             angle.start = 0,
@@ -719,7 +725,7 @@ bubbleglyphGrob <- function(x = .5,
     )
   }
 
-  layout  <- match.arg(layout)
+  bubble.layout  <- match.arg(bubble.layout)
   connector  <- match.arg(connector)
 
   dimension <- length(z)
@@ -762,7 +768,7 @@ bubbleglyphGrob <- function(x = .5,
   n <- dimension
 
   ## Compute circle centres (same units as radii: mm)
-  centres <- switch(layout,
+  centres <- switch(bubble.layout,
                     circle = layoutCircle(r.layout, angle.start = angle.start,
                                           angle.stop = angle.stop),
                     line = layoutLine(r.layout, angle = line.angle),
@@ -861,7 +867,7 @@ bubbleglyphGrob <- function(x = .5,
   if (connector != "none") {
 
     connectGrob <-
-      switch(layout,
+      switch(bubble.layout,
 
              circle = {
                R <- max(r) + mean(r)
@@ -989,7 +995,7 @@ bubbleglyphGrob <- function(x = .5,
            none = 1, foreground = 1, background = 3)
 
   attr(gridout, "length") <- dimension
-  attr(gridout, "layout") <- layout
+  attr(gridout, "layout") <- bubble.layout
 
   gridout
 }
