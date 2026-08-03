@@ -13,7 +13,7 @@ bubbleglyphGrob(
   size = 1,
   scale.radius = TRUE,
   scale.area = FALSE,
-  layout = c("circle", "line", "chain", "hub", "pack", "annulus"),
+  bubble.layout = c("circle", "line", "chain", "hub", "pack", "annulus"),
   connector = c("none", "foreground", "background"),
   line.angle = 0,
   angle.start = 0,
@@ -66,10 +66,11 @@ bubbleglyphGrob(
   radii are derived as \\\sqrt{z}\\, so that bubble area (rather than
   radius) is proportional to `z`.
 
-- layout:
+- bubble.layout:
 
   The layout algorithm used to position the bubbles. One of `"circle"`,
-  `"line"`, `"chain"`, `"hub"`, `"pack"` or `"annulus"`.
+  `"line"`, `"chain"`, `"hub"`, `"pack"` or `"annulus"` (See **Layouts**
+  for more details).
 
 - connector:
 
@@ -172,7 +173,7 @@ bubbleglyphGrob(
 
 A [`gTree`](https://rdrr.io/r/grid/grid.grob.html) object.
 
-## Details
+## Layouts
 
 The following layouts are available.
 
@@ -214,11 +215,12 @@ The following layouts are available.
 
   Bubbles are arranged using a circle-packing algorithm
   ([`circleProgressiveLayout`](https://rdrr.io/pkg/packcircles/man/circleProgressiveLayout.html)),
-  which places bubbles as close together as possible without any
-  overlap. This produces the most compact, space-efficient arrangement
-  of the available layouts, at the cost of the arrangement having no
-  inherent order or direction (bubbles are not ordered along an axis or
-  around a hub).
+  which places bubbles as close together as possible without any overlap
+  (Collins and Stephenson 2003; Wang et al. 2006; Bedward et al. 2024) .
+  This produces the most compact, space-efficient arrangement of the
+  available layouts, at the cost of the arrangement having no inherent
+  order or direction (bubbles are not ordered along an axis or around a
+  hub).
 
 - `"annulus"`:
 
@@ -227,6 +229,19 @@ The following layouts are available.
   neighbours on either side (the last bubble touching the first, closing
   the ring). The radius of the ring is solved numerically so that all
   adjacent bubbles are mutually tangent.
+
+## References
+
+Bedward M, Eppstein D, Menzel P (2024). “packcircles: Circle Packing. R
+package version 0.3.7.”  
+  
+Collins CR, Stephenson K (2003). “A circle packing algorithm.”
+*Computational Geometry*, **25**(3), 233–256.  
+  
+Wang W, Wang H, Dai G, Wang H (2006). “Visualization of large
+hierarchical data by circle packing.” In *Proceedings of the SIGCHI
+Conference on Human Factors in Computing Systems*, 517–520. ISBN
+978-1-59593-372-0.
 
 ## See also
 

@@ -67,7 +67,7 @@ with the radius (or area) scaled according to the corresponding value.</p>
 <span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  scale.radius <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  scale.area <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annulus"</span>, <span class="st">"circle"</span>, <span class="st">"line"</span>, <span class="st">"chain"</span>, <span class="st">"hub"</span>, <span class="st">"pack"</span><span class="op">)</span>,</span>
+<span>  bubble.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annulus"</span>, <span class="st">"circle"</span>, <span class="st">"line"</span>, <span class="st">"chain"</span>, <span class="st">"hub"</span>, <span class="st">"pack"</span><span class="op">)</span>,</span>
 <span>  connector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"foreground"</span>, <span class="st">"background"</span><span class="op">)</span>,</span>
 <span>  fill.bubble <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill.gradient <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -157,14 +157,15 @@ directly as the bubble radii.</p></dd>
 
 
 <dt id="arg-scale-area">scale.area<a class="anchor" aria-label="anchor" href="#arg-scale-area"></a></dt>
-<dd><p>logical. If <code>TRUE</code>, values in <code>z</code> are
-treated as bubble areas, and radii are derived as \(\sqrt{z}\), so that
-bubble area (rather than radius) is proportional to <code>z</code>.</p></dd>
+<dd><p>logical. If <code>TRUE</code>, values in <code>z</code> are treated as
+bubble areas, and radii are derived as \(\sqrt{z}\), so that bubble area
+(rather than radius) is proportional to <code>z</code>.</p></dd>
 
 
-<dt id="arg-layout">layout<a class="anchor" aria-label="anchor" href="#arg-layout"></a></dt>
-<dd><p>Argument to control layout at the layer level. Consult the
-faceting documentation to view appropriate values.</p></dd>
+<dt id="arg-bubble-layout">bubble.layout<a class="anchor" aria-label="anchor" href="#arg-bubble-layout"></a></dt>
+<dd><p>The layout algorithm used to position the bubbles. One of
+<code>"circle"</code>, <code>"line"</code>, <code>"chain"</code>, <code>"hub"</code>, <code>"pack"</code>
+or <code>"annulus"</code> (See <strong>Layouts</strong> for more details).</p></dd>
 
 
 <dt id="arg-connector">connector<a class="anchor" aria-label="anchor" href="#arg-connector"></a></dt>
@@ -289,6 +290,70 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 </ul><p>See <code>ggrepel</code>
   <a href="https://ggrepel.slowkow.com/articles/examples.html" class="external-link">examples</a> page
   for further details on setting these aesthetics.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="layouts">Layouts<a class="anchor" aria-label="anchor" href="#layouts"></a></h2>
+
+
+
+<p>The following layouts are available.</p><dl><dt><code>"circle"</code></dt>
+<dd><p>Bubbles are arranged around the circumference of an
+  invisible circle, evenly spaced by angle between <code>angle.start</code> and
+  <code>angle.stop</code>. The radius of this invisible circle is derived from the
+  bubble radii (the largest bubble radius plus the mean bubble radius, with
+  a small buffer added) so that bubbles do not overlap regardless of their
+  individual sizes. This is the default layout.</p></dd>
+
+  <dt><code>"line"</code></dt>
+<dd><p>Bubbles are arranged side by side along a straight
+  line passing through the glyph centre, each bubble touching its
+  neighbours. The line may be rotated to any orientation using the
+  <code>line.angle</code> argument (in radians).</p></dd>
+
+  <dt><code>"chain"</code></dt>
+<dd><p>Bubbles are linked together in a meandering tangent
+  chain. Each new bubble is placed tangent to its immediate predecessor,
+  alternating between opposite sides of the chain to produce a distinctive
+  zig-zag arrangement. Where necessary, the placement is adjusted to
+  minimise overlap with previously placed bubbles while preserving the
+  ordering of the data.</p></dd>
+
+  <dt><code>"hub"</code></dt>
+<dd><p>One bubble (the one with the largest radius) is
+  treated as a central "hub", and all other bubbles are placed around it,
+  each touching the hub bubble, at angles spaced between <code>angle.start</code>
+  and <code>angle.stop</code>. This is a quick, deterministic layout: because the
+  surrounding bubbles are not tested against one another for overlap,
+  bubbles can overlap when several of them are large relative to the hub.</p></dd>
+
+  <dt><code>"pack"</code></dt>
+<dd><p>Bubbles are arranged using a circle-packing algorithm
+  (<code><a href="https://rdrr.io/pkg/packcircles/man/circleProgressiveLayout.html" class="external-link">circleProgressiveLayout</a></code>), which places bubbles
+  as close together as possible without any overlap
+  (Collins and Stephenson 2003; Wang et al. 2006; Bedward et al. 2024)
+.
+  This produces the most compact, space-efficient arrangement of the
+  available layouts, at the cost of the arrangement having no inherent order
+  or direction (bubbles are not ordered along an axis or around a hub).</p></dd>
+
+  <dt><code>"annulus"</code></dt>
+<dd><p>Bubbles are arranged, in the order supplied,
+  around the circumference of a ring (annulus), with each bubble touching
+  its immediate neighbours on either side (the last bubble touching the
+  first, closing the ring). The radius of the ring is solved numerically so
+  that all adjacent bubbles are mutually tangent.</p></dd>
+
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Bedward M, Eppstein D, Menzel P (2024).
+“packcircles: Circle Packing. R package version 0.3.7.”<br><br> Collins CR, Stephenson K (2003).
+“A circle packing algorithm.”
+<em>Computational Geometry</em>, <b>25</b>(3), 233–256.<br><br> Wang W, Wang H, Dai G, Wang H (2006).
+“Visualization of large hierarchical data by circle packing.”
+In <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</em>, 517–520.
+ISBN 978-1-59593-372-0.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

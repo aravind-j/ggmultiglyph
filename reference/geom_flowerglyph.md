@@ -1,9 +1,9 @@
 # Add Flower Glyphs as a Scatterplot
 
 The flowerglyph geom is used to plot multivariate data as flower glyphs
-in a scatterplot. Each variable specified in `cols` is depicted as a
-"petal" radiating from the data point, with the petal length (or area)
-scaled according to the corresponding value.
+(Van Onzenoodt et al. 2023) in a scatterplot. Each variable specified in
+`cols` is depicted as a "petal" radiating from the data point, with the
+petal length (or area) scaled according to the corresponding value.
 
 ## Usage
 
@@ -405,6 +405,13 @@ The following additional aesthetics are considered if `repel = TRUE`:
 See `ggrepel`
 [examples](https://ggrepel.slowkow.com/articles/examples.html) page for
 further details on setting these aesthetics.
+
+## References
+
+Van Onzenoodt C, Vazquez P, Ropinski T (2023). “Out of the plane: Flower
+versus star glyphs to support high-dimensional exploration in
+two-dimensional embeddings.” *IEEE Transactions on Visualization and
+Computer Graphics*, **29**(12), 5468–5482.
 
 ## See also
 

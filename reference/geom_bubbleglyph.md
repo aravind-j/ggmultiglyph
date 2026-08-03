@@ -17,7 +17,7 @@ geom_bubbleglyph(
   cols = character(0L),
   scale.radius = TRUE,
   scale.area = FALSE,
-  layout = c("annulus", "circle", "line", "chain", "hub", "pack"),
+  bubble.layout = c("annulus", "circle", "line", "chain", "hub", "pack"),
   connector = c("none", "foreground", "background"),
   fill.bubble = NULL,
   fill.gradient = NULL,
@@ -130,10 +130,11 @@ geom_bubbleglyph(
   radii are derived as \\\sqrt{z}\\, so that bubble area (rather than
   radius) is proportional to `z`.
 
-- layout:
+- bubble.layout:
 
-  Argument to control layout at the layer level. Consult the faceting
-  documentation to view appropriate values.
+  The layout algorithm used to position the bubbles. One of `"circle"`,
+  `"line"`, `"chain"`, `"hub"`, `"pack"` or `"annulus"` (See **Layouts**
+  for more details).
 
 - connector:
 
@@ -286,6 +287,76 @@ The following additional aesthetics are considered if `repel = TRUE`:
 See `ggrepel`
 [examples](https://ggrepel.slowkow.com/articles/examples.html) page for
 further details on setting these aesthetics.
+
+## Layouts
+
+The following layouts are available.
+
+- `"circle"`:
+
+  Bubbles are arranged around the circumference of an invisible circle,
+  evenly spaced by angle between `angle.start` and `angle.stop`. The
+  radius of this invisible circle is derived from the bubble radii (the
+  largest bubble radius plus the mean bubble radius, with a small buffer
+  added) so that bubbles do not overlap regardless of their individual
+  sizes. This is the default layout.
+
+- `"line"`:
+
+  Bubbles are arranged side by side along a straight line passing
+  through the glyph centre, each bubble touching its neighbours. The
+  line may be rotated to any orientation using the `line.angle` argument
+  (in radians).
+
+- `"chain"`:
+
+  Bubbles are linked together in a meandering tangent chain. Each new
+  bubble is placed tangent to its immediate predecessor, alternating
+  between opposite sides of the chain to produce a distinctive zig-zag
+  arrangement. Where necessary, the placement is adjusted to minimise
+  overlap with previously placed bubbles while preserving the ordering
+  of the data.
+
+- `"hub"`:
+
+  One bubble (the one with the largest radius) is treated as a central
+  "hub", and all other bubbles are placed around it, each touching the
+  hub bubble, at angles spaced between `angle.start` and `angle.stop`.
+  This is a quick, deterministic layout: because the surrounding bubbles
+  are not tested against one another for overlap, bubbles can overlap
+  when several of them are large relative to the hub.
+
+- `"pack"`:
+
+  Bubbles are arranged using a circle-packing algorithm
+  ([`circleProgressiveLayout`](https://rdrr.io/pkg/packcircles/man/circleProgressiveLayout.html)),
+  which places bubbles as close together as possible without any overlap
+  (Collins and Stephenson 2003; Wang et al. 2006; Bedward et al. 2024) .
+  This produces the most compact, space-efficient arrangement of the
+  available layouts, at the cost of the arrangement having no inherent
+  order or direction (bubbles are not ordered along an axis or around a
+  hub).
+
+- `"annulus"`:
+
+  Bubbles are arranged, in the order supplied, around the circumference
+  of a ring (annulus), with each bubble touching its immediate
+  neighbours on either side (the last bubble touching the first, closing
+  the ring). The radius of the ring is solved numerically so that all
+  adjacent bubbles are mutually tangent.
+
+## References
+
+Bedward M, Eppstein D, Menzel P (2024). “packcircles: Circle Packing. R
+package version 0.3.7.”  
+  
+Collins CR, Stephenson K (2003). “A circle packing algorithm.”
+*Computational Geometry*, **25**(3), 233–256.  
+  
+Wang W, Wang H, Dai G, Wang H (2006). “Visualization of large
+hierarchical data by circle packing.” In *Proceedings of the SIGCHI
+Conference on Human Factors in Computing Systems*, 517–520. ISBN
+978-1-59593-372-0.
 
 ## See also
 

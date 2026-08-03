@@ -1,14 +1,14 @@
 # Draw a Flower Glyph
 
 Uses [`Grid`](https://rdrr.io/r/grid/Grid.html) graphics to draw a
-flower glyph. Each variable in `z` is depicted as a "petal" radiating
-from a central point, with the petal length scaled according to the
-corresponding value in `z`. The silhouette of each petal is generated
-from a continuous parametric taper profile whose widening from the base
-and tapering towards the tip are controlled independently by
-`petal.base.shape` and `petal.tip.shape`. An optional notch at the tip,
-controlled by `petal.tip.notch`, can be used to produce cleft (bifid) or
-heart-shaped petals.
+flower glyph (Van Onzenoodt et al. 2023) . Each variable in `z` is
+depicted as a "petal" radiating from a central point, with the petal
+length scaled according to the corresponding value in `z`. The
+silhouette of each petal is generated from a continuous parametric taper
+profile whose widening from the base and tapering towards the tip are
+controlled independently by `petal.base.shape` and `petal.tip.shape`. An
+optional notch at the tip, controlled by `petal.tip.notch`, can be used
+to produce cleft (bifid) or heart-shaped petals.
 
 ## Usage
 
@@ -249,6 +249,13 @@ flowerglyphGrob(
 ## Value
 
 A [`gTree`](https://rdrr.io/r/grid/grid.grob.html) object.
+
+## References
+
+Van Onzenoodt C, Vazquez P, Ropinski T (2023). “Out of the plane: Flower
+versus star glyphs to support high-dimensional exploration in
+two-dimensional embeddings.” *IEEE Transactions on Visualization and
+Computer Graphics*, **29**(12), 5468–5482.
 
 ## See also
 
