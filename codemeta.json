@@ -2,19 +2,19 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "ggmultiglyph",
-  "description": "Provides geoms for visualizing multivariate data as glyphs using 'ggplot2'.",
+  "description": "Provides 'ggplot2' geoms for visualizing multivariate data using glyphs. The package implements several established glyph designs described in the information visualization literature, including the review by Borgo et al. (2013) <doi:10.2312/conf/EG2013/stars/039-063>.",
   "name": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
   "relatedLink": "https://aravind-j.github.io/ggmultiglyph/",
   "codeRepository": "https://github.com/aravind-j/ggmultiglyph",
   "issueTracker": "https://github.com/aravind-j/ggmultiglyph/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.0.0.9000",
+  "version": "0.1.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2026-06-19 r90183 ucrt)",
+  "runtimePlatform": "R Under development (unstable) (2026-07-18 r90277 ucrt)",
   "author": [
     {
       "@type": "Person",
@@ -94,6 +94,18 @@
     },
     "2": {
       "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
       "provider": {
@@ -104,17 +116,29 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    "3": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "grid",
       "name": "grid"
     },
-    "4": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "5": {
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "packcircles",
+      "name": "packcircles",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=packcircles"
+    },
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
@@ -126,7 +150,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Rcpp"
     },
-    "6": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "Rdpack",
       "name": "Rdpack",
@@ -138,7 +162,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Rdpack"
     },
-    "7": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -150,7 +174,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "8": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "scales",
       "name": "scales",
@@ -164,7 +188,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "8991.363KB",
+  "fileSize": "9713.628KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -177,7 +201,7 @@
         }
       ],
       "name": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
-      "description": "R package version 0.0.0.9000 https://aravind-j.github.io/ggmultiglyph/"
+      "description": "R package version 0.1.0 https://aravind-j.github.io/ggmultiglyph/"
     }
   ],
   "releaseNotes": "https://github.com/aravind-j/ggmultiglyph/blob/main/NEWS.md",
