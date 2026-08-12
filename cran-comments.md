@@ -1,6 +1,7 @@
-# Version 0.1.0 - First submission
+# Version 0.1.1 - Second submission
 
-* First release.
+* Added `\value` documentation to `scale_z_continuous`, `scale_z_discrete` and `scale_z_fill_continuous`.
+* Exported `.ggmultiglyph_ex_setup` and replaced use of `:::` in documentation to call it.
 
 ### Test environments
 * local Windows 10 Pro 25H2, R-release (R 4.6.1) & R-devel (R 4.7.0 Pre-release).
