@@ -34,6 +34,8 @@ jobs:
         extra-packages: |
           any::cffr
           any::V8
+          any::yaml
+          any::jsonlite
 
     - name: Update CITATION.cff
       run: |
@@ -47,7 +49,69 @@ jobs:
         mykeys <- list()
 
         # Create your CITATION.cff file
-        cff_write(keys = mykeys)
+        cff_write(keys = mykeys, dependencies = FALSE)
+
+        # Read the YAML contents of your existing CFF file
+        cff_data <- yaml::read_yaml("CITATION.cff")
+
+        # Extract and reformat the authors/creators list
+        creators_list <- lapply(cff_data$authors, function(auth) {
+          # CFF stores names split; Zenodo prefers "Family, Given"
+          full_name <- paste(auth$`family-names`, auth$`given-names`, sep = ", ")
+
+          creator <- list(name = full_name)
+
+          # Map affiliation if it exists
+          if (!is.null(auth$affiliation)) {
+            creator$affiliation <- auth$affiliation
+          }
+
+          # Map ORCID if it exists
+          if (!is.null(auth$orcid)) {
+            # Extract only the ID numbers if it is structured as a full URL
+            creator$orcid <- gsub("https://orcid.org", "", auth$orcid)
+          }
+
+          return(creator)
+        })
+
+        # Handle licensing translation to standard SPDX
+        cff_license <- cff_data$license
+        if (all(cff_license == c("GPL-2.0-only", "GPL-3.0-only"))) {
+          spdx_license <- "GPL-2.0-or-later"
+        } else {
+          spdx_license <- switch(TRUE,
+                                 is.null(cff_license) ~ "open",
+                                 grepl("GPL-3", cff_license) ~ "GPL-3.0-only",
+                                 grepl("GPL-2", cff_license) ~ "GPL-2.0-only",
+                                 grepl("MIT", cff_license) ~ "MIT",
+                                 grepl("Apache", cff_license) ~ "Apache-2.0",
+                                 TRUE ~ cff_license)
+        }
+
+        # Map CFF elements to Zenodo keys
+        zenodo_data <-
+          list(title = cff_data$title,
+               upload_type = "software", # Mandatory top-level field for code
+               description = ifelse(!is.null(cff_data$abstract),
+                                    cff_data$abstract, "An R package."),
+               creators = creators_list,
+               license = spdx_license,
+               access_right = "open")
+
+        # Add version or DOI tracking if your CFF already contains them
+        if (!is.null(cff_data$version)) zenodo_data$version <-
+          as.character(cff_data$version)
+        if (!is.null(cff_data$keywords)) zenodo_data$keywords <-
+          cff_data$keywords
+
+        # 5. Export cleanly to JSON
+        jsonlite::write_json(zenodo_data,
+                             path = ".zenodo.json",
+                             auto_unbox = TRUE,
+                             pretty = TRUE)
+
+        message("Success! .zenodo.json generated from CITATION.cff")
 
       shell: Rscript {0}
 

@@ -17,3 +17,4 @@
 ^codemeta\.json$
 ^cran-comments-archive\.md$
 ^cran-comments\.md$
+^\.zenodo\.json$

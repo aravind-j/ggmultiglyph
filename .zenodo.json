@@ -1,0 +1,15 @@
+{
+  "title": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
+  "upload_type": "software",
+  "description": "Provides 'ggplot2' geoms for visualizing multivariate data using glyphs. The package implements several established glyph designs described in the information visualization literature, including the review by Borgo et al. (2013) <https://doi.org/10.2312/conf/EG2013/stars/039-063>.",
+  "creators": [
+    {
+      "name": "Aravind, J.",
+      "orcid": "0000-0002-4791-442X"
+    }
+  ],
+  "license": "GPL-2.0-or-later",
+  "access_right": "open",
+  "version": "0.1.0",
+  "keywords": ["ggplot-extension", "ggplot2", "multivariate-data", "rstats", "visualization"]
+}

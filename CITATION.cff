@@ -10,8 +10,13 @@ license:
 - GPL-2.0-only
 - GPL-3.0-only
 title: 'ggmultiglyph: Multivariate Data Visualization using Glyphs'
-version: 0.0.0.9000
-abstract: Provides geoms for visualizing multivariate data as glyphs using 'ggplot2'.
+version: 0.1.0
+identifiers:
+- type: doi
+  value: 10.32614/CRAN.package.ggmultiglyph
+abstract: Provides 'ggplot2' geoms for visualizing multivariate data using glyphs.
+  The package implements several established glyph designs described in the information
+  visualization literature, including the review by Borgo et al. (2013) <https://doi.org/10.2312/conf/EG2013/stars/039-063>.
 authors:
 - family-names: Aravind
   given-names: J.
@@ -25,7 +30,8 @@ preferred-citation:
     given-names: J.
     email: j.aravind@icar.org.in
     orcid: https://orcid.org/0000-0002-4791-442X
-  notes: R package version 0.0.0.9000 https://aravind-j.github.io/ggmultiglyph/
+  notes: R package version 0.1.0 https://aravind-j.github.io/ggmultiglyph/
+repository: https://CRAN.R-project.org/package=ggmultiglyph
 repository-code: https://github.com/aravind-j/ggmultiglyph
 url: https://aravind-j.github.io/ggmultiglyph/
 contact:
