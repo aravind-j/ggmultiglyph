@@ -34,55 +34,67 @@ export(starglyphGrob)
 export(tileglyphGrob)
 import(Rcpp)
 importFrom(Rdpack,reprompt)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,continuous_scale)
-importFrom(ggplot2,discrete_scale)
-importFrom(ggplot2,ggproto)
-importFrom(ggplot2,guide_colourbar)
-importFrom(ggplot2,guide_coloursteps)
-importFrom(ggplot2,guide_legend)
-importFrom(ggplot2,guides)
-importFrom(ggplot2,layer)
-importFrom(ggplot2,scale_color_continuous)
-importFrom(ggplot2,scale_color_distiller)
-importFrom(ggplot2,scale_color_viridis_c)
+importFrom(ggplot2,
+  aes,
+  continuous_scale,
+  discrete_scale,
+  ggproto,
+  guide_colourbar,
+  guide_coloursteps,
+  guide_legend,
+  guides,
+  layer,
+  scale_color_continuous,
+  scale_color_distiller,
+  scale_color_viridis_c
+)
 importFrom(grDevices,col2rgb)
-importFrom(grid,addGrob)
-importFrom(grid,circleGrob)
-importFrom(grid,convertHeight)
-importFrom(grid,convertUnit)
-importFrom(grid,convertWidth)
-importFrom(grid,convertX)
-importFrom(grid,convertY)
-importFrom(grid,curveGrob)
-importFrom(grid,gList)
-importFrom(grid,gTree)
-importFrom(grid,gpar)
-importFrom(grid,grobTree)
-importFrom(grid,grobX)
-importFrom(grid,grobY)
-importFrom(grid,makeContent)
-importFrom(grid,nullGrob)
-importFrom(grid,pointsGrob)
-importFrom(grid,polygonGrob)
-importFrom(grid,polylineGrob)
-importFrom(grid,rectGrob)
-importFrom(grid,segmentsGrob)
-importFrom(grid,setChildren)
-importFrom(grid,textGrob)
-importFrom(grid,unit)
-importFrom(grid,unit.c)
-importFrom(grid,unitType)
+importFrom(grid,
+  addGrob,
+  circleGrob,
+  convertHeight,
+  convertUnit,
+  convertWidth,
+  convertX,
+  convertY,
+  curveGrob,
+  gList,
+  gTree,
+  gpar,
+  grobTree,
+  grobX,
+  grobY,
+  makeContent,
+  nullGrob,
+  pointsGrob,
+  polygonGrob,
+  polylineGrob,
+  rectGrob,
+  segmentsGrob,
+  setChildren,
+  textGrob,
+  unit,
+  unit.c,
+  unitType
+)
 importFrom(methods,is)
 importFrom(packcircles,circleProgressiveLayout)
-importFrom(rlang,as_quosures)
-importFrom(rlang,syms)
-importFrom(scales,rescale)
-importFrom(scales,rescale_pal)
-importFrom(stats,dist)
-importFrom(stats,median)
-importFrom(stats,setNames)
-importFrom(stats,uniroot)
-importFrom(utils,modifyList)
-importFrom(utils,tail)
+importFrom(rlang,
+  as_quosures,
+  syms
+)
+importFrom(scales,
+  rescale,
+  rescale_pal
+)
+importFrom(stats,
+  dist,
+  median,
+  setNames,
+  uniroot
+)
+importFrom(utils,
+  modifyList,
+  tail
+)
 useDynLib(ggmultiglyph)

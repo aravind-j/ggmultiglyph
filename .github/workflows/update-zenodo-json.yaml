@@ -1,4 +1,5 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples &
+# https://github.com/ropensci/cffr/tree/main/inst/yaml
 # The action runs when:
 # - A new release is published
 # - The DESCRIPTION or inst/CITATION are modified
@@ -14,13 +15,12 @@ on:
     - inst/CITATION
   workflow_dispatch:
 
-
-name: Update CITATION.cff
+name: Update .zenodo.json
 permissions:
   contents: write
 
 jobs:
-  update-citation-cff:
+  update-zenodo-json:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -32,29 +32,29 @@ jobs:
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         extra-packages: |
-          any::cffr
+          github::aravind-j/avial
           any::V8
 
-    - name: Update CITATION.cff
+    - name: Update .zenodo.json
       run: |
 
-        library(cffr)
+        library(avial)
 
-        # Customize with your own code
-        # See https://docs.ropensci.org/cffr/articles/cffr.html
-
-        # Write your own keys
-        mykeys <- list()
-
-        # Create your CITATION.cff file
-        cff_write(keys = mykeys)
+        # Create your .zenodo.json file
+        generate_zenodo_json(from = "description")
 
       shell: Rscript {0}
 
     - name: Commit results
       run: |
-        git config --local user.name "github-actions[bot]"
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git add CITATION.cff
-        git commit -m 'Update CITATION.cff' || echo "No changes to commit"
-        git push origin || echo "No changes to commit"
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add .zenodo.json
+
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+
+        git commit -m "Update .zenodo.json"
+        git push

@@ -1,15 +1,44 @@
 {
-  "title": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
+  "title": "Multivariate Data Visualization using Glyphs",
   "upload_type": "software",
-  "description": "Provides 'ggplot2' geoms for visualizing multivariate data using glyphs. The package implements several established glyph designs described in the information visualization literature, including the review by Borgo et al. (2013) <https://doi.org/10.2312/conf/EG2013/stars/039-063>.",
+  "description": "Provides 'ggplot2' geoms for visualizing multivariate data using \n    glyphs. The package implements several established glyph designs described \n    in the information visualization literature, including the review by Borgo \n    et al. (2013) <doi:10.2312/conf/EG2013/stars/039-063>.",
   "creators": [
     {
       "name": "Aravind, J.",
       "orcid": "0000-0002-4791-442X"
+    },
+    {
+      "name": "Slowikowski, Kamil",
+      "orcid": "0000-0002-2843-6370"
+    },
+    {
+      "name": "ICAR-NBGPR"
     }
   ],
-  "license": "GPL-2.0-or-later",
   "access_right": "open",
-  "version": "0.1.0",
-  "keywords": ["ggplot-extension", "ggplot2", "multivariate-data", "rstats", "visualization"]
+  "license": "GPL-2.0-or-later",
+  "version": "0.1.0.9000",
+  "keywords": ["ggmultiglyph", "visualization", "ggplot2", "ggplot-extension", "rstats", "multivariate-data"],
+  "related_identifiers": [
+    {
+      "identifier": "https://cran.r-project.org/package=ggmultiglyph",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://github.com/aravind-j/ggmultiglyph",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.21906275",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://aravind-j.github.io/ggmultiglyph/",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
 }

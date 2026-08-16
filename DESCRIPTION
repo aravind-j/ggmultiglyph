@@ -1,6 +1,6 @@
 Package: ggmultiglyph
 Title: Multivariate Data Visualization using Glyphs
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.org.in",
@@ -41,9 +41,11 @@ Suggests:
     ggrepel,
     gridExtra,
     RColorBrewer
-URL: https://github.com/aravind-j/ggmultiglyph,
+URL: https://cran.r-project.org/package=ggmultiglyph,
+    https://github.com/aravind-j/ggmultiglyph,
+    https://doi.org/10.5281/zenodo.21906275,
     https://aravind-j.github.io/ggmultiglyph/
 BugReports: https://github.com/aravind-j/ggmultiglyph/issues
 Language: en-GB
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

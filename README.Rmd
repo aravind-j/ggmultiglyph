@@ -49,7 +49,7 @@ cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
-<!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxxx) -->
+[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21906275.svg)](https://doi.org/10.5281/zenodo.21906275)
 [![Website - pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
 <!-- [![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon) -->
 [![GoatCounter](https://ggmultiglyph-gh.goatcounter.com/count?p=/test)](https://ggmultiglyph-gh.goatcounter.com/)
@@ -156,9 +156,10 @@ rm(dotgrob, dot_ant, metro_ant, metrogrob, piegrob, pie_ant,
 ```
 
 ## Installation
-<!-- The package can be installed from CRAN as follows: -->
 
-```{r, eval=FALSE, echo=FALSE}
+The package can be installed from CRAN as follows:
+
+```{r, eval=FALSE}
 # Install from CRAN
 install.packages('ggmultiglyph', dependencies=TRUE)
 ```
@@ -187,17 +188,17 @@ news(package='ggmultiglyph')
 
 ## Links
 
-<!-- [CRAN page](https://cran.r-project.org/package=ggmultiglyph) -->
+[CRAN page](https://cran.r-project.org/package=ggmultiglyph)
 
 [Github page](https://github.com/aravind-j/ggmultiglyph)
 
 [Documentation website](https://aravind-j.github.io/ggmultiglyph/)
 
-<!-- [Zenodo DOI](https://doi.org/10.5281/zenodo.xxxxxxx) -->
+[Zenodo DOI](https://doi.org/10.5281/zenodo.20560184)
 
-<!-- ## CRAN checks -->
+## CRAN checks
 
-```{r, echo = FALSE, eval=FALSE}
+```{r, echo = FALSE}
 pkgname <- "ggmultiglyph"
 
 osdf <-
