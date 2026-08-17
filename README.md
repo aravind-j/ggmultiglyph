@@ -29,9 +29,11 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/ggmultiglyph.s
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--16-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--17-yellowgreen.svg)](https://github.com/aravind-j/ggmultiglyph/)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21906275.svg)](https://doi.org/10.5281/zenodo.21906275)
+[![ggmultiglyph status
+badge](https://aravind-j.r-universe.dev/ggmultiglyph/badges/version)](https://aravind-j.r-universe.dev/ggmultiglyph)
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/ggmultiglyph.svg)](https://aravind-j.github.io/ggmultiglyph/)
 <!-- [![.](https://pro-pulsar-193905.appspot.com/UA-199996472-2/welcome-page)](https://github.com/aravind-j/google-analytics-beacon) -->
@@ -106,17 +108,17 @@ citation("ggmultiglyph")
 
     To cite the R package 'ggmultiglyph' in publications use:
 
-      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package version 0.1.0.9000,
-      https://aravind-j.github.io/ggmultiglyph/https://CRAN.R-project.org/package=ggmultiglyph.
+      Aravind, J. (2026).  ggmultiglyph: Multivariate Data Visualization using Glyphs. R package version
+      0.1.0, https://aravind-j.github.io/ggmultiglyph/.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {ggmultiglyph: Multivariate Data Visualization using Glyphs},
         author = {J. Aravind},
-        note = {R package version 0.1.0.9000 https://aravind-j.github.io/ggmultiglyph/ https://CRAN.R-project.org/package=ggmultiglyph},
+        note = {R package version 0.1.0 https://aravind-j.github.io/ggmultiglyph/},
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If you use it, please support the
-    project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If
+    you use it, please support the project by citing the package.
