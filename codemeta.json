@@ -4,17 +4,23 @@
   "identifier": "ggmultiglyph",
   "description": "Provides 'ggplot2' geoms for visualizing multivariate data using glyphs. The package implements several established glyph designs described in the information visualization literature, including the review by Borgo et al. (2013) <doi:10.2312/conf/EG2013/stars/039-063>.",
   "name": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
-  "relatedLink": "https://aravind-j.github.io/ggmultiglyph/",
+  "relatedLink": ["https://cran.r-project.org/package=ggmultiglyph", "https://doi.org/10.5281/zenodo.21906275", "https://aravind-j.github.io/ggmultiglyph/", "https://CRAN.R-project.org/package=ggmultiglyph"],
   "codeRepository": "https://github.com/aravind-j/ggmultiglyph",
   "issueTracker": "https://github.com/aravind-j/ggmultiglyph/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.1.0",
+  "version": "0.1.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2026-07-18 r90277 ucrt)",
+  "runtimePlatform": "R version 4.6.1 (2026-06-24)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -188,7 +194,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "9713.628KB",
+  "fileSize": "1521.952KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -201,7 +207,7 @@
         }
       ],
       "name": "ggmultiglyph: Multivariate Data Visualization using Glyphs",
-      "description": "R package version 0.1.0 https://aravind-j.github.io/ggmultiglyph/"
+      "description": "R package version 0.1.0.9000 https://aravind-j.github.io/ggmultiglyph/ https://CRAN.R-project.org/package=ggmultiglyph"
     }
   ],
   "releaseNotes": "https://github.com/aravind-j/ggmultiglyph/blob/main/NEWS.md",
