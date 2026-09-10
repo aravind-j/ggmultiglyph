@@ -46,6 +46,7 @@ reference:
          - '`geom_profileglyph`'
          - '`geom_starglyph`'
          - '`geom_tileglyph`'
+         - '`geom_treemapglyph`
 
     - title: Grobs
       contents:
@@ -57,16 +58,19 @@ reference:
          - '`profileglyphGrob`'
          - '`starglyphGrob`'
          - '`tileglyphGrob`'
+         - '`treemapglyphGrob`'
 
     - title: Scales
       contents:
          - '`scale_z_continuous`'
          - '`scale_z_fill_continuous`'
+         - '`scale_z_fill_discrete`'
          - '`scale_z_discrete`'
 
     - title: Helpers
       contents:
          - '`ggmultiglyph.repel.control`'
          - '`ggmultiglyph.segment.control`'
+         - '`ggmultiglyph.voronoiTreemap.control`'
          - '`guide_z_order`'
          - '`addlabel.glyphGrob`'

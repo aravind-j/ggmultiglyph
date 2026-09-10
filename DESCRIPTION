@@ -36,7 +36,10 @@ Imports:
      Rcpp,
      Rdpack,
      rlang,
-     scales
+     scales,
+     sf,
+     treemapify,
+     WeightedTreemaps
 Suggests:
     ggrepel,
     gridExtra,

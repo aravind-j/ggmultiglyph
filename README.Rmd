@@ -139,6 +139,13 @@ bubblegrob <- bubbleglyphGrob(x = 0.3,
 
 bubble_ant <- textGrob(x = 0.9, label = "Bubble Glyph", gp = gp_vec)
 
+tmapgrob <- treemapglyphGrob(x = 0.7,
+                             z = c(0.24, 0.3, 0.8, 1.4, 0.6, 0.33, 0.6, 0.25),
+                             size = 20, fill = RColorBrewer::brewer.pal(8, "Dark2"))
+
+tmap_ant <- textGrob(x = 0.1, label = "Treemap Glyph", gp = gp_vec)
+
+
 grid.arrange(arrangeGrob(dotgrob, dot_ant, nrow = 1),
              arrangeGrob(metro_ant, metrogrob, nrow = 1),
              arrangeGrob(piegrob, pie_ant, nrow = 1),
@@ -147,7 +154,8 @@ grid.arrange(arrangeGrob(dotgrob, dot_ant, nrow = 1),
              arrangeGrob(tile_ant, tilegrob, nrow = 1),
              arrangeGrob(flowergrob, flower_ant, nrow = 1),
              arrangeGrob(bubble_ant, bubblegrob, nrow = 1),
-             nrow = 8)
+             arrangeGrob(tmapgrob, tmap_ant, nrow = 1),
+             nrow = 9)
 
 rm(dotgrob, dot_ant, metro_ant, metrogrob, piegrob, pie_ant,
    profile_ant, profilegrob, stargrob, star_ant,

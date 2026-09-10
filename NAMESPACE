@@ -8,6 +8,7 @@ S3method(makeContent,pieglyphtree)
 S3method(makeContent,profileglyphtree)
 S3method(makeContent,starglyphtree)
 S3method(makeContent,tileglyphtree)
+S3method(makeContent,treemapglyphtree)
 export(.ggmultiglyph_ex_setup)
 export(addlabel.glyphGrob)
 export(bubbleglyphGrob)
@@ -21,8 +22,10 @@ export(geom_pieglyph)
 export(geom_profileglyph)
 export(geom_starglyph)
 export(geom_tileglyph)
+export(geom_treemapglyph)
 export(ggmultiglyph.repel.control)
 export(ggmultiglyph.segment.control)
+export(ggmultiglyph.voronoiTreemap.control)
 export(guide_z_order)
 export(metroglyphGrob)
 export(pieglyphGrob)
@@ -30,10 +33,16 @@ export(profileglyphGrob)
 export(scale_z_continuous)
 export(scale_z_discrete)
 export(scale_z_fill_continuous)
+export(scale_z_fill_discrete)
 export(starglyphGrob)
 export(tileglyphGrob)
+export(treemapglyphGrob)
 import(Rcpp)
 importFrom(Rdpack,reprompt)
+importFrom(WeightedTreemaps,
+  get_polygons,
+  voronoiTreemap
+)
 importFrom(ggplot2,
   aes,
   continuous_scale,
@@ -44,11 +53,18 @@ importFrom(ggplot2,
   guide_legend,
   guides,
   layer,
+  scale_color_brewer,
   scale_color_continuous,
+  scale_color_discrete,
   scale_color_distiller,
-  scale_color_viridis_c
+  scale_color_manual,
+  scale_color_viridis_c,
+  scale_color_viridis_d
 )
-importFrom(grDevices,col2rgb)
+importFrom(grDevices,
+  col2rgb,
+  dev.off
+)
 importFrom(grid,
   addGrob,
   circleGrob,
@@ -87,12 +103,14 @@ importFrom(scales,
   rescale,
   rescale_pal
 )
+importFrom(sf,st_coordinates)
 importFrom(stats,
   dist,
   median,
   setNames,
   uniroot
 )
+importFrom(treemapify,treemapify)
 importFrom(utils,
   modifyList,
   tail

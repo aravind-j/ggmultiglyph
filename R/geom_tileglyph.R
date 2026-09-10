@@ -339,6 +339,7 @@ GeomTileGlyph <- ggplot2::ggproto(
 
   draw_panel = function(data, panel_params,
                         coord, cols,
+                        zraw,
                         ratio,
                         nrow,
                         colour,
@@ -481,7 +482,12 @@ makeContent.tileglyphtree <- function(x) {
 
   g <- x
 
-  gdata <- g$data[, g$cols]
+  # gdata <- g$data[, g$cols]
+  gdata <- g$data[, g$cols, drop = FALSE]
+
+  z_fill_mapped <- vapply(gdata,
+                          is_scaled_z,
+                          logical(1))
 
   if (g$repel) {
 
@@ -634,7 +640,12 @@ makeContent.tileglyphtree <- function(x) {
                  size = g$data$size[i],
                  ratio = g$ratio,
                  nrow = g$nrow,
-                 fill = unlist(gdata[i, ]),
+                 # fill = unlist(gdata[i, ]),
+                 fill <- if (all(z_fill_mapped)) {
+                   unlist(gdata[i, ])
+                 } else {
+                   "transparent"
+                 },
                  col = g$colour,
                  lwd = g$data$linewidth[i],
                  alpha = g$data$alpha[i],
@@ -679,3 +690,10 @@ makeContent.tileglyphtree <- function(x) {
 
   grid::setChildren(g, gl)
 }
+
+
+
+is_scaled_z <- function(x) {
+  is.character(x)
+}
+
