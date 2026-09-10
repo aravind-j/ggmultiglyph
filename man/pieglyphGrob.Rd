@@ -593,6 +593,7 @@ Other grobs:
 \code{\link[=metroglyphGrob]{metroglyphGrob()}},
 \code{\link[=profileglyphGrob]{profileglyphGrob()}},
 \code{\link[=starglyphGrob]{starglyphGrob()}},
-\code{\link[=tileglyphGrob]{tileglyphGrob()}}
+\code{\link[=tileglyphGrob]{tileglyphGrob()}},
+\code{\link[=treemapglyphGrob]{treemapglyphGrob()}}
 }
 \concept{grobs}

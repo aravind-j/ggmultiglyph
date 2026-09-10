@@ -544,6 +544,7 @@ Other geoms:
 \code{\link[=geom_pieglyph]{geom_pieglyph()}},
 \code{\link[=geom_profileglyph]{geom_profileglyph()}},
 \code{\link[=geom_starglyph]{geom_starglyph()}},
-\code{\link[=geom_tileglyph]{geom_tileglyph()}}
+\code{\link[=geom_tileglyph]{geom_tileglyph()}},
+\code{\link[=geom_treemapglyph]{geom_treemapglyph()}}
 }
 \concept{geoms}
