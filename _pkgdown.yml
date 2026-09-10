@@ -63,9 +63,9 @@ reference:
     - title: Scales
       contents:
          - '`scale_z_continuous`'
+         - '`scale_z_discrete`'
          - '`scale_z_fill_continuous`'
          - '`scale_z_fill_discrete`'
-         - '`scale_z_discrete`'
 
     - title: Helpers
       contents:

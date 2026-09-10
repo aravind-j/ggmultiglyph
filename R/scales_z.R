@@ -95,30 +95,106 @@ scale_z_fill_continuous <- function(..., palette, z,
          "rocket", "mako", "turbo",
          "A", "B", "C", "D", "E", "F", "G", "H")
 
-  if (guide == "colorbar") {
-    guide = "colourbar"
+  guide_name <- match.arg(guide,
+                          c("legend", "colourbar", "colorbar",
+                            "coloursteps", "colorsteps"))
+
+  guide_name <- switch(guide_name,
+                       colorbar = "colourbar",
+                       colorsteps = "coloursteps",
+                       guide_name)
+
+  if (guide_name == "colourbar") {
+    guide <- guide_colourbar(available_aes = z)
+  } else if (guide_name == "coloursteps") {
+    guide <- guide_coloursteps(available_aes = z)
+  } else {
+    guide <- "legend"
   }
 
-  if (guide == "colorsteps") {
-    guide = "coloursteps"
-  }
-
-  guide <- match.arg(guide, c("legend", "colourbar", "coloursteps"))
-
-  if (guide == "colourbar") {
-    guide = guide_colourbar(available_aes = z)
-  }
-
-  if (guide == "coloursteps") {
-    guide = guide_coloursteps(available_aes = z)
-  }
-
-  if (any(palette == rcb) || any(palette == rcb_num)) {
+  if (length(palette) == 1L && (palette %in% rcb || palette %in% rcb_num)) {
     scale_color_distiller(palette = palette, aesthetics = z, guide = guide, ...)
-  } else if (any(palette == v)) {
+  } else if (length(palette) == 1L && palette %in% v) {
     scale_color_viridis_c(option = palette, aesthetics = z, guide = guide, ...)
   } else {
     scale_color_continuous(type = palette, aesthetics = z, guide = guide, ...)
+  }
+
+}
+
+#' Alter scales for discrete data mapped to glyph fill colours
+#'
+#' Scale variable(s) mapped to the glyph fill colours.
+#'
+#' @param ... Additional arguments to be passed on to the underlying
+#'   discrete colour scale. See \code{\link[ggplot2]{discrete_scale}}.
+#' @param palette One of the following:
+#' \itemize{
+#'   \item \code{NULL} for the default palette stored in the theme.
+#'   \item a character vector of colours.
+#'   \item a single string naming a palette.
+#' }
+#' @param guide A function used to create a guide or its name. See
+#'   \code{\link[ggplot2]{guides}}for more information.
+#' @param z The variable(s) mapped to the glyph as a character vector.
+#'
+#' @return A discrete colour scale object (one of
+#'   \code{\link[ggplot2]{scale_color_brewer}},
+#'   \code{\link[ggplot2]{scale_color_viridis_d}},
+#'   \code{\link[ggplot2]{scale_color_manual}}, or
+#'   \code{\link[ggplot2]{scale_color_discrete}}, depending on
+#'   \code{palette}) that can be added to a \code{ggplot} object. The
+#'   returned scale applies to all aesthetics named in \code{z} simultaneously,
+#'   mapping their discrete values to colours for use as the fill/colour of
+#'   glyph segments in the corresponding \code{geom_*glyph()} layer.
+#'
+#' @importFrom ggplot2 guide_colourbar guide_coloursteps
+#' @importFrom ggplot2 scale_color_brewer scale_color_viridis_d
+#' @importFrom ggplot2 scale_color_manual scale_color_discrete
+#'
+#' @export
+#'
+scale_z_fill_discrete <- function(..., palette, z,
+                                  guide = c("legend")) {
+
+  rcb <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens",
+           "Greys", "Oranges", "OrRd", "PuBu",
+           "PuBuGn", "PuRd", "Purples", "RdPu", "Reds",
+           "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+           "Accent", "Dark2", "Paired", "Pastel1", "Pastel2",
+           "Set1", "Set2", "Set3",
+           "BrBG", "PiYG", "PRGn", "PuOr",
+           "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
+  rcb_num <- 1:18
+  v <- c("magma", "inferno", "plasma", "viridis", "cividis",
+         "rocket", "mako", "turbo",
+         "A", "B", "C", "D", "E", "F", "G", "H")
+
+  guide_name <- match.arg(guide,
+                          c("legend", "colourbar", "colorbar",
+                            "coloursteps", "colorsteps"))
+
+  guide_name <- switch(guide_name,
+                       colorbar = "colourbar",
+                       colorsteps = "coloursteps",
+                       guide_name)
+
+  if (guide_name == "colourbar") {
+    guide <- guide_colourbar(available_aes = z)
+  } else if (guide_name == "coloursteps") {
+    guide <- guide_coloursteps(available_aes = z)
+  } else {
+    guide <- "legend"
+  }
+
+  if (length(palette) == 1L && (palette %in% rcb || palette %in% rcb_num)) {
+    scale_color_brewer(palette = palette, aesthetics = z, guide = guide, ...)
+  } else if (length(palette) == 1L && palette %in% v) {
+    scale_color_viridis_d(option = palette, aesthetics = z, guide = guide, ...)
+  } else if (is.character(palette) && length(palette) > 1) {
+    scale_color_manual(values = palette, aesthetics = z, guide = guide, ...)
+  } else {
+    scale_color_discrete(palette = palette, aesthetics = z, guide = guide, ...)
   }
 
 }
